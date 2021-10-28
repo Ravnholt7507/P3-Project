@@ -11,8 +11,8 @@ namespace Project
     {
         public static void Main(string[] args)
         {
-            ServerStart start = new ServerStart();
-            start.Start();
+            ServerStart Server = new ServerStart();
+            Server.Start();
         }
     }
 }
