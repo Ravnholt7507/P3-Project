@@ -8,6 +8,9 @@ build_property.IncludeAllContentForSelfExtract =
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = Project
 <<<<<<< HEAD
+build_property.ProjectDir = C:\Users\runef\source\Repos\P3-Project\Project\
+=======
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\Nathan Reece\Source\Repos\p3-project\Project\
 =======
 <<<<<<< HEAD
@@ -16,3 +19,4 @@ build_property.ProjectDir = C:\Users\runef\source\Repos\P3-Project\Project\
 build_property.ProjectDir = C:\Universitet\P3-projekt\p3-github\Project\
 >>>>>>> f81b73bed9dda16ab39998709b49be9a849d62f7
 >>>>>>> 1adfaef235d7e5ac4c923a99029b55508f7babde
+>>>>>>> 3d1ca0f6c314b59c39862d81c56eb4d133665493
