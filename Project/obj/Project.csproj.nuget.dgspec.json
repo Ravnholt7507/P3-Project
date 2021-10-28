@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/p3-project/Project/Project.csproj": {}
+    "C:\\Universitet\\P3-projekt\\p3-github\\Project\\Project.csproj": {}
   },
   "projects": {
-    "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/p3-project/Project/Project.csproj": {
+    "C:\\Universitet\\P3-projekt\\p3-github\\Project\\Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/p3-project/Project/Project.csproj",
+        "projectUniqueName": "C:\\Universitet\\P3-projekt\\p3-github\\Project\\Project.csproj",
         "projectName": "Project",
-        "projectPath": "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/p3-project/Project/Project.csproj",
-        "packagesPath": "/Users/minmacbook/.nuget/packages/",
-        "outputPath": "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/p3-project/Project/obj/",
+        "projectPath": "C:\\Universitet\\P3-projekt\\p3-github\\Project\\Project.csproj",
+        "packagesPath": "C:\\Users\\Andreas\\.nuget\\packages\\",
+        "outputPath": "C:\\Universitet\\P3-projekt\\p3-github\\Project\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/minmacbook/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Andreas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -52,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.100-rc.1.21463.6/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
