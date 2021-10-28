@@ -12,7 +12,7 @@ namespace Project
             Server.listener = new HttpListener();
             Server.listener.Prefixes.Add(Server.url);
             Server.listener.Start();
-            Console.WriteLine("Listening for connections on {0}", Server.url);
+            Console.WriteLine("Listening for connections in your mamas ass {0}", Server.url);
 
             // Handle requests
             Task listenTask = Server.HandleIncomingConnections();
