@@ -73,7 +73,6 @@ namespace HttpListenerExample
             }
         }
 
-
         public static void Main(string[] args)
         {
             // Create a Http server and start listening for incoming connections
