@@ -1,0 +1,11 @@
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\bin\Debug\net5.0\UTG.Shared.deps.json
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\bin\Debug\net5.0\UTG.Shared.dll
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\bin\Debug\net5.0\ref\UTG.Shared.dll
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\bin\Debug\net5.0\UTG.Shared.pdb
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\UTG.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\UTG.Shared.AssemblyInfoInputs.cache
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\UTG.Shared.AssemblyInfo.cs
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\UTG.Shared.csproj.CoreCompileInputs.cache
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\UTG.Shared.dll
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\ref\UTG.Shared.dll
+C:\Users\runef\source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\UTG.Shared.pdb
