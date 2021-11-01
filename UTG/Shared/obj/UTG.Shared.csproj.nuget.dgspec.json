@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\runef\\source\\Repos\\p3-project\\UTG\\Shared\\UTG.Shared.csproj": {}
+    "C:\\Users\\runef\\Source\\Repos\\p3-project\\UTG\\Shared\\UTG.Shared.csproj": {}
   },
   "projects": {
-    "C:\\Users\\runef\\source\\Repos\\p3-project\\UTG\\Shared\\UTG.Shared.csproj": {
+    "C:\\Users\\runef\\Source\\Repos\\p3-project\\UTG\\Shared\\UTG.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\runef\\source\\Repos\\p3-project\\UTG\\Shared\\UTG.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\runef\\Source\\Repos\\p3-project\\UTG\\Shared\\UTG.Shared.csproj",
         "projectName": "UTG.Shared",
-        "projectPath": "C:\\Users\\runef\\source\\Repos\\p3-project\\UTG\\Shared\\UTG.Shared.csproj",
+        "projectPath": "C:\\Users\\runef\\Source\\Repos\\p3-project\\UTG\\Shared\\UTG.Shared.csproj",
         "packagesPath": "C:\\Users\\runef\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\runef\\source\\Repos\\p3-project\\UTG\\Shared\\obj\\",
+        "outputPath": "C:\\Users\\runef\\Source\\Repos\\p3-project\\UTG\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

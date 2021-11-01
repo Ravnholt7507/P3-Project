@@ -196,11 +196,12 @@
       "netstandard.dll": "sha256-yOOty6BTX3e57YAEHK5a4nku\/lj0vi7jg\/eQZAjbDQk=",
       "System.Private.CoreLib.dll": "sha256-rraBQp6NevIQiELPVfDFDl5pv9QVJqCiZhB5bkpiZ88=",
       "UTG.Shared.dll": "sha256-SL5gmw8NgZLqJW7cH4TooHMXkM4gGYiyNP55u6996bQ=",
-      "UTG.Client.dll": "sha256-j6hN1GMmkO\/I5ucJArKmxNYimOwofQ4+MmTmfpl\/WuM="
+      "UTG.Client.dll": "sha256-pQroRu0io4qt07tJLYOJINW8zW5jHkmeO4AX7kOiwQs="
     },
     "lazyAssembly": null,
     "pdb": {
-      "UTG.Client.pdb": "sha256-R+yAFqFV7347WmkLMZ4JvDA7drStAJf9s2ZT6xJri6A="
+      "UTG.Shared.pdb": "sha256-n5jxrwSywKQkHKtOIamh6DLwNFH2jCM1mPIFQhFwkgw=",
+      "UTG.Client.pdb": "sha256-Xg4rWD0df4eQRx2nNcQs\/cMEJ31w\/uOpGBpSp0kuyqs="
     },
     "runtime": {
       "dotnet.timezones.blat": "sha256-L2vkcKzmXJtf+J7db5TbDMBckrgqJ5qc0ZzVIdRlm0I=",

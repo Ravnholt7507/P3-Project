@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Project"
+    "\\Project",
+    "\\UTG",
+    "\\UTG\\Client",
+    "\\UTG\\Client\\Pages"
   ],
-  "SelectedNode": "\\Project\\Program.cs",
+  "SelectedNode": "\\UTG\\Client\\Pages\\FetchData.razor",
   "PreviewInSolutionExplorer": false
 }

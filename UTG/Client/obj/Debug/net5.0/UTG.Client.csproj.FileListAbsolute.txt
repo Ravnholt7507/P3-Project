@@ -621,8 +621,6 @@ C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\build-gz\TPWW
 C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\build-gz\iZ2JWxzW.gz
 C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\build-gz\fPAdWtor.gz
 C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\build-gz\0uB87t+f.gz
-C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\build-gz\+fE4uhy7.gz
-C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\build-gz\ZtlIa5uY.gz
 C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\staticwebassets\UTG.Client.StaticWebAssets.Manifest.cache
 C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\staticwebassets\UTG.Client.StaticWebAssets.xml
 C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
@@ -634,3 +632,5 @@ C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\UTG.Client.cs
 C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\UTG.Client.dll
 C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\ref\UTG.Client.dll
 C:\Users\runef\source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\UTG.Client.pdb
+C:\Users\runef\Source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\build-gz\efz2+xJo.gz
+C:\Users\runef\Source\Repos\p3-project\UTG\Client\obj\Debug\net5.0\build-gz\VE6FYAcx.gz
