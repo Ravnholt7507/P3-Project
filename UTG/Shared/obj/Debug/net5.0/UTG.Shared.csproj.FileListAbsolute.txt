@@ -21,3 +21,4 @@ C:\Users\Nathan Reece\Source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\UTG.Sh
 C:\Users\Nathan Reece\Source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\UTG.Shared.dll
 C:\Users\Nathan Reece\Source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\ref\UTG.Shared.dll
 C:\Users\Nathan Reece\Source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\UTG.Shared.pdb
+C:\Users\runef\Source\Repos\p3-project\UTG\Shared\obj\Debug\net5.0\UTG.Shared.csproj.AssemblyReference.cache
