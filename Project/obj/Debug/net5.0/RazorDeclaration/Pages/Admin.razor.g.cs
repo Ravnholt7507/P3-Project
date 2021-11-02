@@ -82,25 +82,14 @@ using Project.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/tester")]
-    public partial class Csstemplate : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Admin")]
+    public partial class Admin : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 254 "C:\Universitet\P3-projekt\p3-github\Project\Pages\Csstemplate.razor"
-           
-        private string item;
-
-
-    
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591
