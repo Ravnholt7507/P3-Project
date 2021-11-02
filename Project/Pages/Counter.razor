@@ -1,22 +1,64 @@
 ﻿@page "/counter"
 
-<h1>Counter</h1>
+<h1>@currentHeading</h1>
 
 
-<button class="btn btn-success" @onclick="@(x=> click("yellow"))">Legoo</button>
+<p>
+    <label>
+        New title
+        <input @bind="newHeading" />
+    </label>
+    <button @onclick="UpdateHeading">
+        Update heading
+    </button>
+    <button class="btn btn-success" @onclick="ChangeColor">
+        Change color
+    </button>
+</p>
 
+<p>
+    <label>
+        <input type="checkbox" @onchange="CheckChanged" />
+        @checkedMessage
+    </label>
+</p>
 
-<p class="@mycss">Andreas is a twat </p>
+<style>
+    h1 {
+        color: @_color;
+        font-style: italic;
+        text-shadow: 2px 2px 2px gray;
+    }
+</style>
 
-@code { 
-    public string mycss, _color;
+@code {
+    private string currentHeading = "Andreas er en moejluder";
+    private string newHeading;
+    private string checkedMessage = "Fuck off";
+    private string _color;
+    private int i = 0;
 
-    protected void click(string color)
+    private void UpdateHeading()
     {
-        _color = color;
+        currentHeading = $"{newHeading}";
+    }
+
+    private void CheckChanged()
+    {
+        checkedMessage = $"Last changed at {DateTime.Now}";
+    }
+
+    private void ChangeColor()
+    {
+        i++;
+        if (i % 2 == 0)
+            {
+                _color = "red";
+            }
+        else
+            {
+                _color = "green";
+            }
     }
 }
 
-<style @bind-="@mycss">
-    Color: @_color;
-</style>>
