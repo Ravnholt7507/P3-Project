@@ -56,3 +56,5 @@ C:\Universitet\P3-projekt\p3-github\Project\obj\Debug\net5.0\ref\Project.dll
 C:\Universitet\P3-projekt\p3-github\Project\obj\Debug\net5.0\Project.pdb
 C:\Universitet\P3-projekt\p3-github\Project\obj\Debug\net5.0\Project.genruntimeconfig.cache
 C:\Universitet\P3-projekt\p3-github\Project\obj\Debug\net5.0\Project.csproj.CopyComplete
+C:\Universitet\P3-projekt\p3-github\Project\obj\Debug\net5.0\RazorDeclaration\Pages\Csstemplate.razor.g.cs
+C:\Universitet\P3-projekt\p3-github\Project\obj\Debug\net5.0\Razor\Pages\Csstemplate.razor.g.cs
