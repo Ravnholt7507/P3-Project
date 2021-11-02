@@ -91,13 +91,35 @@ using Project.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 9 "C:\Universitet\P3-projekt\p3-github\Project\Pages\Counter.razor"
+#line 42 "C:\Universitet\P3-projekt\p3-github\Project\Pages\Counter.razor"
        
-    private int currentCount = 0;
+    private string currentHeading = "Andreas er en moejluder";
+    private string newHeading;
+    private string checkedMessage = "Fuck off";
+    private string _color;
+    private int i = 0;
 
-    private void IncrementCount()
+    private void UpdateHeading()
     {
-        currentCount++;
+        currentHeading = $"{newHeading}";
+    }
+
+    private void CheckChanged()
+    {
+        checkedMessage = $"Last changed at {DateTime.Now}";
+    }
+
+    private void ChangeColor()
+    {
+        i++;
+        if (i % 2 == 0)
+        {
+            _color = "red";
+        }
+        else
+        {
+            _color = "green";
+        }
     }
 
 #line default
