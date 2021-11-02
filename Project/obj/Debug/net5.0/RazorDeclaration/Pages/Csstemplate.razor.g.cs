@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Shared
+namespace Project.Pages
 {
     #line hidden
     using System;
@@ -82,7 +82,8 @@ using Project.Shared;
 #line default
 #line hidden
 #nullable disable
-    public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/tester")]
+    public partial class Csstemplate : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -90,16 +91,12 @@ using Project.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "C:\Universitet\P3-projekt\p3-github\Project\Shared\NavMenu.razor"
-       
-    private bool collapseNavMenu = true;
+#line 254 "C:\Universitet\P3-projekt\p3-github\Project\Pages\Csstemplate.razor"
+           
+        private string item;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+    
 
 #line default
 #line hidden
