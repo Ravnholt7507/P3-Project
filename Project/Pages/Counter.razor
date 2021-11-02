@@ -2,15 +2,21 @@
 
 <h1>Counter</h1>
 
-<p>Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-success" @onclick="@(x=> click("yellow"))">Legoo</button>
 
-@code {
-    private int currentCount = 0;
 
-    private void IncrementCount()
+<p class="@mycss">Andreas is a twat </p>
+
+@code { 
+    public string mycss, _color;
+
+    protected void click(string color)
     {
-        currentCount++;
+        _color = color;
     }
 }
+
+<style @bind-="@mycss">
+    Color: @_color;
+</style>>
