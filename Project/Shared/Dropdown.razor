@@ -1,0 +1,59 @@
+﻿
+<div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+    <button class="w3-bar-item w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"><a> Penis</a></i></button>
+    <div class="dropdown-content">
+        <a href="counter" class="w3-bar-item w3-button">Counter</a>
+        <a href="Admin" class="w3-bar-item w3-button">Admin</a>
+        <a href="#" class="w3-bar-item w3-button">Jackets</a>
+        <a href="#" class="w3-bar-item w3-button">Gymwear</a>
+        <a href="#" class="w3-bar-item w3-button">Blazers</a>
+        <a href="#" class="w3-bar-item w3-button">Shoes</a>
+        
+    </div>
+</div>
+
+
+<style>
+    .dropdown-content {
+        display: none;
+        display: @_visible;
+    }
+    .dropdown-content a{
+        margin-left: 10px;
+    }
+</style>
+
+@code{
+    class dropdownctor {
+
+
+        public string MyName { get; set; }
+
+        public dropdownctor(string _myname)
+        {
+            MyName = _myname;
+        }
+
+    }
+}
+
+
+
+@code {
+
+    private string _visible;
+    private int i = 1;
+
+    private void Dropdownbtn()
+    {
+        i++;
+        if (i % 2 == 0)
+        {
+            _visible = "block";
+        }
+        else
+        {
+            _visible = "none";
+        }
+    }
+}

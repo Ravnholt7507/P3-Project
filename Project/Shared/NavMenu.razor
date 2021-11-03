@@ -4,47 +4,11 @@
         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
         <h3 class="w3-wide"><b>Budget Asket</b></h3>
     </div>
-    <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-        <button class="w3-bar-item w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"><a> Penis</a></i></button>
-        <div class="dropdown-content">
-            <a href="counter" class="w3-bar-item w3-button">Counter</a>
-            <a href="Admin" class="w3-bar-item w3-button">Admin</a>
-            <a href="#" class="w3-bar-item w3-button">Jackets</a>
-            <a href="#" class="w3-bar-item w3-button">Gymwear</a>
-            <a href="#" class="w3-bar-item w3-button">Blazers</a>
-            <a href="#" class="w3-bar-item w3-button">Shoes</a>
-        </div>
-    </div>
+
+    <Dropdown />
+    
+
     <a href="#footer" class="w3-bar-item w3-button w3-padding">Contact</a>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
     <a href="#footer" class="w3-bar-item w3-button w3-padding">Subscribe</a>
 </nav>
-
-<style>
-    .dropdown-content {
-        display: none;
-        display: @_visible;
-    }
-    .dropdown-content a{
-        margin-left: 10px;
-    }
-</style>
-
-@code {
-
-    private string _visible;
-    private int i = 1;
-
-    private void Dropdownbtn()
-    {
-        i++;
-        if (i % 2 == 0)
-        {
-            _visible = "block";
-        }
-        else
-        {
-            _visible = "none";
-        }
-    }
-}
