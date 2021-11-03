@@ -1,20 +1,17 @@
 ﻿
 <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-    <button class="w3-bar-item w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"><a> Penis</a></i></button>
+    <button class="w3-bar-item w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a> Kategorier</a></button>
     <div class="dropdown-content">
-        <a href="counter" class="w3-bar-item w3-button">Counter</a>
-        <a href="Admin" class="w3-bar-item w3-button">Admin</a>
-        <a href="#" class="w3-bar-item w3-button">Jackets</a>
-        <a href="#" class="w3-bar-item w3-button">Gymwear</a>
-        <a href="#" class="w3-bar-item w3-button">Blazers</a>
-        <a href="#" class="w3-bar-item w3-button">Shoes</a>
-        <a href="#" class="w3-bar-item w3-button">@NewTitle</a>
-        <MenuList />
+        <PrintList Pages="InsertPages"/>
     </div>
 </div>
 
+@code{
+    List<string> InsertPages = new List<string>() { "Counter", "Admin", "Jackets" };
+}
 
-<style>
+
+        <style>
     .dropdown-content {
         display: none;
         display: @_visible;
@@ -22,29 +19,25 @@
     .dropdown-content a{
         margin-left: 10px;
     }
-</style>
+        </style>
 
 
-@code {
-
-    [Parameter]
-    public string NewTitle { get; set; }
+        @code {
 
 
+            private string _visible;
+            private int i = 1;
 
-    private string _visible;
-    private int i = 1;
-
-    private void Dropdownbtn()
-    {
-        i++;
-        if (i % 2 == 0)
-        {
-            _visible = "block";
+            private void Dropdownbtn()
+            {
+                i++;
+                if (i % 2 == 0)
+                {
+                    _visible = "block";
+                }
+                else
+                {
+                    _visible = "none";
+                }
+            }
         }
-        else
-        {
-            _visible = "none";
-        }
-    }
-}
