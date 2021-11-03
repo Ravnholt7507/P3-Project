@@ -8,6 +8,7 @@
         <a href="#" class="w3-bar-item w3-button">Gymwear</a>
         <a href="#" class="w3-bar-item w3-button">Blazers</a>
         <a href="#" class="w3-bar-item w3-button">Shoes</a>
+        <a href="#" class="w3-bar-item w3-button">@NewTitle</a>
         <MenuList />
     </div>
 </div>
@@ -25,6 +26,11 @@
 
 
 @code {
+
+    [Parameter]
+    public string NewTitle { get; set; }
+
+
 
     private string _visible;
     private int i = 1;
