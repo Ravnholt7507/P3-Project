@@ -2,55 +2,76 @@
     <label>
         <input @bind="newItem" placeholder="Indtast kategori" />
     </label>
+    <label>
+        <input @bind="newTitle" placeholder="Indtast Titel" />
+    </label>
+
     <button @onclick="UpdateList">
-        Update list
+        Update underkategorier
     </button>
 
-    <button >
-        Update lmao
+    <button @onclick="Insert">
+        Update Titler
     </button>
 
 </div>
 
-@for (int i = 0; i < listepik.Count; i++)
+@for (int i = 0; i < MainList.Count; i++)
 {
-    <button class="w3-bar-item w3-button">@listepik[i]</button>
+    <button class="w3-bar-item w3-button">@MainList[i].MyString</button>
+}
+
+@*@for (int i = 0; i < Global_cat.Count; i++)
+ {
+    <button class="w3-bar-item w3-button">@Global_cat[i]</button>
+ }*@
+
+
+
+    @code {
+
+        public List<Menu> MainList = new List<Menu>();
+
+        public void Insert()
+        {
+            MainList.Add(new Menu(newTitle));
+        }
+
+        public string newItem = null;
+
+        public string newTitle = null;
+
+        public void UpdateList()
+        {
+            Global_cat.Add(newItem);
+        }
+
+        public static List<string> Global_cat = new List<string>();
+
+        public class Menu
+        {
+            public int Id;
+
+            public Menu(string _mystring)
+            {
+                MyString = _mystring;
+            }
+
+            List<string> Category = Global_cat;
+
+
+            public string MyString;
+
+            public void CreateList(List<string> listname)
+            {
+                listname = new List<string> { "hej", "med", "dig" };
+            }
+            public string name = "Bigboy";
+        }
 }
 
 
-@code {
+    @*private List<string> listepik = new List<string> { ".Net", "Python", "Java" };
 
-    MenuListen MainList = new MenuListen("lol");
-
-    List<MenuListen> BigTiddieGothGf = new List<MenuListen>();
-            
-
-    public class MenuListen
-    {
-
-        public MenuListen(string _mylist)
-        {
-            MyList = _mylist;
-        }
-
-        public string MyList { get; set; }
-
-        public void CreateList(List<string> listname)
-        {
-            listname = new List<string> { "hej", "med", "dig" };
-        }
-
-    }
-  
-
-    private List<string> listepik = new List<string> { ".Net", "Python", "Java" };
-
-    private string newItemList;
-    private string newItem = "lol";
-
-    private void UpdateList()
-    {
-        listepik.Add(newItem);
-
-    }
+    private string newItemList;*@
 }
