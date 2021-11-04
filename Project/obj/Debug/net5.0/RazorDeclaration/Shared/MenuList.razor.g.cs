@@ -90,40 +90,40 @@ using Project.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 31 "C:\Universitet\P3-projekt\p3-github\Project\Shared\MenuList.razor"
-           
+#line 33 "C:\Universitet\P3-projekt\p3-github\Project\Shared\MenuList.razor"
+       
 
-        public List<Menu> MainList = new List<Menu>();
+    public List<Menu> MainList = new List<Menu>();
 
-        public void Insert()
-        {
-            MainList.Add(new Menu(newTitle));
-        }
+    public void Insert()
+    {
+        MainList.Add(new Menu(newTitle));
+    }
 
-        public string newItem = null;
+    public string newItem = null;
 
-        public string newTitle = null;
+    public string newTitle = null;
 
         public void UpdateList()
         {
-            Global_cat.Add(newItem);
+            AddedItems.Add(newItem);
         }
 
-        public static List<string> Global_cat = new List<string>();
+        public static List<string> AddedItems = new List<string>();
 
-        public class Menu
+    public class Menu
+    {
+        public int Id;
+
+        public Menu(string _mystring)
         {
-            public int Id;
+            MyString = _mystring;
+        }
 
-            public Menu(string _mystring)
-            {
-                MyString = _mystring;
-            }
-
-            List<string> Category = Global_cat;
+            List<string> Category = AddedItems;
 
 
-            public string MyString;
+        public string MyString;
 
             public void CreateList(List<string> listname)
             {

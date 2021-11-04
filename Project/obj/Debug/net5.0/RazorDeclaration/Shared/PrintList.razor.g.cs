@@ -95,6 +95,22 @@ using Project.Shared;
     [Parameter]
     public List<string> Pages { get; set; }
 
+
+    private int lul = 0;
+    private string Color;
+    private void Dosmth()
+    {
+        if (lul % 2 == 0)
+        {
+            Color = "Red";
+        }
+        else
+        {
+            Color = "Green";
+        }
+        lul++;
+    }
+
 #line default
 #line hidden
 #nullable disable
