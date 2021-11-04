@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Universitet\\P3-projekt\\p3-github\\Project\\Project.csproj": {}
+    "C:\\Users\\runef\\source\\Repos\\p3-project\\Project\\Project.csproj": {}
   },
   "projects": {
-    "C:\\Universitet\\P3-projekt\\p3-github\\Project\\Project.csproj": {
+    "C:\\Users\\runef\\source\\Repos\\p3-project\\Project\\Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Universitet\\P3-projekt\\p3-github\\Project\\Project.csproj",
+        "projectUniqueName": "C:\\Users\\runef\\source\\Repos\\p3-project\\Project\\Project.csproj",
         "projectName": "Project",
-        "projectPath": "C:\\Universitet\\P3-projekt\\p3-github\\Project\\Project.csproj",
-        "packagesPath": "C:\\Users\\Andreas\\.nuget\\packages\\",
-        "outputPath": "C:\\Universitet\\P3-projekt\\p3-github\\Project\\obj\\",
+        "projectPath": "C:\\Users\\runef\\source\\Repos\\p3-project\\Project\\Project.csproj",
+        "packagesPath": "C:\\Users\\runef\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\runef\\source\\Repos\\p3-project\\Project\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Andreas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\runef\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,6 +43,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.27, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
