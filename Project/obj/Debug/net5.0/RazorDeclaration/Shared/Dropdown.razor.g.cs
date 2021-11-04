@@ -101,7 +101,6 @@ using Project.Shared;
 #line 26 "C:\Universitet\P3-projekt\p3-github\Project\Shared\Dropdown.razor"
        
 
-
     private string Visible;
     private int i = 1;
 
