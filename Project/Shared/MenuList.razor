@@ -22,52 +22,52 @@
 }
 
 @for (int i = 0; i < Global_cat.Count; i++)
- {
+{
     <button class="w3-table">@Global_cat[i]</button>
- }
+}
 
 
 
-    @code {
+@code {
 
-        public List<Menu> MainList = new List<Menu>();
+    public List<Menu> MainList = new List<Menu>();
 
-        public void Insert()
+    public void Insert()
+    {
+        MainList.Add(new Menu(newTitle));
+    }
+
+    public string newItem = null;
+
+    public string newTitle = null;
+
+    public void UpdateList()
+    {
+        Global_cat.Add(newItem);
+    }
+
+    public static List<string> Global_cat = new List<string>();
+
+    public class Menu
+    {
+        public int Id;
+
+        public Menu(string _mystring)
         {
-            MainList.Add(new Menu(newTitle));
+            MyString = _mystring;
         }
 
-        public string newItem = null;
+        List<string> Category = Global_cat;
 
-        public string newTitle = null;
 
-        public void UpdateList()
+        public string MyString;
+
+        public void CreateList(List<string> listname)
         {
-            Global_cat.Add(newItem);
+            listname = new List<string> { "hej", "med", "dig" };
         }
-
-        public static List<string> Global_cat = new List<string>();
-
-        public class Menu
-        {
-            public int Id;
-
-            public Menu(string _mystring)
-            {
-                MyString = _mystring;
-            }
-
-            List<string> Category = Global_cat;
-
-
-            public string MyString;
-
-            public void CreateList(List<string> listname)
-            {
-                listname = new List<string> { "hej", "med", "dig" };
-            }
-            public string name = "Bigboy";
-        }
+        public string name = "Bigboy";
+    }
 }
 
 
