@@ -18,6 +18,7 @@ namespace Project.Data
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
 
+                string t = "";
                 //SQL Query to execute
                 string sql = "select UserLoginId, UserType from Users;";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
