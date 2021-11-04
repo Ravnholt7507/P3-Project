@@ -30,18 +30,18 @@
 
 
 
-    @code {
+@code {
 
-        public List<Menu> MainList = new List<Menu>();
+    public List<Menu> MainList = new List<Menu>();
 
-        public void Insert()
-        {
-            MainList.Add(new Menu(newTitle));
-        }
+    public void Insert()
+    {
+        MainList.Add(new Menu(newTitle));
+    }
 
-        public string newItem = null;
+    public string newItem = null;
 
-        public string newTitle = null;
+    public string newTitle = null;
 
         public void UpdateList()
         {
@@ -50,19 +50,19 @@
 
         public static List<string> AddedItems = new List<string>();
 
-        public class Menu
-        {
-            public int Id;
+    public class Menu
+    {
+        public int Id;
 
-            public Menu(string _mystring)
-            {
-                MyString = _mystring;
-            }
+        public Menu(string _mystring)
+        {
+            MyString = _mystring;
+        }
 
             List<string> Category = AddedItems;
 
 
-            public string MyString;
+        public string MyString;
 
             public void CreateList(List<string> listname)
             {
