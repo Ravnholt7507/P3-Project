@@ -3,18 +3,19 @@
     <button class="w3-bar-item w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a> Kategorier</a></button>
     <div class="dropdown-content">
         <PrintList Pages="InsertPages"/>
+        
     </div>
 </div>
 
 @code{
-    List<string> InsertPages = new List<string>() { "Counter", "Admin", "Jackets" };
+    List<string> InsertPages = new List<string>() { "Counter", "Admin", "Jackets", "Andreas" };
 }
 
 
         <style>
     .dropdown-content {
         display: none;
-        display: @_visible;
+        display: @Visible;
     }
     .dropdown-content a{
         margin-left: 10px;
@@ -22,22 +23,22 @@
         </style>
 
 
-        @code {
+@code {
 
 
-            private string _visible;
-            private int i = 1;
+    private string Visible;
+    private int i = 1;
 
-            private void Dropdownbtn()
-            {
-                i++;
-                if (i % 2 == 0)
-                {
-                    _visible = "block";
-                }
-                else
-                {
-                    _visible = "none";
-                }
-            }
+    private void Dropdownbtn()
+    {
+        i++;
+        if (i % 2 == 0)
+        {
+            Visible = "block";
         }
+        else
+        {
+            Visible = "none";
+        }
+    }
+}
