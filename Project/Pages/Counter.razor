@@ -25,7 +25,7 @@
 
 <style>
     h1 {
-        color: @_color;
+        color: @Color;
         font-style: italic;
         text-shadow: 2px 2px 2px gray;
     }
@@ -43,7 +43,7 @@
     private string currentHeading = "Andreas er en moejluder";
     private string newHeading;
     private string checkedMessage = "Fuck off";
-    private string _color;
+    private string Color;
     private int i = 0;
 
     private void UpdateHeading()
@@ -61,11 +61,11 @@
         i++;
         if (i % 2 == 0)
         {
-            _color = "red";
+            Color = "red";
         }
         else
         {
-            _color = "green";
+            Color = "green";
         }
     }
 }

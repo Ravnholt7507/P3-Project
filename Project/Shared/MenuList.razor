@@ -1,14 +1,16 @@
 ﻿<div>
     <label>
-        <input @bind="newItem" placeholder="Indtast kategori" />
-    </label>
-    <label>
-        <input @bind="newTitle" placeholder="Indtast Titel" />
+        <input @bind="newCategory" placeholder="Indtast kategori" />
     </label>
 
     <button @onclick="UpdateList">
         Update underkategorier
     </button>
+
+
+    <label>
+        <input @bind="newTitle" placeholder="Indtast Titel" />
+    </label>
 
     <button @onclick="Insert">
         Update Titler
@@ -16,62 +18,103 @@
 
 </div>
 
-@for (int i = 0; i < MainList.Count; i++)
+@for (int i = 0; i < menuItems.Count; i++)
 {
-    <button class="w3-bar-item w3-button">@MainList[i].MyString</button>
+    <button class="w3-bar-item w3-button">@menuItems[i].name</button>
 }
 
-@*@for (int i = 0; i < Global_cat.Count; i++)
+@for (int i = 0; i < menuItems.Count; i++)
  {
-    <button class="w3-bar-item w3-button">@Global_cat[i]</button>
- }*@
+    <button class="w3-table">@menuItems[i]</button>
+ }
 
 
 
-    @code {
+@code {
 
-        public List<Menu> MainList = new List<Menu>();
 
-        public void Insert()
+    public string newTitle = null;
+    public string newCategory = null;
+
+    //public void Insert()
+    //{
+    //    menuItems.Add(newTitle);
+    //}
+
+    //public Category aCategory = new Category(newCategory);
+
+
+
+    //public void UpdateList()
+    //{
+    //    menuItems.Add(aCategory);
+    //}
+
+    //public List<Category> menuItems = new List<Category>();
+
+    //public class Category : Items
+    //{
+    //    public string name { get; set; }
+    //    public List<Items> itemList = new List<Items>();
+
+    //    public Category(string articleName) : base(articleName)
+    //    {
+    //        itemList.Add(new Items(articleName));
+    //    }
+
+    //}
+
+    //public class Items
+    //{
+    //    //public int barCode { get; set; }
+    //    public string _articleName { get; set; }
+    //    //public string colors { get; set; }
+    //    //public string sizes { get; set; }
+    //    //public string stock { get; set; }
+
+    //    public Items(string articleName)
+    //    {
+    //        _articleName = articleName;
+    //    }
+    //}
+
+    public class Category
+    {
+        public string CategoryName;
+        public Category(string Name)
         {
-            MainList.Add(new Menu(newTitle));
+            CategoryName = Name;
         }
+        public List<Item> Items = new List<Item>();
+    }
 
-        public string newItem = null;
-
-        public string newTitle = null;
-
-        public void UpdateList()
+    public class Item
+    {
+        public string ItemName;
+        public Item(string Name)
         {
-            Global_cat.Add(newItem);
+            ItemName = Name;
         }
+        // add size, color, price ...
+    }
 
-        public static List<string> Global_cat = new List<string>();
+    public List<Category> Categories = new List<Category>();
+    private Category selectedCategory = null;
 
-        public class Menu
+    public void UpdateList()
+    {
+        selectedCategory = new Category(newCategory);
+        Categories.Add(new Category(newCategory));
+    }
+
+    public void Insert()
+    {
+        foreach (Category category in Categories)
         {
-            public int Id;
-
-            public Menu(string _mystring)
+            if (category == selectedCategory)
             {
-                MyString = _mystring;
+                category.Items.Add(new Item(newTitle));
             }
-
-            List<string> Category = Global_cat;
-
-
-            public string MyString;
-
-            public void CreateList(List<string> listname)
-            {
-                listname = new List<string> { "hej", "med", "dig" };
-            }
-            public string name = "Bigboy";
         }
-}
-
-
-    @*private List<string> listepik = new List<string> { ".Net", "Python", "Java" };
-
-    private string newItemList;*@
+    }
 }
