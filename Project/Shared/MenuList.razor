@@ -31,50 +31,90 @@
 
 
 @code {
-   
-
-    public void Insert()
-    {
-        menuItems.Add(newTitle);
-    }
-
-    public Category newCategory = new Category();
 
 
     public string newTitle = null;
+    public string newCategory = null;
+
+    //public void Insert()
+    //{
+    //    menuItems.Add(newTitle);
+    //}
+
+    //public Category aCategory = new Category(newCategory);
+
+
+
+    //public void UpdateList()
+    //{
+    //    menuItems.Add(aCategory);
+    //}
+
+    //public List<Category> menuItems = new List<Category>();
+
+    //public class Category : Items
+    //{
+    //    public string name { get; set; }
+    //    public List<Items> itemList = new List<Items>();
+
+    //    public Category(string articleName) : base(articleName)
+    //    {
+    //        itemList.Add(new Items(articleName));
+    //    }
+
+    //}
+
+    //public class Items
+    //{
+    //    //public int barCode { get; set; }
+    //    public string _articleName { get; set; }
+    //    //public string colors { get; set; }
+    //    //public string sizes { get; set; }
+    //    //public string stock { get; set; }
+
+    //    public Items(string articleName)
+    //    {
+    //        _articleName = articleName;
+    //    }
+    //}
+
+    public class Category
+    {
+        public string CategoryName;
+        public Category(string Name)
+        {
+            CategoryName = Name;
+        }
+        public List<Item> Items = new List<Item>();
+    }
+
+    public class Item
+    {
+        public string ItemName;
+        public Item(string Name)
+        {
+            ItemName = Name;
+        }
+        // add size, color, price ...
+    }
+
+    public List<Category> Categories = new List<Category>();
+    private Category selectedCategory = null;
 
     public void UpdateList()
     {
-        menuItems.Add(newCategory);
+        selectedCategory = new Category(newCategory);
+        Categories.Add(new Category(newCategory));
     }
 
-    public List<Category> menuItems = new List<Category>();
-
-    public class Category : Items
+    public void Insert()
     {
-        public string name { get; set; }
-        public List<Items> itemList = new List<Items>();
-
-        public Category(Items articleName) : base(articleName)
+        foreach (Category category in Categories)
         {
-            itemList.Add(articleName);
-        }
-        
-    }
-
-    public class Items
-    {
-        //public int barCode { get; set; }
-        public Items _articleName { get; set; }
-        //public string colors { get; set; }
-        //public string sizes { get; set; }
-        //public string stock { get; set; }
-
-        public Items(Items articleName)
-        {
-            _articleName = articleName;
+            if (category == selectedCategory)
+            {
+                category.Items.Add(new Item(newTitle));
+            }
         }
     }
-
-
 }
