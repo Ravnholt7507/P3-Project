@@ -2,13 +2,15 @@
     <label>
         <input @bind="newItem" placeholder="Indtast kategori" />
     </label>
-    <label>
-        <input @bind="newTitle" placeholder="Indtast Titel" />
-    </label>
 
     <button @onclick="UpdateList">
         Update underkategorier
     </button>
+
+
+    <label>
+        <input @bind="newTitle" placeholder="Indtast Titel" />
+    </label>
 
     <button @onclick="Insert">
         Update Titler
@@ -21,46 +23,46 @@
     <button class="w3-bar-item w3-button">@MainList[i].MyString</button>
 }
 
-@for (int i = 0; i < Global_cat.Count; i++)
+@for (int i = 0; i < AddedItems.Count; i++)
  {
-    <button class="w3-table">@Global_cat[i]</button>
+    <button class="w3-table">@AddedItems[i]</button>
  }
 
 
 
-    @code {
+@code {
 
-        public List<Menu> MainList = new List<Menu>();
+    public List<Menu> MainList = new List<Menu>();
 
-        public void Insert()
-        {
-            MainList.Add(new Menu(newTitle));
-        }
+    public void Insert()
+    {
+        MainList.Add(new Menu(newTitle));
+    }
 
-        public string newItem = null;
+    public string newItem = null;
 
-        public string newTitle = null;
+    public string newTitle = null;
 
         public void UpdateList()
         {
-            Global_cat.Add(newItem);
+            AddedItems.Add(newItem);
         }
 
-        public static List<string> Global_cat = new List<string>();
+        public static List<string> AddedItems = new List<string>();
 
-        public class Menu
+    public class Menu
+    {
+        public int Id;
+
+        public Menu(string _mystring)
         {
-            public int Id;
+            MyString = _mystring;
+        }
 
-            public Menu(string _mystring)
-            {
-                MyString = _mystring;
-            }
-
-            List<string> Category = Global_cat;
+            List<string> Category = AddedItems;
 
 
-            public string MyString;
+        public string MyString;
 
             public void CreateList(List<string> listname)
             {
@@ -68,10 +70,4 @@
             }
             public string name = "Bigboy";
         }
-}
-
-
-    @*private List<string> listepik = new List<string> { ".Net", "Python", "Java" };
-
-    private string newItemList;*@
 }

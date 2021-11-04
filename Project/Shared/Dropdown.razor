@@ -1,6 +1,6 @@
 ﻿
 <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-    <button class="w3-bar-item w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a> Kategorier</a></button>
+    <button class="w3-bar-item w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a>Kategorier</a></button>
     <div class="dropdown-content">
         <PrintList Pages="InsertPages"/>
         
@@ -11,8 +11,7 @@
     List<string> InsertPages = new List<string>() { "Counter", "Admin", "Jackets", "Andreas" };
 }
 
-
-        <style>
+<style>
     .dropdown-content {
         display: none;
         display: @Visible;
@@ -20,11 +19,11 @@
     .dropdown-content a{
         margin-left: 10px;
     }
-        </style>
+    
+</style>
 
 
 @code {
-
 
     private string Visible;
     private int i = 1;

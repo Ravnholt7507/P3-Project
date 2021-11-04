@@ -82,7 +82,7 @@ using Project.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Counter")]
     public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
