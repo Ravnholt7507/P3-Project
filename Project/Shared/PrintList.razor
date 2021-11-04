@@ -2,34 +2,11 @@
 @code {
     [Parameter]
     public List<string> Pages { get; set; }
-
-
-    private int lul = 0;
-    private string Color;
-    private void Dosmth()
-    {
-        if (lul % 2 == 0)
-        {
-            Color = "Red";
-        }
-        else
-        {
-            Color = "Green";
-        }
-        lul++;
-    }
 }
-
-<style>
-    .Kasse 
-    {
-        background: @Color;
-    }
-</style>
 
 <div class="Kasse">
     @for (int i = 0; i < Pages.Count; i++)
     {
-        <a @onmouseover="Dosmth" href="@Pages[i]" class="w3-bar-item w3-button">@Pages[i]</a>
+        <a href="@Pages[i]" class="w3-bar-item w3-button">@Pages[i]</a>
     }
 </div>
