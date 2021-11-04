@@ -96,7 +96,7 @@ using Project.Shared;
     private string currentHeading = "Andreas er en moejluder";
     private string newHeading;
     private string checkedMessage = "Fuck off";
-    private string _color;
+    private string Color;
     private int i = 0;
 
     private void UpdateHeading()
@@ -114,11 +114,11 @@ using Project.Shared;
         i++;
         if (i % 2 == 0)
         {
-            _color = "red";
+            Color = "red";
         }
         else
         {
-            _color = "green";
+            Color = "green";
         }
     }
 

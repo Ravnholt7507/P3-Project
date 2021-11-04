@@ -1,6 +1,6 @@
 ﻿<div>
     <label>
-        <input @bind="newItem" placeholder="Indtast kategori" />
+        <input @bind="newCategory" placeholder="Indtast kategori" />
     </label>
 
     <button @onclick="UpdateList">
@@ -18,56 +18,63 @@
 
 </div>
 
-@for (int i = 0; i < MainList.Count; i++)
+@for (int i = 0; i < menuItems.Count; i++)
 {
-    <button class="w3-bar-item w3-button">@MainList[i].MyString</button>
+    <button class="w3-bar-item w3-button">@menuItems[i].name</button>
 }
 
-@for (int i = 0; i < AddedItems.Count; i++)
+@for (int i = 0; i < menuItems.Count; i++)
  {
-    <button class="w3-table">@AddedItems[i]</button>
+    <button class="w3-table">@menuItems[i]</button>
  }
 
 
 
 @code {
-
-    public List<Menu> MainList = new List<Menu>();
+   
 
     public void Insert()
     {
-        MainList.Add(new Menu(newTitle));
+        menuItems.Add(newTitle);
     }
 
-    public string newItem = null;
+    public Category newCategory = new Category();
+
 
     public string newTitle = null;
 
-        public void UpdateList()
-        {
-            AddedItems.Add(newItem);
-        }
-
-        public static List<string> AddedItems = new List<string>();
-
-    public class Menu
+    public void UpdateList()
     {
-        public int Id;
+        menuItems.Add(newCategory);
+    }
 
-        public Menu(string _mystring)
+    public List<Category> menuItems = new List<Category>();
+
+    public class Category : Items
+    {
+        public string name { get; set; }
+        public List<Items> itemList = new List<Items>();
+
+        public Category(Items articleName) : base(articleName)
         {
-            MyString = _mystring;
+            itemList.Add(articleName);
         }
+        
+    }
 
-            List<string> Category = AddedItems;
+    public class Items
+    {
+        //public int barCode { get; set; }
+        public Items _articleName { get; set; }
+        //public string colors { get; set; }
+        //public string sizes { get; set; }
+        //public string stock { get; set; }
 
-
-        public string MyString;
-
-            public void CreateList(List<string> listname)
-            {
-                listname = new List<string> { "hej", "med", "dig" };
-            }
-            public string name = "Bigboy";
+        public Items(Items articleName)
+        {
+            _articleName = articleName;
         }
+    }
+
+
 }
