@@ -1,0 +1,92 @@
+﻿@page "/Products"
+
+@using Project.Data
+@inject Product searchProduct
+
+<h3>Search Products</h3>
+
+<br />
+
+<SearchBarComponent OnSearch="HandleSearch"> </SearchBarComponent>
+
+<br />
+
+<table>
+    <thread>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Brand
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thread>
+    <tbody>
+        @if (products != null && products.Count() > 0)
+        {
+            @foreach (var Product in products)
+            {
+                @if (Product != null)
+                {
+                    <tr>
+                        <td>@Product.Name</td>
+                        <td>@Product.Brand</td>
+                        <td>@Product.Price.ToString("kr.")</td>
+                    </tr>
+                }
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3">
+                    cannot find products
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@code {
+    private IEnumerable<Product> products = new List<Product>
+    {
+        new Product { ID = 400, Brand = "Mayeb", Name = "Mayeb sauce", Price = 30, Description = "Kúmba", },
+        new Product { ID = 400, Brand = "Mayeb", Name = "Ketchup", Price = 40, Description = "Kúmbafsfds", },
+        new Product { ID = 400, Brand = "Mayeb", Name = "Burger", Price = 230, Description = "sdafadf", },
+        new Product { ID = 400, Brand = "Mayeb", Name = "Mayones", Price = 333, Description = "Kdsfsdfa", },
+        new Product { ID = 400, Brand = "Mayeb", Name = "water", Price = 30, Description = "K'efafa", },
+        new Product { ID = 400, Brand = "Mayeb", Name = "cola", Price = 30, Description = "Kdfdfdsdsdc", },
+        new Product { ID = 400, Brand = "Mayeb", Name = "Faxe kondi", Price = 30, Description = "a", }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        products = GetProducts();
+    }
+
+    public void HandleSearch(string filter)
+    {
+        products = GetProducts(filter);
+    }
+
+
+    public IEnumerable<Product> GetProducts(string filter = null)
+    {
+        if (string.IsNullOrWhiteSpace(filter)) return products;
+        return products.Where(x => x.Name.ToLower().Contains(filter.ToLower()));
+    }
+
+
+    public Product GetProduct(int id)
+    {
+        return products.FirstOrDefault(x => x.ID == id);
+    }
+}
