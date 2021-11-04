@@ -1,7 +1,93 @@
 ﻿@page "/Cart"
 
-<h3>Cart</h3>
+<h3>Din indkoebskurv</h3>
 
-@code {
-    public List<int> Products = new List<int>();
+
+<div class="page">
+    <div class="cart-overview">
+        <div class="selected">
+            <h2>Kurv oversigt</h2>
+            <EditForm Model="@Products">
+                <DataAnnotationsValidator />
+                <div>
+                    <p>@Bukser.Type</p>
+                    <InputSelect @bind-Value="SelectedAmount" Id="SelectedYear" Class="form-control">
+                        @for (int i = 1; i < 10; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </InputSelect>
+                </div>
+            </EditForm>
+            
+        </div>
+        <div class="order-total">
+            <p>Ordre Total:</p>
+            <p>,-</p>
+        </div>
+    </div>
+</div>
+
+<p>@SelectedAmount</p>
+
+
+
+@code
+{
+    private string SelectedAmount { get; set; } = "1";
+
+    public List<Product> Products = new List<Product>();
+
+    Product Bukser = new Product();
+
+    void ctor()
+    {
+        Bukser.Type = "Shorts";
+        Bukser.Price = 100;
+    }
+    
+    public class Product
+    {
+        public string Type { get; set; }
+        public double Price { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        //Sum();
+        // await SomeStartupTask();
+    }
 }
+
+<style>
+    .page {
+        height: 500px;
+    }
+
+    .cart-overview {
+        outline: solid;
+        outline-color: black;
+        width: 300px;
+        background-color: #efefef;
+        float: right;
+        margin-right: 80px;
+    }
+
+    .selected {
+        width: 300px;
+        background-color: #efefef;
+    }
+
+    .order-total {
+        width: 300px;
+        background-color: #bababa;
+    }
+
+    .price {
+        float: right;
+    }
+
+    select {
+        text-indent: -5px;
+    }
+</style>
