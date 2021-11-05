@@ -5,23 +5,19 @@
 
 <div class="page">
     <div class="cart-overview">
-
         @foreach (var item in Order)
         {
             <p>@item.Type x @item.OrderAmount <p class="price">@item.subTotal,-</p></p>
             <button @onclick="() => { item.OrderAmount++; item.CalcPrice(); CalcTotal(); }" class="w3-button nice">Add</button>
             <button @onclick="() => { item.OrderAmount--; item.CalcPrice(); CalcTotal(); }" class="w3-button nice">Minus</button>
         }
-
         <div class="order-total">
             <p>Ordre Total:</p>
             <p> @Total,-</p>
             <a class="w3-button nice" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
-
         </div>
     </div>
 </div>
-
 
 <style>
     .page {
