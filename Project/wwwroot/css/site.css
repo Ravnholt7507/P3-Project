@@ -48,17 +48,3 @@ a, .btn-link {
     right: 0.75rem;
     top: 0.5rem;
 }
-
-.spinner {
-    animation: spin 3s infinite linear;
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg)
-    }
-
-    to {
-        transform: rotate(359deg)
-    }
-}
