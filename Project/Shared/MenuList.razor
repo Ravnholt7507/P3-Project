@@ -22,9 +22,9 @@
 {
     <button class="w3-bar-item w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a>@Categories[i].CategoryName</a></button>
     <div class="dropdown-content2">
-        @for (int k = 0; k < Categories[i].Items.Count; k++)
+        @for (int k = 0; k < Categories[i].Subcategory.Count; k++)
         {
-            <button class="w3-bar-item w3-button">@Categories[i].Items[k].ItemName</button>
+            <button class="w3-bar-item w3-button">@Categories[i].Subcategory[k].ItemName</button>
         }
 
     </div>
@@ -56,7 +56,7 @@
         {
             CategoryName = Name;
         }
-        public List<Item> Items = new List<Item>();
+        public List<Item> Subcategory = new List<Item>();
     }
 
     public class Item
@@ -84,7 +84,7 @@
         {
             if (category.CategoryName == selectedCategory.CategoryName)
             {
-                category.Items.Add(new Item(newTitle));
+                category.Subcategory.Add(new Item(newTitle));
             }
         }
     }
