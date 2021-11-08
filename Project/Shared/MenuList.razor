@@ -1,4 +1,5 @@
-﻿<div>
+﻿@inherits AdminFunctionality
+<div>
     <label>
         <input @bind="newCategory" placeholder="Indtast kategori" />
     </label>
@@ -16,15 +17,25 @@
         Update Titler
     </button>
 
+    <br />
+
+    @*<label>
+        <input @bind="addItem" placeholder="Tilføj et produkt" />
+    </label>
+
+    <button @onclick="updateItem">
+        Opdater titler
+    </button>*@
+
 </div>
 
 @for (int i = 0; i < Categories.Count; i++)
 {
-    <button class="w3-bar-item w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a>@Categories[i].CategoryName</a></button>
+    <button class="w3-bar-Subcategory w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a>@Categories[i].CategoryName</a></button>
     <div class="dropdown-content2">
         @for (int k = 0; k < Categories[i].Subcategory.Count; k++)
         {
-            <button class="w3-bar-item w3-button">@Categories[i].Subcategory[k].ItemName</button>
+            <button class="w3-bar-Subcategory w3-button">@Categories[i].Subcategory[k].SubcategoryName</button>
         }
 
     </div>
@@ -42,10 +53,10 @@
 
 </style>
 
-
+@*
+    Code for categories
+*@
 @code {
-
-
     public string newTitle = null;
     public string newCategory = null;
 
@@ -56,17 +67,16 @@
         {
             CategoryName = Name;
         }
-        public List<Item> Subcategory = new List<Item>();
+        public List<Subcategory> Subcategory = new List<Subcategory>();
     }
 
-    public class Item
+    public class Subcategory
     {
-        public string ItemName;
-        public Item(string Name)
+        public string SubcategoryName;
+        public Subcategory(string Name)
         {
-            ItemName = Name;
+            SubcategoryName = Name;
         }
-        // add size, color, price ...
     }
 
     public List<Category> Categories = new List<Category>();
@@ -84,7 +94,7 @@
         {
             if (category.CategoryName == selectedCategory.CategoryName)
             {
-                category.Subcategory.Add(new Item(newTitle));
+                category.Subcategory.Add(new Subcategory(newTitle));
             }
         }
     }
@@ -104,4 +114,32 @@
             Visible = "none";
         }
     }
+
+
 }
+
+@*
+Code for itemlist
+
+color array:
+    0 = black
+    1 = white
+    2 = blue
+    3 = green
+    4 = red
+    5 = yellow
+    6 = purple
+    7 = brown
+    8 = grey
+    9 = pink
+    10 = orange
+
+sizes array:
+    0 = xxs
+    1 = xs
+    2 = s
+    3 = m
+    4 = l
+    5 = xl
+    6 = xxl
+*@
