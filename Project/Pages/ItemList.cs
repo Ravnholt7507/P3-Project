@@ -47,8 +47,22 @@ namespace Project.Pages
                 OrderAmount = 1,
                 subTotal = 52
             };
+            Product Item3 = new Product
+            {
+                Type = "Penis",
+                Price = 69,
+                OrderAmount = 1,
+                subTotal = 69
+            };
+            Product Item4 = new Product
+            {
+                Type = "Penis2",
+                Price = 96,
+                OrderAmount = 1,
+                subTotal = 96
+            };
 
-            Order = new List<Product> { Item1, Item2 };
+            Order = new List<Product> { Item1, Item2, Item3, Item4};
         }
         protected override Task OnInitializedAsync()
         {
@@ -56,6 +70,5 @@ namespace Project.Pages
             CalcTotal();
             return base.OnInitializedAsync();
         }
-
     }
 }
