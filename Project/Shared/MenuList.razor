@@ -18,12 +18,23 @@
 
 
     <label>
-        <input @bind="CategoryToRemove" placeholder="Fjern Kategori" />
+        <input @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" />
     </label>
 
     <button @onclick="Remove">
-        Update Titler
+        opdater titler eller kategorier
     </button>
+
+    <br />
+    <br />
+</div>
+
+<div>
+    <input type="text" @bind="NewItemName" /> 
+
+
+    <br />
+    <br />
 
 </div>
 
@@ -58,6 +69,8 @@
     public string newTitle = null;
     public string newCategory = null;
     public string CategoryToRemove  = null;
+    public string NewItemName = null;
+
 
     public void Remove()
     {
@@ -72,11 +85,11 @@
 
         foreach (var Category in Categories)
         {
-            foreach (var item in Category.Items)
+            foreach (var item in Category.Subcategory)
             {
                 if (item.ItemName == CategoryToRemove)
                 {
-                    Category.Items.Remove(item);
+                    Category.Subcategory.Remove(item);
                     break;
                 }
             }
