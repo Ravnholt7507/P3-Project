@@ -1,7 +1,6 @@
 ﻿@page "/Products"
 
-@using Project.Data
-@inject Product searchProduct
+@inject Product Searchproduct
 
 <h3>Search Products</h3>
 
@@ -11,7 +10,7 @@
 
 <br />
 
-<table>
+<table class="table">
     <thread>
         <tr>
             <th>
@@ -32,11 +31,15 @@
             {
                 @if (Product != null)
                 {
-                    <tr>
-                        <td>@Product.Name</td>
-                        <td>@Product.Brand</td>
-                        <td>@Product.Price.ToString("kr.")</td>
-                    </tr>
+        <tr>
+            <td>
+                <NavLink href="@($"product/{Product.ID}")">
+                    @Product.Name
+                </NavLink>
+            </td>
+            <td>@Product.Brand</td>
+            <td>@Product.Price.ToString("kr.")</td>
+        </tr>
                 }
             }
         }
@@ -54,15 +57,18 @@
 
 
 @code {
-    private IEnumerable<Product> products = new List<Product>
+    [Parameter]
+    public Product product { get; set; }
+
+    public IEnumerable<Product> products = new List<Product>
     {
-        new Product { ID = 400, Brand = "Mayeb", Name = "Mayeb sauce", Price = 30, Description = "Kúmba", },
-        new Product { ID = 400, Brand = "Mayeb", Name = "Ketchup", Price = 40, Description = "Kúmbafsfds", },
-        new Product { ID = 400, Brand = "Mayeb", Name = "Burger", Price = 230, Description = "sdafadf", },
-        new Product { ID = 400, Brand = "Mayeb", Name = "Mayones", Price = 333, Description = "Kdsfsdfa", },
-        new Product { ID = 400, Brand = "Mayeb", Name = "water", Price = 30, Description = "K'efafa", },
-        new Product { ID = 400, Brand = "Mayeb", Name = "cola", Price = 30, Description = "Kdfdfdsdsdc", },
-        new Product { ID = 400, Brand = "Mayeb", Name = "Faxe kondi", Price = 30, Description = "a", }
+        new Product { ID = 1, Brand = "Beyblade", Name = "Mayeb sauce", Price = 30, Description = "Kúmba", },
+        new Product { ID = 2, Brand = "Pokemon", Name = "Ketchup", Price = 40, Description = "Kúmbafsfds", },
+        new Product { ID = 3, Brand = "Wow", Name = "Burger", Price = 230, Description = "sdafadf", },
+        new Product { ID = 4, Brand = "Yoghurt", Name = "Mayonnaise", Price = 333, Description = "Kdsfsdfa", },
+        new Product { ID = 5, Brand = "Bibliotek", Name = "water", Price = 30, Description = "K'efafa", },
+        new Product { ID = 6, Brand = "Ressource", Name = "cola", Price = 30, Description = "Kdfdfdsdsdc", },
+        new Product { ID = 7, Brand = "KSIOlajidebt", Name = "Faxe kondi", Price = 30, Description = "a", }
     };
 
     protected override void OnInitialized()
@@ -82,11 +88,5 @@
     {
         if (string.IsNullOrWhiteSpace(filter)) return products;
         return products.Where(x => x.Name.ToLower().Contains(filter.ToLower()));
-    }
-
-
-    public Product GetProduct(int id)
-    {
-        return products.FirstOrDefault(x => x.ID == id);
     }
 }
