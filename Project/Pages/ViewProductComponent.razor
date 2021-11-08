@@ -4,20 +4,34 @@
 <h2>Product details</h2>
 
 
-<div>
-    <img src="@prod.ImageLink"/>
-    <br/>
+<div class="w3" style="width: 28rem;">
+    <div class="card-body">
+        <img src="@prod.ImageLink" />
+        <h5 class="card-title">@prod.Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@prod.Brand</h6>
+        <hr />
+        <p>
+            price:  <label style="color:darkred">@prod.Price.ToString("Kr.")</label>
+        </p>
+        <p class="card-text">@prod.Description</p>
+    </div>
+</div>
+<NavLink href="/products"> Back To Products</NavLink>
+
+@*<div>
+    <img src="@prod.ImageLink" />
+    <br />
 
     @prod.Name
-    <br/>
+    <br />
     @prod.Brand
-    <br/>
-    @prod.Price
-    <br/>
+    <br />
+    @prod.Price.ToString
+    <br />
     @prod.Description
-    <br/>
-    <br/>
-</div>
+    <br />
+    <br />
+</div>*@
 
 @code {
     public Product prod;

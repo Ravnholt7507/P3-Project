@@ -4,7 +4,7 @@
     </label>
 
     <button @onclick="UpdateList">
-        Update underkategorier
+        Update kategorier
     </button>
 
 
@@ -13,6 +13,15 @@
     </label>
 
     <button @onclick="Insert">
+        Update Titler
+    </button>
+
+
+    <label>
+        <input @bind="CategoryToRemove" placeholder="Fjern Kategori" />
+    </label>
+
+    <button @onclick="Remove">
         Update Titler
     </button>
 
@@ -48,6 +57,31 @@
 
     public string newTitle = null;
     public string newCategory = null;
+    public string CategoryToRemove  = null;
+
+    public void Remove()
+    {
+        foreach (var category in Categories)
+        {
+            if ((category.CategoryName == CategoryToRemove))
+            {
+                Categories.Remove(category);
+                break;
+            }
+        }
+
+        foreach (var Category in Categories)
+        {
+            foreach (var item in Category.Items)
+            {
+                if (item.ItemName == CategoryToRemove)
+                {
+                    Category.Items.Remove(item);
+                    break;
+                }
+            }
+        }
+    }
 
     public class Category
     {
