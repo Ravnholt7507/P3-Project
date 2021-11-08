@@ -1,27 +1,16 @@
 ﻿@page "/Cart"
+@inherits ItemList
 
 <h3>Din indkoebskurv</h3>
 
 <div class="page">
     <div class="cart-overview">
-        <div class="selected">
-            <h2>Kurv oversigt</h2>
-            <p>@item.Type</p>
-            <EditForm Model="@Products">
-                <DataAnnotationsValidator />
-                <p class="price">@subPrice,-</p>
-                <div>
-                    <p>Antal: </p>
-                    <InputSelect @bind-Value="SelectedAmount" Class="dropdown">
-
-                        @for (int i = 1; i < 10; i++)
-                        {
-                            <option @onclick="calcPrice" value="@i">@i</option>
-                        }
-                    </InputSelect>
-                </div>
-            </EditForm>
-        </div>
+        @foreach (var item in Order)
+        {
+            <p>@item.Type x @item.OrderAmount <p class="price">@item.subTotal,-</p></p>
+            <button @onclick="() => { item.OrderAmount++; item.CalcPrice(); CalcTotal(); }" class="w3-button nice">Add</button>
+            <button @onclick="() => { item.OrderAmount--; item.CalcPrice(); CalcTotal(); }" class="w3-button nice">Minus</button>
+        }
         <div class="order-total">
             <p>Ordre Total:</p>
             <p> @Total,-</p>
@@ -29,47 +18,6 @@
         </div>
     </div>
 </div>
-
-
-@code
-{
-    private int SelectedAmount { get; set; } = 1;
-    private double subPrice;
-    private double Total;
-
-    public List<Product> Products = new List<Product>();
-
-    Product item = new Product();
-    Product item2 = new Product();
-
-    void ctor()
-    {
-        item.Type = "Shorts";
-        item.Price = 100;
-
-        item2.Type = "Shirt";
-        item2.Price = 199;
-    }
-
-    private void calcPrice()
-    {
-        subPrice = SelectedAmount * item.Price;
-        Total = subPrice;
-    }
-
-    public class Product
-    {
-        public string Type { get; set; }
-        public double Price { get; set; }
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        ctor();
-        calcPrice();
-        //await SomeStartupTask();
-    }
-}
 
 <style>
     .page {
@@ -79,19 +27,15 @@
     .cart-overview {
         outline: solid;
         outline-color: black;
-        width: 300px;
+        width: 500px;
         background-color: #efefef;
-        float: right;
-        margin-right: 80px;
     }
 
     .selected {
-        width: 300px;
         background-color: #efefef;
     }
 
     .order-total {
-        width: 300px;
         background-color: #bababa;
     }
 
