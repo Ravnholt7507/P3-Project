@@ -13,71 +13,78 @@ namespace Project.Shared
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 1 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 3 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 4 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 5 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 6 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 7 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 8 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 9 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Project;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 10 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Project.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Data;
 
 #line default
 #line hidden
@@ -90,15 +97,15 @@ using Project.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 10 "C:\Universitet\P3-projekt\p3-github\Project\Shared\Dropdown.razor"
+#line 10 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/Dropdown.razor"
       
-    List<string> InsertPages = new List<string>() { "Counter", "Admin", "Jackets", "Andreas" };
+    List<string> InsertPages = new List<string>() { "Counter", "Admin", "Jackets", "Andreas", "Products" };
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 26 "C:\Universitet\P3-projekt\p3-github\Project\Shared\Dropdown.razor"
+#line 26 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/Dropdown.razor"
        
 
     private string Visible;

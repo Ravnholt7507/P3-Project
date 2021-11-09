@@ -1,22 +1,20 @@
 ﻿@page "/product/{id:int}"
 
-@inject Product Searchproduct
+@*inject Product Searchproduct*@
 <h2>Product details</h2>
-
-
-<div class="w3" style="width: 28rem;">
-    <div class="card-body">
-        <img src="@prod.ImageLink" />
-        <h5 class="card-title">@prod.Name</h5>
-        <h6 class="card-subtitle mb-2 text-muted">@prod.Brand</h6>
-        <hr />
-        <p>
-            price:  <label style="color:darkred">@prod.Price.ToString("Kr.")</label>
-        </p>
-        <p class="card-text">@prod.Description</p>
+    <div class="w3" style="width: 28rem;">
+        <div class="card-body">
+            <img src="@prod.ImageLink"/>
+            <h5 class="card-title">@prod.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@prod.Brand</h6>
+            <hr/>
+            <p>
+                price: <label style="color:darkred">@prod.Price.ToString("Kr.")</label>
+            </p>
+            <p class="card-text">@prod.Description</p>
+        </div>
     </div>
-</div>
-<NavLink href="/products"> Back To Products</NavLink>
+    <NavLink href="/products"> Back To Products</NavLink>
 
 @*<div>
     <img src="@prod.ImageLink" />
@@ -44,28 +42,19 @@
         base.OnParametersSet();
 
         if (Id > 0)
+        {
             prod = GetProduct(Id);
+            Console.WriteLine(prod.ID);
+        }
     }
-
-    public IEnumerable<Product> products = new List<Product>
-    {
-        new Product { ID = 1, Brand = "Hunde", Name = "Husky", Price = 30, Description = "cute dog", ImageLink = "Images/bedøvet vuf.png"},
-        new Product { ID = 2, Brand = "Heinz", Name = "Ketchup", Price = 40, Description = "Ketchup med tomat sovs", ImageLink = "Images/Ketchup.png" },
-        new Product { ID = 3, Brand = "Burger king", Name = "Burger", Price = 230, Description = "Burger med salat. nam nam", ImageLink = "Images/Burger.png" },
-        new Product { ID = 4, Brand = "Yoghurt", Name = "Mayonnaise", Price = 333, Description = "Kdsfsdfa", ImageLink = "Images/Ketchup.png"},
-        new Product { ID = 5, Brand = "Bibliotek", Name = "water", Price = 30, Description = "K'efafa", ImageLink = "Images/Ketchup.png"},
-        new Product { ID = 6, Brand = "Ressource", Name = "cola", Price = 30, Description = "Kdfdfdsdsdc", ImageLink = "Images/Ketchup.png"},
-        new Product { ID = 7, Brand = "KSIOlajidebt", Name = "Faxe kondi", Price = 30, Description = "a", ImageLink = "Images/Ketchup.png"}
-    };
-
 
     public Product GetProduct(int id)
     {
-        foreach (var item in products)
+        Product product = new Product(id);
         {
-            if (item.ID == id)
-                return item;
+            if (product.ID == id)
+                return product;
+            return null;
         }
-        return null;
     }
 }

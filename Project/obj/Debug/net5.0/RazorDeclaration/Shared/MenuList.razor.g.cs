@@ -13,76 +13,83 @@ namespace Project.Shared
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 1 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 3 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 4 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 5 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 6 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 7 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 8 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 9 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Project;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Universitet\P3-projekt\p3-github\Project\_Imports.razor"
+#line 10 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Project.Shared;
 
 #line default
 #line hidden
 #nullable disable
-    public partial class MenuList : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 11 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Data;
+
+#line default
+#line hidden
+#nullable disable
+    public partial class MenuList : AdminFunctionality
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -90,47 +97,94 @@ using Project.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "C:\Universitet\P3-projekt\p3-github\Project\Shared\MenuList.razor"
+#line 79 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/MenuList.razor"
        
+    public string newTitle = null;
+    public string newCategory = null;
+    public string CategoryToRemove  = null;
+    public string NewItemName = null;
 
-    public List<Menu> MainList = new List<Menu>();
+
+    public void Remove()
+    {
+        foreach (var category in Categories)
+        {
+            if ((category.CategoryName == CategoryToRemove))
+            {
+                Categories.Remove(category);
+                break;
+            }
+        }
+
+        foreach (var Category in Categories)
+        {
+            foreach (var item in Category.Subcategory)
+            {
+                if (item.SubcategoryName == CategoryToRemove)
+                {
+                    Category.Subcategory.Remove(item);
+                    break;
+                }
+            }
+        }
+    }
+
+    public class Category
+    {
+        public string CategoryName;
+        public Category(string Name)
+        {
+            CategoryName = Name;
+        }
+        public List<Subcategory> Subcategory = new List<Subcategory>();
+    }
+
+    public class Subcategory
+    {
+        public string SubcategoryName;
+        public Subcategory(string Name)
+        {
+            SubcategoryName = Name;
+        }
+    }
+
+    public List<Category> Categories = new List<Category>();
+    private Category selectedCategory = null;
+
+    public void UpdateList()
+    {
+        selectedCategory = new Category(newCategory);
+        Categories.Add(new Category(newCategory));
+    }
 
     public void Insert()
     {
-        MainList.Add(new Menu(newTitle));
+        foreach (Category category in Categories)
+        {
+            if (category.CategoryName == selectedCategory.CategoryName)
+            {
+                category.Subcategory.Add(new Subcategory(newTitle));
+            }
+        }
     }
 
-    public string newItem = null;
+    private string Visible;
+    private int i = 1;
 
-    public string newTitle = null;
-
-        public void UpdateList()
-        {
-            AddedItems.Add(newItem);
-        }
-
-        public static List<string> AddedItems = new List<string>();
-
-    public class Menu
+    private void Dropdownbtn()
     {
-        public int Id;
-
-        public Menu(string _mystring)
+        i++;
+        if (i % 2 == 0)
         {
-            MyString = _mystring;
+            Visible = "block";
         }
-
-            List<string> Category = AddedItems;
-
-
-        public string MyString;
-
-            public void CreateList(List<string> listname)
-            {
-                listname = new List<string> { "hej", "med", "dig" };
-            }
-            public string name = "Bigboy";
+        else
+        {
+            Visible = "none";
         }
+    }
+
+
 
 #line default
 #line hidden

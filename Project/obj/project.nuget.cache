@@ -1,8 +1,28 @@
 {
   "version": 2,
-  "dgSpecHash": "kWrJ2/F3rt93snFoE2nN3zm/FYaxlCAYMUAiy0vaapualWr41AlGJbr1oaUqQdcQD2fbnBJjZmKW4baVy9z68g==",
+  "dgSpecHash": "ZBrgafECDKy+qPUxB7SqEuBtPsHtBXn+lyyN7kTkEe3H2yW7UPs6DzzT7BHYHEAyB1g08+MllqqpBEhSCBWaBA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\runef\\source\\Repos\\p3-project\\Project\\Project.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/p3-project/Project/Project.csproj",
+  "expectedPackageFiles": [
+    "/Users/minmacbook/.nuget/packages/bouncycastle.netcore/1.8.5/bouncycastle.netcore.1.8.5.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/google.protobuf/3.14.0/google.protobuf.3.14.0.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/k4os.compression.lz4/1.2.6/k4os.compression.lz4.1.2.6.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/k4os.compression.lz4.streams/1.2.6/k4os.compression.lz4.streams.1.2.6.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/k4os.hash.xxhash/1.0.6/k4os.hash.xxhash.1.0.6.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/microsoft.win32.systemevents/4.7.0/microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/mysql.data/8.0.27/mysql.data.8.0.27.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.configuration.configurationmanager/4.4.1/system.configuration.configurationmanager.4.4.1.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.drawing.common/4.7.0/system.drawing.common.4.7.0.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.runtime.compilerservices.unsafe/5.0.0/system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.security.accesscontrol/4.7.0/system.security.accesscontrol.4.7.0.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.security.cryptography.protecteddata/4.4.0/system.security.cryptography.protecteddata.4.4.0.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.security.permissions/4.7.0/system.security.permissions.4.7.0.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.security.principal.windows/4.7.0/system.security.principal.windows.4.7.0.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.text.encoding.codepages/4.4.0/system.text.encoding.codepages.4.4.0.nupkg.sha512",
+    "/Users/minmacbook/.nuget/packages/system.windows.extensions/4.7.0/system.windows.extensions.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }
