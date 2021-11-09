@@ -1,32 +1,32 @@
 ﻿@page "/Cart"
 @inherits ItemList
 
-<h3>Din indkoebskurv</h3>
+<h1>Din indkoebskurv</h1>
 
 <div class="page">
     <div class="cart-overview">
         @foreach (var item in Order)
         {
             <div class="item-container">
-                <p>@item.Type x @item.OrderAmount <p class="price">@item.subTotal,-</p></p>
-                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="btn nice"><b>+</b></button>
-                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="btn nice"><b>-</b></button>
-                <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="btn nice"><b>x</b></button>
+                <h4>@item.Type x @item.OrderAmount <p class="right">@item.subTotal,-</p></h4>
+                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
+                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
+                <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right"><b>x</b></button>
             </div>
         }
-        <div class="order-total">
-            <p>Ordre Total:</p>
-            <p> @Total,-</p>
-            <b class="Supply_Demand">Not enough in stock :(</b>
-            <b class="Negative_Order">If you want to remove press X instead</b>
-            <a class="w3-button nice" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
-        </div>
+    <div class="order-total">
+        <p>Ordre Total:<b class="right"> @Total,-</b></p>
+        <b class="Supply_Demand error">Not enough in stock :(</b>
+        <b class="Negative_Order error">If you want to remove press X instead</b>
+        <a class="butt" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
+    </div>
     </div>
 </div>
 
 <style>
     .page {
-        height: 500px;
+        height: fit-content;
+        margin-bottom: 30px;
     }
 
     .cart-overview {
@@ -41,25 +41,25 @@
         padding: 2px;
     }
 
-    .selected {
-        background-color: #efefef;
-    }
-
     .order-total {
         background-color: #bababa;
+        height: 100%;
     }
 
-    .price {
+    .order-total p{
+        font-size: 30px;
+    }
+
+    .right {
         float: right;
-    }
-
-    .nice {
-        background-color: white;
-        border: solid 1px;
     }
 
     .cart-overview b {
         font-size: large;
+    }
+
+    .error {
+        background-color: lightcoral;
     }
     
     .Supply_Demand {

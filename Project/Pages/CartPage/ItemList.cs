@@ -107,8 +107,24 @@ namespace Project.Pages
                 StorageCount = 4,
                 subTotal = 96
             };
+            Product Item5 = new Product
+            {
+                Type = "Meth",
+                Price = 9999,
+                OrderAmount = 1,
+                StorageCount = 10,
+                subTotal = 9999
+            };
+            Product Item6 = new Product
+            {
+                Type = "Aftensmad",
+                Price = 10,
+                OrderAmount = 1,
+                StorageCount = 10,
+                subTotal = 10
+            };
 
-            Order = new List<Product> { Item1, Item2, Item3, Item4};
+            Order = new List<Product> { Item1, Item2, Item3, Item4, Item5, Item6 };
         }
         protected override Task OnInitializedAsync()
         {
