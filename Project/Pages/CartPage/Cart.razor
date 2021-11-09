@@ -8,12 +8,15 @@
         @foreach (var item in Order)
         {
             <p>@item.Type x @item.OrderAmount <p class="price">@item.subTotal,-</p></p>
-            <button @onclick="() => { item.OrderAmount++; item.CalcPrice(); CalcTotal(); }" class="w3-button nice">Add</button>
-            <button @onclick="() => { item.OrderAmount--; item.CalcPrice(); CalcTotal(); }" class="w3-button nice">Minus</button>
+            <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="btn nice"><b>+</b></button>
+            <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="btn nice"><b>-</b></button>
+            <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="btn nice"><b>x</b></button>
         }
         <div class="order-total">
             <p>Ordre Total:</p>
             <p> @Total,-</p>
+            <b class="Supply_Demand">Not enough in stock :(</b>
+            <b class="Negative_Order">If you want to remove press X instead</b>
             <a class="w3-button nice" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
         </div>
     </div>
@@ -43,6 +46,16 @@
     }
 
     .nice {
-        background-color: cornflowerblue;
+
+        background-color: white;
+    }
+    .cart-overview b{
+        font-size: large;
+    }
+    .Supply_Demand {
+        display: @Supply_Demand;
+    }
+    .Negative_Order {
+        display: @NegativeOrder;
     }
 </style>

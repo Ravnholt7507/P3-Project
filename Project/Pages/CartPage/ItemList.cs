@@ -14,13 +14,52 @@ namespace Project.Pages
             public string Type { get; set; }
             public double Price { get; set; }
             public double subTotal { get; set; }
+            public int StorageCount { get; set; }
             public int OrderAmount { get; set; }
             public double CalcPrice()
             {
                 return subTotal = OrderAmount * Price;
             }
+
         }
         public double Total { get; set; }
+        public static string Supply_Demand = "none";
+        public static string NegativeOrder = "none";
+
+        public int ErrorPos(int Demand, int Supply)
+        {
+            if (Demand >= Supply)
+            {
+                Supply_Demand = "block";
+                return 0;
+            }
+            else
+            {
+                Supply_Demand = "none";
+                NegativeOrder = "none";
+                return 1;
+            }
+        }
+        public int ErrorNeg(int Demand, int Supply)
+        {
+            if (Demand <= 1)
+            {
+                NegativeOrder = "block";
+                return 0;
+            }
+            else
+            {
+                NegativeOrder = "none";
+                Supply_Demand = "none";
+                return 1;
+            }
+        }
+        public void RemoveError()
+        {
+            NegativeOrder = "none";
+            Supply_Demand = "none";
+        }
+
 
         public void CalcTotal()
         {
@@ -28,7 +67,7 @@ namespace Project.Pages
             foreach (var item in Order)
             {
                 Total += item.subTotal;
-            }
+            }   
         }
 
         public void LoadItems()
@@ -38,6 +77,7 @@ namespace Project.Pages
                 Type = "Shorts",
                 Price = 100,
                 OrderAmount = 1,
+                StorageCount = 50,
                 subTotal = 100
             };
             Product Item2 = new Product
@@ -45,6 +85,7 @@ namespace Project.Pages
                 Type = "Shirt",
                 Price = 52,
                 OrderAmount = 1,
+                StorageCount = 5,
                 subTotal = 52
             };
             Product Item3 = new Product
@@ -52,6 +93,7 @@ namespace Project.Pages
                 Type = "Penis",
                 Price = 69,
                 OrderAmount = 1,
+                StorageCount = 2,
                 subTotal = 69
             };
             Product Item4 = new Product
@@ -59,6 +101,7 @@ namespace Project.Pages
                 Type = "Penis2",
                 Price = 96,
                 OrderAmount = 1,
+                StorageCount = 4,
                 subTotal = 96
             };
 
