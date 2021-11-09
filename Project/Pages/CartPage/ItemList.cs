@@ -20,7 +20,6 @@ namespace Project.Pages
             {
                 return subTotal = OrderAmount * Price;
             }
-
         }
         public double Total { get; set; }
         public static string Supply_Demand = "none";
@@ -32,6 +31,10 @@ namespace Project.Pages
             {
                 Supply_Demand = "block";
                 return 0;
+            }
+            if (Demand == 69)
+            {
+                throw new ArgumentOutOfRangeException();
             }
             else
             {
@@ -77,7 +80,7 @@ namespace Project.Pages
                 Type = "Shorts",
                 Price = 100,
                 OrderAmount = 1,
-                StorageCount = 50,
+                StorageCount = 100,
                 subTotal = 100
             };
             Product Item2 = new Product
@@ -90,7 +93,7 @@ namespace Project.Pages
             };
             Product Item3 = new Product
             {
-                Type = "Penis",
+                Type = "Hat",
                 Price = 69,
                 OrderAmount = 1,
                 StorageCount = 2,
@@ -98,7 +101,7 @@ namespace Project.Pages
             };
             Product Item4 = new Product
             {
-                Type = "Penis2",
+                Type = "Hoodie",
                 Price = 96,
                 OrderAmount = 1,
                 StorageCount = 4,

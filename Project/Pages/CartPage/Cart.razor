@@ -7,10 +7,12 @@
     <div class="cart-overview">
         @foreach (var item in Order)
         {
-            <p>@item.Type x @item.OrderAmount <p class="price">@item.subTotal,-</p></p>
-            <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="btn nice"><b>+</b></button>
-            <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="btn nice"><b>-</b></button>
-            <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="btn nice"><b>x</b></button>
+            <div class="item-container">
+                <p>@item.Type x @item.OrderAmount <p class="price">@item.subTotal,-</p></p>
+                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="btn nice"><b>+</b></button>
+                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="btn nice"><b>-</b></button>
+                <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="btn nice"><b>x</b></button>
+            </div>
         }
         <div class="order-total">
             <p>Ordre Total:</p>
@@ -26,11 +28,17 @@
     .page {
         height: 500px;
     }
+
     .cart-overview {
         outline: solid;
         outline-color: black;
         width: 500px;
         background-color: #efefef;
+    }
+
+    .item-container {
+        border-bottom: 1px solid;
+        padding: 2px;
     }
 
     .selected {
@@ -46,15 +54,18 @@
     }
 
     .nice {
-
         background-color: white;
+        border: solid 1px;
     }
-    .cart-overview b{
+
+    .cart-overview b {
         font-size: large;
     }
+    
     .Supply_Demand {
         display: @Supply_Demand;
     }
+    
     .Negative_Order {
         display: @NegativeOrder;
     }
