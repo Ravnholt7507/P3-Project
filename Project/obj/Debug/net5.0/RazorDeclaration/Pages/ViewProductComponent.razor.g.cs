@@ -99,32 +99,7 @@ using Project.Data;
         #pragma warning restore 1998
 #nullable restore
 #line 34 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ViewProductComponent.razor"
-       
-    public Product prod;
-
-    [Parameter]
-    public int Id { get; set; }
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        if (Id > 0)
-        {
-            prod = GetProduct(Id);
-            Console.WriteLine(prod.ID);
-        }
-    }
-
-    public Product GetProduct(int id)
-    {
-        Product product = new Product(id);
-        {
-            if (product.ID == id)
-                return product;
-            return null;
-        }
-    }
+           public Product prod;    [Parameter]    public int Id { get; set; }    protected override void OnParametersSet()    {        base.OnParametersSet();        if (Id > 0)        {            prod = GetProduct(Id);            Console.WriteLine(prod.ID);        }    }    public Product GetProduct(int id)    {        Product product = new Product(id);        {            if (product.ID == id)                return product;            return null;        }    }
 
 #line default
 #line hidden

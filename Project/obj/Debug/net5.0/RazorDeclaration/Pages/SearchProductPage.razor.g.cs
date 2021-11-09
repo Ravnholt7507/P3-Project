@@ -103,12 +103,13 @@ using Project.Data;
     
     public void Loop()
     {
+        DbCall Call = new DbCall();
+        Call.SearchCall();
+
         for (int i = 1; i < 11; i++)
         {
             Product product = new Product(i);
-            Console.WriteLine("TEST");
             Products.Add(product);
-            Console.WriteLine(Products[i-1].ID);
         }
     }
 
