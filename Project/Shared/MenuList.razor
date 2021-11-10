@@ -1,4 +1,5 @@
 ﻿@inherits AdminFunctionality
+
 <div>
     <label>
         <input @bind="newCategory" placeholder="Indtast kategori" />
@@ -20,34 +21,57 @@
     <br />
 
     @*<label>
-        <input @bind="addItem" placeholder="Tilføj et produkt" />
-    </label>
+            <input @bind="addItem" placeholder="Tilføj et produkt" />
+        </label>
 
-    <button @onclick="updateItem">
-        Opdater titler
-    </button>*@
+        <button @onclick="updateItem">
+            Opdater titler
+        </button>*@
 
 
-    <label>
-        <input @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" />
-    </label>
+    @*<label>
+            <input @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" />
+        </label>
 
-    <button @onclick="Remove">
-        opdater titler eller kategorier
-    </button>
+        <button @onclick="Remove">
+            opdater titler eller kategorier
+        </button>*@
 
     <br />
     <br />
 </div>
 
 <div>
-    <input type="text" @bind="NewItemName" /> 
+    <input type="text" @bind="NewItemName" />
 
 
     <br />
     <br />
 
 </div>
+
+<div>
+    <label>
+        <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" />
+    </label>
+
+    <button @onclick="Remove">
+        Fjern
+    </button>
+
+    <datalist id="Categories">
+        @foreach (Category category in Categories)
+        {
+            <option value=@category.CategoryName></option>
+            foreach(Subcategory subcategory in category.Subcategory)
+                {
+                    <option value=@subcategory.SubcategoryName></option>
+                }
+        }
+    </datalist>
+</div>
+
+
 
 @for (int i = 0; i < Categories.Count; i++)
 {
@@ -79,28 +103,30 @@
 @code {
     public string newTitle = null;
     public string newCategory = null;
-    public string CategoryToRemove  = null;
+    public string CategoryToRemove = null;
     public string NewItemName = null;
 
 
     public void Remove()
     {
-        foreach (var category in Categories)
+        foreach (Category category in Categories)
         {
             if ((category.CategoryName == CategoryToRemove))
             {
                 Categories.Remove(category);
+                CategoryToRemove = null;
                 break;
             }
         }
 
-        foreach (var Category in Categories)
+        foreach (Category Category in Categories)
         {
             foreach (var item in Category.Subcategory)
             {
                 if (item.SubcategoryName == CategoryToRemove)
                 {
                     Category.Subcategory.Remove(item);
+                    CategoryToRemove = null;
                     break;
                 }
             }
@@ -133,6 +159,7 @@
     {
         selectedCategory = new Category(newCategory);
         Categories.Add(new Category(newCategory));
+        newCategory = null;
     }
 
     public void Insert()
@@ -142,6 +169,7 @@
             if (category.CategoryName == selectedCategory.CategoryName)
             {
                 category.Subcategory.Add(new Subcategory(newTitle));
+                newTitle = null;
             }
         }
     }
@@ -166,27 +194,27 @@
 }
 
 @*
-Code for itemlist
+    Code for itemlist
 
-color array:
-    0 = black
-    1 = white
-    2 = blue
-    3 = green
-    4 = red
-    5 = yellow
-    6 = purple
-    7 = brown
-    8 = grey
-    9 = pink
-    10 = orange
+    color array:
+        0 = black
+        1 = white
+        2 = blue
+        3 = green
+        4 = red
+        5 = yellow
+        6 = purple
+        7 = brown
+        8 = grey
+        9 = pink
+        10 = orange
 
-sizes array:
-    0 = xxs
-    1 = xs
-    2 = s
-    3 = m
-    4 = l
-    5 = xl
-    6 = xxl
+    sizes array:
+        0 = xxs
+        1 = xs
+        2 = s
+        3 = m
+        4 = l
+        5 = xl
+        6 = xxl
 *@
