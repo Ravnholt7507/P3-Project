@@ -1,6 +1,7 @@
 ﻿@inherits AdminFunctionality
 
 <div>
+    <h4>Create Category</h4>
     <label>
         <input @bind="newCategory" placeholder="Indtast kategori" />
     </label>
@@ -8,8 +9,18 @@
     <button @onclick="UpdateList">
         Update kategorier
     </button>
-
-
+</div>
+<br />
+<br />
+<div>
+    <h4>Create Subcategory</h4>
+    <label for="Category">Choose which category</label>
+    <select name="Category" id="Category" @bind="selectedCategory">
+        @foreach (Category category in Categories)
+        {
+        <option value=@category.CategoryName>@category.CategoryName</option>
+        }
+    </select>
     <label>
         <input @bind="newTitle" placeholder="Indtast Titel" />
     </label>
@@ -51,6 +62,7 @@
 </div>
 
 <div>
+    <h4>Remove a Category or Item</h4>
     <label>
         <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" />
     </label>
@@ -153,11 +165,11 @@
     }
 
     public List<Category> Categories = new List<Category>();
-    private Category selectedCategory = null;
+    private string selectedCategory = null;
 
     public void UpdateList()
     {
-        selectedCategory = new Category(newCategory);
+        selectedCategory = newCategory;
         Categories.Add(new Category(newCategory));
         newCategory = null;
     }
@@ -166,7 +178,7 @@
     {
         foreach (Category category in Categories)
         {
-            if (category.CategoryName == selectedCategory.CategoryName)
+            if (category.CategoryName == selectedCategory)
             {
                 category.Subcategory.Add(new Subcategory(newTitle));
                 newTitle = null;
