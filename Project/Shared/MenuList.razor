@@ -146,20 +146,17 @@
                 CategoryToRemove = null;
                 break;
             }
-        }
-
-        foreach (Category Category in Categories)
-        {
-            foreach (var item in Category.Subcategory)
+            foreach (var item in category.Subcategory)
             {
                 if (item.SubcategoryName == CategoryToRemove)
                 {
-                    Category.Subcategory.Remove(item);
+                    category.Subcategory.Remove(item);
                     CategoryToRemove = null;
                     break;
                 }
             }
         }
+
     }
 
     public class Category
