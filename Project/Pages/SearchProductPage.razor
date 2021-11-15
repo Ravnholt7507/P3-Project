@@ -1,5 +1,7 @@
 ﻿@page "/Products"
 
+@*inject Product Searchproduct*@
+
 <h3>Search Products</h3>
 
 <br />
@@ -52,13 +54,15 @@
     </tbody>
 </table>
 
+
+
 @code {
     
     public void Loop()
     {
         for (int i = 1; i < 11; i++)
         {
-            Product product = new Product();
+            Product product = new Product(i);
             Products.Add(product);
         }
     }
@@ -72,16 +76,6 @@
     public List<Product> Products = new List<Product>()
     {
     };
-
-    public class Product
-    {
-        public int ID { get; set; }
-        public string Brand { get; set; }
-        public string Name { get; set; }
-        public double Price { get; set; }
-        public string ImageLink { get; set; }
-        public string Description { get; set; }
-    }
 
     protected override void OnInitialized()
     {
