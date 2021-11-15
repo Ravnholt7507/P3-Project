@@ -13,7 +13,6 @@ namespace Project.Pages.AdminPage
         public string CategoryToRemove = null;
         public string NewItemName = null;
 
-
         public void Remove()
         {
             foreach (Category category in Categories)
