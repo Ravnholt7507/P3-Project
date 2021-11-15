@@ -14,12 +14,12 @@
                 <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right"><b>x</b></button>
             </div>
         }
-    <div class="order-total">
-        <p>Ordre Total:<b class="right"> @Total,-</b></p>
-        <b class="Supply_Demand error">Not enough in stock :(</b>
-        <b class="Negative_Order error">If you want to remove press X instead</b>
-        <a class="butt" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
-    </div>
+        <div class="order-total">
+            <p>Ordre Total:<b class="right"> @Total,-</b></p>
+            <b class="Supply_Demand error">Not enough in stock :(</b>
+            <b class="Negative_Order error">If you want to remove press X instead</b>
+            <a class="butt" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
+        </div>
     </div>
 </div>
 
@@ -61,11 +61,11 @@
     .error {
         background-color: lightcoral;
     }
-    
+
     .Supply_Demand {
         display: @Supply_Demand;
     }
-    
+
     .Negative_Order {
         display: @NegativeOrder;
     }

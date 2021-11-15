@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Project.Pages
@@ -9,6 +8,7 @@ namespace Project.Pages
     public class ItemList : ComponentBase
     {
         public List<Product> Order { get; set; }
+
         public class Product
         {
             public string Type { get; set; }
@@ -16,11 +16,13 @@ namespace Project.Pages
             public double subTotal { get; set; }
             public int StorageCount { get; set; }
             public int OrderAmount { get; set; }
+
             public double CalcPrice()
             {
                 return subTotal = OrderAmount * Price;
             }
         }
+
         public double Total { get; set; }
         public static string Supply_Demand = "none";
         public static string NegativeOrder = "none";
@@ -43,6 +45,7 @@ namespace Project.Pages
                 return 1;
             }
         }
+
         public int ErrorNeg(int Demand, int Supply)
         {
             if (Demand <= 1)
@@ -57,12 +60,12 @@ namespace Project.Pages
                 return 1;
             }
         }
+
         public void RemoveError()
         {
             NegativeOrder = "none";
             Supply_Demand = "none";
         }
-
 
         public void CalcTotal()
         {
@@ -70,7 +73,7 @@ namespace Project.Pages
             foreach (var item in Order)
             {
                 Total += item.subTotal;
-            }   
+            }
         }
 
         public void LoadItems()
@@ -126,6 +129,7 @@ namespace Project.Pages
 
             Order = new List<Product> { Item1, Item2, Item3, Item4, Item5, Item6 };
         }
+
         protected override Task OnInitializedAsync()
         {
             LoadItems();

@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project.Pages.AdminPage
 {
@@ -38,16 +35,19 @@ namespace Project.Pages.AdminPage
         public class Category
         {
             public string CategoryName;
+
             public Category(string Name)
             {
                 CategoryName = Name;
             }
+
             public List<Subcategory> Subcategory = new List<Subcategory>();
         }
 
         public class Subcategory
         {
             public string SubcategoryName;
+
             public Subcategory(string Name)
             {
                 SubcategoryName = Name;

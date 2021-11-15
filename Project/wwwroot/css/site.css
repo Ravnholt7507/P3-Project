@@ -42,12 +42,12 @@ a, .btn-link {
     z-index: 1000;
 }
 
-#blazor-error-ui .dismiss {
-    cursor: pointer;
-    position: absolute;
-    right: 0.75rem;
-    top: 0.5rem;
-}
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
 
 .butt {
     text-align: center;
@@ -65,16 +65,15 @@ a, .btn-link {
     text-align: center;
     transition-duration: 0.4s;
     overflow: hidden;
-
     border-radius: 4px;
 }
 
-.butt:hover {
-    background: #fff;
-    box-shadow: 0px 2px 10px 5px #1abc9c;
-    color: #000;
-}
+    .butt:hover {
+        background: #fff;
+        box-shadow: 0px 2px 10px 5px #1abc9c;
+        color: #000;
+    }
 
-.butt:focus {
-    outline: 0;
-}
+    .butt:focus {
+        outline: 0;
+    }

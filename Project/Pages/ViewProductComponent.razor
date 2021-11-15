@@ -3,7 +3,6 @@
 @inject Product Searchproduct
 <h2>Product details</h2>
 
-
 <div class="w3" style="width: 28rem;">
     <div class="card-body">
         <img src="@prod.ImageLink" />
@@ -19,19 +18,19 @@
 <NavLink href="/products"> Back To Products</NavLink>
 
 @*<div>
-    <img src="@prod.ImageLink" />
-    <br />
+        <img src="@prod.ImageLink" />
+        <br />
 
-    @prod.Name
-    <br />
-    @prod.Brand
-    <br />
-    @prod.Price.ToString
-    <br />
-    @prod.Description
-    <br />
-    <br />
-</div>*@
+        @prod.Name
+        <br />
+        @prod.Brand
+        <br />
+        @prod.Price.ToString
+        <br />
+        @prod.Description
+        <br />
+        <br />
+    </div>*@
 
 @code {
     public Product prod;
@@ -48,7 +47,7 @@
     }
 
     public IEnumerable<Product> products = new List<Product>
-    {
+{
         new Product { ID = 1, Brand = "Hunde", Name = "Husky", Price = 30, Description = "cute dog", ImageLink = "Images/bedøvet vuf.png"},
         new Product { ID = 2, Brand = "Heinz", Name = "Ketchup", Price = 40, Description = "Ketchup med tomat sovs", ImageLink = "Images/Ketchup.png" },
         new Product { ID = 3, Brand = "Burger king", Name = "Burger", Price = 230, Description = "Burger med salat. nam nam", ImageLink = "Images/Burger.png" },
@@ -57,7 +56,6 @@
         new Product { ID = 6, Brand = "Ressource", Name = "cola", Price = 30, Description = "Kdfdfdsdsdc", ImageLink = "Images/Ketchup.png"},
         new Product { ID = 7, Brand = "KSIOlajidebt", Name = "Faxe kondi", Price = 30, Description = "a", ImageLink = "Images/Ketchup.png"}
     };
-
 
     public Product GetProduct(int id)
     {

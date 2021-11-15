@@ -31,15 +31,15 @@
             {
                 @if (Product != null)
                 {
-        <tr>
-            <td>
-                <NavLink href="@($"product/{Product.ID}")">
-                    @Product.Name
-                </NavLink>
-            </td>
-            <td>@Product.Brand</td>
-            <td>@Product.Price.ToString("kr.")</td>
-        </tr>
+                    <tr>
+                        <td>
+                            <NavLink href="@($"product/{Product.ID}")">
+                                @Product.Name
+                            </NavLink>
+                        </td>
+                        <td>@Product.Brand</td>
+                        <td>@Product.Price.ToString("kr.")</td>
+                    </tr>
                 }
             }
         }
@@ -54,14 +54,12 @@
     </tbody>
 </table>
 
-
-
 @code {
     [Parameter]
     public Product product { get; set; }
 
     public IEnumerable<Product> products = new List<Product>
-    {
+{
         new Product { ID = 1, Brand = "Beyblade", Name = "Mayeb sauce", Price = 30, Description = "Kúmba", },
         new Product { ID = 2, Brand = "Pokemon", Name = "Ketchup", Price = 40, Description = "Kúmbafsfds", },
         new Product { ID = 3, Brand = "Wow", Name = "Burger", Price = 230, Description = "sdafadf", },
@@ -82,7 +80,6 @@
     {
         products = GetProducts(filter);
     }
-
 
     public IEnumerable<Product> GetProducts(string filter = null)
     {
