@@ -1,1 +1,43 @@
-﻿@page "/product/{id:int}"@*inject Product Searchproduct*@<h2>Product details</h2>    <div class="w3" style="width: 28rem;">        <div class="card-body">            <img src="@prod.ImageLink"/>            <h5 class="card-title">@prod.Name</h5>            <h6 class="card-subtitle mb-2 text-muted">@prod.Brand</h6>            <hr/>            <p>                price: <label style="color:darkred">@prod.Price.ToString("Kr.")</label>            </p>            <p class="card-text">@prod.Description</p>        </div>    </div>    <NavLink href="/products"> Back To Products</NavLink>@*<div>    <img src="@prod.ImageLink" />    <br />    @prod.Name    <br />    @prod.Brand    <br />    @prod.Price.ToString    <br />    @prod.Description    <br />    <br /></div>*@@code {    public Product prod;    [Parameter]    public int Id { get; set; }    protected override void OnParametersSet()    {        base.OnParametersSet();        if (Id > 0)        {            prod = GetProduct(Id);        }    }    public Product GetProduct(int id)    {        Product product = new Product(id);        {            if (product.ID == id)                return product;            return null;        }    }}
+@page "/product/{id:int}"
+
+<h2>Product details</h2>
+    <div class="w3" style="width: 28rem;">
+        <div class="card-body">
+            <img src="@prod.ImageLink"/>
+            <h5 class="card-title">@prod.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@prod.Brand</h6>
+            <hr/>
+            <p>
+                price: <label style="color:darkred">@prod.Price.ToString("Kr.")</label>
+            </p>
+            <p class="card-text">@prod.Description</p>
+        </div>
+    </div>
+    <NavLink href="/products"> Back To Products</NavLink>
+
+@code {
+    public Product prod;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Id > 0)
+        {
+            prod = GetProduct(Id);
+        }
+    }
+
+    public Product GetProduct(int id)
+    {
+        Product product = new Product(id);
+        {
+            if (product.ID == id)
+                return product;
+            return null;
+        }
+    }
+}
