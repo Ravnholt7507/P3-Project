@@ -84,13 +84,6 @@ using Project.Shared;
 #nullable disable
 #nullable restore
 #line 11 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Project.Data;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Project.Shared.ComponentCode;
 
 #line default
@@ -105,14 +98,14 @@ using Project.Shared.ComponentCode;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/SearchProductPage.razor"
+#line 55 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/SearchProductPage.razor"
        
     
     public void Loop()
     {
         for (int i = 1; i < 11; i++)
         {
-            Product product = new Product(i);
+            Product product = new Product();
             Products.Add(product);
         }
     }
@@ -126,6 +119,16 @@ using Project.Shared.ComponentCode;
     public List<Product> Products = new List<Product>()
     {
     };
+
+    public class Product
+    {
+        public int ID { get; set; }
+        public string Brand { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public string ImageLink { get; set; }
+        public string Description { get; set; }
+    }
 
     protected override void OnInitialized()
     {
