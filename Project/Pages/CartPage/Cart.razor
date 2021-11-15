@@ -1,34 +1,28 @@
 ﻿@page "/Cart"
 @inherits ItemList
 
-<h1>Din indkoebskurv</h1>
+<h3>Din indkoebskurv</h3>
 
 <div class="page">
     <div class="cart-overview">
         @foreach (var item in Order)
         {
-            <div class="item-container">
-                <h4>@item.Type x @item.OrderAmount <p class="right">@item.subTotal,-</p></h4>
-                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
-                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
-                <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right"><b>x</b></button>
-            </div>
+            <p>@item.Name x @item.OrderAmount <p class="price">@item.SubTotal,-</p></p>
+            <button @onclick="() => { item.OrderAmount++; item.CalcPrice(); CalcTotal(); }" class="w3-button nice">Add</button>
+            <button @onclick="() => { item.OrderAmount--; item.CalcPrice(); CalcTotal(); }" class="w3-button nice">Minus</button>
         }
         <div class="order-total">
-            <p>Ordre Total:<b class="right"> @Total,-</b></p>
-            <b class="Supply_Demand error">Not enough in stock :(</b>
-            <b class="Negative_Order error">If you want to remove press X instead</b>
-            <a class="butt" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
+            <p>Ordre Total:</p>
+            <p> @Total,-</p>
+            <a class="w3-button nice" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
         </div>
     </div>
 </div>
 
 <style>
     .page {
-        height: fit-content;
-        margin-bottom: 30px;
+        height: 500px;
     }
-
     .cart-overview {
         outline: solid;
         outline-color: black;
@@ -36,37 +30,19 @@
         background-color: #efefef;
     }
 
-    .item-container {
-        border-bottom: 1px solid;
-        padding: 2px;
+    .selected {
+        background-color: #efefef;
     }
 
     .order-total {
         background-color: #bababa;
-        height: 100%;
     }
 
-    .order-total p{
-        font-size: 30px;
-    }
-
-    .right {
+    .price {
         float: right;
     }
 
-    .cart-overview b {
-        font-size: large;
-    }
-
-    .error {
-        background-color: lightcoral;
-    }
-
-    .Supply_Demand {
-        display: @Supply_Demand;
-    }
-
-    .Negative_Order {
-        display: @NegativeOrder;
+    .nice {
+        background-color: cornflowerblue;
     }
 </style>

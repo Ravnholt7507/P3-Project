@@ -48,32 +48,3 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
-
-.butt {
-    text-align: center;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-size: 20px;
-    letter-spacing: 4px;
-    position: relative;
-    background-color: #16a085;
-    border: none;
-    color: #fff;
-    padding: 2px;
-    height: 5vmin;
-    width: 5vmin;
-    text-align: center;
-    transition-duration: 0.4s;
-    overflow: hidden;
-    border-radius: 4px;
-}
-
-    .butt:hover {
-        background: #fff;
-        box-shadow: 0px 2px 10px 5px #1abc9c;
-        color: #000;
-    }
-
-    .butt:focus {
-        outline: 0;
-    }
