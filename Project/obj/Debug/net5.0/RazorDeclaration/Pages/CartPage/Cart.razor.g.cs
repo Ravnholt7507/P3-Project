@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Shared
+namespace Project.Pages.CartPage
 {
     #line hidden
     using System;
@@ -89,22 +89,14 @@ using Project.Shared.ComponentCode;
 #line default
 #line hidden
 #nullable disable
-    public partial class PrintList : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Cart")]
+    public partial class Cart : ItemList
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 1 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/PrintList.razor"
-       
-    [Parameter]
-    public List<string> Pages { get; set; }
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

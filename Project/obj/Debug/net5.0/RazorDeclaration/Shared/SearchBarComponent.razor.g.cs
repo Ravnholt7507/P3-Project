@@ -89,7 +89,7 @@ using Project.Shared.ComponentCode;
 #line default
 #line hidden
 #nullable disable
-    public partial class PrintList : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class SearchBarComponent : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -97,10 +97,17 @@ using Project.Shared.ComponentCode;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 1 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/PrintList.razor"
+#line 9 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/SearchBarComponent.razor"
        
+    private string filter;
+
     [Parameter]
-    public List<string> Pages { get; set; }
+    public EventCallback<string> OnSearch { get; set; }
+
+    private void HandleSearch()
+    {
+        OnSearch.InvokeAsync(filter);
+    }
 
 #line default
 #line hidden
