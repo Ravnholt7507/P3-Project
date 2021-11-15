@@ -89,6 +89,13 @@ using Project.Data;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Shared.ComponentCode;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Products")]
     public partial class SearchProductPage : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -103,9 +110,6 @@ using Project.Data;
     
     public void Loop()
     {
-        DbCall Call = new DbCall();
-        Call.SearchCall();
-
         for (int i = 1; i < 11; i++)
         {
             Product product = new Product(i);

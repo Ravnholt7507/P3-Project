@@ -17,13 +17,18 @@ namespace Project.Pages
         {
             private DbCall Call = new DbCall();
 
-            public Product(int i)
+            private Product(int i)
             {
                 string[] array = Call.CartCall(i);
                 this.Name = array[0];
                 this.Price = int.Parse(array[1]);
                 this.OrderAmount = 1;
                 this.SubTotal = Price;
+            }
+
+            public static Product CreateInstance(int i)
+            {
+                return new Product(i);
             }
 
             public string Name { get; set; }
@@ -54,7 +59,7 @@ namespace Project.Pages
             //for (int i = 1; i < 100; i++)
             //{
             int i = 52; 
-            Product item = new Product(i);
+            Product item = Product.CreateInstance(i);
             Order.Add(item);
             //}
         }

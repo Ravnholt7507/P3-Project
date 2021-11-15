@@ -1066,37 +1066,45 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>12</Position>
       <DataType>text|0s</DataType>
     </column>
-    <key id="309" parent="284" name="PRIMARY">
+    <column id="309" parent="284" name="kpi">
+      <Position>13</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="310" parent="284" name="barcode">
+      <Position>14</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <key id="311" parent="284" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="310" parent="285" name="id">
+    <column id="312" parent="285" name="id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="311" parent="285" name="name">
+    <column id="313" parent="285" name="name">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <key id="312" parent="285" name="PRIMARY">
+    <key id="314" parent="285" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="313" parent="286" name="id">
+    <column id="315" parent="286" name="id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="314" parent="286" name="name">
+    <column id="316" parent="286" name="name">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <key id="315" parent="286" name="PRIMARY">
+    <key id="317" parent="286" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

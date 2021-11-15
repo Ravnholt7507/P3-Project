@@ -86,6 +86,13 @@ using Project.Data;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Shared.ComponentCode;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MenuList : AdminFunctionality
     {
         #pragma warning disable 1998

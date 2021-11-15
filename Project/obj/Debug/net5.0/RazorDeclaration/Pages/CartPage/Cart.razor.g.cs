@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Pages
+namespace Project.Pages.CartPage
 {
     #line hidden
     using System;
@@ -85,6 +85,13 @@ using Project.Shared;
 #nullable restore
 #line 11 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Project.Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Shared.ComponentCode;
 
 #line default
 #line hidden

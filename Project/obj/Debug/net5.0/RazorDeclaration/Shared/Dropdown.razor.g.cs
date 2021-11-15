@@ -89,44 +89,20 @@ using Project.Data;
 #line default
 #line hidden
 #nullable disable
-    public partial class Dropdown : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Shared.ComponentCode;
+
+#line default
+#line hidden
+#nullable disable
+    public partial class Dropdown : DropdownCode
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 10 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/Dropdown.razor"
-      
-    List<string> InsertPages = new List<string>() { "Counter", "Admin", "Jackets", "Andreas", "Products" };
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 26 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/Dropdown.razor"
-       
-
-    private string Visible;
-    private int i = 1;
-
-    private void Dropdownbtn()
-    {
-        i++;
-        if (i % 2 == 0)
-        {
-            Visible = "block";
-        }
-        else
-        {
-            Visible = "none";
-        }
-    }
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591
