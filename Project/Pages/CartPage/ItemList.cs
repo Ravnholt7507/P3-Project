@@ -1,68 +1,135 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
-using Project.Data;
 
 namespace Project.Pages
 {
     public class ItemList : ComponentBase
     {
         public List<Product> Order { get; set; }
-        
+
         public class Product
         {
-            private DbCall Call = new DbCall();
-
-            private Product(int i)
-            {
-                string[] array = Call.CartCall(i);
-                this.Name = array[0];
-                this.Price = int.Parse(array[1]);
-                this.OrderAmount = 1;
-                this.SubTotal = Price;
-            }
-
-            public static Product CreateInstance(int i)
-            {
-                return new Product(i);
-            }
-
-            public string Name { get; set; }
+            public string Type { get; set; }
             public double Price { get; set; }
-            public double SubTotal { get; set; }
+            public double subTotal { get; set; }
+            public int StorageCount { get; set; }
             public int OrderAmount { get; set; }
+
             public double CalcPrice()
             {
-                return SubTotal = OrderAmount * Price;
+                return subTotal = OrderAmount * Price;
             }
-            
         }
+
         public double Total { get; set; }
+        public static string Supply_Demand = "none";
+        public static string NegativeOrder = "none";
+
+        public int ErrorPos(int Demand, int Supply)
+        {
+            if (Demand >= Supply)
+            {
+                Supply_Demand = "block";
+                return 0;
+            }
+            if (Demand == 69)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else
+            {
+                Supply_Demand = "none";
+                NegativeOrder = "none";
+                return 1;
+            }
+        }
+
+        public int ErrorNeg(int Demand, int Supply)
+        {
+            if (Demand <= 1)
+            {
+                NegativeOrder = "block";
+                return 0;
+            }
+            else
+            {
+                NegativeOrder = "none";
+                Supply_Demand = "none";
+                return 1;
+            }
+        }
+
+        public void RemoveError()
+        {
+            NegativeOrder = "none";
+            Supply_Demand = "none";
+        }
 
         public void CalcTotal()
         {
             Total = 0;
             foreach (var item in Order)
             {
-                Total += item.SubTotal;
+                Total += item.subTotal;
             }
         }
 
-
         public void LoadItems()
         {
-            Order = new List<Product>();
-            //for (int i = 1; i < 100; i++)
-            //{
-            int i = 52; 
-            Product item = Product.CreateInstance(i);
-            Order.Add(item);
-            //}
+            Product Item1 = new Product
+            {
+                Type = "Shorts",
+                Price = 100,
+                OrderAmount = 1,
+                StorageCount = 100,
+                subTotal = 100
+            };
+            Product Item2 = new Product
+            {
+                Type = "Shirt",
+                Price = 52,
+                OrderAmount = 1,
+                StorageCount = 5,
+                subTotal = 52
+            };
+            Product Item3 = new Product
+            {
+                Type = "Hat",
+                Price = 69,
+                OrderAmount = 1,
+                StorageCount = 2,
+                subTotal = 69
+            };
+            Product Item4 = new Product
+            {
+                Type = "Hoodie",
+                Price = 96,
+                OrderAmount = 1,
+                StorageCount = 4,
+                subTotal = 96
+            };
+            Product Item5 = new Product
+            {
+                Type = "Meth",
+                Price = 9999,
+                OrderAmount = 1,
+                StorageCount = 10,
+                subTotal = 9999
+            };
+            Product Item6 = new Product
+            {
+                Type = "Aftensmad",
+                Price = 10,
+                OrderAmount = 1,
+                StorageCount = 10,
+                subTotal = 10
+            };
+
+            Order = new List<Product> { Item1, Item2, Item3, Item4, Item5, Item6 };
         }
+
         protected override Task OnInitializedAsync()
         {
             LoadItems();

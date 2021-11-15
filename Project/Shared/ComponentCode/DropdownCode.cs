@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project.Shared.ComponentCode
 {
@@ -23,6 +20,7 @@ namespace Project.Shared.ComponentCode
                 Visible = "none";
             }
         }
-        public List<string> InsertPages = new List<string>() { "Counter", "Admin", "Jackets", "Andreas", "Products" };       
+
+        public List<string> InsertPages = new List<string>() { "Counter", "Admin", "Jackets", "Andreas", "Products" };
     }
 }
