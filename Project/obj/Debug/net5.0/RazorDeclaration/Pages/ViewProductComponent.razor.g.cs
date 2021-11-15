@@ -84,14 +84,14 @@ using Project.Shared;
 #nullable disable
 #nullable restore
 #line 11 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Project.Shared.ComponentCode;
+using Project.Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ViewProductComponent.razor"
-using Project.Data;
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Shared.ComponentCode;
 
 #line default
 #line hidden
@@ -105,32 +105,8 @@ using Project.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 19 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ViewProductComponent.razor"
-       
-    public Product prod;
-
-    [Parameter]
-    public int Id { get; set; }
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        if (Id > 0)
-        {
-            prod = GetProduct(Id);
-        }
-    }
-
-    public Product GetProduct(int id)
-    {
-        Product product = new Product(id);
-        {
-            if (product.ID == id)
-                return product;
-            return null;
-        }
-    }
+#line 34 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ViewProductComponent.razor"
+           public Product prod;    [Parameter]    public int Id { get; set; }    protected override void OnParametersSet()    {        base.OnParametersSet();        if (Id > 0)        {            prod = GetProduct(Id);        }    }    public Product GetProduct(int id)    {        Product product = new Product(id);        {            if (product.ID == id)                return product;            return null;        }    }
 
 #line default
 #line hidden
