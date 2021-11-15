@@ -1,7 +1,5 @@
 ﻿@page "/Products"
 
-@inject Product Searchproduct
-
 <h3>Search Products</h3>
 
 <br />
@@ -68,6 +66,16 @@
         new Product { ID = 6, Brand = "Ressource", Name = "cola", Price = 30, Description = "Kdfdfdsdsdc", },
         new Product { ID = 7, Brand = "KSIOlajidebt", Name = "Faxe kondi", Price = 30, Description = "a", }
     };
+
+    public class Product
+    {
+        public int ID { get; set; }
+        public string Brand { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public string ImageLink { get; set; }
+        public string Description { get; set; }
+    }
 
     protected override void OnInitialized()
     {
