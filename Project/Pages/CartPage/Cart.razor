@@ -8,9 +8,9 @@
         @foreach (var item in Order)
         {
             <div class="item-container">
-                <h4>@item.Type x @item.OrderAmount <p class="right">@item.subTotal,-</p></h4>
-                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
-                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.StorageCount); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
+                <h4>@item.Name x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
+                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
+                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
                 <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right"><b>x</b></button>
             </div>
         }
@@ -63,7 +63,7 @@
     }
 
     .Supply_Demand {
-        display: @Supply_Demand;
+        display: @SupplyDemand;
     }
 
     .Negative_Order {

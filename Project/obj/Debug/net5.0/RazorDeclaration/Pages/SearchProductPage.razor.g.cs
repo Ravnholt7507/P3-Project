@@ -89,6 +89,13 @@ using Project.Shared.ComponentCode;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/SearchProductPage.razor"
+using Project.CSharpFiles;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Products")]
     public partial class SearchProductPage : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -98,48 +105,45 @@ using Project.Shared.ComponentCode;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 55 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/SearchProductPage.razor"
+#line 56 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/SearchProductPage.razor"
        
-    [Parameter]
-    public Product product { get; set; }
-
-    public IEnumerable<Product> products = new List<Product>
-{
-        new Product { ID = 1, Brand = "Beyblade", Name = "Mayeb sauce", Price = 30, Description = "Kúmba", },
-        new Product { ID = 2, Brand = "Pokemon", Name = "Ketchup", Price = 40, Description = "Kúmbafsfds", },
-        new Product { ID = 3, Brand = "Wow", Name = "Burger", Price = 230, Description = "sdafadf", },
-        new Product { ID = 4, Brand = "Yoghurt", Name = "Mayonnaise", Price = 333, Description = "Kdsfsdfa", },
-        new Product { ID = 5, Brand = "Bibliotek", Name = "water", Price = 30, Description = "K'efafa", },
-        new Product { ID = 6, Brand = "Ressource", Name = "cola", Price = 30, Description = "Kdfdfdsdsdc", },
-        new Product { ID = 7, Brand = "KSIOlajidebt", Name = "Faxe kondi", Price = 30, Description = "a", }
-    };
-
-    public class Product
+    
+    public void Loop()
     {
-        public int ID { get; set; }
-        public string Brand { get; set; }
-        public string Name { get; set; }
-        public double Price { get; set; }
-        public string ImageLink { get; set; }
-        public string Description { get; set; }
+        for (int i = 1; i < 11; i++)
+        {
+            Product product = new Product(i);
+            Products.Add(product);
+        }
     }
+
+    protected override Task OnInitializedAsync()
+    {
+        Loop();
+        return base.OnInitializedAsync();
+    }
+    
+    public List<Product> Products = new List<Product>()
+    {
+    };
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        products = GetProducts();
+        Products = GetProducts();
     }
 
     public void HandleSearch(string filter)
     {
-        products = GetProducts(filter);
+        Products = GetProducts(filter);
     }
 
-    public IEnumerable<Product> GetProducts(string filter = null)
+
+    public List<Product> GetProducts(string filter = null)
     {
-        if (string.IsNullOrWhiteSpace(filter)) return products;
-        return products.Where(x => x.Name.ToLower().Contains(filter.ToLower()));
+        if (string.IsNullOrWhiteSpace(filter)) return Products;
+        return Products;
     }
 
 #line default

@@ -89,6 +89,13 @@ using Project.Shared.ComponentCode;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ViewProductComponent.razor"
+using Project.CSharpFiles;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/product/{id:int}")]
     public partial class ViewProductComponent : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -98,19 +105,9 @@ using Project.Shared.ComponentCode;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 19 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ViewProductComponent.razor"
+#line 20 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ViewProductComponent.razor"
        
     public Product prod;
-
-    public class Product
-    {
-        public int ID { get; set; }
-        public string Brand { get; set; }
-        public string Name { get; set; }
-        public double Price { get; set; }
-        public string ImageLink { get; set; }
-        public string Description { get; set; }
-    }
 
     [Parameter]
     public int Id { get; set; }
@@ -120,28 +117,19 @@ using Project.Shared.ComponentCode;
         base.OnParametersSet();
 
         if (Id > 0)
+        {
             prod = GetProduct(Id);
+        }
     }
-
-    public IEnumerable<Product> products = new List<Product>
-    {
-        new Product { ID = 1, Brand = "Hunde", Name = "Husky", Price = 30, Description = "cute dog", ImageLink = "Images/bedøvet vuf.png"},
-        new Product { ID = 2, Brand = "Heinz", Name = "Ketchup", Price = 40, Description = "Ketchup med tomat sovs", ImageLink = "Images/Ketchup.png" },
-        new Product { ID = 3, Brand = "Burger king", Name = "Burger", Price = 230, Description = "Burger med salat. nam nam", ImageLink = "Images/Burger.png" },
-        new Product { ID = 4, Brand = "Yoghurt", Name = "Mayonnaise", Price = 333, Description = "Kdsfsdfa", ImageLink = "Images/Ketchup.png"},
-        new Product { ID = 5, Brand = "Bibliotek", Name = "water", Price = 30, Description = "K'efafa", ImageLink = "Images/Ketchup.png"},
-        new Product { ID = 6, Brand = "Ressource", Name = "cola", Price = 30, Description = "Kdfdfdsdsdc", ImageLink = "Images/Ketchup.png"},
-        new Product { ID = 7, Brand = "KSIOlajidebt", Name = "Faxe kondi", Price = 30, Description = "a", ImageLink = "Images/Ketchup.png"}
-    };
 
     public Product GetProduct(int id)
     {
-        foreach (var item in products)
+        Product product = new Product(id);
         {
-            if (item.ID == id)
-                return item;
+            if (product.Id == id)
+                return product;
+            return null;
         }
-        return null;
     }
 
 #line default

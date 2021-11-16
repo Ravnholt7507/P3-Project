@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,14 +10,14 @@ namespace Project.CSharpFiles
     {
         public Product(int i)
         {
-            DbCall Call = new DbCall();
-            string[] array = Call.SpecificArticleCall(i);
-            this.ID = i;
+            DbCall call = new DbCall();
+            string[] array = call.SpecificArticleCall(i);
+            this.Id = i;
             this.Name = array[0];
             this.Description = array[1];
             this.Colour = array[2];
             this.Size = array[3];
-            this.Price = int.Parse(array[4]);
+            this.Price = double.Parse(array[4]);
             this.Stock = int.Parse(array[5]);
             this.Transparency = array[6];
             this.Category = array[7];
@@ -24,7 +25,7 @@ namespace Project.CSharpFiles
             this.ImageLink = array[9];
         }
         
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Colour { get; set; }
@@ -35,8 +36,19 @@ namespace Project.CSharpFiles
         public string Category { get; set; }
         public string Type { get; set; }
         public string ImageLink { get; set; }
-        public string Brand { get; set; }
 
+        public int OrderAmount = 1;
+        public double SubTotal { get; set; }
+
+        public double CalcPrice()
+        {
+            return SubTotal = OrderAmount * Price;
+        }
+
+        public static Product CreateInstance(int i)
+        {
+            return new Product(i);
+        }
     }
 
     public class ProductRepository

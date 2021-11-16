@@ -1,54 +1,43 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using Project.CSharpFiles;
 
-namespace Project.Pages
+namespace Project.Pages.CartPage
 {
     public class ItemList : ComponentBase
     {
         public List<Product> Order { get; set; }
 
-        public class Product
-        {
-            public string Type { get; set; }
-            public double Price { get; set; }
-            public double subTotal { get; set; }
-            public int StorageCount { get; set; }
-            public int OrderAmount { get; set; }
 
-            public double CalcPrice()
-            {
-                return subTotal = OrderAmount * Price;
-            }
-        }
 
         public double Total { get; set; }
-        public static string Supply_Demand = "none";
+        public static string SupplyDemand = "none";
         public static string NegativeOrder = "none";
 
-        public int ErrorPos(int Demand, int Supply)
+        public int ErrorPos(int demand, int supply)
         {
-            if (Demand >= Supply)
+            if (demand >= supply)
             {
-                Supply_Demand = "block";
+                SupplyDemand = "block";
                 return 0;
             }
-            if (Demand == 69)
+            if (demand == 69)
             {
                 throw new ArgumentOutOfRangeException();
             }
             else
             {
-                Supply_Demand = "none";
+                SupplyDemand = "none";
                 NegativeOrder = "none";
                 return 1;
             }
         }
 
-        public int ErrorNeg(int Demand, int Supply)
+        public int ErrorNeg(int demand, int supply)
         {
-            if (Demand <= 1)
+            if (demand <= 1)
             {
                 NegativeOrder = "block";
                 return 0;
@@ -56,7 +45,7 @@ namespace Project.Pages
             else
             {
                 NegativeOrder = "none";
-                Supply_Demand = "none";
+                SupplyDemand = "none";
                 return 1;
             }
         }
@@ -64,7 +53,7 @@ namespace Project.Pages
         public void RemoveError()
         {
             NegativeOrder = "none";
-            Supply_Demand = "none";
+            SupplyDemand = "none";
         }
 
         public void CalcTotal()
@@ -72,62 +61,19 @@ namespace Project.Pages
             Total = 0;
             foreach (var item in Order)
             {
-                Total += item.subTotal;
+                Total += item.SubTotal;
             }
         }
 
         public void LoadItems()
         {
-            Product Item1 = new Product
+            Order = new List<Product>();
+            for (int i = 1; i < 10; i++)
             {
-                Type = "Shorts",
-                Price = 100,
-                OrderAmount = 1,
-                StorageCount = 100,
-                subTotal = 100
-            };
-            Product Item2 = new Product
-            {
-                Type = "Shirt",
-                Price = 52,
-                OrderAmount = 1,
-                StorageCount = 5,
-                subTotal = 52
-            };
-            Product Item3 = new Product
-            {
-                Type = "Hat",
-                Price = 69,
-                OrderAmount = 1,
-                StorageCount = 2,
-                subTotal = 69
-            };
-            Product Item4 = new Product
-            {
-                Type = "Hoodie",
-                Price = 96,
-                OrderAmount = 1,
-                StorageCount = 4,
-                subTotal = 96
-            };
-            Product Item5 = new Product
-            {
-                Type = "Meth",
-                Price = 9999,
-                OrderAmount = 1,
-                StorageCount = 10,
-                subTotal = 9999
-            };
-            Product Item6 = new Product
-            {
-                Type = "Aftensmad",
-                Price = 10,
-                OrderAmount = 1,
-                StorageCount = 10,
-                subTotal = 10
-            };
-
-            Order = new List<Product> { Item1, Item2, Item3, Item4, Item5, Item6 };
+                Product item = Product.CreateInstance(i);
+                item.SubTotal = item.Price;
+                Order.Add(item);
+            }
         }
 
         protected override Task OnInitializedAsync()

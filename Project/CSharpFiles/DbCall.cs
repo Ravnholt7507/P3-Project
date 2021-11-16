@@ -14,7 +14,7 @@ namespace Project.CSharpFiles
             string[] array = new string[2];
             using var con = new MySqlConnection(_cs);
             con.Open();
-            string sql = $@"SELECT name, price FROM articles WHERE id = '{i}'";
+            string sql = $@"SELECT name, price, stock FROM articles WHERE id = '{i}'";
             using var cmd = new MySqlCommand(sql, con);
             using MySqlDataReader rdr = cmd.ExecuteReader();
             
@@ -24,6 +24,8 @@ namespace Project.CSharpFiles
                 array[0] = name;
                 string price = rdr.GetString(1);
                 array[1] = price;
+                string stock = rdr.GetString(2);
+                array[2] = stock;
             }
             con.Close();
             return array;
