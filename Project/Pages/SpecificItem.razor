@@ -1,5 +1,6 @@
 ﻿@page "/product/{id:int}"
 @using Project.CSharpFiles
+@inherits SpecificItemCode
 
 <h2>Product details</h2>
 
@@ -16,30 +17,5 @@
     </div>
 </div>
 <NavLink href="/products"> Back To Products</NavLink>
+<button @onclick="() => { AddToCart(prod); }" class="btn btn-primary">Tilføj til Kurv</button>    
 
-@code {
-    public Product prod;
-
-    [Parameter]
-    public int Id { get; set; }
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        if (Id > 0)
-        {
-            prod = GetProduct(Id);
-        }
-    }
-
-    public Product GetProduct(int id)
-    {
-        Product product = new Product(id);
-        {
-            if (product.Id == id)
-                return product;
-            return null;
-        }
-    }
-}

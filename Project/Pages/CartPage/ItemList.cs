@@ -10,8 +10,6 @@ namespace Project.Pages.CartPage
     {
         public List<Product> Order { get; set; }
 
-
-
         public double Total { get; set; }
         public static string SupplyDemand = "none";
         public static string NegativeOrder = "none";
@@ -22,10 +20,6 @@ namespace Project.Pages.CartPage
             {
                 SupplyDemand = "block";
                 return 0;
-            }
-            if (demand == 69)
-            {
-                throw new ArgumentOutOfRangeException();
             }
             else
             {
@@ -82,5 +76,8 @@ namespace Project.Pages.CartPage
             CalcTotal();
             return base.OnInitializedAsync();
         }
+
+        [Parameter]
+        public Product CartItem{ get; set; }
     }
 }
