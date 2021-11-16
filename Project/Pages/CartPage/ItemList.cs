@@ -82,5 +82,8 @@ namespace Project.Pages.CartPage
             CalcTotal();
             return base.OnInitializedAsync();
         }
+
+        [Parameter]
+        public Product CartItem{ get; set; }
     }
 }
