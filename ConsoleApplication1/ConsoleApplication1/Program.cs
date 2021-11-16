@@ -65,7 +65,7 @@ namespace ConsoleApplication1
             string[] materiale = {"Bomuld", "Uld", "Denim", "Silke", "Velour", "Hamp", "Nylon", "Polyester", "Acetat", "Elastan", "Læder"};
             string[] produceret = {"Danmark", "Beirut", "Kina", "Tyrkiet", "Taiwain", "Indien", "Ungarn", "Afrika", "Nordkorea", "kazakhstan", "Honduras" };
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 9999; i++)
             {
                 Random rd = new Random();
                 int randStock = rd.Next(0, 50);
