@@ -1,0 +1,136 @@
+﻿@page "/Admin2"
+@using CSharpFiles;
+@inherits AdminCode
+
+<h2>Tilføj items</h2>
+
+<div>
+    <label>
+        <input @bind="NewItem" placeholder="Indtast artikel" />
+    </label>
+
+    <button @onclick="AddNewItem">
+        Tilføj artikel
+    </button>
+
+    <button @onclick="InitSubcats">
+        init subcats
+    </button>
+</div>
+
+<h2> Attributer til artiklen </h2>
+<div>
+    <textarea> description </textarea>
+
+    <label>
+        Farve
+        <br />
+        <select @bind="SelectedColour" class="form-select">
+            @foreach (var cat in cats)
+            {
+                <option></option>
+            }
+        </select>
+    </label>
+
+    <label>
+        Størrelse
+        <br />
+        <select @bind="SelectedSize" class="form-select">
+            @foreach (var cat in cats)
+            {
+                <option>  </option>
+            }
+        </select>
+    </label>
+
+
+    <label>
+        Kategorier
+        <br />
+        <select @bind="SelectedCat" class="form-select">
+            @foreach (Category cat in cats)
+            {
+                <optgroup label="@cat.CategoryName"> @cat.CategoryName </optgroup>
+                foreach (Subcategory subcat in cat.Subcategory)
+                {
+                    <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
+                }
+            }
+        </select>
+    </label>
+</div>
+
+@foreach (string colour in Colours)
+{
+    <div class="form-check">
+        <input type="checkbox" disabled="@IsDisabled" @onchange="eventArgs => { CheckboxColours(colour, eventArgs.Value); }" />
+        <label class="form-check-label" for="flexCheckDefault">
+            @colour
+        </label>
+    </div>
+}
+
+<br/>
+@if (SelectedColour != null)
+{
+    @foreach (string Size in Sizes)
+    {
+    <div class="form-check">
+        <input type="checkbox" @onchange="eventArgs => { CheckboxSizes(Size, eventArgs.Value); }" />
+        <label class="form-check-label" for="flexCheckDefault">
+            @Size
+        </label>
+    </div>
+    }
+}
+
+<div>
+    @SelectedColour @SelectedSize
+</div>
+
+
+@code {
+    //public List<string> SelectedColours = new List<string>();
+    //public List<string> SelectedSizes = new List<string>();
+
+    protected bool IsDisabled { get; set; } = false;
+
+    public string SelectedColour;
+    public string SelectedSize;
+
+    public string[] Colours = { "red", "blue", "Yellow", "Green" };
+    public string[] Sizes = { "Big", "medium", "small" };
+
+    public string SelectedCat = null;
+    public string NewItem = null;
+    public Product prod;
+
+    public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
+
+    public void InitSubcats()
+    {
+        cats[0].Subcategory.Add(new Subcategory("Trøje"));
+        cats[0].Subcategory.Add(new Subcategory("Bukser"));
+        cats[1].Subcategory.Add(new Subcategory("Jakke"));
+        cats[1].Subcategory.Add(new Subcategory("Sko"));
+    }
+
+    public void CheckboxSizes(string colour, object checkvalue)
+    {
+        if ((bool)checkvalue)
+            SelectedColour = colour;
+    }
+    public void CheckboxColours(string size, object checkvalue)
+    {
+        if ((bool)checkvalue)
+            SelectedColour = size;
+    }
+
+
+
+    public void AddNewItem()
+    {
+
+    }
+}
