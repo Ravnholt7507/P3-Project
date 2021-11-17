@@ -1,7 +1,8 @@
 ﻿@page "/Product/{id:int}"
 @using Project.CSharpFiles
-@inherits SpecificItemCode
 @inject ProtectedLocalStorage BrowserStorage
+@inherits SpecificItemCode
+
 
 <h2>Product details</h2>
 
@@ -24,7 +25,7 @@
 @code {
 
     public string CartItem;
-
+    
     public void AddItem()
     {
         CartItem += " " + prod.Id;
