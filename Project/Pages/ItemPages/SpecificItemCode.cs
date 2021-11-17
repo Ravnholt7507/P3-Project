@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using Project.CSharpFiles;
 
-namespace Project.Pages
+namespace Project.Pages.ItemPages
 {
     public class SpecificItemCode : ComponentBase
     {
@@ -31,13 +30,6 @@ namespace Project.Pages
                     return product;
                 return null;
             }
-        }
-
-        public List<Product> CartItems = new List<Product>() {};
-
-        public void AddToCart(Product item)
-        {
-            CartItems.Add(item);
         }
     }
 }
