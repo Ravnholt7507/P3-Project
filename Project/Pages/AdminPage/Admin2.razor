@@ -10,9 +10,9 @@
         <input @bind="NewItem" placeholder="Indtast artikel" />
     </label>
 
-    <button @onclick="AddNewItem">
+    @*<button @onclick="AddNewItem">
         Tilføj artikel
-    </button>
+    </button>*@
 
     <button @onclick="InitSubcats">
         init subcats
@@ -194,7 +194,7 @@
         }
     }
 
-    public void AddNewItem()
+    /*public void AddNewItem()
     {
         Product prod = new Product(1);
         prod.Description = Description;
@@ -207,5 +207,5 @@
         prod.ImageLink = img;
         SelectedSizes.Clear();
         Console.WriteLine($"{prod.Name} {prod.Description} {prod.Type} {prod.Colour} {prod.Stock} {prod.Price} {prod.Size}");
-    }
+    }*/
 }

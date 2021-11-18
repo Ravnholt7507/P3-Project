@@ -854,11 +854,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Project.csproj",
+      "projectUniqueName": "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/p3-project/Project/Project.csproj",
       "projectName": "Project",
-      "projectPath": "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Project.csproj",
+      "projectPath": "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/p3-project/Project/Project.csproj",
       "packagesPath": "/Users/minmacbook/.nuget/packages/",
-      "outputPath": "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/obj/",
+      "outputPath": "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/p3-project/Project/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/minmacbook/.nuget/NuGet/NuGet.Config"

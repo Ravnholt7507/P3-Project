@@ -65,7 +65,7 @@ namespace ConsoleApplication1
             string[] materiale = {"Bomuld", "Uld", "Denim", "Silke", "Velour", "Hamp", "Nylon", "Polyester", "Acetat", "Elastan", "Læder"};
             string[] produceret = {"Danmark", "Beirut", "Kina", "Tyrkiet", "Taiwain", "Indien", "Ungarn", "Afrika", "Nordkorea", "kazakhstan", "Honduras" };
 
-            for (int i = 0; i < 9999; i++)
+            for (int i = 0; i < 500; i++)
             {
                 Random rd = new Random();
                 int randStock = rd.Next(0, 50);
@@ -185,6 +185,15 @@ namespace ConsoleApplication1
                         foundbarcode = false;
                     }
                 }
+                string[] barcodes = {
+                    "0209094010800000", "0204044020100000", "0201074000000000", "0210061100700000", "0109020080300000",
+                    "0210001040000000", "0209113060700000", "0002002070700000", "0005123090700000", "0102072000400000" 
+                };
+                if (i < 10)
+                {
+                    barcode = barcodes[i]; 
+                }
+                
                 cmd.CommandText = string.Format(@"INSERT INTO articles(name, category , type , colour , size , price , description , materiale , produceret , transparency , img_link , barcode , stock ,  amm_sold , kpi ) 
                     VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}', '{14}')",
                     name, categories[randCat], types[randType], colours[randColour], sizes[randSize], randPrice, description, materiale[randmat], produceret[randprod], transparency, imglink, barcode, randStock, randSold, randKpi);
