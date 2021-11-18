@@ -133,9 +133,9 @@ using CSharpFiles;
         return array;
     }
     
-    protected override async Task<Task> OnInitializedAsync()
+    protected override Task OnInitializedAsync()
     {
-        await Read();
+        Read();
         //LoadItems(BarcodeArray());
         return base.OnInitializedAsync();
     }

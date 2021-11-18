@@ -54,10 +54,10 @@ namespace Project.Pages.CartPage
         public void CalcTotal()
         {
             Total = 0;
-            foreach (var item in Order)
+            /*foreach (var item in Order)
             {
                 Total += item.SubTotal;
-            }
+            }*/
         }
 
         public void LoadItems(string[] array)

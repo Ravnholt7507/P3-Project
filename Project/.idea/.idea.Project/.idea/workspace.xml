@@ -6,65 +6,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d8b08e5-56be-48b5-947a-a6b62181ada9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/.idea/.idea.ConsoleApplication1.dir/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/.idea/.idea.ConsoleApplication1.dir/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/ConsoleApplication1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/ConsoleApplication1.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/ConsoleApplication1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/ConsoleApplication1.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project/.idea/dataSources/dac9a128-a27b-4046-b7b2-cfbcc2e76efc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project/.idea/dataSources/dac9a128-a27b-4046-b7b2-cfbcc2e76efc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CSharpFiles/DbCall.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CSharpFiles/DbCall.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CSharpFiles/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CSharpFiles/Product.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pages/CartPage/Cart.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/CartPage/Cart.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pages/CartPage/ItemList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/CartPage/ItemList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/ItemPages/SpecificItem.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/ItemPages/SpecificItem.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/ItemPages/SpecificItemCode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/ItemPages/SpecificItemCode.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/Project.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.RazorComponent.input.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.RazorComponent.input.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.RazorCoreGenerate.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.RazorCoreGenerate.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.TagHelpers.output.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.TagHelpers.output.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/App.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/App.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/AdminPage/Admin.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/AdminPage/Admin.razor.g.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/CartPage/Cart.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/CartPage/Cart.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/Index.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/Index.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/SearchProductPage.razor.g.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/ViewProductComponent.razor.g.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/Dropdown.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/Dropdown.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/MainLayout.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/MainLayout.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/NavMenu.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/NavMenu.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/PrintList.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/PrintList.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/SearchBarComponent.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/SearchBarComponent.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/_Imports.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/_Imports.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/App.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/App.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/AdminPage/Admin.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/AdminPage/Admin.razor.g.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/CartPage/Cart.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/CartPage/Cart.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/Index.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/Index.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/SearchProductPage.razor.g.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/ViewProductComponent.razor.g.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/Dropdown.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/Dropdown.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/MainLayout.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/MainLayout.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/NavMenu.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/NavMenu.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/PrintList.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/PrintList.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/SearchBarComponent.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/SearchBarComponent.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/_Imports.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/_Imports.razor.g.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Project.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,7 +111,7 @@
       <workItem from="1636360040845" duration="12060000" />
       <workItem from="1636372251716" duration="118000" />
       <workItem from="1636372434789" duration="41488000" />
-      <workItem from="1636977816844" duration="25012000" />
+      <workItem from="1636977816844" duration="26229000" />
     </task>
     <task id="LOCAL-00001" summary="Database integreret i main.">
       <created>1637055653877</created>
@@ -260,6 +217,34 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Pages/ItemPages/SpecificItem.razor</url>
+          <line>37</line>
+          <properties documentPath="$PROJECT_DIR$/Pages/ItemPages/SpecificItem.razor" initialLine="37" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Pages/ItemPages/SpecificItem.razor</url>
+          <line>38</line>
+          <properties documentPath="$PROJECT_DIR$/Pages/ItemPages/SpecificItem.razor" initialLine="38" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
