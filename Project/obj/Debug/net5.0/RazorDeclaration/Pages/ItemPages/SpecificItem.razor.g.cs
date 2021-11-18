@@ -4,12 +4,11 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Pages
+namespace Project.Pages.ItemPages
 {
     #line hidden
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
@@ -63,41 +62,55 @@ using Microsoft.AspNetCore.Components.Web.Virtualization;
 #nullable disable
 #nullable restore
 #line 8 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 9 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Project;
+using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 10 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Project.Shared;
+using Project;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 11 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Project.Shared.ComponentCode;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/SearchProductPage.razor"
+#line 13 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using System.Linq;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ItemPages/SpecificItem.razor"
 using Project.CSharpFiles;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Products")]
-    public partial class SearchProductPage : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Product/{barcode}")]
+    public partial class SpecificItem : SpecificItemCode
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,50 +118,40 @@ using Project.CSharpFiles;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/SearchProductPage.razor"
+#line 24 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ItemPages/SpecificItem.razor"
        
+
+    public string CartItem;
     
-    public void Loop()
+    public void AddItem()
     {
-        for (int i = 1; i < 11; i++)
-        {
-            Product product = new Product(i);
-            Products.Add(product);
-        }
+        CartItem += " " + prod.Barcode;
+        Console.WriteLine(CartItem);
+    }
+
+    public async Task Read()
+    {
+        var result = await BrowserStorage.GetAsync<string>("CartItems");
+        CartItem = result.Success ? result.Value : "";
+        Console.WriteLine(CartItem);
+    }
+
+    public async Task Save()
+    {
+        await BrowserStorage.SetAsync("CartItems", CartItem);
+        Console.WriteLine(CartItem);
     }
 
     protected override Task OnInitializedAsync()
     {
-        Loop();
+        Read();
         return base.OnInitializedAsync();
-    }
-    
-    public List<Product> Products = new List<Product>()
-    {
-    };
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Products = GetProducts();
-    }
-
-    public void HandleSearch(string filter)
-    {
-        Products = GetProducts(filter);
-    }
-
-
-    public List<Product> GetProducts(string filter = null)
-    {
-        if (string.IsNullOrWhiteSpace(filter)) return Products;
-        return Products;
     }
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ProtectedLocalStorage BrowserStorage { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -32,12 +32,12 @@ namespace Project.CSharpFiles
         }
         
         //ændre i til barcode
-        public string[] SpecificArticleCall(int i)
+        public string[] SpecificArticleCall(string barcode)
         {
             string[] array = new string[15];
             using var con = new MySqlConnection(_cs);
             con.Open();
-            string sql = $@"SELECT  name, description, colour, size, price, stock, transparency, category, type, img_link FROM articles WHERE id = '{i}'";
+            string sql = $@"SELECT  name, description, colour, size, price, stock, transparency, category, type, img_link, barcode FROM articles WHERE barcode = '{barcode}'";
             using var cmd = new MySqlCommand(sql, con);
             using MySqlDataReader rdr = cmd.ExecuteReader();
                 
@@ -63,6 +63,8 @@ namespace Project.CSharpFiles
                 array[8] = type;
                 string imagelink = rdr.GetString(9);
                 array[9] = imagelink;
+                string Barcode = rdr.GetString(10);
+                array[10] = Barcode;
             }
             con.Close();
             return array;

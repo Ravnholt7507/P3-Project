@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Shared
+namespace Project.Pages.AdminPage
 {
     #line hidden
     using System;
@@ -102,7 +102,22 @@ using System.Linq;
 #line default
 #line hidden
 #nullable disable
-    public partial class PrintList : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
+using CSharpFiles;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
+using System.IO;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Admin2")]
+    public partial class Admin2 : AdminCode
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -110,10 +125,101 @@ using System.Linq;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 1 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/PrintList.razor"
+#line 117 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
        
-    [Parameter]
-    public List<string> Pages { get; set; }
+    public List<string> SelectedColours = new List<string>();
+    public List<string> SelectedSizes = new List<string>();
+    public List<string> PlaceholderSizes = new List<string>();
+
+    string img = "";
+    string imgName = "N/A";
+    List<string> filesList = new List<string>();
+    string path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\Images"}";
+    public void LoadImages()
+    {
+        var files = Directory.GetFiles(path);
+        foreach (var file in files)
+        {
+            filesList.Add(Path.GetFileName(file));
+        }
+    }
+
+    public void ReadFile(string fileName)
+    {
+        imgName = fileName.Split('.')[0];
+        img = "/Images/" + fileName;
+    }
+
+    public string SelectedValue;
+    public string Description;
+    public int Stock;
+    public double Price;
+
+    protected bool IsDisabled { get; set; } = false;
+
+    public string placeholderColour;
+    public string SelectedColour;
+
+    public string[] Colours = { "red", "blue", "Yellow", "Green" };
+    public string[] Sizes = { "Big", "medium", "small" };
+
+    public string SelectedCat = null;
+    public string NewItem = null;
+
+    public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
+
+    public void Verify()
+    {
+        SelectedSizes.ForEach(size => Console.WriteLine(size));
+        placeholderColour = null;
+        CheckboxColours("", false);
+    }
+
+    public void AddImage()
+    {
+
+    }
+
+    public void InitSubcats()
+    {
+        cats[0].Subcategory.Add(new Subcategory("Trøje"));
+        cats[0].Subcategory.Add(new Subcategory("Bukser"));
+        cats[1].Subcategory.Add(new Subcategory("Jakke"));
+        cats[1].Subcategory.Add(new Subcategory("Sko"));
+    }
+
+    public void CheckboxSizes(string size, object checkvalue)
+    {
+        Console.WriteLine(checkvalue);
+        if ((bool)checkvalue)
+            SelectedSizes.Add(size);
+        if (!(bool)checkvalue)
+            SelectedSizes.Remove(size);
+    }
+
+    public void CheckboxColours(string colour, object checkvalue)
+    {
+        if ((bool)checkvalue)
+        {
+            placeholderColour = colour;
+            SelectedColour = colour;
+        }
+    }
+
+    /*public void AddNewItem()
+    {
+        Product prod = new Product(1);
+        prod.Description = Description;
+        prod.Type = SelectedCat;
+        prod.Colour = SelectedColour;
+        prod.Stock = Stock;
+        prod.Price = Price;
+        prod.Size = SelectedSizes[0];
+        prod.Name = NewItem;
+        prod.ImageLink = img;
+        SelectedSizes.Clear();
+        Console.WriteLine($"{prod.Name} {prod.Description} {prod.Type} {prod.Colour} {prod.Stock} {prod.Price} {prod.Size}");
+    }*/
 
 #line default
 #line hidden

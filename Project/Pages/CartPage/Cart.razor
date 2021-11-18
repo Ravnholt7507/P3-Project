@@ -17,6 +17,15 @@
         var result = await BrowserStorage.GetAsync<string>("CartItems");
         Console.WriteLine(result.Value);
         ItemsInCart = result.Success ? result.Value : "";
+        Order = LoadItems(Id());
+    }
+
+    public string[] Id()
+    {
+        var array = ItemsInCart.Split(' ');
+        array = array.Skip(1).ToArray();
+        array = array.Distinct().ToArray();
+        return array;
     }
 
     public async Task Delete()
@@ -26,6 +35,7 @@
 
     protected override Task OnInitializedAsync()
     {
+        Order = new List<Product>();
         Read();
         return base.OnInitializedAsync();
     }

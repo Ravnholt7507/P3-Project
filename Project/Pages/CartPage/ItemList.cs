@@ -59,20 +59,20 @@ namespace Project.Pages.CartPage
             }
         }
 
-        public void LoadItems()
+        public List<Product> LoadItems(string[] array)
         {
             Order = new List<Product>();
-            for (int i = 1; i < 10; i++)
+            for (int i = 0; i < array.Length; i++)
             {
-                Product item = Product.CreateInstance(i);
+                Product item = Product.CreateInstance(array[i]);
                 item.SubTotal = item.Price;
                 Order.Add(item);
             }
+            return Order;
         }
 
         protected override Task OnInitializedAsync()
         {
-            LoadItems();
             CalcTotal();
             return base.OnInitializedAsync();
         }

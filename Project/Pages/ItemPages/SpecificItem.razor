@@ -1,4 +1,4 @@
-﻿@page "/Product/{id:int}"
+﻿@page "/Product/{barcode}"
 @using Project.CSharpFiles
 @inject ProtectedLocalStorage BrowserStorage
 @inherits SpecificItemCode
@@ -21,14 +21,13 @@
 <NavLink href="/products"> Back To Products</NavLink>
 <button class="btn btn-primary" @onclick="() => { AddItem(); Save();}">Tilfoej til kurv</button>
 
-
 @code {
 
     public string CartItem;
     
     public void AddItem()
     {
-        CartItem += " " + prod.Id;
+        CartItem += " " + prod.Barcode;
         Console.WriteLine(CartItem);
     }
 

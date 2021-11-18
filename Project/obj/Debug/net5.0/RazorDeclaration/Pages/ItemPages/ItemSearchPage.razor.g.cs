@@ -4,12 +4,11 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Pages
+namespace Project.Pages.ItemPages
 {
     #line hidden
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
@@ -63,41 +62,55 @@ using Microsoft.AspNetCore.Components.Web.Virtualization;
 #nullable disable
 #nullable restore
 #line 8 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 9 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Project;
+using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 10 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Project.Shared;
+using Project;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 11 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Project.Shared.ComponentCode;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ViewProductComponent.razor"
+#line 13 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using System.Linq;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ItemPages/ItemSearchPage.razor"
 using Project.CSharpFiles;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/product/{id:int}")]
-    public partial class ViewProductComponent : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Products")]
+    public partial class ItemSearchPage : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,32 +118,48 @@ using Project.CSharpFiles;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 20 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ViewProductComponent.razor"
+#line 56 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/ItemPages/ItemSearchPage.razor"
        
-    public Product prod;
+    
+    public void Loop()
+    {
+        string[] placeholder = {"0209094010800000","0204044020100000","0201074000000000","0210061100700000","0109020080300000","0210001040000000","0209113060700000","0002002070700000","0005123090700000","0102072000400000" };
+        foreach (var barcode in placeholder)
+        {
+            Product product = new Product(barcode);
+            Products.Add(product);
+        }
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        Loop();
+        return base.OnInitializedAsync();
+    }
+    
+    public List<Product> Products = new List<Product>() {};
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Products = GetProducts();
+    }
+
+    public void HandleSearch(string filter)
+    {
+        Products = GetProducts(filter);
+    }
+
+
+    public List<Product> GetProducts(string filter = null)
+    {
+        if (string.IsNullOrWhiteSpace(filter)) return Products;
+        return Products;
+    }
 
     [Parameter]
-    public int Id { get; set; }
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        if (Id > 0)
-        {
-            prod = GetProduct(Id);
-        }
-    }
-
-    public Product GetProduct(int id)
-    {
-        Product product = new Product(id);
-        {
-            if (product.Id == id)
-                return product;
-            return null;
-        }
-    }
+        public Product CartItem{ get; set; }
 
 #line default
 #line hidden
