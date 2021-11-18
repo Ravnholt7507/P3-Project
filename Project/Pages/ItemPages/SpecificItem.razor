@@ -1,4 +1,4 @@
-﻿@page "/Product/{id:int}"
+﻿@page "/Product/{barcode}"
 @using Project.CSharpFiles
 @inject ProtectedLocalStorage BrowserStorage
 @inherits SpecificItemCode
@@ -28,7 +28,7 @@
     
     public void AddItem()
     {
-        CartItem += " " + prod.Id;
+        CartItem += " " + prod.Barcode;
         Console.WriteLine(CartItem);
     }
 

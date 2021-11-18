@@ -8,11 +8,10 @@ namespace Project.CSharpFiles
 {
     public class Product
     {
-        public Product(int i)
+        public Product(string i)
         {
             DbCall call = new DbCall();
             string[] array = call.SpecificArticleCall(i);
-            this.Id = i;
             this.Name = array[0];
             this.Description = array[1];
             this.Colour = array[2];
@@ -23,19 +22,25 @@ namespace Project.CSharpFiles
             this.Category = array[7];
             this.Type = array[8];
             this.ImageLink = array[9];
+            this.Barcode = array[10];
         }
         
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string Category { get; set; }
+        public string Type { get; set; }
         public string Colour { get; set; }
         public string Size { get; set; }
         public double Price { get; set; }
-        public int Stock { get; set; }
+        public string Description { get; set; }
+        public string material { get; set; }
+        public string produced { get; set; }
         public string Transparency { get; set; }
-        public string Category { get; set; }
-        public string Type { get; set; }
         public string ImageLink { get; set; }
+        public string Barcode { get; set; }
+        public int Stock { get; set; }
+        public int AmmSold { get; set; }
+        public int Kpi { get; set; }
 
         public int OrderAmount = 1;
         public double SubTotal { get; set; }
@@ -45,14 +50,9 @@ namespace Project.CSharpFiles
             return SubTotal = OrderAmount * Price;
         }
 
-        public static Product CreateInstance(int i)
+        public static Product CreateInstance(string i)
         {
             return new Product(i);
         }
-    }
-
-    public class ProductRepository
-    {
-
     }
 }

@@ -32,12 +32,12 @@ namespace Project.CSharpFiles
         }
         
         //ændre i til barcode
-        public string[] SpecificArticleCall(int i)
+        public string[] SpecificArticleCall(string i)
         {
             string[] array = new string[15];
             using var con = new MySqlConnection(_cs);
             con.Open();
-            string sql = $@"SELECT  name, description, colour, size, price, stock, transparency, category, type, img_link FROM articles WHERE id = '{i}'";
+            string sql = $@"SELECT  name, description, colour, size, price, stock, transparency, category, type, img_link, barcode FROM articles WHERE barcode = '{i}'";
             using var cmd = new MySqlCommand(sql, con);
             using MySqlDataReader rdr = cmd.ExecuteReader();
                 
@@ -63,6 +63,8 @@ namespace Project.CSharpFiles
                 array[8] = type;
                 string imagelink = rdr.GetString(9);
                 array[9] = imagelink;
+                string barcode = rdr.GetString(10);
+                array[10] = barcode;
             }
             con.Close();
             return array;
@@ -261,7 +263,7 @@ namespace Project.CSharpFiles
                 if (saveArticles == "Yes")
                 {
                     sql = $@"delete from categories where name = '{args[0]}'";
-                    sql = $@"update articles set category = 'Uncategorized' where category = '{args[0]}'";
+                    sql2 = $@"update articles set category = 'Uncategorized' where category = '{args[0]}'";
                 }
                 else if (saveArticles == "No")
                 {
@@ -293,8 +295,27 @@ namespace Project.CSharpFiles
             }
             return "Deleted";
         }
+
+        public string AddOrderDb(string name, string adress, string country, string zipcode, string tlf, string[] items, int total)
+        {
+            string itemStr = "";
+            foreach (var item in items)
+            {
+                itemStr += item+",";
+            }
+            
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = $@"insert into orders (name, adress, country, zipcode, tlf, items, total) values('{name}','{adress}','{country}','{zipcode}','{tlf}','{itemStr}',{total} )";
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            con.Close();
+            return "Order Saved to DB";
+        }
+
+        public string CancelOrderDb()
+        {
+            return "Order Cancelled";
+        }
     }
 }
-
-//hvem skal have adgang
-//unix eller linux

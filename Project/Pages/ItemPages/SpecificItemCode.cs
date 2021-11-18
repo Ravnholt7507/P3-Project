@@ -11,22 +11,22 @@ namespace Project.Pages.ItemPages
         public Product prod;
 
         [Parameter]
-        public int Id { get; set; }
+        public string Barcode { get; set; }
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
 
-            if (Id > 0)
+            if (Barcode != "")
             {
-                prod = GetProduct(Id);
+                prod = GetProduct(Barcode);
             }
         }
 
-        public Product GetProduct(int id)
+        public Product GetProduct(string barcode)
         {
-            Product product = new Product(id);
+            Product product = new Product(barcode);
             {
-                if (product.Id == id)
+                if (product.Barcode == barcode)
                     return product;
                 return null;
             }

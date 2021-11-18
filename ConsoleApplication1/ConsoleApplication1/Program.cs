@@ -15,12 +15,6 @@ namespace ConsoleApplication1
             using var cmd = new MySqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = "DROP TABLE IF EXISTS Orders";
-            cmd.ExecuteNonQuery();
-
-            cmd.CommandText = "CREATE TABLE Orders (id INTEGER primary key auto_increment, name text, ordernum int, items text, adress text, country text, zipcode text, tlf text, total int)";
-            cmd.ExecuteNonQuery();
-            
             cmd.CommandText = "DROP TABLE IF EXISTS categories";
             cmd.ExecuteNonQuery();
 
@@ -37,6 +31,12 @@ namespace ConsoleApplication1
             cmd.ExecuteNonQuery();
             
             cmd.CommandText = @"CREATE TABLE articles (id INTEGER primary key auto_increment, name text, category text, type text, colour text, size text, price int, description text, materiale text, produceret text, transparency text, img_link text, barcode text, stock int,  amm_sold int, kpi int )";
+            cmd.ExecuteNonQuery();
+            
+            cmd.CommandText = "DROP TABLE IF EXISTS Orders";
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "CREATE TABLE Orders (ordernumber INTEGER primary key auto_increment, name text, items text, adress text, country text, zipcode text, tlf text, total int)";
             cmd.ExecuteNonQuery();
 
             string[] categories = { "Kvinder", "Drenge", "Piger" };
@@ -65,7 +65,7 @@ namespace ConsoleApplication1
             string[] materiale = {"Bomuld", "Uld", "Denim", "Silke", "Velour", "Hamp", "Nylon", "Polyester", "Acetat", "Elastan", "Læder"};
             string[] produceret = {"Danmark", "Beirut", "Kina", "Tyrkiet", "Taiwain", "Indien", "Ungarn", "Afrika", "Nordkorea", "kazakhstan", "Honduras" };
 
-            for (int i = 0; i < 9999; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 Random rd = new Random();
                 int randStock = rd.Next(0, 50);

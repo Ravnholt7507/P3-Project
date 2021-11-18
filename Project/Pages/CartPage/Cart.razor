@@ -15,18 +15,24 @@
     public async Task Read()
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
-        Console.WriteLine(result.Value);
         ItemsInCart = result.Success ? result.Value : "";
+        Console.WriteLine(ItemsInCart);
     }
 
     public async Task Delete()
     {
         await BrowserStorage.DeleteAsync("CartItems");
     }
-
-    protected override Task OnInitializedAsync()
+    public string[] BarcodeArray()
     {
-        Read();
+        string[] array = ItemsInCart.Split(' ');
+        return array;
+    }
+    
+    protected override async Task<Task> OnInitializedAsync()
+    {
+        await Read();
+        //LoadItems(BarcodeArray());
         return base.OnInitializedAsync();
     }
 }

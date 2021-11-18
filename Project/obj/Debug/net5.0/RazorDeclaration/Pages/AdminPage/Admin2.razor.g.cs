@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Pages
+namespace Project.Pages.AdminPage
 {
     #line hidden
     using System;
@@ -63,41 +63,48 @@ using Microsoft.AspNetCore.Components.Web.Virtualization;
 #nullable disable
 #nullable restore
 #line 8 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 9 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Project;
+using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 10 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Project.Shared;
+using Project;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 11 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Project.Shared.ComponentCode;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/SearchProductPage.razor"
-using Project.CSharpFiles;
+#line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
+using CSharpFiles;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Products")]
-    public partial class SearchProductPage : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Admin2")]
+    public partial class Admin2 : AdminCode
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,45 +112,49 @@ using Project.CSharpFiles;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/SearchProductPage.razor"
+#line 93 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
        
-    
-    public void Loop()
+    //public List<string> SelectedColours = new List<string>();
+    //public List<string> SelectedSizes = new List<string>();
+
+    protected bool IsDisabled { get; set; } = false;
+
+    public string SelectedColour;
+    public string SelectedSize;
+
+    public string[] Colours = { "red", "blue", "Yellow", "Green" };
+    public string[] Sizes = { "Big", "medium", "small" };
+
+    public string SelectedCat = null;
+    public string NewItem = null;
+    public Product prod;
+
+    public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
+
+    public void InitSubcats()
     {
-        for (int i = 1; i < 11; i++)
-        {
-            Product product = new Product(i);
-            Products.Add(product);
-        }
+        cats[0].Subcategory.Add(new Subcategory("Trøje"));
+        cats[0].Subcategory.Add(new Subcategory("Bukser"));
+        cats[1].Subcategory.Add(new Subcategory("Jakke"));
+        cats[1].Subcategory.Add(new Subcategory("Sko"));
     }
 
-    protected override Task OnInitializedAsync()
+    public void CheckboxSizes(string colour, object checkvalue)
     {
-        Loop();
-        return base.OnInitializedAsync();
+        if ((bool)checkvalue)
+            SelectedColour = colour;
     }
-    
-    public List<Product> Products = new List<Product>()
+    public void CheckboxColours(string size, object checkvalue)
     {
-    };
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Products = GetProducts();
-    }
-
-    public void HandleSearch(string filter)
-    {
-        Products = GetProducts(filter);
+        if ((bool)checkvalue)
+            SelectedColour = size;
     }
 
 
-    public List<Product> GetProducts(string filter = null)
+
+    public void AddNewItem()
     {
-        if (string.IsNullOrWhiteSpace(filter)) return Products;
-        return Products;
+
     }
 
 #line default

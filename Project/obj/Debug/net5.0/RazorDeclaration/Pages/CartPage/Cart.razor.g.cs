@@ -63,28 +63,42 @@ using Microsoft.AspNetCore.Components.Web.Virtualization;
 #nullable disable
 #nullable restore
 #line 8 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 9 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Project;
+using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 10 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using Project.Shared;
+using Project;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 11 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
+using Project.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
 using Project.Shared.ComponentCode;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/CartPage/Cart.razor"
+using CSharpFiles;
 
 #line default
 #line hidden
@@ -97,6 +111,39 @@ using Project.Shared.ComponentCode;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/CartPage/Cart.razor"
+       
+    public string ItemsInCart;
+
+    public async Task Read()
+    {
+        var result = await BrowserStorage.GetAsync<string>("CartItems");
+        ItemsInCart = result.Success ? result.Value : "";
+        Console.WriteLine(ItemsInCart);
+    }
+
+    public async Task Delete()
+    {
+        await BrowserStorage.DeleteAsync("CartItems");
+    }
+    public string[] BarcodeArray()
+    {
+        string[] array = ItemsInCart.Split(' ');
+        return array;
+    }
+    
+    protected override async Task<Task> OnInitializedAsync()
+    {
+        await Read();
+        //LoadItems(BarcodeArray());
+        return base.OnInitializedAsync();
+    }
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ProtectedLocalStorage BrowserStorage { get; set; }
     }
 }
 #pragma warning restore 1591

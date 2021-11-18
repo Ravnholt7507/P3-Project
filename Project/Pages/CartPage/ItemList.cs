@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Project.CSharpFiles;
 
+
 namespace Project.Pages.CartPage
 {
     public class ItemList : ComponentBase
@@ -59,20 +60,20 @@ namespace Project.Pages.CartPage
             }
         }
 
-        public void LoadItems()
+        public void LoadItems(string[] array)
         {
             Order = new List<Product>();
-            for (int i = 1; i < 10; i++)
+            foreach (var barcode in array)
             {
-                Product item = Product.CreateInstance(i);
+                Product item = Product.CreateInstance(barcode);
                 item.SubTotal = item.Price;
                 Order.Add(item);
             }
+
         }
 
         protected override Task OnInitializedAsync()
         {
-            LoadItems();
             CalcTotal();
             return base.OnInitializedAsync();
         }
