@@ -1,5 +1,6 @@
 ﻿@page "/Admin2"
 @using CSharpFiles;
+@using System.IO; 
 @inherits AdminCode
 
 <h2>Tilføj items</h2>
@@ -19,30 +20,37 @@
 </div>
 
 <h2> Attributer til artiklen </h2>
+
+
+
+<div class="row">
+    <div class="col-md-3">
+        <button class="=btn btn-primary" @onclick="LoadImages">Load Images </button>
+        <hr />
+        <h2>File List</h2>
+        <hr />
+        @if(filesList != null && filesList.Count > 0)
+        {
+            int nSL = 0;
+            @foreach(string file in filesList)
+            {
+                nSL++;
+                <br />
+                <span>@nSL.</span>
+                <span @onclick="@(e=>ReadFile(file))" style="cursor:pointer;text-decoration:underline;color:blue;"> @file </span> 
+            }
+        }
+    </div>
+    <div class="col-md-9">
+        <h1>Image Name : @imgName</h1>
+        <div>
+            <img src="@img" asp-append-version="true" style="width:200px;height:200px;" />
+        </div>
+    </div>
+</div>
+
 <div>
-    <textarea> description </textarea>
-
-    <label>
-        Farve
-        <br />
-        <select @bind="SelectedColour" class="form-select">
-            @foreach (var cat in cats)
-            {
-                <option></option>
-            }
-        </select>
-    </label>
-
-    <label>
-        Størrelse
-        <br />
-        <select @bind="SelectedSize" class="form-select">
-            @foreach (var cat in cats)
-            {
-                <option>  </option>
-            }
-        </select>
-    </label>
+    <textarea @bind="Description"> description </textarea>
 
 
     <label>
@@ -64,49 +72,101 @@
 @foreach (string colour in Colours)
 {
     <div class="form-check">
-        <input type="checkbox" disabled="@IsDisabled" @onchange="eventArgs => { CheckboxColours(colour, eventArgs.Value); }" />
+        <input type="checkbox" disabled="@(placeholderColour != null)" @onchange="e => { CheckboxColours(colour, e.Value); }" />
         <label class="form-check-label" for="flexCheckDefault">
             @colour
         </label>
     </div>
 }
 
-<br/>
-@if (SelectedColour != null)
+<br />
+@if (placeholderColour != null)
 {
     @foreach (string Size in Sizes)
     {
-    <div class="form-check">
-        <input type="checkbox" @onchange="eventArgs => { CheckboxSizes(Size, eventArgs.Value); }" />
-        <label class="form-check-label" for="flexCheckDefault">
-            @Size
-        </label>
-    </div>
+        <div class="form-check">
+            <input type="checkbox" @onchange="e => { CheckboxSizes(Size, e.Value); }" />
+            <label class="form-check-label" for="flexCheckDefault">
+                @Size
+            </label>
+        </div>
     }
+    <button @onclick="@Verify">
+        Tilføj kombi
+    </button>
 }
 
 <div>
-    @SelectedColour @SelectedSize
+    <h5>Stock</h5>
+    <label>
+        <input @bind="Stock" placeholder="Indtast kategori" />
+    </label>
+    <h5>Price</h5>
+    <label>
+        <input @bind="Price" placeholder="Indtast kategori" />
+    </label>
+</div>
+
+<div>
+    @SelectedColour
 </div>
 
 
+
+
 @code {
-    //public List<string> SelectedColours = new List<string>();
-    //public List<string> SelectedSizes = new List<string>();
+    public List<string> SelectedColours = new List<string>();
+    public List<string> SelectedSizes = new List<string>();
+    public List<string> PlaceholderSizes = new List<string>();
+
+    string img = "";
+    string imgName = "N/A";
+    List<string> filesList = new List<string>();
+    string path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\Images"}";
+    public void LoadImages()
+    {
+        var files = Directory.GetFiles(path);
+        foreach (var file in files)
+        {
+            filesList.Add(Path.GetFileName(file));
+        }
+    }
+
+    public void ReadFile(string fileName)
+    {
+        imgName = fileName.Split('.')[0];
+        img = "/Images/" + fileName;
+    }
+
+    public string SelectedValue;
+    public string Description;
+    public int Stock;
+    public double Price;
 
     protected bool IsDisabled { get; set; } = false;
 
+    public string placeholderColour;
     public string SelectedColour;
-    public string SelectedSize;
 
     public string[] Colours = { "red", "blue", "Yellow", "Green" };
     public string[] Sizes = { "Big", "medium", "small" };
 
     public string SelectedCat = null;
     public string NewItem = null;
-    public Product prod;
 
     public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
+
+    public void Verify()
+    {
+        SelectedSizes.ForEach(size => Console.WriteLine(size));
+        placeholderColour = null;
+        CheckboxColours("", false);
+    }
+
+    public void AddImage()
+    {
+
+    }
 
     public void InitSubcats()
     {
@@ -116,21 +176,36 @@
         cats[1].Subcategory.Add(new Subcategory("Sko"));
     }
 
-    public void CheckboxSizes(string colour, object checkvalue)
+    public void CheckboxSizes(string size, object checkvalue)
+    {
+        Console.WriteLine(checkvalue);
+        if ((bool)checkvalue)
+            SelectedSizes.Add(size);
+        if (!(bool)checkvalue)
+            SelectedSizes.Remove(size);
+    }
+
+    public void CheckboxColours(string colour, object checkvalue)
     {
         if ((bool)checkvalue)
+        {
+            placeholderColour = colour;
             SelectedColour = colour;
+        }
     }
-    public void CheckboxColours(string size, object checkvalue)
-    {
-        if ((bool)checkvalue)
-            SelectedColour = size;
-    }
-
-
 
     public void AddNewItem()
     {
-
+        Product prod = new Product(1);
+        prod.Description = Description;
+        prod.Type = SelectedCat;
+        prod.Colour = SelectedColour;
+        prod.Stock = Stock;
+        prod.Price = Price;
+        prod.Size = SelectedSizes[0];
+        prod.Name = NewItem;
+        prod.ImageLink = img;
+        SelectedSizes.Clear();
+        Console.WriteLine($"{prod.Name} {prod.Description} {prod.Type} {prod.Colour} {prod.Stock} {prod.Price} {prod.Size}");
     }
 }

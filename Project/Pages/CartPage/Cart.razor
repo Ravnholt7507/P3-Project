@@ -39,7 +39,7 @@
                 <h4>@item.Name x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
                 <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
                 <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
-                <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right"><b>x</b></button>
+                <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right anus"><b>x</b></button>
             </div>
         }
         <div class="order-total">
@@ -57,12 +57,17 @@
         margin-bottom: 30px;
     }
 
+    .anus {
+        background-color: red;
+    }
+
     .cart-overview {
         outline: solid;
         outline-color: black;
         width: 500px;
         background-color: #efefef;
     }
+
 
     .item-container {
         border-bottom: 1px solid;
@@ -80,6 +85,12 @@
 
     .right {
         float: right;
+        padding: 0;
+        margin: 0;
+    }
+
+    .butt right {
+        background-color: red;
     }
 
     .cart-overview b {
