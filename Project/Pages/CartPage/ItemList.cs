@@ -58,6 +58,7 @@ namespace Project.Pages.CartPage
                 Total += item.SubTotal;
             }
         }
+    
 
         public List<Product> LoadItems(string[] array)
         {
@@ -69,12 +70,6 @@ namespace Project.Pages.CartPage
                 Order.Add(item);
             }
             return Order;
-        }
-
-        protected override Task OnInitializedAsync()
-        {
-            CalcTotal();
-            return base.OnInitializedAsync();
         }
     }
 }

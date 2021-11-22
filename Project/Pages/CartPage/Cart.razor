@@ -3,43 +3,7 @@
 @using CSharpFiles
 @inject ProtectedLocalStorage BrowserStorage
 
-<input class="form-control" @bind="ItemsInCart" />
-<button class="btn btn-secondary" @onclick="Read">Read</button>
-<button class="btn btn-secondary" @onclick="Delete">Delete</button>
-
 <h1>Din indkoebskurv</h1>
-
-@code {
-    public string ItemsInCart;
-
-    public async Task Read()
-    {
-        var result = await BrowserStorage.GetAsync<string>("CartItems");
-        Console.WriteLine(result.Value);
-        ItemsInCart = result.Success ? result.Value : "";
-        Order = LoadItems(Id());
-    }
-
-    public string[] Id()
-    {
-        var array = ItemsInCart.Split(' ');
-        array = array.Skip(1).ToArray();
-        array = array.Distinct().ToArray();
-        return array;
-    }
-
-    public async Task Delete()
-    {
-        await BrowserStorage.DeleteAsync("CartItems");
-    }
-
-    protected override Task OnInitializedAsync()
-    {
-        Order = new List<Product>();
-        Read();
-        return base.OnInitializedAsync();
-    }
-}
 
 <div class="page">
     <div class="cart-overview">
@@ -61,6 +25,33 @@
     </div>
 </div>
 
+@code {
+    public string ItemsInCart;
+    public async Task Read()
+    {
+        var result = await BrowserStorage.GetAsync<string>("CartItems");
+        ItemsInCart = result.Value;
+        Order = LoadItems(Id());
+        CalcTotal();
+        StateHasChanged();
+    }
+
+    public string[] Id()
+    {
+        var array = ItemsInCart.Split(' ');
+        array = array.Skip(1).ToArray();
+        array = array.Distinct().ToArray();
+        return array;
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        Read();
+        Order = new List<Product>();
+        return base.OnInitializedAsync();
+    }
+}
+
 <style>
     .page {
         height: fit-content;
@@ -77,7 +68,6 @@
         width: 500px;
         background-color: #efefef;
     }
-
 
     .item-container {
         border-bottom: 1px solid;
