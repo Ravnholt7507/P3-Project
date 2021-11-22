@@ -97,10 +97,6 @@
 }
 
 <div>
-    <h5>Stock</h5>
-    <label>
-        <input @bind="Stock" placeholder="Indtast kategori" />
-    </label>
     <h5>Price</h5>
     <label>
         <input @bind="Price" placeholder="Indtast kategori" />
@@ -111,7 +107,30 @@
     @chosenColors[0]
 </div>
 
+@if(NewColor != null)
+{
+<table>
+    <tr>
+        <th>Item </th>
+        <th>Input stock</th>
+    </tr>
 
+    @for (int i = 0; i < NewColor.SnS.Length; i++)
+    {
+        <tr>
+            <td>@NewColor.SnS[i].Size</td>
+            <td>
+                <input type="text" @bind="@NewColor.SnS[i].stock" placeholder="stock" />
+            </td>
+
+        </tr>
+        
+    }
+</table>
+}
+
+
+ 
 @code {
     public List<string> SelectedColours = new List<string>();
     public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
@@ -148,22 +167,24 @@
     protected bool IsDisabled { get; set; } = false;
 
     public string placeholderColour;
-    public string SelectedColour;
+    public string SelectedColour = "";
 
     public string[] Colours = { "red", "blue", "yellow", "green" };
     public string[] Sizes = { "big", "medium", "small" };
 
     public string SelectedCat = null;
     public string NewItem = null;
+    color NewColor;
 
     public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
 
     public void Verify()
     {
-        color NewColor = new color(SelectedColour);
+        NewColor = new color(SelectedColour);
         NewColor.SnS = SelectedSizes.ToArray();
         placeholderColour = null;
-        Console.WriteLine($"{NewColor.SnS[0].Size} {NewColor.SnS[1].Size} ");
+        Console.WriteLine(NewColor.SnS[0].stock);
+
     }
 
 
