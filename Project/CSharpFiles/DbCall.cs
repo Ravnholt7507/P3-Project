@@ -143,19 +143,23 @@ namespace Project.CSharpFiles
             
             using var con = new MySqlConnection(_cs);
             con.Open();
-            string sql = $@"select name from articles where colour like '%{array[0]}%' and size like '%{array[1]}%' and category like '%{array[2]}%' and type like '%{array[3]}%'";
+            string sql = $@"select barcode from articles where colour like '%{array[0]}%' and size like '%{array[1]}%' and category like '%{array[2]}%' and type like '%{array[3]}%'";
             using var cmd = new MySqlCommand(sql, con);
             using MySqlDataReader rdr = cmd.ExecuteReader();
 
-            string[] itemArray = new string[1];
+            string[] barcodeArray={};
             
+            
+            int h = 0;
             while (rdr.Read())
             {
-                string name = rdr.GetString(0);
-                itemArray[0] = name;
+                string barcode = rdr.GetString(0);
+                barcodeArray[h] = barcode;
+                h++;
+                //barcodeArray[].
             }
             con.Close();
-            return array;
+            return barcodeArray;
         }
 
         public string[] CategoryCall(string category)

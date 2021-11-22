@@ -102,6 +102,13 @@ using System.Linq;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 1 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/SearchBarComponent.razor"
+using Project.CSharpFiles;
+
+#line default
+#line hidden
+#nullable disable
     public partial class SearchBarComponent : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -110,15 +117,16 @@ using System.Linq;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 9 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/SearchBarComponent.razor"
+#line 10 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Shared/SearchBarComponent.razor"
        
     private string filter;
 
     [Parameter]
     public EventCallback<string> OnSearch { get; set; }
 
-    private void HandleSearch()
+    private void HandleSearchBar()
     {
+
         OnSearch.InvokeAsync(filter);
     }
 

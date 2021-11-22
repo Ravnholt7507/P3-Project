@@ -154,8 +154,22 @@ using Project.CSharpFiles;
 
     public List<Product> GetProducts(string filter = null)
     {
-        if (string.IsNullOrWhiteSpace(filter)) return Products;
-        return Products;
+        if (string.IsNullOrWhiteSpace(filter))
+        {
+            Console.WriteLine("Null");
+            return Products;
+        }
+        
+        var array = filter.Split(' ');
+        DbCall dbcall = new DbCall();
+        string[] itemArray = dbcall.SearchCall("blå", "small");
+        Console.WriteLine(itemArray[0][0]);
+        List<Product> newProducts = new List<Product>();
+        for (int i = 0; i < itemArray.Length; i++)
+        {
+            newProducts.Add(Product.CreateInstance(itemArray[i]));
+        }
+        return newProducts;
     }
 
     [Parameter]
