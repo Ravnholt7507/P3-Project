@@ -115,16 +115,14 @@
         <th>Input stock</th>
     </tr>
 
-    @for (int i = 0; i < NewColor.SnS.Length; i++)
+    @foreach (SizeAndStock SnS in NewColor.SnS)
     {
         <tr>
-            <td>@NewColor.SnS[i].Size</td>
+            <td>@SnS.Size</td>
             <td>
-                <input type="text" @bind="@NewColor.SnS[i].stock" placeholder="stock" />
+                <input type="text" @bind="SnS.stock" placeholder="stock" />
             </td>
-
         </tr>
-        
     }
 </table>
 }
@@ -159,6 +157,7 @@
         img = "/Images/" + fileName;
     }
 
+    public int StockTest;
     public string SelectedValue;
     public string Description;
     public int Stock;
@@ -183,8 +182,6 @@
         NewColor = new color(SelectedColour);
         NewColor.SnS = SelectedSizes.ToArray();
         placeholderColour = null;
-        Console.WriteLine(NewColor.SnS[0].stock);
-
     }
 
 
@@ -231,7 +228,7 @@
         public int id;
         public string Size;
         public bool state = false;
-        public int stock;
+        public int stock = 0;
     }
 
     public class color
