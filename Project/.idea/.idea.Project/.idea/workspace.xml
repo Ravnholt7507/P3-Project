@@ -5,7 +5,38 @@
     <projectFile profileName="Project">Project.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="9d8b08e5-56be-48b5-947a-a6b62181ada9" name="Changes" comment="" />
+=======
+    <list default="true" id="9d8b08e5-56be-48b5-947a-a6b62181ada9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/bin/Debug/DbGenerator.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/bin/Debug/DbGenerator.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/bin/Debug/DbGenerator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/bin/Debug/DbGenerator.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/dbGenerator2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/dbGenerator2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/obj/Debug/DbGenerator.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/obj/Debug/DbGenerator.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/obj/Debug/DbGenerator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/obj/Debug/DbGenerator.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pages/CartPage/Cart.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/CartPage/Cart.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/Project.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/AdminPage/Admin2.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/AdminPage/Admin2.razor.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/CartPage/Cart.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/CartPage/Cart.razor.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/ItemPages/SpecificItem.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/ItemPages/SpecificItem.razor.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/AdminPage/Admin2.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/AdminPage/Admin2.razor.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/CartPage/Cart.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/CartPage/Cart.razor.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/ItemPages/SpecificItem.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/ItemPages/SpecificItem.razor.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Project.dll" afterDir="false" />
+    </list>
+>>>>>>> parent of 14bda2f (Skovl)
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,7 +128,11 @@
       <workItem from="1637242089761" duration="8690000" />
       <workItem from="1637572040019" duration="2247000" />
       <workItem from="1637591240817" duration="2681000" />
+<<<<<<< HEAD
       <workItem from="1637658527485" duration="10847000" />
+=======
+      <workItem from="1637658527485" duration="3845000" />
+>>>>>>> parent of 14bda2f (Skovl)
     </task>
     <task id="LOCAL-00001" summary="Database integreret i main.">
       <created>1637055653877</created>
