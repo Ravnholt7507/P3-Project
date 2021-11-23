@@ -1,6 +1,7 @@
 ﻿@page "/Admin2"
 @using CSharpFiles;
 @using System.IO;
+@using System.Linq;
 @inherits AdminCode
 
 <h2>Tilføj items</h2>
@@ -107,7 +108,7 @@
     @chosenColors[0]
 </div>
 
-@if(NewColor != null)
+@if (NewColor != null)
 {
 <table>
     <tr>
@@ -115,20 +116,22 @@
         <th>Input stock</th>
     </tr>
 
-    @foreach (SizeAndStock SnS in NewColor.SnS)
+    @for (int i = 0; i < NewColor.SnS.Length; i++)
     {
         <tr>
-            <td>@SnS.Size</td>
+            <td>@NewColor.SnS[i].Size</td>
             <td>
-                <input type="text" @bind="SnS.stock" placeholder="stock" />
+                <input type="text" @bind="@NewColor.SnS[i].stock" placeholder="stock" />
             </td>
+
         </tr>
+        
     }
 </table>
 }
 
 
- 
+
 @code {
     public List<string> SelectedColours = new List<string>();
     public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
@@ -136,7 +139,7 @@
 
 
     public bool[] chosenColors = { false, false, false, false };
-    public bool[] chosenSizes= { false, false, false};
+    public bool[] chosenSizes = { false, false, false };
 
     string img = "";
     string imgName = "N/A";
@@ -157,7 +160,6 @@
         img = "/Images/" + fileName;
     }
 
-    public int StockTest;
     public string SelectedValue;
     public string Description;
     public int Stock;
@@ -182,6 +184,8 @@
         NewColor = new color(SelectedColour);
         NewColor.SnS = SelectedSizes.ToArray();
         placeholderColour = null;
+        Console.WriteLine(NewColor.SnS[0].stock);
+
     }
 
 
@@ -219,6 +223,11 @@
         }
     }
 
+    public void removeItem(int i)
+    {
+        NewColor.SnS = NewColor.SnS.Where((source, index) => index != i).ToArray();
+    }
+
     public class SizeAndStock
     {
         public SizeAndStock(string InputSize)
@@ -228,7 +237,7 @@
         public int id;
         public string Size;
         public bool state = false;
-        public int stock = 0;
+        public int stock;
     }
 
     public class color
@@ -249,11 +258,7 @@
         public int Id = 0;
     }
 
-    public void test()
-    {
-        product nederdel = new product();
 
-    }
 
     /*public void AddNewItem()
     {
@@ -269,6 +274,6 @@
     }*/
 }
 
-    @*prod.Colour = SelectedColour;
+@*prod.Colour = SelectedColour;
     prod.Stock = Stock;
     prod.Size = SelectedSizes[0];*@
