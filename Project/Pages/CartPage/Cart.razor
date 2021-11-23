@@ -3,12 +3,6 @@
 @using CSharpFiles
 @inject ProtectedLocalStorage BrowserStorage
 
-<input class="form-control" @bind="ItemsInCart"/>
-<button class="btn btn-secondary" @onclick="Read">Read</button>
-
-
-<button class="btn btn-secondary" @onclick="Save">Save</button>
-
 <div class="page">
     <div class="cart-overview">
         @foreach (var item in Order)
@@ -30,24 +24,24 @@
     <div class="row">
       <div class="col-75">
         <div class="container">
-          <form action="/action_page.php">
+          <form>
             <div class="row">
               <div class="col-50">
-                <label> Fornavn</label>
+                <label><i class="fa fa-fw fa-user-circle"></i> Fornavn</label>
                 <input type="text" placeholder="Gurlig">
-                <label> Email</label>
+                <label><i class="fa fa-fw fa-envelope"></i> Email</label>
                 <input type="text" placeholder="gurlig1234@example.com">
-                <label> Address</label>
+                <label><i class="fa fa-fw fa-map-marker"></i> Addresse</label>
                 <input type="text" placeholder="Frederikshavnvej 2">
-                <label> City</label>
+                <label><i class="fa fa-fw fa-building"></i> By</label>
                 <input type="text" placeholder="København"> 
               </div>
                 <div class="col-50">
-                <label>Efternavn</label>
+                <label><i class="fa fa-fw fa-star"></i> Efternavn</label>
                 <input type="text" placeholder="Marghrete .2">
-                <label>Telefonnummer</label>
+                <label><i class="fa fa-fw fa-phone"></i> Telefonnummer</label>
                 <input type="text" placeholder="12345678">
-                <label>Postnummer</label>
+                <label><i class="fa fa-fw fa-globe"></i> Postnummer</label>
                 <input type="text" placeholder="1010">
               </div>
             </div>
