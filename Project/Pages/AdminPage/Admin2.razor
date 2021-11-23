@@ -1,6 +1,7 @@
 ﻿@page "/Admin2"
 @using CSharpFiles;
 @using System.IO;
+@using System.Linq;
 @inherits AdminCode
 
 <h2>Tilføj items</h2>
@@ -107,28 +108,31 @@
     @chosenColors[0]
 </div>
 
-@if(NewColor != null)
+@if (NewColor != null)
 {
-<table>
-    <tr>
-        <th>Item </th>
-        <th>Input stock</th>
-    </tr>
-
-    @foreach (SizeAndStock SnS in NewColor.SnS)
-    {
+    <table>
         <tr>
-            <td>@SnS.Size</td>
-            <td>
-                <input type="text" @bind="SnS.stock" placeholder="stock" />
-            </td>
+            <th>Item </th>
+            <th>Input stock</th>
         </tr>
-    }
+        int i = 0;
+        @foreach (SizeAndStock SnS in NewColor.SnS)
+        {
+
+            <tr>
+                <td>@SnS.Size</td>
+                <td>
+                    <input type="text" @bind="SnS.stock" placeholder="stock" />
+                    <button @onclick="@RemoveItem(SnS.Size)">x</button>
+                </td>
+            </tr>
+            i++;
+        }
 </table>
 }
 
 
- 
+
 @code {
     public List<string> SelectedColours = new List<string>();
     public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
@@ -136,7 +140,7 @@
 
 
     public bool[] chosenColors = { false, false, false, false };
-    public bool[] chosenSizes= { false, false, false};
+    public bool[] chosenSizes = { false, false, false };
 
     string img = "";
     string imgName = "N/A";
@@ -219,6 +223,11 @@
         }
     }
 
+    public void removeItem(int i)
+    {
+        NewColor.SnS = NewColor.SnS.Where((source, index) => index != i).ToArray();
+    }
+
     public class SizeAndStock
     {
         public SizeAndStock(string InputSize)
@@ -249,11 +258,7 @@
         public int Id = 0;
     }
 
-    public void test()
-    {
-        product nederdel = new product();
 
-    }
 
     /*public void AddNewItem()
     {
@@ -269,6 +274,6 @@
     }*/
 }
 
-    @*prod.Colour = SelectedColour;
+@*prod.Colour = SelectedColour;
     prod.Stock = Stock;
     prod.Size = SelectedSizes[0];*@
