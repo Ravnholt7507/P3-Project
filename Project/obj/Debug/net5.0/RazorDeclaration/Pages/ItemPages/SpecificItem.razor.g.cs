@@ -126,17 +126,20 @@ using Project.CSharpFiles;
     public void AddItem()
     {
         CartItem += " " + prod.Barcode;
+        Console.WriteLine(CartItem);
     }
 
     public async Task Read()
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
         CartItem = result.Success ? result.Value : "";
+        Console.WriteLine(CartItem);
     }
 
     public async Task Save()
     {
         await BrowserStorage.SetAsync("CartItems", CartItem);
+        Console.WriteLine(CartItem);
     }
 
     protected override Task OnInitializedAsync()
