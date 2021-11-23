@@ -50,19 +50,16 @@ a, .btn-link {
     }
 
 .butt {
-    text-align: center;
     text-transform: uppercase;
     cursor: pointer;
     font-size: 20px;
-    letter-spacing: 4px;
     position: relative;
     background-color: #16a085;
     border: none;
     color: #fff;
-    padding: 2px;
-    height: 5vmin;
-    width: 5vmin;
-    text-align: center;
+    height: 50px;
+    width: 50px;
+    padding: 4px;
     transition-duration: 0.4s;
     overflow: hidden;
     border-radius: 4px;
