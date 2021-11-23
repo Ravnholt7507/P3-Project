@@ -6,32 +6,315 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d8b08e5-56be-48b5-947a-a6b62181ada9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/bin/Debug/DbGenerator.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/bin/Debug/DbGenerator.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/bin/Debug/DbGenerator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/bin/Debug/DbGenerator.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/dbGenerator2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/dbGenerator2.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/obj/Debug/DbGenerator.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/obj/Debug/DbGenerator.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/obj/Debug/DbGenerator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/obj/Debug/DbGenerator.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/.idea/.idea.ConsoleApplication1/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/.idea/.idea.ConsoleApplication1/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/.idea/.idea.ConsoleApplication1/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/.idea/.idea.ConsoleApplication1/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/.idea/.idea.ConsoleApplication1/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1.sln.DotSettings.user" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/.idea/.idea.ConsoleApplication1.dir/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/ConsoleApplication1.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/Properties/AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/BouncyCastle.Crypto.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/ConsoleApplication1.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/ConsoleApplication1.exe.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/ConsoleApplication1.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/Google.Protobuf.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/Google.Protobuf.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/Google.Protobuf.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/K4os.Compression.LZ4.Streams.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/K4os.Compression.LZ4.Streams.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/K4os.Compression.LZ4.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/K4os.Compression.LZ4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/K4os.Hash.xxHash.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/K4os.Hash.xxHash.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/MySql.Data.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/MySql.Data.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/System.Memory.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/System.Memory.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/System.Numerics.Vectors.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/System.Numerics.Vectors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/System.Runtime.CompilerServices.Unsafe.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/System.Runtime.CompilerServices.Unsafe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/Ubiety.Dns.Core.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/bin/Debug/ZstdNet.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/customtype.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.CopyComplete" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.exe.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/ConsoleApplication1/packages.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/BouncyCastle.1.8.5/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/BouncyCastle.1.8.5/BouncyCastle.1.8.5.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/BouncyCastle.1.8.5/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/BouncyCastle.1.8.5/lib/BouncyCastle.Crypto.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/Google.Protobuf.3.14.0.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/lib/net45/Google.Protobuf.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/lib/net45/Google.Protobuf.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/lib/net45/Google.Protobuf.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/lib/netstandard1.1/Google.Protobuf.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/lib/netstandard1.1/Google.Protobuf.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/lib/netstandard1.1/Google.Protobuf.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/lib/netstandard2.0/Google.Protobuf.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/lib/netstandard2.0/Google.Protobuf.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/Google.Protobuf.3.14.0/lib/netstandard2.0/Google.Protobuf.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.1.2.6/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.1.2.6/K4os.Compression.LZ4.1.2.6.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.1.2.6/lib/net45/K4os.Compression.LZ4.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.1.2.6/lib/net45/K4os.Compression.LZ4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.1.2.6/lib/net46/K4os.Compression.LZ4.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.1.2.6/lib/net46/K4os.Compression.LZ4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.1.2.6/lib/netstandard1.6/K4os.Compression.LZ4.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.1.2.6/lib/netstandard1.6/K4os.Compression.LZ4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.1.2.6/lib/netstandard2.0/K4os.Compression.LZ4.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.1.2.6/lib/netstandard2.0/K4os.Compression.LZ4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/K4os.Compression.LZ4.Streams.1.2.6.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/lib/net45/K4os.Compression.LZ4.Streams.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/lib/net45/K4os.Compression.LZ4.Streams.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/lib/net46/K4os.Compression.LZ4.Streams.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/lib/net46/K4os.Compression.LZ4.Streams.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/lib/netstandard1.6/K4os.Compression.LZ4.Streams.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/lib/netstandard1.6/K4os.Compression.LZ4.Streams.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/lib/netstandard2.0/K4os.Compression.LZ4.Streams.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/lib/netstandard2.0/K4os.Compression.LZ4.Streams.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Compression.LZ4.Streams.1.2.6/lib/netstandard2.1/K4os.Compression.LZ4.Streams.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Hash.xxHash.1.0.6/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Hash.xxHash.1.0.6/K4os.Hash.xxHash.1.0.6.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Hash.xxHash.1.0.6/lib/net45/K4os.Hash.xxHash.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Hash.xxHash.1.0.6/lib/net45/K4os.Hash.xxHash.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Hash.xxHash.1.0.6/lib/net46/K4os.Hash.xxHash.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Hash.xxHash.1.0.6/lib/net46/K4os.Hash.xxHash.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Hash.xxHash.1.0.6/lib/netstandard1.6/K4os.Hash.xxHash.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Hash.xxHash.1.0.6/lib/netstandard1.6/K4os.Hash.xxHash.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Hash.xxHash.1.0.6/lib/netstandard2.0/K4os.Hash.xxHash.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/K4os.Hash.xxHash.1.0.6/lib/netstandard2.0/K4os.Hash.xxHash.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/MySql.Data.8.0.27.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net452/MySql.Data.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net452/MySql.Data.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net452/Ubiety.Dns.Core.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net452/ZstdNet.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net48/MySql.Data.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net48/MySql.Data.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net48/Ubiety.Dns.Core.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net48/ZstdNet.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net5.0/MySql.Data.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net5.0/MySql.Data.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net5.0/Ubiety.Dns.Core.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/net5.0/ZstdNet.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/netstandard2.0/MySql.Data.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/netstandard2.0/MySql.Data.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/netstandard2.0/Ubiety.Dns.Core.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/netstandard2.0/ZstdNet.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/netstandard2.1/MySql.Data.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/netstandard2.1/MySql.Data.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/netstandard2.1/Ubiety.Dns.Core.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/MySql.Data.8.0.27/lib/netstandard2.1/ZstdNet.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/LICENSE.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/System.Buffers.4.5.1.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/THIRD-PARTY-NOTICES.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/lib/net461/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/lib/net461/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/lib/netcoreapp2.0/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/lib/netstandard1.1/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/lib/netstandard1.1/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/lib/netstandard2.0/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/lib/netstandard2.0/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/lib/uap10.0.16299/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/ref/net45/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/ref/net45/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/ref/netcoreapp2.0/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/ref/netstandard1.1/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/ref/netstandard1.1/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/ref/netstandard2.0/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/ref/netstandard2.0/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/ref/uap10.0.16299/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/useSharedDesignerContext.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Buffers.4.5.1/version.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/LICENSE.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/System.Data.SqlClient.4.8.3.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/THIRD-PARTY-NOTICES.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/MonoAndroid10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/MonoTouch10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/net451/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/net46/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/net461/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/net461/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/netcoreapp2.1/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/netcoreapp2.1/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/netstandard1.2/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/netstandard1.2/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/netstandard1.3/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/netstandard1.3/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/netstandard2.0/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/netstandard2.0/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/xamarinios10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/xamarinmac20/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/xamarintvos10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/lib/xamarinwatchos10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/MonoAndroid10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/MonoTouch10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/net451/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/net46/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/net461/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/net461/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netcoreapp2.1/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netcoreapp2.1/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/de/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/es/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/fr/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/it/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/ja/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/ko/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/ru/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/zh-hans/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.2/zh-hant/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/de/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/es/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/fr/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/it/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/ja/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/ko/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/ru/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/zh-hans/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard1.3/zh-hant/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard2.0/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/netstandard2.0/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/xamarinios10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/xamarinmac20/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/xamarintvos10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/ref/xamarinwatchos10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/unix/lib/netstandard1.3/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/unix/lib/netstandard2.0/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/unix/lib/netstandard2.0/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/net451/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/net46/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/net461/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/net461/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/netstandard1.3/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/netstandard2.0/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/netstandard2.0/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/uap10.0.16299/System.Data.SqlClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/runtimes/win/lib/uap10.0.16299/System.Data.SqlClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/useSharedDesignerContext.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Data.SqlClient.4.8.3/version.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/LICENSE.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/System.Memory.4.5.4.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/THIRD-PARTY-NOTICES.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/lib/net461/System.Memory.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/lib/net461/System.Memory.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/lib/netcoreapp2.1/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/lib/netstandard1.1/System.Memory.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/lib/netstandard1.1/System.Memory.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/lib/netstandard2.0/System.Memory.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/lib/netstandard2.0/System.Memory.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/ref/netcoreapp2.1/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/useSharedDesignerContext.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Memory.4.5.4/version.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/LICENSE.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/System.Numerics.Vectors.4.5.0.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/THIRD-PARTY-NOTICES.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/MonoAndroid10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/MonoTouch10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/net46/System.Numerics.Vectors.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/net46/System.Numerics.Vectors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/netcoreapp2.0/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/netstandard1.0/System.Numerics.Vectors.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/netstandard1.0/System.Numerics.Vectors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/portable-net45+win8+wp8+wpa81/System.Numerics.Vectors.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/portable-net45+win8+wp8+wpa81/System.Numerics.Vectors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/uap10.0.16299/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/xamarinios10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/xamarinmac20/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/xamarintvos10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/lib/xamarinwatchos10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/MonoAndroid10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/MonoTouch10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/net45/System.Numerics.Vectors.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/net45/System.Numerics.Vectors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/net46/System.Numerics.Vectors.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/net46/System.Numerics.Vectors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/netcoreapp2.0/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/netstandard1.0/System.Numerics.Vectors.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/netstandard1.0/System.Numerics.Vectors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/netstandard2.0/System.Numerics.Vectors.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/netstandard2.0/System.Numerics.Vectors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/uap10.0.16299/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/xamarinios10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/xamarinmac20/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/xamarintvos10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/ref/xamarinwatchos10/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/useSharedDesignerContext.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Numerics.Vectors.4.5.0/version.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/LICENSE.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/System.Runtime.CompilerServices.Unsafe.5.0.0.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/THIRD-PARTY-NOTICES.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/lib/net45/System.Runtime.CompilerServices.Unsafe.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/lib/net45/System.Runtime.CompilerServices.Unsafe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/ref/net461/System.Runtime.CompilerServices.Unsafe.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/ref/net461/System.Runtime.CompilerServices.Unsafe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/useSharedDesignerContext.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ConsoleApplication1/packages/System.Runtime.CompilerServices.Unsafe.5.0.0/version.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/CartPage/Cart.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/CartPage/Cart.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSharpFiles/DbCall.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CSharpFiles/DbCall.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/SearchBarComponent.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/SearchBarComponent.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.Views.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Project.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Project.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/Project.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.Views.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Project.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Project.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/AdminPage/Admin2.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/AdminPage/Admin2.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/CartPage/Cart.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/CartPage/Cart.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/ItemPages/SpecificItem.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/ItemPages/SpecificItem.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/AdminPage/Admin2.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/AdminPage/Admin2.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/CartPage/Cart.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/CartPage/Cart.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/ItemPages/SpecificItem.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/ItemPages/SpecificItem.razor.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/ItemPages/ItemSearchPage.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Pages/ItemPages/ItemSearchPage.razor.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/SearchBarComponent.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Shared/SearchBarComponent.razor.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/ItemPages/ItemSearchPage.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Pages/ItemPages/ItemSearchPage.razor.g.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Project.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/SearchBarComponent.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Shared/SearchBarComponent.razor.g.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +349,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.35020298" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.35010898" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -120,9 +403,7 @@
       <workItem from="1636977816844" duration="33387000" />
       <workItem from="1637241454845" duration="595000" />
       <workItem from="1637242089761" duration="8690000" />
-      <workItem from="1637572040019" duration="2247000" />
-      <workItem from="1637591240817" duration="2681000" />
-      <workItem from="1637658527485" duration="3845000" />
+      <workItem from="1637572040019" duration="387000" />
     </task>
     <task id="LOCAL-00001" summary="Database integreret i main.">
       <created>1637055653877</created>
@@ -158,6 +439,66 @@
     <option name="LAST_COMMIT_MESSAGE" value="Database integreret i main." />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor</url>
+          <line>105</line>
+          <properties documentPath="$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor" initialLine="97" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor</url>
+          <line>88</line>
+          <properties documentPath="$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor" initialLine="88" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor</url>
+          <line>96</line>
+          <properties documentPath="$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor" initialLine="96" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor</url>
+          <line>103</line>
+          <properties documentPath="$PROJECT_DIR$/Pages/ItemPages/ItemSearchPage.razor" initialLine="103" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Type#Project.Pages.ItemPages.ItemSearchPage" memberName="Products" />

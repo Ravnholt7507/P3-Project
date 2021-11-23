@@ -118,41 +118,16 @@ using CSharpFiles;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 58 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/CartPage/Cart.razor"
+#line 12 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/CartPage/Cart.razor"
        
     public string ItemsInCart;
-    public string CartItem;
 
     public async Task Read()
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
-        ItemsInCart = result.Value;
-        Console.WriteLine(ItemsInCart);
+        Console.WriteLine(result.Value);
+        ItemsInCart = result.Success ? result.Value : "";
         Order = LoadItems(Id());
-        CalcTotal();
-        StateHasChanged();
-    }
-
-    public void Delete(string barcode)
-    {
-        string[] array = ItemsInCart.Split(" ");
-        array = array.Skip(1).ToArray();
-        array = array.Distinct().ToArray();
-        CartItem = "";
-        for (int i = 0; i < array.Length; i++)
-        {
-            if (array[i] != barcode )
-            {
-                CartItem += " " + array[i];
-            }
-        }
-        Save();
-        Read();
-    }
-
-    public async Task Save()
-    {
-        await BrowserStorage.SetAsync("CartItems", CartItem);
     }
 
     public string[] Id()
@@ -163,10 +138,15 @@ using CSharpFiles;
         return array;
     }
 
+    public async Task Delete()
+    {
+        await BrowserStorage.DeleteAsync("CartItems");
+    }
+
     protected override Task OnInitializedAsync()
     {
-        Read();
         Order = new List<Product>();
+        Read();
         return base.OnInitializedAsync();
     }
 
