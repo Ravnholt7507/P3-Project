@@ -7,17 +7,60 @@
 <button class="btn btn-secondary" @onclick="Read">Read</button>
 <button class="btn btn-secondary" @onclick="Delete">Delete</button>
 
-<h1>Din indkoebskurv</h1>
+<button class="btn btn-secondary" @onclick="Save">Save</button>
+
+<div class="page">
+    <div class="cart-overview">
+        @foreach (var item in Order)
+        {
+            <div class="item-container">
+                <h4>@item.Barcode x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
+                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
+                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
+                <button @onclick="() => { Delete(item.Barcode); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right anus"><b>x</b></button>
+            </div>
+        }
+        <div class="order-total">
+            <p>Ordre Total:<b class="right"> @Total,-</b></p>
+            <b class="Supply_Demand error">Not enough in stock :(</b>
+            <b class="Negative_Order error">If you want to remove press X instead</b>
+            <a class="butt" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
+        </div>
+    </div>
+</div>
 
 @code {
     public string ItemsInCart;
+    public string CartItem;
 
     public async Task Read()
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
-        Console.WriteLine(result.Value);
-        ItemsInCart = result.Success ? result.Value : "";
+        ItemsInCart = result.Value;
         Order = LoadItems(Id());
+        CalcTotal();
+        StateHasChanged();
+    }
+
+    public void Delete(string Barcoden)
+    {
+        @*
+        string[] itemarray;
+        itemarray = itemarray.Skip(1).ToArray();
+
+        string[] myArray = new string[3];
+        myArray[0] = "Hello World";
+        myArray[1] = "This is a sample code";
+        myArray[2] = "Delete me";
+
+        myArray = myArray.Where(w => w != myArray[2]).ToArray();
+        //await BrowserStorage.SetAsync("CartItems", ItemsInCart);
+            *@
+    }
+
+    public async Task Save()
+    {
+        await BrowserStorage.SetAsync("CartItems", CartItem);
     }
 
     public string[] Id()
@@ -28,15 +71,10 @@
         return array;
     }
 
-    public async Task Delete()
-    {
-        await BrowserStorage.DeleteAsync("CartItems");
-    }
-
     protected override Task OnInitializedAsync()
     {
-        Order = new List<Product>();
         Read();
+        Order = new List<Product>();
         return base.OnInitializedAsync();
     }
 }
