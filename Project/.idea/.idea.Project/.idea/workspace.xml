@@ -5,6 +5,9 @@
     <projectFile profileName="Project">Project.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="9d8b08e5-56be-48b5-947a-a6b62181ada9" name="Changes" comment="" />
+=======
     <list default="true" id="9d8b08e5-56be-48b5-947a-a6b62181ada9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DbGenerator/DbGenerator/bin/Debug/DbGenerator.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../DbGenerator/DbGenerator/bin/Debug/DbGenerator.exe" afterDir="false" />
@@ -33,6 +36,7 @@
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/RazorDeclaration/Project.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Project.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Project.dll" afterDir="false" />
     </list>
+>>>>>>> parent of 14bda2f (Skovl)
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,6 +57,8 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/CartPage/Cart.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/CartPage/Cart.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/28489e7a98534715a55deed8cf7572df6b200/11/EventCallbackOfT.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/ComponentCode/DropdownCode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3da0403ae6e540a7a79283e509f3945b8d7e00/DE/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
@@ -122,7 +128,11 @@
       <workItem from="1637242089761" duration="8690000" />
       <workItem from="1637572040019" duration="2247000" />
       <workItem from="1637591240817" duration="2681000" />
+<<<<<<< HEAD
+      <workItem from="1637658527485" duration="10847000" />
+=======
       <workItem from="1637658527485" duration="3845000" />
+>>>>>>> parent of 14bda2f (Skovl)
     </task>
     <task id="LOCAL-00001" summary="Database integreret i main.">
       <created>1637055653877</created>
