@@ -11,7 +11,7 @@
                 <h4>@item.Barcode x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
                 <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
                 <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
-                <button @onclick="() => { Delete(item.Barcode); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right anus"><b>x</b></button>
+                <button @onclick="() => { Delete(item.Barcode); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right delete"><b>x</b></button>
             </div>
         }
         <div class="order-total">
@@ -21,34 +21,35 @@
             <a class="butt" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
         </div>
     </div>
+
     <div class="row">
-      <div class="col-75">
-        <div class="container">
-          <form action="/action_page.php">
-            <div class="row">
-              <div class="col-50">
-                <label> Fornavn</label>
-                <input type="text" placeholder="Gurlig">
-                <label> Email</label>
-                <input type="text" placeholder="gurlig1234@example.com">
-                <label> Address</label>
-                <input type="text" placeholder="Frederikshavnvej 2">
-                <label> City</label>
-                <input type="text" placeholder="København"> 
-              </div>
-                <div class="col-50">
-                <label>Efternavn</label>
-                <input type="text" placeholder="Marghrete .2">
-                <label>Telefonnummer</label>
-                <input type="text" placeholder="12345678">
-                <label>Postnummer</label>
-                <input type="text" placeholder="1010">
-              </div>
+        <div class="col-75">
+            <div class="container">
+                <form action="/action_page.php">
+                    <div class="row">
+                        <div class="col-50">
+                        <label> Fornavn</label>
+                        <input type="text" placeholder="Gurlig">
+                        <label> Email</label>
+                        <input type="text" placeholder="gurlig1234@example.com">
+                        <label> Address</label>
+                        <input type="text" placeholder="Frederikshavnvej 2">
+                        <label> City</label>
+                        <input type="text" placeholder="København"> 
+                        </div>
+                        <div class="col-50">
+                        <label>Efternavn</label>
+                        <input type="text" placeholder="Marghrete .2">
+                        <label>Telefonnummer</label>
+                        <input type="text" placeholder="12345678">
+                        <label>Postnummer</label>
+                        <input type="text" placeholder="1010">
+                        </div>
+                    </div>
+                </form>
             </div>
-          </form>
         </div>
-      </div>
-     </div>
+    </div>
 </div>
 
 @code {
@@ -108,14 +109,6 @@
         margin-bottom: 30px;
     }
 
-    .anus {
-        background-color: red;
-    }
-
-    .anus:hover {
-        box-shadow: 0px 2px 10px 5px red;
-    }
-
     .cart-overview {
         outline: solid;
         outline-color: black;
@@ -141,12 +134,18 @@
         float: right;
         padding: 0;
         margin: 0;
-
     }
 
     .butt right {
         background-color: red;
+    }
 
+    .delete {
+        background-color: red;
+    }
+
+    .delete:hover {
+        box-shadow: 0px 2px 10px 5px red;
     }
 
     .cart-overview b {
@@ -163,11 +162,6 @@
 
     .Negative_Order {
         display: @NegativeOrder;
-    }
-    
-    .row {
-      display: -ms-flexbox;
-      flex: 75%;
     }
     
     .col-25,
