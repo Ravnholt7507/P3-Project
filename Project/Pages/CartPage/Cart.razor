@@ -27,6 +27,34 @@
             <a class="butt" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
         </div>
     </div>
+    <div class="row">
+      <div class="col-75">
+        <div class="container">
+          <form action="/action_page.php">
+            <div class="row">
+              <div class="col-50">
+                <label> Fornavn</label>
+                <input type="text" placeholder="Gurlig">
+                <label> Email</label>
+                <input type="text" placeholder="gurlig1234@example.com">
+                <label> Address</label>
+                <input type="text" placeholder="Frederikshavnvej 2">
+                <label> City</label>
+                <input type="text" placeholder="København"> 
+              </div>
+                <div class="col-50">
+                <label>Efternavn</label>
+                <input type="text" placeholder="Marghrete .2">
+                <label>Telefonnummer</label>
+                <input type="text" placeholder="12345678">
+                <label>Postnummer</label>
+                <input type="text" placeholder="1010">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+     </div>
 </div>
 
 @code {
@@ -42,20 +70,21 @@
         StateHasChanged();
     }
 
-    public void Delete(string Barcoden)
+    public void Delete(string barcode)
     {
-        @*
-        string[] itemarray;
-        itemarray = itemarray.Skip(1).ToArray();
-
-        string[] myArray = new string[3];
-        myArray[0] = "Hello World";
-        myArray[1] = "This is a sample code";
-        myArray[2] = "Delete me";
-
-        myArray = myArray.Where(w => w != myArray[2]).ToArray();
-        //await BrowserStorage.SetAsync("CartItems", ItemsInCart);
-            *@
+        string[] array = ItemsInCart.Split(" ");
+        array = array.Skip(1).ToArray();
+        array = array.Distinct().ToArray();
+        CartItem = "";
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (array[i] != barcode )
+            {
+                CartItem += " " + array[i];
+            }
+        }
+        Save();
+        Read();
     }
 
     public async Task Save()
@@ -78,56 +107,6 @@
         return base.OnInitializedAsync();
     }
 }
-
-<div class="page">
-    <div class="cart-overview">
-        @foreach (var item in Order)
-        {
-            <div class="item-container" >
-                <h4>@item.Name x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
-                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
-                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
-                <button @onclick="() => { Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right anus"><b>x</b></button>
-            </div>
-        }
-        <div class="order-total">
-            <p>Ordre Total:<b class="right"> @Total,-</b></p>
-            <b class="Supply_Demand error">Not enough in stock :(</b>
-            <b class="Negative_Order error">If you want to remove press X instead</b>
-            <a class="butt" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
-        </div>
-    </div>
-
- <div class="row">
-  <div class="col-75">
-    <div class="container">
-      <form action="/action_page.php">
-        <div class="row">
-          <div class="col-50">
-            <label> Fornavn</label>
-            <input type="text" placeholder="Gurlig">
-            <label> Email</label>
-            <input type="text" placeholder="gurlig1234@example.com">
-            <label> Address</label>
-            <input type="text" placeholder="Frederikshavnvej 2">
-            <label> City</label>
-            <input type="text" placeholder="København"> 
-          </div>
-
-          <div class="col-50">
-            <label>Efternavn</label>
-            <input type="text" placeholder="Marghrete .2">
-            <label>Telefonnummer</label>
-            <input type="text" placeholder="12345678">
-            <label>Postnummer</label>
-            <input type="text" placeholder="1010">
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
- </div>
-</div>
 
 <style>
     .page {
@@ -191,53 +170,35 @@
     .Negative_Order {
         display: @NegativeOrder;
     }
-
-     .row {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        margin: 0 -16px;
+    
+    .row {
+      display: -ms-flexbox;
+      flex: 75%;
     }
-
-    .col-25 {
-        -ms-flex: 25%;
-        flex: 25%;
-    }
-
-    .col-50 {
-        -ms-flex: 50%;
-        flex: 50%;
-    }
-
-    .col-75 {
-        -ms-flex: 75%;
-        flex: 75%;
-    }
-
+    
     .col-25,
     .col-50,
     .col-75 {
-        padding: 0 16px;
+      padding: 0 16px;
     }
-
+    
     .container {
-        background-color: #f2f2f2;
-        padding: 5px 20px 15px 20px;
-        border: 1px solid lightgrey;
-        border-radius: 3px;
+      background-color: #f2f2f2;
+      padding: 5px 20px 15px 20px;
+      border: 1px solid lightgrey;
+      border-radius: 3px;
     }
-
+    
     input[type=text] {
-        width: 100%;
-        margin-bottom: 20px;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
     }
-
+    
     label {
-        margin-bottom: 10px;
-        display: block;
+      margin-bottom: 10px;
+      display: block;
     }
 </style>

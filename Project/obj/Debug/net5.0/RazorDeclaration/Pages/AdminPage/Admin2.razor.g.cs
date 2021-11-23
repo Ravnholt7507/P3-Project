@@ -125,11 +125,15 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 117 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
+#line 132 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
        
     public List<string> SelectedColours = new List<string>();
-    public List<string> SelectedSizes = new List<string>();
+    public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
     public List<string> PlaceholderSizes = new List<string>();
+
+
+    public bool[] chosenColors = { false, false, false, false };
+    public bool[] chosenSizes= { false, false, false};
 
     string img = "";
     string imgName = "N/A";
@@ -150,6 +154,7 @@ using System.IO;
         img = "/Images/" + fileName;
     }
 
+    public int StockTest;
     public string SelectedValue;
     public string Description;
     public int Stock;
@@ -158,27 +163,24 @@ using System.IO;
     protected bool IsDisabled { get; set; } = false;
 
     public string placeholderColour;
-    public string SelectedColour;
+    public string SelectedColour = "";
 
-    public string[] Colours = { "red", "blue", "Yellow", "Green" };
-    public string[] Sizes = { "Big", "medium", "small" };
+    public string[] Colours = { "red", "blue", "yellow", "green" };
+    public string[] Sizes = { "big", "medium", "small" };
 
     public string SelectedCat = null;
     public string NewItem = null;
+    color NewColor;
 
     public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
 
     public void Verify()
     {
-        SelectedSizes.ForEach(size => Console.WriteLine(size));
+        NewColor = new color(SelectedColour);
+        NewColor.SnS = SelectedSizes.ToArray();
         placeholderColour = null;
-        CheckboxColours("", false);
     }
 
-    public void AddImage()
-    {
-
-    }
 
     public void InitSubcats()
     {
@@ -192,9 +194,9 @@ using System.IO;
     {
         Console.WriteLine(checkvalue);
         if ((bool)checkvalue)
-            SelectedSizes.Add(size);
+            SelectedSizes.Add(new SizeAndStock(size));
         if (!(bool)checkvalue)
-            SelectedSizes.Remove(size);
+            SelectedSizes.Remove(new SizeAndStock(size));
     }
 
     public void CheckboxColours(string colour, object checkvalue)
@@ -204,6 +206,50 @@ using System.IO;
             placeholderColour = colour;
             SelectedColour = colour;
         }
+        switch (colour)
+        {
+            case "red": chosenColors[0] = !chosenColors[0]; break;
+            case "blue": chosenColors[1] = !chosenColors[1]; break;
+            case "yellow": chosenColors[2] = !chosenColors[2]; break;
+            case "green": chosenColors[3] = !chosenColors[3]; break;
+            default: break;
+        }
+    }
+
+    public class SizeAndStock
+    {
+        public SizeAndStock(string InputSize)
+        {
+            Size = InputSize;
+        }
+        public int id;
+        public string Size;
+        public bool state = false;
+        public int stock = 0;
+    }
+
+    public class color
+    {
+        public color(string name)
+        {
+            ColorName = name;
+        }
+        public string ImageLink;
+        public string ColorName;
+        public string id;
+        public SizeAndStock[] SnS;
+    }
+
+    public class product
+    {
+        public color[] Color;
+        public int Id = 0;
+    }
+
+    public void test()
+    {
+        product nederdel = new product();
+
     }
 
     /*public void AddNewItem()
@@ -211,12 +257,10 @@ using System.IO;
         Product prod = new Product(1);
         prod.Description = Description;
         prod.Type = SelectedCat;
-        prod.Colour = SelectedColour;
-        prod.Stock = Stock;
         prod.Price = Price;
-        prod.Size = SelectedSizes[0];
         prod.Name = NewItem;
         prod.ImageLink = img;
+        prod.Color.Size =
         SelectedSizes.Clear();
         Console.WriteLine($"{prod.Name} {prod.Description} {prod.Type} {prod.Colour} {prod.Stock} {prod.Price} {prod.Size}");
     }*/
