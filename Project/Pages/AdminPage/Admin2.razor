@@ -148,7 +148,7 @@
     public int placeholder = 0;
 
     public bool[] chosenColors = { false, false, false, false };
-    public bool[] chosenSizes= { false, false, false};
+    public bool[] chosenSizes = { false, false, false };
 
     string img = "";
     string imgName = "N/A";
@@ -169,7 +169,6 @@
         img = "/Images/" + fileName;
     }
 
-    public int StockTest;
     public string SelectedValue;
     public string Description;
     public int Stock;
@@ -260,7 +259,7 @@
         public int id;
         public string Size;
         public bool state = false;
-        public int stock = 0;
+        public int stock;
     }
 
     public class color
@@ -281,11 +280,7 @@
         public int Id = 0;
     }
 
-    public void test()
-    {
-        product nederdel = new product();
 
-    }
 
     /*public void AddNewItem()
     {
@@ -301,6 +296,6 @@
     }*/
 }
 
-    @*prod.Colour = SelectedColour;
+@*prod.Colour = SelectedColour;
     prod.Stock = Stock;
     prod.Size = SelectedSizes[0];*@
