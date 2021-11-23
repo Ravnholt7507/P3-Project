@@ -110,24 +110,23 @@
 
 @if (NewColor != null)
 {
-    <table>
-        <tr>
-            <th>Item </th>
-            <th>Input stock</th>
-        </tr>
-        int i = 0;
-        @foreach (SizeAndStock SnS in NewColor.SnS)
-        {
+<table>
+    <tr>
+        <th>Item </th>
+        <th>Input stock</th>
+    </tr>
 
-            <tr>
-                <td>@SnS.Size</td>
-                <td>
-                    <input type="text" @bind="SnS.stock" placeholder="stock" />
-                    <button @onclick="@RemoveItem(SnS.Size)">x</button>
-                </td>
-            </tr>
-            i++;
-        }
+    @for (int i = 0; i < NewColor.SnS.Length; i++)
+    {
+        <tr>
+            <td>@NewColor.SnS[i].Size</td>
+            <td>
+                <input type="text" @bind="@NewColor.SnS[i].stock" placeholder="stock" />
+            </td>
+
+        </tr>
+        
+    }
 </table>
 }
 
@@ -161,7 +160,6 @@
         img = "/Images/" + fileName;
     }
 
-    public int StockTest;
     public string SelectedValue;
     public string Description;
     public int Stock;
@@ -186,6 +184,8 @@
         NewColor = new color(SelectedColour);
         NewColor.SnS = SelectedSizes.ToArray();
         placeholderColour = null;
+        Console.WriteLine(NewColor.SnS[0].stock);
+
     }
 
 
@@ -237,7 +237,7 @@
         public int id;
         public string Size;
         public bool state = false;
-        public int stock = 0;
+        public int stock;
     }
 
     public class color
