@@ -3,12 +3,6 @@
 @using CSharpFiles
 @inject ProtectedLocalStorage BrowserStorage
 
-<input class="form-control" @bind="ItemsInCart"/>
-<button class="btn btn-secondary" @onclick="Read">Read</button>
-
-
-<button class="btn btn-secondary" @onclick="Save">Save</button>
-
 <div class="page">
     <div class="cart-overview">
         @foreach (var item in Order)
