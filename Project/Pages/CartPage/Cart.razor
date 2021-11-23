@@ -8,7 +8,7 @@
         @foreach (var item in Order)
         {
             <div class="item-container">
-                <h4>@item.Barcode x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
+                <h4>@item.Name x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
                 <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
                 <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
                 <button @onclick="() => { Delete(item.Barcode); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right anus"><b>x</b></button>
@@ -106,6 +106,10 @@
     .page {
         height: fit-content;
         margin-bottom: 30px;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
     }
 
     .anus {
@@ -117,8 +121,8 @@
     }
 
     .cart-overview {
-        outline: solid;
-        outline-color: black;
+        border: 1px solid black;
+        border-radius: 3px;
         width: 500px;
         background-color: #efefef;
     }
@@ -130,7 +134,7 @@
 
     .order-total {
         background-color: #bababa;
-        height: 100%;
+        height: fit-content;
     }
 
     .order-total p{
@@ -164,10 +168,10 @@
     .Negative_Order {
         display: @NegativeOrder;
     }
-    
+
     .row {
-      display: -ms-flexbox;
-      flex: 75%;
+        display: -ms-flexbox;
+        flex: 75%;
     }
     
     .col-25,
@@ -175,12 +179,13 @@
     .col-75 {
       padding: 0 16px;
     }
-    
+
     .container {
-      background-color: #f2f2f2;
-      padding: 5px 20px 15px 20px;
-      border: 1px solid lightgrey;
-      border-radius: 3px;
+        background-color: #f2f2f2;
+        padding: 5px 20px 15px 20px;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin-left: 50px;
     }
     
     input[type=text] {
