@@ -21,6 +21,6 @@ namespace Project.Shared.ComponentCode
             }
         }
 
-        public List<string> InsertPages = new List<string>() { "Admin", "Jackets", "Andreas", "Products" };
+        public List<string> InsertPages = new List<string>() { "Admin", "Admin2", "Kpi", "Products" };
     }
 }

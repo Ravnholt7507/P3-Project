@@ -10,49 +10,108 @@
             <tr>
                 <th>Product Name</th>
                 <th>ID</th>
-                <th>Stock</th>
                 <th>IMG</th>
                 <th>Show KPI</th>
             </tr>
             <tr>
                 <td>Bukser</td>
                 <td>47</td>
-                <td>10</td>
-                <th></th>
-                <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
+                <th>IMG</th>
+                <td style="text-align:center"><button class="butt" @onclick="Popup"><i class="fa fa-times"></i></button></td>
             </tr>
             <tr>
                 <td>Shirt</td>
                 <td>12</td>
-                <td>40</td>
-                <th></th>
-                <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
+                <th>IMG</th>
+                <td style="text-align:center"><button class="butt" @onclick="Popup"><i class="fa fa-times"></i></button></td>
             </tr>
             <tr>
                 <td>Hat</td>
                 <td>52</td>
-                <td>100</td>
-                <th><button @onclick="Popup"></button></th>
-                <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
+                <th>IMG</th>
+                <td style="text-align:center"><button class="butt" @onclick="Popup"><i class="fa fa-times"></i></button></td>
             </tr>
         </table>
     </div>
-    <div class="other">
-
+    <div class="specific-item">
+        <table>
+            <tr>
+                <th>Product Name</th>
+                <th>Type</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Prize</th>
+                <th>Stock</th>
+                <th>IMG</th>
+                <th>Stats</th>
+            </tr>
+            <tr>
+                <td>The Buks</td>
+                <td>Bukser</td>
+                <td>Blue</td>
+                <th>XXL</th>
+                <th>1000,-</th>
+                <th>12</th>
+                <th>IMG</th>
+                <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
+            </tr>
+            <tr>
+                <td>The Buks</td>
+                <td>Bukser</td>
+                <td>Red</td>
+                <th>S</th>
+                <th>1000,-</th>
+                <th>5</th>
+                <th>IMG</th>
+                <td style="text-align:center"><button class="butt" @onclick="StatsPopup"><i class="fa fa-times"></i></button></td>
+            </tr>
+        </table>
     </div>
+    <div class="stats">
+        <table>
+            <tr>
+                <td></td>
+                <td>Jan</td>
+                <td>Feb</td>
+                <td>Mar</td>
+            </tr>
 
+            <tr>
+                <th>Resultgrad</th>
+                <td>5%</td>
+            </tr>
+            <tr>
+                <th>Buffer</th>
+                <td>20%</td>
+            </tr>
+            <tr>
+                <th>Egenkapital</th>
+                <td>50%</td>
+            </tr>
+            <tr>
+                <th>Likviditet</th>
+                <td>100%</td>
+            </tr>
+        </table>
+    </div>
 </div>
+
 
 <style>
     .page {
         height: 500px;
     }
 
-    .item-list {
+    .item-list, .specific-item, .stats {
+        float: left;
         height: fit-content;
         width: fit-content;
         border: 1px solid black;
         border-radius: 3px;
+    }
+
+    .specific-item, .stats{
+        margin-left: 50px;
     }
 
     td, th {
@@ -63,6 +122,11 @@
 
     tr:nth-child(even) {
         background-color: #dddddd;
+    }
+
+    .specific-item {
+        display: none;
+        display: @Visible;
     }
 
 </style>
