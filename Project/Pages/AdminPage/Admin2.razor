@@ -128,6 +128,7 @@
     </tr>
     @foreach (color Color in MyColors)
     {
+        placeholder = 0;
         @foreach (SizeAndStock SnS in Color.SnS)
         {
             <tr>
@@ -137,12 +138,15 @@
                     <input type="text" @bind="SnS.stock" placeholder="stock" />
                 </td>
                 <td>
-                    <button @onclick="() => RemoveItem(placeholder)" class="btn btn-outline-dark btn-light btn-sm">x</button>
+                    <button @onclick="() => RemoveItem(placeholder, Color)" class="btn btn-outline-dark btn-light btn-sm">x</button>
                 </td>
+                <td>@placeholder</td>
             </tr>
-            placeholder++;
+
+            placeholder = placeholder + 1;
             if (placeholder == Color.SnS.Length)
             {
+                Console.WriteLine("swag");
                 placeholder = 0;
             }
         }
@@ -156,6 +160,8 @@
     public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
     public List<string> PlaceholderSizes = new List<string>();
 
+
+    public int PHColor = 0;
     public int placeholder = 0;
 
     public bool[] chosenColors = { false, false, false, false };
@@ -209,11 +215,11 @@
     {
         NewColor = new color(SelectedColour);
         NewColor.SnS = SelectedSizes.ToArray();
+        MyColors.Add(NewColor);
+        SelectedSizes.Clear();
         placeholderColour = null;
-        Console.WriteLine(NewColor.SnS[0].stock);
-
+        NewColor = null;
     }
-
 
     protected override Task OnInitializedAsync()
     {
@@ -269,9 +275,14 @@
         }
     }
 
-    public void RemoveItem(int i)
+    public void RemoveItem(int i, color Color)
     {
-        NewColor.SnS = NewColor.SnS.Where((source, index) => index != i).ToArray();
+        Console.WriteLine(i);
+        Color.SnS = Color.SnS.Where((source, index) => index != i).ToArray();
+        if (Color.SnS.Length == 0)
+        {
+            MyColors.Remove(Color);
+        }
     }
 
     public class SizeAndStock
