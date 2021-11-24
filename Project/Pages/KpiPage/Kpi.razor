@@ -1,0 +1,68 @@
+﻿@page "/Kpi"
+@inherits KpiCode
+@using CSharpFiles
+
+
+<div class="page">
+    <h3>Kpi</h3>
+    <div class="item-list">
+        <table>
+            <tr>
+                <th>Product Name</th>
+                <th>ID</th>
+                <th>Stock</th>
+                <th>IMG</th>
+                <th>Show KPI</th>
+            </tr>
+            <tr>
+                <td>Bukser</td>
+                <td>47</td>
+                <td>10</td>
+                <th></th>
+                <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
+            </tr>
+            <tr>
+                <td>Shirt</td>
+                <td>12</td>
+                <td>40</td>
+                <th></th>
+                <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
+            </tr>
+            <tr>
+                <td>Hat</td>
+                <td>52</td>
+                <td>100</td>
+                <th><button @onclick="Popup"></button></th>
+                <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
+            </tr>
+        </table>
+    </div>
+    <div class="other">
+
+    </div>
+
+</div>
+
+<style>
+    .page {
+        height: 500px;
+    }
+
+    .item-list {
+        height: fit-content;
+        width: fit-content;
+        border: 1px solid black;
+        border-radius: 3px;
+    }
+
+    td, th {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+</style>
