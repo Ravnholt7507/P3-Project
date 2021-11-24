@@ -71,27 +71,22 @@
         <table>
             <tr>
                 <td></td>
-                <td>Jan</td>
-                <td>Feb</td>
-                <td>Mar</td>
+                @foreach (var Month in Months)
+                {
+                    <th>@Month</th>
+                }
             </tr>
 
-            <tr>
-                <th>Resultgrad</th>
-                <td>5%</td>
-            </tr>
-            <tr>
-                <th>Buffer</th>
-                <td>20%</td>
-            </tr>
-            <tr>
-                <th>Egenkapital</th>
-                <td>50%</td>
-            </tr>
-            <tr>
-                <th>Likviditet</th>
-                <td>100%</td>
-            </tr>
+            @foreach (var item in Kpis)
+            {
+                <tr>
+                    <th>@item</th>
+                    @foreach (var stat in Percent)
+                    {
+                        <th>@stat</th>
+                    }
+                </tr>
+            }
         </table>
     </div>
 </div>
@@ -121,7 +116,7 @@
     }
 
     tr:nth-child(even) {
-        background-color: #dddddd;
+        background-color: #e6e6e6;
     }
 
     .specific-item {

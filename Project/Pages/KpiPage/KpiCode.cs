@@ -35,5 +35,8 @@ namespace Project.Pages.KpiPage
                 Visible = "none";
             }
         }
+        public List<string> Kpis = new List<string>() { "Resultgrad", "Buffer", "Egenkapital", "Likviditet" };
+        public List<string> Months = new List<string>() { "Jan", "Feb", "Mar", "Apr" };
+        public List<string> Percent = new List<string>() { "5%", "10%", "30%", "70%" };
     }
 }
