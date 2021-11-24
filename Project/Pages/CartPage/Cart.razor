@@ -3,15 +3,19 @@
 @using CSharpFiles
 @inject ProtectedLocalStorage BrowserStorage
 
+<h1>Din indkoebskurv</h1>
+
+<button class="btn btn-secondary" @onclick="Save">Save</button>
+
 <div class="page">
     <div class="cart-overview">
         @foreach (var item in Order)
         {
             <div class="item-container">
-                <h4>@item.Name x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
-                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><i class="fa fa-plus"></i></button>
-                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><i class="fa fa-minus"></i></button>
-                <button @onclick="() => { Delete(item.Barcode); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right delete"><i class="fa fa-times"></i></button>
+                <h4>@item.Barcode x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
+                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
+                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
+                <button @onclick="() => { Delete(item.Barcode); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right anus"><b>x</b></button>
             </div>
         }
         <div class="order-total">
@@ -20,34 +24,6 @@
             <b class="Negative_Order error">If you want to remove press X instead</b>
             <a class="butt" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
         </div>
-    </div>
-    <div class="row">
-      <div class="col-75">
-        <div class="container">
-          <form>
-            <div class="row">
-              <div class="col-50">
-                <label><i class="fa fa-fw fa-user-circle"></i> Fornavn</label>
-                <input type="text" placeholder="Gurlig">
-                <label><i class="fa fa-fw fa-envelope"></i> Email</label>
-                <input type="text" placeholder="gurlig1234@example.com">
-                <label><i class="fa fa-fw fa-map-marker"></i> Addresse</label>
-                <input type="text" placeholder="Frederikshavnvej 2">
-                <label><i class="fa fa-fw fa-building"></i> By</label>
-                <input type="text" placeholder="København"> 
-              </div>
-                <div class="col-50">
-                <label><i class="fa fa-fw fa-star"></i> Efternavn</label>
-                <input type="text" placeholder="Marghrete .2">
-                <label><i class="fa fa-fw fa-phone"></i> Telefonnummer</label>
-                <input type="text" placeholder="12345678">
-                <label><i class="fa fa-fw fa-globe"></i> Postnummer</label>
-                <input type="text" placeholder="1010">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
 </div>
 
@@ -64,21 +40,20 @@
         StateHasChanged();
     }
 
-    public void Delete(string barcode)
+    public void Delete(string Barcoden)
     {
-        string[] array = ItemsInCart.Split(" ");
-        array = array.Skip(1).ToArray();
-        array = array.Distinct().ToArray();
-        CartItem = "";
-        for (int i = 0; i < array.Length; i++)
-        {
-            if (array[i] != barcode )
-            {
-                CartItem += " " + array[i];
-            }
-        }
-        Save();
-        Read();
+        @*
+        string[] itemarray;
+        itemarray = itemarray.Skip(1).ToArray();
+
+        string[] myArray = new string[3];
+        myArray[0] = "Hello World";
+        myArray[1] = "This is a sample code";
+        myArray[2] = "Delete me";
+
+        myArray = myArray.Where(w => w != myArray[2]).ToArray();
+        //await BrowserStorage.SetAsync("CartItems", ItemsInCart);
+            *@
     }
 
     public async Task Save()
@@ -106,22 +81,15 @@
     .page {
         height: fit-content;
         margin-bottom: 30px;
-        display: -webkit-flex;
-        display: flex;
-        flex-direction: row;
-        align-items: stretch;
     }
 
-    .delete {
+    .anus {
         background-color: red;
     }
-        .delete:hover {
-            box-shadow: 0px 2px 10px 5px red;
-        }
 
     .cart-overview {
-        border: 1px solid black;
-        border-radius: 3px;
+        outline: solid;
+        outline-color: black;
         width: 500px;
         background-color: #efefef;
     }
@@ -133,7 +101,7 @@
 
     .order-total {
         background-color: #bababa;
-        height: fit-content;
+        height: 100%;
     }
 
     .order-total p{
@@ -164,37 +132,5 @@
 
     .Negative_Order {
         display: @NegativeOrder;
-    }
-
-    .row {
-        display: -ms-flexbox;
-        flex: 75%;
-    }
-    
-    .col-25,
-    .col-50,
-    .col-75 {
-      padding: 0 16px;
-    }
-
-    .container {
-        background-color: #f2f2f2;
-        padding: 5px 20px 15px 20px;
-        border: 1px solid black;
-        border-radius: 3px;
-        margin-left: 50px;
-    }
-    
-    input[type=text] {
-      width: 100%;
-      margin-bottom: 20px;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
-    
-    label {
-      margin-bottom: 10px;
-      display: block;
     }
 </style>

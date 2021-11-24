@@ -58,7 +58,7 @@
 {
     if (selectedCategory == Categories[i].CategoryName)
     {
-        <button class="w3-bar-Subcategory w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i>@Categories[i].CategoryName</button>
+        <button class="w3-bar-Subcategory w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a>@Categories[i].CategoryName</a></button>
         <div class="dropdown-content2">
             @for (int k = 0; k < Categories[i].Subcategory.Count; k++)
             {
