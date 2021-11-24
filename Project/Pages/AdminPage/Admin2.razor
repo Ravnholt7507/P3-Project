@@ -119,45 +119,44 @@
         </label>
     </div>*@
 
-@if (MyColors.Count != 0)
+@if(MyColors.Count != 0)
 {
-    <table>
-        <tr>
-            <th>Item </th>
-            <th>Input stock</th>
-        </tr>
-        @foreach (color Color in MyColors)
+<table>
+    <tr>
+        <th>Item </th>
+        <th>Input stock</th>
+    </tr>
+    @foreach (color Color in MyColors)
+    {
+        @foreach (SizeAndStock SnS in Color.SnS)
         {
-            @foreach (SizeAndStock SnS in Color.SnS)
+            <tr>
+                <td>@Color.ColorName</td>
+                <td>@SnS.Size</td>
+                <td>
+                    <input type="text" @bind="SnS.stock" placeholder="stock" />
+                </td>
+                <td>
+                    <button @onclick="() => RemoveItem(placeholder)" class="btn btn-outline-dark btn-light btn-sm">x</button>
+                </td>
+            </tr>
+            placeholder++;
+            if (placeholder == Color.SnS.Length)
             {
-                <tr>
-                    <td>@Color.ColorName</td>
-                    <td>@SnS.Size</td>
-                    <td>
-                        <input type="text" @bind="SnS.stock" placeholder="stock" />
-                    </td>
-                    <td>
-                        <button @onclick="() => RemoveItem(placeholder)" class="btn btn-outline-dark btn-light btn-sm">x</button>
-                    </td>
-                </tr>
-                placeholder++;
-                if (placeholder == Color.SnS.Length)
-                {
-                    placeholder = 0;
-                }
+                placeholder = 0;
             }
         }
-    </table>
-    <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light">  <i class="fa fa-fw fa-check"></i> Confirm</button>
+    }
+</table>
+    <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> Confirm</button>
 }
-
+ 
 @code {
     public List<string> SelectedColours = new List<string>();
     public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
     public List<string> PlaceholderSizes = new List<string>();
 
     public int placeholder = 0;
-
 
     public bool[] chosenColors = { false, false, false, false };
     public bool[] chosenSizes = { false, false, false };
@@ -201,7 +200,6 @@
     public string NewItem = null;
 
     public List<color> MyColors = new List<color>();
-
     color NewColor;
     public string ChosenColor;
 
@@ -211,10 +209,9 @@
     {
         NewColor = new color(SelectedColour);
         NewColor.SnS = SelectedSizes.ToArray();
-        MyColors.Add(NewColor);
-        SelectedSizes.Clear();
         placeholderColour = null;
-        NewColor = null;
+        Console.WriteLine(NewColor.SnS[0].stock);
+
     }
 
 
@@ -239,6 +236,12 @@
             default: return null;
         }
     }
+
+    public void ConfirmStock()
+    {
+
+    }
+
 
     public void CheckboxSizes(string size, object checkvalue)
     {
@@ -268,16 +271,7 @@
 
     public void RemoveItem(int i)
     {
-        MyColors[i].SnS = MyColors[i].SnS.Where((source, index) => index != i).ToArray();
-        if (MyColors[i].SnS.Length == 0)
-        {
-            MyColors.Remove(MyColors[i]);
-        }
-    }
-
-    public void ConfirmStock()
-    {
-
+        NewColor.SnS = NewColor.SnS.Where((source, index) => index != i).ToArray();
     }
 
     public class SizeAndStock
