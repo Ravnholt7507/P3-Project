@@ -105,25 +105,23 @@
 <style>
     .page {
         height: fit-content;
+        overflow: auto;
         margin-bottom: 30px;
-        display: -webkit-flex;
-        display: flex;
-        flex-direction: row;
-        align-items: stretch;
     }
 
     .delete {
         background-color: red;
     }
-        .delete:hover {
-            box-shadow: 0px 2px 10px 5px red;
-        }
+    .delete:hover {
+        box-shadow: 0px 2px 10px 5px red;
+    }
 
     .cart-overview {
         border: 1px solid black;
         border-radius: 3px;
         width: 500px;
         background-color: #efefef;
+        float: left;
     }
 
     .item-container {
@@ -166,11 +164,6 @@
         display: @NegativeOrder;
     }
 
-    .row {
-        display: -ms-flexbox;
-        flex: 75%;
-    }
-
     .col-25,
     .col-50,
     .col-75 {
@@ -183,6 +176,7 @@
         border: 1px solid black;
         border-radius: 3px;
         margin-left: 50px;
+        float: left;
     }
 
     input[type=text] {
