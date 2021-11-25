@@ -34,6 +34,11 @@
         </select>
     </label>
 </div>
+@if (CheckForInput) {
+<div class="CheckForInput">
+    <a>Udfyld artikelnavn, pris og beskrivelse</a>
+</div>
+}
 
 <br />
 <br />
@@ -217,6 +222,10 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
+
+    .CheckForInput {
+        color: red;
+    }
 </style>
 
 @code {
@@ -230,6 +239,8 @@
 
     public bool[] chosenColors = { false, false, false, false };
     public bool[] chosenSizes = { false, false, false };
+
+    public bool CheckForInput = false;
 
 
     string ChosenImg = "";
@@ -314,6 +325,10 @@
     public void ConfirmStock()
     {
         if (NewItem == null || Description == null || Price == null || SelectedCat == null)
+        {
+            CheckForInput = true;
+            return;
+        }
 
 
         imgState = !imgState;
