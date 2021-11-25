@@ -5,57 +5,42 @@
     <h1>Admin page</h1>
     <div class="container">
         <div>
-            <div>
-                <h4>Create Category</h4>
-                <label>
-                    <input @bind="newCategory" required placeholder="Indtast kategori titel" />
-                </label>
-
-                <button class="butt tilføj" @onclick="UpdateList">
-                    Update kategorier
-                </button>
-            </div>
-            <div>
-                <h4>Create Subcategory</h4>
-
-
-                <label>
-                    <input @bind="newTitle" required placeholder="Indtast subkategori titel" />
-                </label>
-
-                <button class="butt tilføj" @onclick="Insert">
-                    Update subkategori
-                </button>
-            </div>
-            <div>
-                <h4>Remove a Category or Item</h4>
-                <label>
-                    <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" />
-                </label>
-
-                <button class="butt fjern" @onclick="Remove">
-                    Fjern
-                </button>
-
-                <datalist id="Categories">
-                    @foreach (Category category in Categories)
+            <h4>Tilføj en kategori</h4>
+            <form @onsubmit="UpdateList">
+                <input @bind="newCategory" placeholder="Indtast kategori" required />
+                <input class="butt add" type="submit" value="Tilføj" />
+            </form>
+        </div>
+        <div>
+            <h4>Tilføj en underkategori</h4
+            <form @onsubmit="Insert">
+                <input @bind="newTitle" placeholder="Indtast subkategori" required />
+                <input class="butt add" type="submit" value="Tilføj" />
+            </form>
+        </div>
+        <div>
+            <h4>Fjern en kategori eller artikel</h4>
+            <form @onsubmit="Remove">
+                <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" required/>
+                <input class="butt add" type="submit" value="Fjern" />
+            </form>
+            <datalist id="Categories">
+                @foreach (Category category in Categories)
+                {
+                    <option value=@category.CategoryName></option>
+                    foreach (Subcategory subcategory in category.Subcategory)
                     {
-                        <option value=@category.CategoryName></option>
-                        foreach (Subcategory subcategory in category.Subcategory)
-                        {
-                            
-                            <option value=@subcategory.SubcategoryName></option>
-                        }
+                        <option value=@subcategory.SubcategoryName></option>
                     }
-                </datalist>
-            </div>
+                }
+            </datalist>
         </div>
     </div>
 
     <div class="container2">
-
-        <label for="Category">Choose which category to create subcategory for:</label>
+        <label for="Category">Vælg en kategori for at tilføje en underkategori:</label>
         <select name="Category" id="Category" @bind="selectedCategory">
+            <option value="none" selected disabled hidden>Vælg en kategori</option>
             @foreach (Category category in Categories)
             {
                 <option value=@category.CategoryName>@category.CategoryName</option>
@@ -79,7 +64,6 @@
 </div>
 
 
-
 <style>
 
     .page {
@@ -92,15 +76,16 @@
         display: none;
         display: @Visible;
     }
+
     .dropdown-content2 a{
         margin-left: 10px;
     }
 
-    .container {
-        float: left;
+    .container, .container2 {
+        padding: 10px;
         border: 1px solid black;
         border-radius: 3px;
-        width: 500px;
+        width: 540px;
         height: fit-content;
         background-color: #efefef;
         float: left;
@@ -108,45 +93,17 @@
     }
 
     .container2 {
-        padding-top: 10px;
-        padding-left: 10px;
-        padding-right: 10px;
-        float: left;
-        border: 1px solid black;
-        border-radius: 3px;
-        width: 500px;
-        height: 240px;
-        overflow: auto;
+        height: 246px;
         margin-left: 20px;
-        background-color: #efefef;
-        float: left;
-        overflow: auto;
     }
 
-    .fjern {
+    .add {
         width: fit-content;
         background-color: gray;
-        height: 30px;
+        height: 27px;
         font-size: small;
         padding-left: 10px;
         padding-right: 10px;
     }
-
-        .fjern:hover {
-           /*box-shadow: 0px 2px 10px 5px red;*/
-        }
-
-    .tilføj {
-        width: fit-content;
-        font-size: small;
-        height: 30px;
-        padding-left: 10px;
-        padding-right: 10px;
-        background-color: gray;
-    }
-
-        .tilføj:hover {
-            /*box-shadow: 0px 2px 10px 5px green;*/
-        }
 
 </style>
