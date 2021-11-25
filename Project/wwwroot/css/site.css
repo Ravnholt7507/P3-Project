@@ -59,8 +59,8 @@ a, .btn-link {
     border: none;
     color: #fff;
     padding: 2px;
-    height: 5vmin;
-    width: 5vmin;
+    height: 40px;
+    width: 40px;
     text-align: center;
     transition-duration: 0.4s;
     overflow: hidden;
