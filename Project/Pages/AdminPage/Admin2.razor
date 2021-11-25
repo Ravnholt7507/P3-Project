@@ -3,87 +3,43 @@
 @using System.IO;
 @using System.Linq;
 @inherits AdminCode
-@*<h2>Tilføj items</h2>
+<h2>Tilføj items</h2>
 
-    <div>
-        <label>
-            <input @bind="NewItem" placeholder="Indtast artikel" />
-        </label>
-
-        <button @onclick="AddNewItem">
-                Tilføj artikel
-            </button>
-    </div>*@
-
-<h2> Attributer til artiklen </h2>
-
-
-
-<div class="row">
-    <div>
-        <label>
-            <input list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
-        </label>
-
-        <button @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))">
-            Indsæt
-        </button>
-
-        <datalist id="Images">
-            @foreach (string ChosenImg in filesList)
-            {
-                <option value=@ChosenImg> </option>
-            }
-        </datalist>
-    </div>
-
-    <div>
-        <select @bind="ChosenColor">
-            @foreach (color Color in MyColors)
-            {
-                <option value="@Color.ColorName"> @Color.ColorName</option>
-            }
-        </select>
-    </div>
-
-    <div class="col-md-3">
-        <hr />
-        <h2>File List</h2>
-        <hr />
-        @if (SwitchFuntion(ChosenColor) != null && SwitchFuntion(ChosenColor).ImageLink != null)
-        {
-            @foreach (string imageLink in SwitchFuntion(ChosenColor).ImageLink)
-            {
-            <div class="col-md-9">
-                <h1>Image Name : @imageLink</h1>
-                <div>
-                    <img src="@imageLink" asp-append-version="true" style="width:200px;height:200px;" />
-                </div>
-            </div>
-            }
-        }
-    </div>
+<div>
+    <label>
+        <input @bind="NewItem" placeholder="Indtast artikelnavn" />
+    </label>
 </div>
 
-@*<div>
-        <textarea @bind="Description"> description </textarea>
+<div>
+    <label>
+        <input @bind="Price" placeholder="Indtast pris" />
+    </label>
+</div>
 
-
-        <label>
-            Kategorier
-            <br />
-            <select @bind="SelectedCat" class="form-select">
-                @foreach (Category cat in cats)
+<div>
+    <textarea @bind="Description"> description </textarea>
+    <label>
+        Kategorier
+        <br />
+        <select @bind="SelectedCat" class="form-select">
+            @foreach (Category cat in cats)
+            {
+                <optgroup label="@cat.CategoryName"> @cat.CategoryName </optgroup>
+                foreach (Subcategory subcat in cat.Subcategory)
                 {
-                    <optgroup label="@cat.CategoryName"> @cat.CategoryName </optgroup>
-                    foreach (Subcategory subcat in cat.Subcategory)
-                    {
-                        <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
-                    }
+                    <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
                 }
-            </select>
-        </label>
-    </div>*@
+            }
+        </select>
+    </label>
+</div>
+
+<br />
+<br />
+<br />
+
+<h2> Vælg farve, størrelse og antal </h2>
 
 @foreach (string Colour in Colours)
 {
@@ -94,6 +50,16 @@
         </label>
     </div>
 }
+
+<style>
+    Norm {
+        display: inline-block;
+    }
+
+        Norm label {
+            display: block;
+        }
+</style>
 
 <br />
 @if (placeholderColour != null)
@@ -112,49 +78,147 @@
     </button>
 }
 
-@*<div>
-        <h5>Price</h5>
-        <label>
-            <input @bind="Price" placeholder="Indtast kategori" />
-        </label>
-    </div>*@
-
-@if(MyColors.Count != 0)
+@if (MyColors.Count != 0)
 {
-<table>
-    <tr>
-        <th>Item </th>
-        <th>Input stock</th>
-    </tr>
-    @foreach (color Color in MyColors)
-    {
-        placeholder = 0;
-        @foreach (SizeAndStock SnS in Color.SnS)
+    <table>
+        <tr>
+            <th>Item </th>
+            <th>Input stock</th>
+        </tr>
+        @foreach (color Color in MyColors)
         {
-            <tr>
-                <td>@Color.ColorName</td>
-                <td>@SnS.Size</td>
-                <td>
-                    <input type="text" @bind="SnS.stock" placeholder="stock" />
-                </td>
-                <td>
-                    <button @onclick="() => RemoveItem(placeholder, Color)" class="btn btn-outline-dark btn-light btn-sm">x</button>
-                </td>
-                <td>@placeholder</td>
-            </tr>
-
-            placeholder = placeholder + 1;
-            if (placeholder == Color.SnS.Length)
+            @for (int i = 0; i < Color.SnS.Length; i++)
             {
-                Console.WriteLine("swag");
-                placeholder = 0;
+                int k = i;
+                <tr>
+                    <td>@Color.ColorName</td>
+                    <td>@Color.SnS[k].Size</td>
+                    <td>
+                        <input type="text" @bind="Color.SnS[k].stock" placeholder="stock" />
+                    </td>
+                    <td>
+                        <button @onclick="() => RemoveItem(k, Color)" class="btn btn-outline-dark btn-light btn-sm">x</button>
+                    </td>
+                    <td>@k</td>
+                </tr>
             }
         }
-    }
-</table>
-    <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> Confirm</button>
+    </table>
+    <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Confirm</button>
 }
- 
+
+<br />
+<br />
+
+@if (MyColors.Count != 0 && imgState == true)
+{
+    <h2> Indsæt billede</h2>
+    <div class="row">
+        <div>
+            <label>
+                <input list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
+            </label>
+
+            <button @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light">
+                Indsæt
+            </button>
+
+            <datalist id="Images">
+                @foreach (string ChosenImg in filesList)
+                {
+                    <option value=@ChosenImg> </option>
+                }
+            </datalist>
+        </div>
+
+        <div>
+            <select @bind="ChosenColor">
+                <option> </option>
+                @foreach (color Color in MyColors)
+                {
+                    <option value="@Color.ColorName"> @Color.ColorName</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <hr />
+            <h2>File List</h2>
+            <hr />
+            @if (SwitchFuntion(ChosenColor) != null && SwitchFuntion(ChosenColor).ImageLink != null)
+            {
+                @foreach (string imageLink in SwitchFuntion(ChosenColor).ImageLink)
+                {
+                    <img src="@imageLink" asp-append-version="true" style="width:150px;height:150px;" />
+                }
+            }
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    @*<button class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Finalize </button>*@
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('SelectedImages').style.display='block'">Finalize</a>
+}
+
+<div>
+    <div id="SelectedImages" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
+            <div class="w3-container w3-white w3-center">
+                <div class="item-list">
+                    <table>
+                        <tr>
+                            <th>Produkt Navn</th>
+                            <th>Pris</th>
+                            <th>Farve</th>
+                            <th>Lager</th>
+                            <th>Størrelse</th>
+                        </tr>
+                        @foreach (var color in MyColors)
+                        {
+                            @foreach (var SnS in color.SnS)
+                            {
+                                <tr>
+                                    <td>@NewItem</td>
+                                    <td> @Price</td>
+                                    <td>@color.ColorName</td>
+                                    <td> @SnS.stock </td>
+                                    <td> @SnS.Size </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                    <i onclick="document.getElementById('SelectedImages').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .page {
+        height: 500px;
+    }
+
+    .item-list {
+        height: fit-content;
+        width: fit-content;
+        border: 1px solid black;
+        border-radius: 3px;
+    }
+
+    td, th {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
 @code {
     public List<string> SelectedColours = new List<string>();
     public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
@@ -173,6 +237,7 @@
     string imgName = "N/A";
     List<string> filesList = new List<string>();
     string path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\Images"}";
+
     public void LoadImages()
     {
         var files = Directory.GetFiles(path);
@@ -184,15 +249,18 @@
 
     public void ReadFile(string fileName, color color)
     {
-        imgName = fileName.Split('.')[0];
-        img = "/Images/" + fileName;
-        color.ImageLink.Add(img);
+        if (color != null)
+        {
+            imgName = fileName.Split('.')[0];
+            img = "/Images/" + fileName;
+            color.ImageLink.Add(img);
+        }
     }
 
     public string SelectedValue;
     public string Description;
-    public int Stock;
-    public double Price;
+    public string Price;
+    public bool imgState = false;
 
     protected bool IsDisabled { get; set; } = false;
 
@@ -245,9 +313,11 @@
 
     public void ConfirmStock()
     {
+        if (NewItem == null || Description == null || Price == null || SelectedCat == null)
 
+
+        imgState = !imgState;
     }
-
 
     public void CheckboxSizes(string size, object checkvalue)
     {
@@ -315,8 +385,6 @@
         public int Id = 0;
     }
 
-
-
     /*public void AddNewItem()
     {
         Product prod = new Product(1);
@@ -334,23 +402,3 @@
 @*prod.Colour = SelectedColour;
     prod.Stock = Stock;
     prod.Size = SelectedSizes[0];*@
-
-
-@*Image thingies*@
-
-@*<button class="=btn btn-primary" @onclick="LoadImages">Load Images </button>*@
-
-@*@foreach (string file in filesList)
-    {
-        nSL++;
-        <br />
-        <span>@nSL.</span>
-        <span @onclick="@(e=>ReadFile(file, SwitchFuntion(ChosenColor)))" style="cursor:pointer;text-decoration:underline;color:blue;"> @file </span>
-    }*@
-
-@*<div class="col-md-9">
-    <h1>Image Name : @img</h1>
-    <div>
-        <img src="@img" asp-append-version="true" style="width:200px;height:200px;" />
-    </div>
-</div>*@
