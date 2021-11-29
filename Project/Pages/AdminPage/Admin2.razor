@@ -11,50 +11,58 @@
             <input @bind="NewItem" placeholder="Indtast artikelnavn" required />
             <input @bind="Price" placeholder="Indtast pris" required />
             <textarea class="description" @bind="Description" placeholder="Description" required />
+
+
             <input type="submit" value="Submit" />
         </form>
-        <label>Kategorier</label>
-        <select @bind="SelectedCat" class="form-select">
-            @foreach (Category cat in cats)
-            {
-                <optgroup label="@cat.CategoryName"> @cat.CategoryName </optgroup>
-                foreach (Subcategory subcat in cat.Subcategory)
+        <div class="kategori">
+            <label>Kategorier</label>
+            <select @bind="SelectedCat" class="form-select">
+                @foreach (Category cat in cats)
                 {
-                    <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
+                    <optgroup label="@cat.CategoryName"> @cat.CategoryName </optgroup>
+                    foreach (Subcategory subcat in cat.Subcategory)
+                    {
+                        <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
+                    }
                 }
-            }
-        </select>
+            </select>
+        </div>
     </div>
 
-    <div>
+    <div class="farvevalgMenu">
+
         <h2> Vælg farve, størrelse og antal </h2>
 
-        @foreach (string Colour in Colours)
-        {
-            <div class="form-check">
-                <input type="checkbox" disabled="@(placeholderColour != null)" @onchange="e => { CheckboxColours(Colour, e.Value); }" />
-                <label class="form-check-label" for="flexCheckDefault">
-                    @Colour
-                </label>
-            </div>
-        }
-
-        <br />
-        @if (placeholderColour != null)
-        {
-            @foreach (string Size in Sizes)
-            {
-                <div class="form-check">
-                    <input type="checkbox" @onchange="e => { CheckboxSizes(Size, e.Value); }" />
-                    <label class="form-check-label" for="flexCheckDefault">
-                        @Size
-                    </label>
+            <div class="ColorSize">
+                <div class="Color">
+                    @foreach (string Colour in Colours)
+                    {
+                        <div class="column">
+                            <input type="radio" name="ChosenColor" @onchange="() => CheckboxColours(Colour)" />
+                            <label>
+                                @Colour
+                            </label>
+                        </div>      
+                     }
                 </div>
-            }
-            <button @onclick="@Verify">
+
+                <div class="Size">
+                    @foreach (string Size in Sizes)
+                    {
+                        <div class="form-check column">
+                            <input type="checkbox" @onchange="e => { CheckboxSizes(Size, e.Value); }" />
+                            <label class="form-check-label" for="flexCheckDefault">
+                                @Size
+                            </label>
+                        </div>            
+                     }
+                </div>
+            </div>
+            <button @onclick="Verify" class="btn btn-outline-dark btn-light OOS">
+                <i class="fa fa-fw fa-check"></i>
                 Tilføj kombi
             </button>
-        }
 
         @if (MyColors.Count != 0)
         {
@@ -140,6 +148,9 @@
             <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('SelectedImages').style.display='block'">Finalize</a>
         }
     </div>
+
+
+
     <div id="SelectedImages" class="w3-modal">
         <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
             <div class="w3-container w3-white w3-center">
@@ -178,18 +189,35 @@
         height: 500px;
     }
 
+
+
+    .kategori {
+        padding: 5px;
+    }
+
+    .farvevalgMenu {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: fit-content;
+        width: fit-content;
+        background-color: lightgray;
+        padding: 5px;
+        float: left;
+        margin-left: 1%
+    }
+
     .name-price-description {
         border: 1px solid black;
         border-radius: 3px;
-        height: 300px;
-        background-color: #efefef;
+        height: 45%;
+        background-color: lightgray;
         padding: 5px;
         float: left;
     }
 
-    .name-price-description span{
-        display: block;
-    }
+        .name-price-description span {
+            display: block;
+        }
 
     .item-list {
         height: fit-content;
@@ -216,10 +244,34 @@
         display: inline-block;
     }
 
-    Norm label {
-        display: block;
+        Norm label {
+            display: block;
+        }
+
+
+   
+
+    .ColorSize {
+        display: flex;
+    }
+
+    .column {
+        flex: 50%;
+    }
+
+    .Color, .Size {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: fit-content;
+        background-color: #efefef;
+        padding: 5px;
+    }
+
+    .Size {
+        margin-left: 20px;
     }
 </style>
+
 
 @code {
     public List<string> SelectedColours = new List<string>();
@@ -232,6 +284,9 @@
 
     public bool[] chosenColors = { false, false, false, false };
     public bool[] chosenSizes = { false, false, false };
+
+    public bool CheckForInput = false;
+
 
     string ChosenImg = "";
     string img = "";
@@ -268,8 +323,8 @@
     public string placeholderColour;
     public string SelectedColour = "";
 
-    public string[] Colours = { "red", "blue", "yellow", "green" };
-    public string[] Sizes = { "big", "medium", "small" };
+    public string[] Colours = { "red", "blue", "yellow", "green", "Magenta", "Pink", "pisGul", "brækBrun" };
+    public string[] Sizes = { "Chunky", "FatAss", "XL", "big", "medium", "small", "Esben" };
 
     public string SelectedCat = null;
     public string NewItem = null;
@@ -326,21 +381,9 @@
             SelectedSizes.Remove(new SizeAndStock(size));
     }
 
-    public void CheckboxColours(string colour, object checkvalue)
+    public void CheckboxColours(string colour)
     {
-        if ((bool)checkvalue)
-        {
-            placeholderColour = colour;
-            SelectedColour = colour;
-        }
-        switch (colour)
-        {
-            case "red": chosenColors[0] = !chosenColors[0]; break;
-            case "blue": chosenColors[1] = !chosenColors[1]; break;
-            case "yellow": chosenColors[2] = !chosenColors[2]; break;
-            case "green": chosenColors[3] = !chosenColors[3]; break;
-            default: break;
-        }
+        SelectedColour = colour;
     }
 
     public void RemoveItem(int i, color Color)
@@ -382,6 +425,7 @@
         public color[] Color;
         public int Id = 0;
     }
+
 
     /*public void AddNewItem()
     {
