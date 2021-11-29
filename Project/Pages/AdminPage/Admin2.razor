@@ -3,25 +3,19 @@
 @using System.IO;
 @using System.Linq;
 @inherits AdminCode
-<h2>Tilføj items</h2>
 
-<div>
-    <label>
-        <input @bind="NewItem" placeholder="Indtast artikelnavn" />
-    </label>
-</div>
+<div class="page">
+    <h2>Tilføj items</h2>
+    <div class="name-price-description">
+        <form>
+            <input @bind="NewItem" placeholder="Indtast artikelnavn" required />
+            <input @bind="Price" placeholder="Indtast pris" required />
+            <input @bind="Description" placeholder="description" required />
+        </form>
+    </div>
 
-<div>
-    <label>
-        <input @bind="Price" placeholder="Indtast pris" />
-    </label>
-</div>
-
-<div>
-    <textarea @bind="Description"> description </textarea>
-    <label>
-        Kategorier
-        <br />
+    <div>
+        <label>Kategorier</label>
         <select @bind="SelectedCat" class="form-select">
             @foreach (Category cat in cats)
             {
@@ -32,142 +26,122 @@
                 }
             }
         </select>
-    </label>
-</div>
-@if (CheckForInput) {
-<div class="CheckForInput">
-    <a>Udfyld artikelnavn, pris og beskrivelse</a>
-</div>
-}
-
-<br />
-<br />
-<br />
-
-<h2> Vælg farve, størrelse og antal </h2>
-
-@foreach (string Colour in Colours)
-{
-    <div class="form-check">
-        <input type="checkbox" disabled="@(placeholderColour != null)" @onchange="e => { CheckboxColours(Colour, e.Value); }" />
-        <label class="form-check-label" for="flexCheckDefault">
-            @Colour
-        </label>
     </div>
-}
 
-<style>
-    Norm {
-        display: inline-block;
-    }
+    <div>
+        <h2> Vælg farve, størrelse og antal </h2>
 
-        Norm label {
-            display: block;
-        }
-</style>
-
-<br />
-@if (placeholderColour != null)
-{
-    @foreach (string Size in Sizes)
-    {
-        <div class="form-check">
-            <input type="checkbox" @onchange="e => { CheckboxSizes(Size, e.Value); }" />
-            <label class="form-check-label" for="flexCheckDefault">
-                @Size
-            </label>
-        </div>
-    }
-    <button @onclick="@Verify">
-        Tilføj kombi
-    </button>
-}
-
-@if (MyColors.Count != 0)
-{
-    <table>
-        <tr>
-            <th>Item </th>
-            <th>Input stock</th>
-        </tr>
-        @foreach (color Color in MyColors)
+        @foreach (string Colour in Colours)
         {
-            @for (int i = 0; i < Color.SnS.Length; i++)
-            {
-                int k = i;
-                <tr>
-                    <td>@Color.ColorName</td>
-                    <td>@Color.SnS[k].Size</td>
-                    <td>
-                        <input type="text" @bind="Color.SnS[k].stock" placeholder="stock" />
-                    </td>
-                    <td>
-                        <button @onclick="() => RemoveItem(k, Color)" class="btn btn-outline-dark btn-light btn-sm">x</button>
-                    </td>
-                    <td>@k</td>
-                </tr>
-            }
+            <div class="form-check">
+                <input type="checkbox" disabled="@(placeholderColour != null)" @onchange="e => { CheckboxColours(Colour, e.Value); }" />
+                <label class="form-check-label" for="flexCheckDefault">
+                    @Colour
+                </label>
+            </div>
         }
-    </table>
-    <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Confirm</button>
-}
 
-<br />
-<br />
-
-@if (MyColors.Count != 0 && imgState == true)
-{
-    <h2> Indsæt billede</h2>
-    <div class="row">
-        <div>
-            <label>
-                <input list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
-            </label>
-
-            <button @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light">
-                Indsæt
+        <br />
+        @if (placeholderColour != null)
+        {
+            @foreach (string Size in Sizes)
+            {
+                <div class="form-check">
+                    <input type="checkbox" @onchange="e => { CheckboxSizes(Size, e.Value); }" />
+                    <label class="form-check-label" for="flexCheckDefault">
+                        @Size
+                    </label>
+                </div>
+            }
+            <button @onclick="@Verify">
+                Tilføj kombi
             </button>
+        }
 
-            <datalist id="Images">
-                @foreach (string ChosenImg in filesList)
-                {
-                    <option value=@ChosenImg> </option>
-                }
-            </datalist>
-        </div>
-
-        <div>
-            <select @bind="ChosenColor">
-                <option> </option>
+        @if (MyColors.Count != 0)
+        {
+            <table>
+                <tr>
+                    <th>Item </th>
+                    <th>Input stock</th>
+                </tr>
                 @foreach (color Color in MyColors)
                 {
-                    <option value="@Color.ColorName"> @Color.ColorName</option>
+                    @for (int i = 0; i < Color.SnS.Length; i++)
+                    {
+                        int k = i;
+                        <tr>
+                            <td>@Color.ColorName</td>
+                            <td>@Color.SnS[k].Size</td>
+                            <td>
+                                <input type="text" @bind="Color.SnS[k].stock" placeholder="stock" />
+                            </td>
+                            <td>
+                                <button @onclick="() => RemoveItem(k, Color)" class="btn btn-outline-dark btn-light btn-sm">x</button>
+                            </td>
+                            <td>@k</td>
+                        </tr>
+                    }
                 }
-            </select>
-        </div>
+            </table>
+            <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Confirm</button>
+        }
 
-        <div class="col-md-3">
-            <hr />
-            <h2>File List</h2>
-            <hr />
-            @if (SwitchFuntion(ChosenColor) != null && SwitchFuntion(ChosenColor).ImageLink != null)
-            {
-                @foreach (string imageLink in SwitchFuntion(ChosenColor).ImageLink)
-                {
-                    <img src="@imageLink" asp-append-version="true" style="width:150px;height:150px;" />
-                }
-            }
-        </div>
+        <br />
+        <br />
+
+        @if (MyColors.Count != 0 && imgState == true)
+        {
+            <h2> Indsæt billede</h2>
+            <div class="row">
+                <div>
+                    <label>
+                        <input list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
+                    </label>
+
+                    <button @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light">
+                        Indsæt
+                    </button>
+
+                    <datalist id="Images">
+                        @foreach (string ChosenImg in filesList)
+                        {
+                            <option value=@ChosenImg> </option>
+                        }
+                    </datalist>
+                </div>
+
+                <div>
+                    <select @bind="ChosenColor">
+                        <option> </option>
+                        @foreach (color Color in MyColors)
+                        {
+                            <option value="@Color.ColorName"> @Color.ColorName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <hr />
+                    <h2>File List</h2>
+                    <hr />
+                    @if (SwitchFuntion(ChosenColor) != null && SwitchFuntion(ChosenColor).ImageLink != null)
+                    {
+                        @foreach (string imageLink in SwitchFuntion(ChosenColor).ImageLink)
+                        {
+                            <img src="@imageLink" asp-append-version="true" style="width:150px;height:150px;" />
+                        }
+                    }
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+            @*<button class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Finalize </button>*@
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('SelectedImages').style.display='block'">Finalize</a>
+        }
     </div>
-
-    <br />
-    <br />
-
-    @*<button class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Finalize </button>*@
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('SelectedImages').style.display='block'">Finalize</a>
-}
-
-<div>
     <div id="SelectedImages" class="w3-modal">
         <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
             <div class="w3-container w3-white w3-center">
@@ -206,6 +180,15 @@
         height: 500px;
     }
 
+    .name-price-description {
+        border: 1px solid black;
+        border-radius: 3px;
+        width: fit-content;
+        height: 300px;
+        background-color: #efefef;
+        float: left;
+    }
+
     .item-list {
         height: fit-content;
         width: fit-content;
@@ -226,6 +209,14 @@
     .CheckForInput {
         color: red;
     }
+
+    Norm {
+        display: inline-block;
+    }
+
+    Norm label {
+        display: block;
+    }
 </style>
 
 @code {
@@ -239,9 +230,6 @@
 
     public bool[] chosenColors = { false, false, false, false };
     public bool[] chosenSizes = { false, false, false };
-
-    public bool CheckForInput = false;
-
 
     string ChosenImg = "";
     string img = "";
@@ -324,13 +312,6 @@
 
     public void ConfirmStock()
     {
-        if (NewItem == null || Description == null || Price == null || SelectedCat == null)
-        {
-            CheckForInput = true;
-            return;
-        }
-
-
         imgState = !imgState;
     }
 
