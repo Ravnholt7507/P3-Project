@@ -109,7 +109,7 @@ using Project.CSharpFiles;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Product/{barcode}")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Product/{ItemSpecification}")]
     public partial class SpecificItem : SpecificItemCode
     {
         #pragma warning disable 1998
@@ -125,7 +125,7 @@ using Project.CSharpFiles;
     
     public void AddItem()
     {
-        CartItem += " " + prod.Barcode;
+        CartItem += " & " + Prod.Id + " " + Prod.Colour_id + " " + Prod.Size;
     }
 
     public async Task Read()

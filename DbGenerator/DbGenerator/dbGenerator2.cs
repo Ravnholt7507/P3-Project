@@ -6,23 +6,22 @@ namespace DbGenerator
 {
     static class DbGenerator2
     {
-        private static void blah()
+        private static void Main()
         {
             const string cs = @"server=localhost;userid=root;password=Password;database=ClothingStore";
-
+            
             using var con = new MySqlConnection(cs);
             con.Open();
-
+            
             using var cmd = new MySqlCommand();
             cmd.Connection = con;
 
             cmd.CommandText = "SET FOREIGN_KEY_CHECKS=0";
             cmd.ExecuteNonQuery();
-            
 
             cmd.CommandText = "DROP TABLE IF EXISTS categories";
             cmd.ExecuteNonQuery();
-
+            
             cmd.CommandText = "CREATE TABLE categories (id INTEGER PRIMARY KEY AUTO_INCREMENT, category VARCHAR(200) UNIQUE NOT NULL )";
             cmd.ExecuteNonQuery();
             
@@ -38,7 +37,7 @@ namespace DbGenerator
             
             cmd.CommandText = "DROP TABLE IF EXISTS types";
             cmd.ExecuteNonQuery();
-
+            
             cmd.CommandText = "CREATE TABLE types (id INTEGER PRIMARY KEY AUTO_INCREMENT, type VARCHAR(200) UNIQUE NOT NULL)";
             cmd.ExecuteNonQuery();
             
@@ -50,23 +49,22 @@ namespace DbGenerator
             }
             
             
-            
+
             cmd.CommandText = "DROP TABLE IF EXISTS products";
             cmd.ExecuteNonQuery();
-            
             cmd.CommandText = "CREATE TABLE products (prod_id INTEGER PRIMARY KEY AUTO_INCREMENT, prod_name TEXT, category VARCHAR(200), type VARCHAR(200), price INT, description TEXT, material TEXT, produced TEXT, transparency TEXT, FOREIGN KEY (category) REFERENCES categories(category), FOREIGN KEY (type) REFERENCES types(type))";
             cmd.ExecuteNonQuery();
             
             cmd.CommandText = "DROP TABLE IF EXISTS colours";
             cmd.ExecuteNonQuery();
 
-            cmd.CommandText = "CREATE TABLE colours (id INT NOT NULL, colour TEXT, img TEXT, kpi INT, sold INT, FOREIGN KEY (id) REFERENCES products(prod_id))";
+            cmd.CommandText = "CREATE TABLE colours (colour_id INTEGER PRIMARY KEY AUTO_INCREMENT, prod_id INT, colour TEXT, img TEXT, kpi INT, sold INT, FOREIGN KEY (prod_id) REFERENCES products(prod_id))";
             cmd.ExecuteNonQuery();
             
             cmd.CommandText = "DROP TABLE IF EXISTS sizes";
             cmd.ExecuteNonQuery();
-
-            cmd.CommandText = "CREATE TABLE sizes (id INT NOT NULL, size TEXT, stock INT, FOREIGN KEY (id) REFERENCES colours(id))";
+            
+             cmd.CommandText = "CREATE TABLE sizes (colour_id INT, prod_id INT NOT NULL, size TEXT, stock INT, FOREIGN KEY (prod_id) REFERENCES products(prod_id), FOREIGN KEY (colour_id) REFERENCES colours(colour_id))";
             cmd.ExecuteNonQuery();
 
             
@@ -77,7 +75,6 @@ namespace DbGenerator
             string transparency =  "Lorem ipsum dolor sit amet";
             string[] material = {"Bomuld", "Uld", "Denim", "Silke", "Velour", "Hamp", "Nylon", "Polyester", "Acetat", "Elastan", "Læder"};
             string[] produced = {"Danmark", "Beirut", "Kina", "Tyrkiet", "Taiwain", "Indien", "Ungarn", "Afrika", "Nordkorea", "kazakhstan", "Honduras" };
-            // ReSharper disable once StringLiteralTypo
             string img = "Images/bedøvet vuf.png";
 
 
@@ -114,30 +111,30 @@ namespace DbGenerator
 
                     cmd.CommandText =
                         string.Format(
-                            @"INSERT INTO colours (id, colour, img, kpi, sold) VALUES ((SELECT MAX(prod_id) FROM products), '{0}', '{1}', '{2}', '{3}')", randColour, img, randKpi, randSold);
+                            @"INSERT INTO colours (prod_id, colour, img, kpi, sold) VALUES ((SELECT MAX(prod_id) FROM products), '{0}', '{1}', '{2}', '{3}')", randColour, img, randKpi, randSold);
                     cmd.ExecuteNonQuery();    
+                    
+                    int randSizeAmm = rd.Next(1, 5);
+                    string[] prevSizes = new string[5];
+                
+                    for (int y = 0; y < randSizeAmm; y++)
+                    {
+                        string randSize;
+                        do
+                        { 
+                            randSize = sizes[rd.Next(0, 5)];                        
+                        } while (prevSizes.Contains(randSize));
+                        prevSizes[y] = randSize;
+                        int randStock = rd.Next(0, 15);
+                
+                        cmd.CommandText =
+                            string.Format(
+                                @"INSERT INTO sizes (colour_id, prod_id, size, stock) VALUES ((SELECT MAX(colour_id) FROM colours), (SELECT MAX(prod_id) FROM colours), '{0}', '{1}')", randSize, randStock);
+                        cmd.ExecuteNonQuery();                    
+                    }
                 }
 
-                int randSizeAmm = rd.Next(0, 5);
-                string[] prevSizes = new string[5];
-                
-                for (int j = 0; j < randSizeAmm; j++)
-                {
-                    string randSize;
-                    do
-                    { 
-                        randSize = sizes[rd.Next(0, 5)];                        
-                    } while (prevSizes.Contains(randSize));
-                    prevSizes[j] = randSize;
-                    int randStock = rd.Next(0, 15);
-                
-                    cmd.CommandText =
-                        string.Format(
-                            @"INSERT INTO sizes (id, size, stock) VALUES ((SELECT MAX(prod_id) FROM products), '{0}', '{1}')", randSize, randStock);
-                    cmd.ExecuteNonQuery();                    
-                }
             }
-            // hvor skal barcode ligge og stock skal vel også være afhængig af colour, idet at mængden af resterende produkter vel kan variere fra farve til farve?
 
             cmd.CommandText = "DROP TABLE IF EXISTS orders";
             cmd.ExecuteNonQuery();
@@ -170,6 +167,14 @@ namespace DbGenerator
                 cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, phonenumber, email, adress, zipcode, country, ordered_items) VALUES ('{randFirstName}', '{randLastName}', '{phonenumber}', '{email}', '{adress}', '{zipcode}', '{country}', '{order}')";
                 cmd.ExecuteNonQuery();
             }
+
+            cmd.CommandText = "DROP TABLE IF EXISTS login";
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "CREATE TABLE login (id INTEGER PRIMARY KEY AUTO_INCREMENT, login_id TEXT, password TEXT, hashed_password TEXT)";
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "INSERT INTO login (login_id, password) VALUES ('AdminLogin1', 'AdminPassword1')";
 
             cmd.CommandText = "SET FOREIGN_KEY_CHECKS=1";
             cmd.ExecuteNonQuery();

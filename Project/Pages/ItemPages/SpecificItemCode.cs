@@ -8,25 +8,45 @@ namespace Project.Pages.ItemPages
 {
     public class SpecificItemCode : ComponentBase
     {
-        public Product prod;
+        public Product Prod;
 
         [Parameter]
-        public string Barcode { get; set; }
+        public string ItemSpecification { get; set; }
+
+
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
+            string[] specificationArray = new string[4];
+            specificationArray = ItemSpecification.Split("&");
+            int prodId = int.Parse(specificationArray[0]);
+            int colourId = int.Parse(specificationArray[1]);
+            string size = specificationArray[2];
+            
+            
 
-            if (Barcode != "")
+            if (prodId != 0 && colourId != 0 && size != "")
             {
-                prod = GetProduct(Barcode);
+                Prod = GetProduct(prodId, colourId, size);
             }
         }
 
-        public Product GetProduct(string barcode)
+        public Product GetProduct(int prodid, int colourid, string size)
         {
-            Product product = new Product(barcode);
+            Product product = new Product
             {
-                if (product.Barcode == Barcode)
+                Id = prodid,
+                Colour_id = colourid,
+                Size = size
+            };
+            string[][] array = new string[1][];
+            array = product.Call("Specific Product", prodid, colourid);
+            product.Name = array[0][0];
+            product.Price = int.Parse(array[0][1]);
+            product.Description = array[0][2];
+            product.ImageLink = array[0][3];
+            {
+                if (product.Id == prodid && product.Colour_id == colourid && product.Size == size)
                     return product;
                 return null;
             }

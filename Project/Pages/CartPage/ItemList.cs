@@ -65,7 +65,15 @@ namespace Project.Pages.CartPage
             Order = new List<Product>();
             for (int i = 0; i < array.Length; i++)
             {
-                Product item = Product.CreateInstance(array[i]);
+                Product item = new Product();
+                string[][] prodArray = new string[1][];
+                prodArray= item.Call("Cart Call", array[i]);                
+                item.Name = prodArray[0][0];
+                item.Price = double.Parse(prodArray[0][1]);
+                item.Colour = prodArray[0][2];
+                item.ImageLink = prodArray[0][3];
+                item.Size = prodArray[0][4];
+                item.Stock = int.Parse(prodArray[0][5]);
                 item.SubTotal = item.Price;
                 Order.Add(item);
             }

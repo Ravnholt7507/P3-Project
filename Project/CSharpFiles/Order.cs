@@ -1,8 +1,10 @@
+using System.Dynamic;
+
 namespace Project.CSharpFiles
 {
     public class Order
     {
-        string CNO = "Create new order";
+        public string Calltype { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Email { get; set; }
@@ -11,5 +13,14 @@ namespace Project.CSharpFiles
         public string City { get; set; }
         public string Zipcode { get; set; }
         public string Country { get; set; }
+
+        public void Dbcall(string type)
+        {
+            Calltype = type;
+            DbCall call = new DbCall();
+            call.Order(Calltype, Firstname, Lastname, Email, Phonenumber, Adress, City, Zipcode, Country);
+        }
     }
+    
+    
 }

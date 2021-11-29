@@ -96,13 +96,6 @@ using Project.Shared.ComponentCode;
 #line hidden
 #nullable disable
 #nullable restore
-#line 13 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using System.Linq;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
 using CSharpFiles;
 
@@ -116,6 +109,13 @@ using System.IO;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
+using System.Linq;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Admin2")]
     public partial class Admin2 : AdminCode
     {
@@ -125,16 +125,21 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 132 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
+#line 158 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
        
     public List<string> SelectedColours = new List<string>();
     public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
     public List<string> PlaceholderSizes = new List<string>();
 
 
-    public bool[] chosenColors = { false, false, false, false };
-    public bool[] chosenSizes= { false, false, false};
+    public int PHColor = 0;
+    public int placeholder = 0;
 
+    public bool[] chosenColors = { false, false, false, false };
+    public bool[] chosenSizes = { false, false, false };
+
+
+    string ChosenImg = "";
     string img = "";
     string imgName = "N/A";
     List<string> filesList = new List<string>();
@@ -148,13 +153,13 @@ using System.IO;
         }
     }
 
-    public void ReadFile(string fileName)
+    public void ReadFile(string fileName, color color)
     {
         imgName = fileName.Split('.')[0];
         img = "/Images/" + fileName;
+        color.ImageLink.Add(img);
     }
 
-    public int StockTest;
     public string SelectedValue;
     public string Description;
     public int Stock;
@@ -170,7 +175,10 @@ using System.IO;
 
     public string SelectedCat = null;
     public string NewItem = null;
+
+    public List<color> MyColors = new List<color>();
     color NewColor;
+    public string ChosenColor;
 
     public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
 
@@ -178,17 +186,39 @@ using System.IO;
     {
         NewColor = new color(SelectedColour);
         NewColor.SnS = SelectedSizes.ToArray();
+        MyColors.Add(NewColor);
+        SelectedSizes.Clear();
         placeholderColour = null;
+        NewColor = null;
     }
 
-
-    public void InitSubcats()
+    protected override Task OnInitializedAsync()
     {
         cats[0].Subcategory.Add(new Subcategory("Trøje"));
         cats[0].Subcategory.Add(new Subcategory("Bukser"));
         cats[1].Subcategory.Add(new Subcategory("Jakke"));
         cats[1].Subcategory.Add(new Subcategory("Sko"));
+        LoadImages();
+        return base.OnInitializedAsync();
     }
+
+    public color SwitchFuntion(string colour)
+    {
+        switch (colour)
+        {
+            case "red": return MyColors.Find(x => x.ColorName == "red");
+            case "blue": return MyColors.Find(x => x.ColorName == "blue");
+            case "yellow": return MyColors.Find(x => x.ColorName == "yellow");
+            case "green": return MyColors.Find(x => x.ColorName == "green");
+            default: return null;
+        }
+    }
+
+    public void ConfirmStock()
+    {
+
+    }
+
 
     public void CheckboxSizes(string size, object checkvalue)
     {
@@ -216,6 +246,16 @@ using System.IO;
         }
     }
 
+    public void RemoveItem(int i, color Color)
+    {
+        Console.WriteLine(i);
+        Color.SnS = Color.SnS.Where((source, index) => index != i).ToArray();
+        if (Color.SnS.Length == 0)
+        {
+            MyColors.Remove(Color);
+        }
+    }
+
     public class SizeAndStock
     {
         public SizeAndStock(string InputSize)
@@ -225,7 +265,7 @@ using System.IO;
         public int id;
         public string Size;
         public bool state = false;
-        public int stock = 0;
+        public int stock;
     }
 
     public class color
@@ -234,9 +274,9 @@ using System.IO;
         {
             ColorName = name;
         }
-        public string ImageLink;
+        public List<string> ImageLink = new List<string>();
         public string ColorName;
-        public string id;
+        public string Id;
         public SizeAndStock[] SnS;
     }
 
@@ -246,11 +286,7 @@ using System.IO;
         public int Id = 0;
     }
 
-    public void test()
-    {
-        product nederdel = new product();
 
-    }
 
     /*public void AddNewItem()
     {

@@ -8,53 +8,60 @@
         @foreach (var item in Order)
         {
             <div class="item-container">
-                <h4>@item.Barcode x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
-                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>+</b></button>
-                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><b>-</b></button>
-                <button @onclick="() => { Delete(item.Barcode); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right anus"><b>x</b></button>
+                <h4>@item.Name x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
+                <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><i class="fa fa-plus"></i></button>
+                <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><i class="fa fa-minus"></i></button>
+                <button @onclick="() => { Delete(item.Barcode); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right delete"><i class="fa fa-times"></i></button>
             </div>
         }
         <div class="order-total">
             <p>Ordre Total:<b class="right"> @Total,-</b></p>
             <b class="Supply_Demand error">Not enough in stock :(</b>
             <b class="Negative_Order error">If you want to remove press X instead</b>
-            <a class="butt" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Checkout</a>
         </div>
     </div>
     <div class="row">
-      <div class="col-75">
-        <div class="container">
-          <form>
-            <div class="row">
-              <div class="col-50">
-                <label><i class="fa fa-fw fa-user-circle"></i> Fornavn</label>
-                <input type="text" placeholder="Gurlig">
-                <label><i class="fa fa-fw fa-envelope"></i> Email</label>
-                <input type="text" placeholder="gurlig1234@example.com">
-                <label><i class="fa fa-fw fa-map-marker"></i> Addresse</label>
-                <input type="text" placeholder="Frederikshavnvej 2">
-                <label><i class="fa fa-fw fa-building"></i> By</label>
-                <input type="text" placeholder="København"> 
-              </div>
-                <div class="col-50">
-                <label><i class="fa fa-fw fa-star"></i> Efternavn</label>
-                <input type="text" placeholder="Marghrete .2">
-                <label><i class="fa fa-fw fa-phone"></i> Telefonnummer</label>
-                <input type="text" placeholder="12345678">
-                <label><i class="fa fa-fw fa-globe"></i> Postnummer</label>
-                <input type="text" placeholder="1010">
-              </div>
+        <div class="col-75">
+            <div class="container">
+                <form>
+                    <div class="row">
+                        <div class="col-50">
+                            <label><i class="fa fa-fw fa-user-circle"></i> Fornavn</label>
+                            <input type="text" placeholder="Gurlig" @bind="@_newOrder.Firstname" @oninput="@((e) => { _newOrder.Firstname=(string)e.Value;})">
+                            <label><i class="fa fa-fw fa-envelope"></i> Email</label>
+                            <input type="text" placeholder="gurlig1234@example.com" @bind="@_newOrder.Email" @oninput="@((e) => { _newOrder.Email=(string)e.Value;})">
+                            <label><i class="fa fa-fw fa-map-marker"></i> Addresse</label>
+                            <input type="text" placeholder="Frederikshavnvej 2" @bind="@_newOrder.Adress" @oninput="@((e) => { _newOrder.Adress=(string)e.Value;})">
+                            <label><i class="fa fa-fw fa-building"></i> By</label>
+                            <input type="text" placeholder="København" @bind="@_newOrder.City"@oninput="@((e) => { _newOrder.City=(string)e.Value;})"> 
+                            <button class="butt" @onclick="() => {_newOrder.Dbcall(createOrder);}">Checkout</button>
+                            <button class="butt" @onclick="() => {KPItest.KPI(kpi);}">KPI Test</button>
+                        </div>
+                        <div class="col-50">
+                            <label><i class="fa fa-fw fa-star"></i> Efternavn</label>
+                            <input type="text" placeholder="Marghrete .2" @bind="@_newOrder.Lastname"@oninput="@((e) => { _newOrder.Lastname=(string)e.Value;})">
+                            <label><i class="fa fa-fw fa-phone"></i> Telefonnummer</label>
+                            <input type="text" placeholder="12345678" @bind="@_newOrder.Phonenumber"@oninput="@((e) => { _newOrder.Phonenumber=(string)e.Value;})">
+                            <label><i class="fa fa-fw fa-globe"></i> Postnummer</label>
+                            <input type="text" placeholder="1010" @bind="@_newOrder.Zipcode"@oninput="@((e) => { _newOrder.Zipcode=(string)e.Value;})">
+                            <label><i class="fa fa-fw fa-globe"></i> Land</label>
+                            <input type="text" placeholder="Danmark" @bind="@_newOrder.Country"@oninput="@((e) => { _newOrder.Country=(string)e.Value;})">
+                        </div>
+                    </div>
+                    </form>
             </div>
-          </form>
         </div>
-      </div>
-     </div>
+    </div>
 </div>
 
 @code {
     public string ItemsInCart;
     public string CartItem;
-
+    Order _newOrder = new Order();
+    string createOrder = "Create new order";
+    DbCall KPItest = new DbCall();
+    string kpi = "Product type call";
+    
     public async Task Read()
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
@@ -64,7 +71,7 @@
         StateHasChanged();
     }
 
-    public void Delete(string barcode)
+    public void Delete(string prodId/*, int colourId, string size*/)
     {
         string[] array = ItemsInCart.Split(" ");
         array = array.Skip(1).ToArray();
@@ -72,7 +79,7 @@
         CartItem = "";
         for (int i = 0; i < array.Length; i++)
         {
-            if (array[i] != barcode )
+            if (array[i] != prodId)
             {
                 CartItem += " " + array[i];
             }
@@ -88,7 +95,7 @@
 
     public string[] Id()
     {
-        var array = ItemsInCart.Split(' ');
+        var array = ItemsInCart.Split('&');
         array = array.Skip(1).ToArray();
         array = array.Distinct().ToArray();
         return array;
@@ -106,15 +113,22 @@
     .page {
         height: fit-content;
         margin-bottom: 30px;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
     }
 
-    .anus {
+    .delete {
         background-color: red;
     }
+        .delete:hover {
+            box-shadow: 0px 2px 10px 5px red;
+        }
 
     .cart-overview {
-        outline: solid;
-        outline-color: black;
+        border: 1px solid black;
+        border-radius: 3px;
         width: 500px;
         background-color: #efefef;
     }
@@ -126,7 +140,7 @@
 
     .order-total {
         background-color: #bababa;
-        height: 100%;
+        height: fit-content;
     }
 
     .order-total p{
@@ -158,25 +172,26 @@
     .Negative_Order {
         display: @NegativeOrder;
     }
-    
+
     .row {
-      display: -ms-flexbox;
-      flex: 75%;
+        display: -ms-flexbox;
+        flex: 75%;
     }
-    
+
     .col-25,
     .col-50,
     .col-75 {
       padding: 0 16px;
     }
-    
+
     .container {
-      background-color: #f2f2f2;
-      padding: 5px 20px 15px 20px;
-      border: 1px solid lightgrey;
-      border-radius: 3px;
+        background-color: #f2f2f2;
+        padding: 5px 20px 15px 20px;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin-left: 50px;
     }
-    
+
     input[type=text] {
       width: 100%;
       margin-bottom: 20px;
@@ -184,7 +199,7 @@
       border: 1px solid #ccc;
       border-radius: 3px;
     }
-    
+
     label {
       margin-bottom: 10px;
       display: block;

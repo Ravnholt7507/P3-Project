@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Pages.CartPage
+namespace Project.Pages.KpiPage
 {
     #line hidden
     using System;
@@ -103,80 +103,20 @@ using System.Linq;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/CartPage/Cart.razor"
+#line 3 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/KpiPage/Kpi.razor"
 using CSharpFiles;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Cart")]
-    public partial class Cart : ItemList
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Kpi")]
+    public partial class Kpi : KpiCode
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 57 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/CartPage/Cart.razor"
-       
-    public string ItemsInCart;
-    public string CartItem;
-    Order _newOrder = new Order();
-    string createOrder = "Create new order";
-    DbCall KPItest = new DbCall();
-    string kpi = "Product type call";
-    
-    public async Task Read()
-    {
-        var result = await BrowserStorage.GetAsync<string>("CartItems");
-        ItemsInCart = result.Value;
-        Order = LoadItems(Id());
-        CalcTotal();
-        StateHasChanged();
-    }
-
-    public void Delete(string prodId/*, int colourId, string size*/)
-    {
-        string[] array = ItemsInCart.Split(" ");
-        array = array.Skip(1).ToArray();
-        array = array.Distinct().ToArray();
-        CartItem = "";
-        for (int i = 0; i < array.Length; i++)
-        {
-            if (array[i] != prodId)
-            {
-                CartItem += " " + array[i];
-            }
-        }
-        Save();
-        Read();
-    }
-
-    public async Task Save()
-    {
-        await BrowserStorage.SetAsync("CartItems", CartItem);
-    }
-
-    public string[] Id()
-    {
-        var array = ItemsInCart.Split('&');
-        array = array.Skip(1).ToArray();
-        array = array.Distinct().ToArray();
-        return array;
-    }
-
-    protected override Task OnInitializedAsync()
-    {
-        Read();
-        Order = new List<Product>();
-        return base.OnInitializedAsync();
-    }
-
-#line default
-#line hidden
-#nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ProtectedLocalStorage BrowserStorage { get; set; }
     }
 }
 #pragma warning restore 1591
