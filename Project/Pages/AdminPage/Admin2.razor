@@ -10,11 +10,9 @@
         <form>
             <input @bind="NewItem" placeholder="Indtast artikelnavn" required />
             <input @bind="Price" placeholder="Indtast pris" required />
-            <input @bind="Description" placeholder="description" required />
+            <textarea class="description" @bind="Description" placeholder="Description" required />
+            <input type="submit" value="Submit" />
         </form>
-    </div>
-
-    <div>
         <label>Kategorier</label>
         <select @bind="SelectedCat" class="form-select">
             @foreach (Category cat in cats)
@@ -183,10 +181,14 @@
     .name-price-description {
         border: 1px solid black;
         border-radius: 3px;
-        width: fit-content;
         height: 300px;
         background-color: #efefef;
+        padding: 5px;
         float: left;
+    }
+
+    .name-price-description span{
+        display: block;
     }
 
     .item-list {
