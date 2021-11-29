@@ -34,22 +34,22 @@
                             <label><i class="fa fa-fw fa-map-marker"></i> Addresse</label>
                             <input type="text" placeholder="Frederikshavnvej 2" @bind="@_newOrder.Adress" @oninput="@((e) => { _newOrder.Adress=(string)e.Value;})">
                             <label><i class="fa fa-fw fa-building"></i> By</label>
-                            <input type="text" placeholder="København" @bind="@_newOrder.City"@oninput="@((e) => { _newOrder.City=(string)e.Value;})"> 
+                            <input type="text" placeholder="KÃ¸benhavn" @bind="@_newOrder.City" @oninput="@((e) => { _newOrder.City=(string)e.Value;})">
                             <button class="butt" @onclick="() => {_newOrder.Dbcall(createOrder);}">Checkout</button>
                             <button class="butt" @onclick="() => {KPItest.KPI(kpi);}">KPI Test</button>
                         </div>
                         <div class="col-50">
                             <label><i class="fa fa-fw fa-star"></i> Efternavn</label>
-                            <input type="text" placeholder="Marghrete .2" @bind="@_newOrder.Lastname"@oninput="@((e) => { _newOrder.Lastname=(string)e.Value;})">
+                            <input type="text" placeholder="Marghrete .2" @bind="@_newOrder.Lastname" @oninput="@((e) => { _newOrder.Lastname=(string)e.Value;})">
                             <label><i class="fa fa-fw fa-phone"></i> Telefonnummer</label>
-                            <input type="text" placeholder="12345678" @bind="@_newOrder.Phonenumber"@oninput="@((e) => { _newOrder.Phonenumber=(string)e.Value;})">
+                            <input type="text" placeholder="12345678" @bind="@_newOrder.Phonenumber" @oninput="@((e) => { _newOrder.Phonenumber=(string)e.Value;})">
                             <label><i class="fa fa-fw fa-globe"></i> Postnummer</label>
-                            <input type="text" placeholder="1010" @bind="@_newOrder.Zipcode"@oninput="@((e) => { _newOrder.Zipcode=(string)e.Value;})">
+                            <input type="text" placeholder="1010" @bind="@_newOrder.Zipcode" @oninput="@((e) => { _newOrder.Zipcode=(string)e.Value;})">
                             <label><i class="fa fa-fw fa-globe"></i> Land</label>
-                            <input type="text" placeholder="Danmark" @bind="@_newOrder.Country"@oninput="@((e) => { _newOrder.Country=(string)e.Value;})">
+                            <input type="text" placeholder="Danmark" @bind="@_newOrder.Country" @oninput="@((e) => { _newOrder.Country=(string)e.Value;})">
                         </div>
                     </div>
-                    </form>
+                </form>
             </div>
         </div>
     </div>
@@ -62,7 +62,7 @@
     string createOrder = "Create new order";
     DbCall KPItest = new DbCall();
     string kpi = "Product type call";
-    
+
     public async Task Read()
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
@@ -125,8 +125,8 @@
     }
 
     .cart-overview {
-        outline: solid;
-        outline-color: black;
+        border: 1px solid black;
+        border-radius: 3px;
         width: 500px;
         background-color: #efefef;
         float: left;
@@ -179,10 +179,12 @@
     }
 
     .container {
-      background-color: #f2f2f2;
-      padding: 5px 20px 15px 20px;
-      border: 1px solid lightgrey;
-      border-radius: 3px;
+        background-color: #f2f2f2;
+        padding: 5px 20px 15px 20px;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin-left: 50px;
+        float: left;
     }
 
     input[type=text] {
