@@ -123,11 +123,20 @@ using Project.CSharpFiles;
     
     public void Loop()
     {
-        string[] placeholder = {"0209094010800000","0204044020100000","0201074000000000","0210061100700000","0109020080300000","0210001040000000","0209113060700000","0002002070700000","0005123090700000","0102072000400000" };
-        foreach (var barcode in placeholder)
+        Product productCall = new Product();
+        string[][] productArray = productCall.Call("Multiple products");
+        for (int i = 0; i < productArray.Length; i++)
         {
-            Product product = new Product(barcode);
-            Products.Add(product);
+            Product newproduct = new Product
+            {
+                Id = int.Parse(productArray[i][0]),
+                Name = productArray[i][1],
+                Price = double.Parse(productArray[i][2]),
+                Colour_id = int.Parse(productArray[i][3]),
+                ImageLink = productArray[i][4],
+                Size = productArray[i][5]
+            };
+            Products.Add(newproduct);
         }
     }
 

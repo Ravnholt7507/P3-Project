@@ -76,3 +76,5 @@
 /Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/obj/Debug/net5.0/ref/Project.dll
 /Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/obj/Debug/net5.0/Project.pdb
 /Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/p3-project/Project/obj/Debug/net5.0/Project.genruntimeconfig.cache
+/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/obj/Debug/net5.0/RazorDeclaration/Pages/KpiPage/Kpi.razor.g.cs
+/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/obj/Debug/net5.0/Razor/Pages/KpiPage/Kpi.razor.g.cs

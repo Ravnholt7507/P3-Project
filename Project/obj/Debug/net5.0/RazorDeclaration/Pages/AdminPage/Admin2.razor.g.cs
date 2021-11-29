@@ -96,13 +96,6 @@ using Project.Shared.ComponentCode;
 #line hidden
 #nullable disable
 #nullable restore
-#line 13 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/_Imports.razor"
-using System.Linq;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 2 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
 using CSharpFiles;
 
@@ -116,6 +109,13 @@ using System.IO;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
+using System.Linq;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Admin2")]
     public partial class Admin2 : AdminCode
     {
@@ -125,12 +125,21 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 117 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
+#line 158 "/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/Project/Pages/AdminPage/Admin2.razor"
        
     public List<string> SelectedColours = new List<string>();
-    public List<string> SelectedSizes = new List<string>();
+    public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
     public List<string> PlaceholderSizes = new List<string>();
 
+
+    public int PHColor = 0;
+    public int placeholder = 0;
+
+    public bool[] chosenColors = { false, false, false, false };
+    public bool[] chosenSizes = { false, false, false };
+
+
+    string ChosenImg = "";
     string img = "";
     string imgName = "N/A";
     List<string> filesList = new List<string>();
@@ -144,10 +153,11 @@ using System.IO;
         }
     }
 
-    public void ReadFile(string fileName)
+    public void ReadFile(string fileName, color color)
     {
         imgName = fileName.Split('.')[0];
         img = "/Images/" + fileName;
+        color.ImageLink.Add(img);
     }
 
     public string SelectedValue;
@@ -158,43 +168,65 @@ using System.IO;
     protected bool IsDisabled { get; set; } = false;
 
     public string placeholderColour;
-    public string SelectedColour;
+    public string SelectedColour = "";
 
-    public string[] Colours = { "red", "blue", "Yellow", "Green" };
-    public string[] Sizes = { "Big", "medium", "small" };
+    public string[] Colours = { "red", "blue", "yellow", "green" };
+    public string[] Sizes = { "big", "medium", "small" };
 
     public string SelectedCat = null;
     public string NewItem = null;
+
+    public List<color> MyColors = new List<color>();
+    color NewColor;
+    public string ChosenColor;
 
     public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
 
     public void Verify()
     {
-        SelectedSizes.ForEach(size => Console.WriteLine(size));
+        NewColor = new color(SelectedColour);
+        NewColor.SnS = SelectedSizes.ToArray();
+        MyColors.Add(NewColor);
+        SelectedSizes.Clear();
         placeholderColour = null;
-        CheckboxColours("", false);
+        NewColor = null;
     }
 
-    public void AddImage()
-    {
-
-    }
-
-    public void InitSubcats()
+    protected override Task OnInitializedAsync()
     {
         cats[0].Subcategory.Add(new Subcategory("Trøje"));
         cats[0].Subcategory.Add(new Subcategory("Bukser"));
         cats[1].Subcategory.Add(new Subcategory("Jakke"));
         cats[1].Subcategory.Add(new Subcategory("Sko"));
+        LoadImages();
+        return base.OnInitializedAsync();
     }
+
+    public color SwitchFuntion(string colour)
+    {
+        switch (colour)
+        {
+            case "red": return MyColors.Find(x => x.ColorName == "red");
+            case "blue": return MyColors.Find(x => x.ColorName == "blue");
+            case "yellow": return MyColors.Find(x => x.ColorName == "yellow");
+            case "green": return MyColors.Find(x => x.ColorName == "green");
+            default: return null;
+        }
+    }
+
+    public void ConfirmStock()
+    {
+
+    }
+
 
     public void CheckboxSizes(string size, object checkvalue)
     {
         Console.WriteLine(checkvalue);
         if ((bool)checkvalue)
-            SelectedSizes.Add(size);
+            SelectedSizes.Add(new SizeAndStock(size));
         if (!(bool)checkvalue)
-            SelectedSizes.Remove(size);
+            SelectedSizes.Remove(new SizeAndStock(size));
     }
 
     public void CheckboxColours(string colour, object checkvalue)
@@ -204,19 +236,67 @@ using System.IO;
             placeholderColour = colour;
             SelectedColour = colour;
         }
+        switch (colour)
+        {
+            case "red": chosenColors[0] = !chosenColors[0]; break;
+            case "blue": chosenColors[1] = !chosenColors[1]; break;
+            case "yellow": chosenColors[2] = !chosenColors[2]; break;
+            case "green": chosenColors[3] = !chosenColors[3]; break;
+            default: break;
+        }
     }
+
+    public void RemoveItem(int i, color Color)
+    {
+        Console.WriteLine(i);
+        Color.SnS = Color.SnS.Where((source, index) => index != i).ToArray();
+        if (Color.SnS.Length == 0)
+        {
+            MyColors.Remove(Color);
+        }
+    }
+
+    public class SizeAndStock
+    {
+        public SizeAndStock(string InputSize)
+        {
+            Size = InputSize;
+        }
+        public int id;
+        public string Size;
+        public bool state = false;
+        public int stock;
+    }
+
+    public class color
+    {
+        public color(string name)
+        {
+            ColorName = name;
+        }
+        public List<string> ImageLink = new List<string>();
+        public string ColorName;
+        public string Id;
+        public SizeAndStock[] SnS;
+    }
+
+    public class product
+    {
+        public color[] Color;
+        public int Id = 0;
+    }
+
+
 
     /*public void AddNewItem()
     {
         Product prod = new Product(1);
         prod.Description = Description;
         prod.Type = SelectedCat;
-        prod.Colour = SelectedColour;
-        prod.Stock = Stock;
         prod.Price = Price;
-        prod.Size = SelectedSizes[0];
         prod.Name = NewItem;
         prod.ImageLink = img;
+        prod.Color.Size =
         SelectedSizes.Clear();
         Console.WriteLine($"{prod.Name} {prod.Description} {prod.Type} {prod.Colour} {prod.Stock} {prod.Price} {prod.Size}");
     }*/
