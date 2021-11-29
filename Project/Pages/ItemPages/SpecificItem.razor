@@ -1,4 +1,4 @@
-﻿@page "/Product/{barcode}"
+﻿@page "/Product/{ItemSpecification}"
 @using Project.CSharpFiles
 @inject ProtectedLocalStorage BrowserStorage
 @inherits SpecificItemCode
@@ -8,14 +8,14 @@
 
 <div class="w3" style="width: 28rem;">
     <div class="card-body">
-        <img src="@prod.ImageLink" />
-        <h5 class="card-title">@prod.Name</h5>
-        <h6 class="card-subtitle mb-2 text-muted">@prod.Name</h6>
+        <img src="@Prod.ImageLink" />
+        <h5 class="card-title">@Prod.Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Prod.Name</h6>
         <hr />
         <p>
-            price:  <label style="color:darkred">@prod.Price.ToString("Kr.")</label>
+            price:  <label style="color:darkred">@Prod.Price.ToString("Kr.")</label>
         </p>
-        <p class="card-text">@prod.Description</p>
+        <p class="card-text">@Prod.Description</p>
     </div>
 </div>
 <NavLink href="/products"> Back To Products</NavLink>
@@ -27,7 +27,7 @@
     
     public void AddItem()
     {
-        CartItem += " " + prod.Barcode;
+        CartItem += " & " + Prod.Id + " " + Prod.Colour_id + " " + Prod.Size;
     }
 
     public async Task Read()

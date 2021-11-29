@@ -28,24 +28,28 @@
                     <div class="row">
                         <div class="col-50">
                             <label><i class="fa fa-fw fa-user-circle"></i> Fornavn</label>
-                            <input type="text" placeholder="Gurlig">
+                            <input type="text" placeholder="Gurlig" @bind="@_newOrder.Firstname" @oninput="@((e) => { _newOrder.Firstname=(string)e.Value;})">
                             <label><i class="fa fa-fw fa-envelope"></i> Email</label>
-                            <input type="text" placeholder="gurlig1234@example.com">
+                            <input type="text" placeholder="gurlig1234@example.com" @bind="@_newOrder.Email" @oninput="@((e) => { _newOrder.Email=(string)e.Value;})">
                             <label><i class="fa fa-fw fa-map-marker"></i> Addresse</label>
-                            <input type="text" placeholder="Frederikshavnvej 2">
+                            <input type="text" placeholder="Frederikshavnvej 2" @bind="@_newOrder.Adress" @oninput="@((e) => { _newOrder.Adress=(string)e.Value;})">
                             <label><i class="fa fa-fw fa-building"></i> By</label>
-                            <input type="text" placeholder="København">
+                            <input type="text" placeholder="København" @bind="@_newOrder.City"@oninput="@((e) => { _newOrder.City=(string)e.Value;})"> 
+                            <button class="butt" @onclick="() => {_newOrder.Dbcall(createOrder);}">Checkout</button>
+                            <button class="butt" @onclick="() => {KPItest.KPI(kpi);}">KPI Test</button>
                         </div>
                         <div class="col-50">
                             <label><i class="fa fa-fw fa-star"></i> Efternavn</label>
-                            <input type="text" placeholder="Marghrete .2">
+                            <input type="text" placeholder="Marghrete .2" @bind="@_newOrder.Lastname"@oninput="@((e) => { _newOrder.Lastname=(string)e.Value;})">
                             <label><i class="fa fa-fw fa-phone"></i> Telefonnummer</label>
-                            <input type="text" placeholder="12345678">
+                            <input type="text" placeholder="12345678" @bind="@_newOrder.Phonenumber"@oninput="@((e) => { _newOrder.Phonenumber=(string)e.Value;})">
                             <label><i class="fa fa-fw fa-globe"></i> Postnummer</label>
-                            <input type="text" placeholder="1010">
+                            <input type="text" placeholder="1010" @bind="@_newOrder.Zipcode"@oninput="@((e) => { _newOrder.Zipcode=(string)e.Value;})">
+                            <label><i class="fa fa-fw fa-globe"></i> Land</label>
+                            <input type="text" placeholder="Danmark" @bind="@_newOrder.Country"@oninput="@((e) => { _newOrder.Country=(string)e.Value;})">
                         </div>
                     </div>
-                </form>
+                    </form>
             </div>
         </div>
     </div>
@@ -54,7 +58,11 @@
 @code {
     public string ItemsInCart;
     public string CartItem;
-
+    Order _newOrder = new Order();
+    string createOrder = "Create new order";
+    DbCall KPItest = new DbCall();
+    string kpi = "Product type call";
+    
     public async Task Read()
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
@@ -64,7 +72,7 @@
         StateHasChanged();
     }
 
-    public void Delete(string barcode)
+    public void Delete(string prodId/*, int colourId, string size*/)
     {
         string[] array = ItemsInCart.Split(" ");
         array = array.Skip(1).ToArray();
@@ -72,7 +80,7 @@
         CartItem = "";
         for (int i = 0; i < array.Length; i++)
         {
-            if (array[i] != barcode)
+            if (array[i] != prodId)
             {
                 CartItem += " " + array[i];
             }
@@ -88,7 +96,7 @@
 
     public string[] Id()
     {
-        var array = ItemsInCart.Split(' ');
+        var array = ItemsInCart.Split('&');
         array = array.Skip(1).ToArray();
         array = array.Distinct().ToArray();
         return array;
@@ -117,8 +125,8 @@
     }
 
     .cart-overview {
-        border: 1px solid black;
-        border-radius: 3px;
+        outline: solid;
+        outline-color: black;
         width: 500px;
         background-color: #efefef;
         float: left;
@@ -171,12 +179,10 @@
     }
 
     .container {
-        background-color: #f2f2f2;
-        padding: 5px 20px 15px 20px;
-        border: 1px solid black;
-        border-radius: 3px;
-        margin-left: 50px;
-        float: left;
+      background-color: #f2f2f2;
+      padding: 5px 20px 15px 20px;
+      border: 1px solid lightgrey;
+      border-radius: 3px;
     }
 
     input[type=text] {

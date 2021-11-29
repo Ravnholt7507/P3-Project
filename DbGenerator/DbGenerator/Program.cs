@@ -5,7 +5,7 @@ namespace DbGenerator
 {
     static class Program
     {
-        private static void Main()
+        private static void blah()
         {
             const string cs = @"server=localhost;userid=root;password=Password;database=ClothingStore";
 
