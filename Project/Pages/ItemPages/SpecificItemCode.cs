@@ -46,6 +46,15 @@ namespace Project.Pages.ItemPages
             product.Price = int.Parse(array[0][1]);
             product.Description = array[0][2];
             product.ImageLink = array[0][3];
+     
+            for (int i = 0; i < colourSizeArray.Length; i++)
+            {
+                if (colourSizeArray[i] != null)
+                {
+                    product.ColourList.Add(colourSizeArray[i][0]);
+                }
+            }
+                        
             {
                 if (product.Id == prodid && product.Colour_id == colourid && product.Size == size)
                     return product;
