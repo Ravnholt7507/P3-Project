@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.Design;
+using System.Linq;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Cms;
 using Project.Pages;
@@ -276,19 +279,19 @@ namespace Project.CSharpFiles
                     string sql = $"INSERT INTO products (prod_name, category, type, price, description, material, produced, transparency) VALUES ('{prodName}', '{category}', '{type}', '{price}', '{description}', '{material}', '{produced}', '{transparency}');";
                     using var cmd = new MySqlCommand(sql, con);
 
-                    string[] colourArray = args[8].ToString().Split("&");
-                    string[] imgArray = args[9].ToString().Split("&");
-                    for (int i = 0; i < colourArray.Length; i++)
-                    {
-                        string sql2 = $"INSERT INTO colours (prod_id, colour, img, kpi, sold) VALUES ((SELECT MAX(prod_id) FROM products), '{colourArray[i]}, '{imgArray[i]}, 0, 0')";
-                        using var cmd2 = new MySqlCommand(sql2, con);
-                    }
+                    var colour = args[8];
+                    string[] img = args[9].ToString().Split("&");
+             
+                    string sql2 = $"INSERT INTO colours (prod_id, colour, img, kpi, sold) VALUES ((SELECT MAX(prod_id) FROM products), '{colour}, '{img}, 0, 0')";
+                    using var cmd2 = new MySqlCommand(sql2, con);
 
-                    string[] sizeArray = args[10].ToString().Split("&");
+                    object sizeArray = args[10];
+                    string[] test;
+
                     for (int j = 0; j < sizeArray.Length; j++)
                     {
-                        string sql2 = $"INSERT INTO colours (prod_id, colour, img, kpi, sold) VALUES ((SELECT MAX(prod_id) FROM products), '{colourArray[j]}, '{imgArray[j]}, 0, 0')";
-                        using var cmd2 = new MySqlCommand(sql2, con);
+                        string sql3 = string.Format("INSERT INTO sizes (colour_id, prod_id, size, stock) VALUES ((SELECT MAX(colour_id) FROM colours), (SELECT MAX(colour_id) FROM colours), sizeArray[j]) ");
+                        using var cmd3 = new MySqlCommand(sql3, con);
                     }
                 }
             }
