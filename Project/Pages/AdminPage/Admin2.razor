@@ -11,8 +11,6 @@
             <input @bind="NewItem" placeholder="Indtast artikelnavn" required />
             <input @bind="Price" placeholder="Indtast pris" required />
             <textarea class="description" @bind="Description" placeholder="Description" required />
-
-
             <input type="submit" value="Submit" />
         </form>
         <div class="kategori">
@@ -31,38 +29,34 @@
     </div>
 
     <div class="farvevalgMenu">
-
-        <h2> Vælg farve, størrelse og antal </h2>
-
-            <div class="ColorSize">
-                <div class="Color">
-                    @foreach (string Colour in Colours)
-                    {
-                        <div class="column">
-                            <input type="radio" name="ChosenColor" @onchange="() => CheckboxColours(Colour)" />
-                            <label>
-                                @Colour
-                            </label>
-                        </div>      
-                     }
-                </div>
-
-                <div class="Size">
-                    @foreach (string Size in Sizes)
-                    {
-                        <div class="form-check column">
-                            <input type="checkbox" @onchange="e => { CheckboxSizes(Size, e.Value); }" />
-                            <label class="form-check-label" for="flexCheckDefault">
-                                @Size
-                            </label>
-                        </div>            
-                     }
-                </div>
+        <h2> Vælg farve, størrelse og antal</h2>
+        <div class="ColorSize">
+            <div class="Color">
+                @foreach (string Colour in Colours)
+                {
+                    <div class="column">
+                        <input type="radio" name="ChosenColor" @onchange="() => CheckboxColours(Colour)" />
+                        <label>
+                            @Colour
+                        </label>
+                    </div>      
+                 }
             </div>
-            <button @onclick="Verify" class="btn btn-outline-dark btn-light OOS">
-                <i class="fa fa-fw fa-check"></i>
-                Tilføj kombi
-            </button>
+            <div class="Size">
+                @foreach (string Size in Sizes)
+                {
+                    <div class="form-check column">
+                        <input type="checkbox" @onchange="e => { CheckboxSizes(Size, e.Value); }" />
+                        <label class="form-check-label" for="flexCheckDefault">
+                            @Size
+                        </label>
+                    </div>            
+                 }
+            </div>
+        </div>
+        <button @onclick="Verify" class="btn btn-outline-dark btn-light OOS"><i class="fa fa-fw fa-check"></i>
+            Tilføj kombi
+        </button>
 
         @if (MyColors.Count != 0)
         {
@@ -92,9 +86,6 @@
             </table>
             <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Confirm</button>
         }
-
-        <br />
-        <br />
 
         @if (MyColors.Count != 0 && imgState == true)
         {
@@ -140,16 +131,10 @@
                     }
                 </div>
             </div>
-
-            <br />
-            <br />
-
             @*<button class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Finalize </button>*@
             <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('SelectedImages').style.display='block'">Finalize</a>
         }
     </div>
-
-
 
     <div id="SelectedImages" class="w3-modal">
         <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
@@ -189,8 +174,6 @@
         height: 500px;
     }
 
-
-
     .kategori {
         padding: 5px;
     }
@@ -215,9 +198,9 @@
         float: left;
     }
 
-        .name-price-description span {
-            display: block;
-        }
+    .name-price-description span {
+        display: block;
+    }
 
     .item-list {
         height: fit-content;
@@ -244,12 +227,9 @@
         display: inline-block;
     }
 
-        Norm label {
-            display: block;
-        }
-
-
-   
+    Norm label {
+        display: block;
+    }
 
     .ColorSize {
         display: flex;
@@ -274,25 +254,11 @@
 
 
 @code {
-    public List<string> SelectedColours = new List<string>();
-    public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
-    public List<string> PlaceholderSizes = new List<string>();
-
-
-    public int PHColor = 0;
-    public int placeholder = 0;
-
-    public bool[] chosenColors = { false, false, false, false };
-    public bool[] chosenSizes = { false, false, false };
-
-    public bool CheckForInput = false;
-
-
     string ChosenImg = "";
     string img = "";
     string imgName = "N/A";
     List<string> filesList = new List<string>();
-    string path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\Images"}";
+    string path = $"{Directory.GetCurrentDirectory()}{@"/wwwroot/Images"}";
 
     public void LoadImages()
     {
@@ -313,134 +279,9 @@
         }
     }
 
-    public string SelectedValue;
-    public string Description;
-    public string Price;
-    public bool imgState = false;
-
-    protected bool IsDisabled { get; set; } = false;
-
-    public string placeholderColour;
-    public string SelectedColour = "";
-
-    public string[] Colours = { "red", "blue", "yellow", "green", "Magenta", "Pink", "pisGul", "brækBrun" };
-    public string[] Sizes = { "Chunky", "FatAss", "XL", "big", "medium", "small", "Esben" };
-
-    public string SelectedCat = null;
-    public string NewItem = null;
-
-    public List<color> MyColors = new List<color>();
-    color NewColor;
-    public string ChosenColor;
-
-    public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
-
-    public void Verify()
-    {
-        NewColor = new color(SelectedColour);
-        NewColor.SnS = SelectedSizes.ToArray();
-        MyColors.Add(NewColor);
-        SelectedSizes.Clear();
-        placeholderColour = null;
-        NewColor = null;
-    }
-
     protected override Task OnInitializedAsync()
     {
-        cats[0].Subcategory.Add(new Subcategory("Trøje"));
-        cats[0].Subcategory.Add(new Subcategory("Bukser"));
-        cats[1].Subcategory.Add(new Subcategory("Jakke"));
-        cats[1].Subcategory.Add(new Subcategory("Sko"));
         LoadImages();
         return base.OnInitializedAsync();
     }
-
-    public color SwitchFuntion(string colour)
-    {
-        switch (colour)
-        {
-            case "red": return MyColors.Find(x => x.ColorName == "red");
-            case "blue": return MyColors.Find(x => x.ColorName == "blue");
-            case "yellow": return MyColors.Find(x => x.ColorName == "yellow");
-            case "green": return MyColors.Find(x => x.ColorName == "green");
-            default: return null;
-        }
-    }
-
-    public void ConfirmStock()
-    {
-        imgState = !imgState;
-    }
-
-    public void CheckboxSizes(string size, object checkvalue)
-    {
-        Console.WriteLine(checkvalue);
-        if ((bool)checkvalue)
-            SelectedSizes.Add(new SizeAndStock(size));
-        if (!(bool)checkvalue)
-            SelectedSizes.Remove(new SizeAndStock(size));
-    }
-
-    public void CheckboxColours(string colour)
-    {
-        SelectedColour = colour;
-    }
-
-    public void RemoveItem(int i, color Color)
-    {
-        Console.WriteLine(i);
-        Color.SnS = Color.SnS.Where((source, index) => index != i).ToArray();
-        if (Color.SnS.Length == 0)
-        {
-            MyColors.Remove(Color);
-        }
-    }
-
-    public class SizeAndStock
-    {
-        public SizeAndStock(string InputSize)
-        {
-            Size = InputSize;
-        }
-        public int id;
-        public string Size;
-        public bool state = false;
-        public int stock;
-    }
-
-    public class color
-    {
-        public color(string name)
-        {
-            ColorName = name;
-        }
-        public List<string> ImageLink = new List<string>();
-        public string ColorName;
-        public string Id;
-        public SizeAndStock[] SnS;
-    }
-
-    public class product
-    {
-        public color[] Color;
-        public int Id = 0;
-    }
-
-
-    /*public void AddNewItem()
-    {
-        Product prod = new Product(1);
-        prod.Description = Description;
-        prod.Type = SelectedCat;
-        prod.Price = Price;
-        prod.Name = NewItem;
-        prod.ImageLink = img;
-        prod.Color.Size =
-        SelectedSizes.Clear();
-        Console.WriteLine($"{prod.Name} {prod.Description} {prod.Type} {prod.Colour} {prod.Stock} {prod.Price} {prod.Size}");
-    }*/
 }
-
-@*prod.Colour = SelectedColour;
-    prod.Stock = Stock;
-    prod.Size = SelectedSizes[0];*@
