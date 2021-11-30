@@ -9,6 +9,7 @@
         {
             <div class="item-container">
                 <h4>@item.Name x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
+                <h6>@item.Colour / @item.Size</h6>
                 <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><i class="fa fa-plus"></i></button>
                 <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><i class="fa fa-minus"></i></button>
                 <button @onclick="() => { Delete(item.Id, item.Colour_id, item.Size); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right delete"><i class="fa fa-times"></i></button>
@@ -57,54 +58,60 @@
 
 @code {
     public string ItemsInCart;
-    public string CartItem;
     Order _newOrder = new Order();
     string createOrder = "Create new order";
     DbCall KPItest = new DbCall();
     string kpi = "Product type call";
+    public string[] testArray;
 
+    // Load items into the cart page from the local storage in the browser
     public async Task Read()
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
         ItemsInCart = result.Value;
-        Order = LoadItems(Id());
+        if (ItemsInCart != null)
+        {
+            testArray = Id(ItemsInCart);
+            Order = LoadItems(Id(ItemsInCart));
+        }
+
         CalcTotal();
         StateHasChanged();
     }
 
+    // Remove a items from the cart
     public void Delete(int prodId, int colourId, string size)
-    {        
-        string[] array = ItemsInCart.Split("&");
-        array = array.Skip(1).ToArray();
-        array = array.Distinct().ToArray();
+    {
 
-        CartItem = "";
-        string prodToDel = " " + prodId + " " + colourId + " " + size + " ";
-        string prodToDel2 = " " + prodId + " " + colourId + " " + size;
-        for (int i = 0; i < array.Length; i++)
+        string Dele = " " + prodId + " " + colourId + " " + size;
+        string newCart = "";
+        foreach (var item in testArray)
         {
-            if (array[i] != prodToDel || array[i] != prodToDel2)
+            if (item != Dele)
             {
-                CartItem += "&" + array[i];
+                newCart += "&" + item;
             }
         }
-        Save();
+        Save(newCart);
         Read();
     }
 
-    public async Task Save()
+    // Save the updated local storage
+    public async Task Save(string CartCookie)
     {
-        await BrowserStorage.SetAsync("CartItems", CartItem);
+        await BrowserStorage.SetAsync("CartItems", CartCookie);
     }
 
-    public string[] Id()
+    // Split the local storage string into an array
+    public string[] Id(string Cookie)
     {
-        var array = ItemsInCart.Split('&');
+        var array = Cookie.Split('&');
         array = array.Skip(1).ToArray();
         array = array.Distinct().ToArray();
         return array;
     }
 
+    // Load specific methods on page load
     protected override Task OnInitializedAsync()
     {
         Read();
@@ -123,6 +130,7 @@
     .delete {
         background-color: red;
     }
+
     .delete:hover {
         box-shadow: 0px 2px 10px 5px red;
     }

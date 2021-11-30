@@ -31,22 +31,26 @@
 
     public string CartItem;
 
+    // Add an item to a string in local storage that works as a cart
     public void AddItem()
     {
-        CartItem += " & " + Prod.Id + " " + Prod.Colour_id + " " + Prod.Size;
+        CartItem += "& " + Prod.Id + " " + Prod.Colour_id + " " + Prod.Size;
     }
 
+    // Load the cart from local storage
     public async Task Read()
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
         CartItem = result.Success ? result.Value : "";
     }
 
+    // Save the string into local storage
     public async Task Save()
     {
         await BrowserStorage.SetAsync("CartItems", CartItem);
     }
 
+    // Load specific methods on page load
     protected override Task OnInitializedAsync()
     {
         Read();
