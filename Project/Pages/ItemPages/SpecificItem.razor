@@ -19,7 +19,7 @@
     </div>
 </div>
 <NavLink href="/products"> Back To Products</NavLink>
-<button class="btn btn-primary" @onclick="() => { AddItem(); Save();}">Tilfoej til kurv</button>
+<button class="btn btn-primary" @onclick="() => { AddItem(); Save();}">Tilføj til kurv</button>
 
 @code {
 
@@ -35,7 +35,7 @@
         var result = await BrowserStorage.GetAsync<string>("CartItems");
         CartItem = result.Success ? result.Value : "";
     }
-
+    
     public async Task Save()
     {
         await BrowserStorage.SetAsync("CartItems", CartItem);
