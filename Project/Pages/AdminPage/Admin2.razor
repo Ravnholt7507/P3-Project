@@ -8,12 +8,12 @@
     <h2>Tilføj items</h2>
     <div class="name-price-description">
         <form>
-            <input @bind="NewItem" placeholder="Indtast artikelnavn" required />
-            <input @bind="Price" placeholder="Indtast pris" required />
+            <input class="tastfelt" @bind="NewItem" placeholder="Indtast artikelnavn" required />
+            <input class="tastfelt" @bind="Price" placeholder="Indtast pris" required />
             <textarea class="description" @bind="Description" placeholder="Description" required />
 
 
-            <input type="submit" value="Submit" />
+            <input class="submit-butt" type="submit" value="Submit" />
         </form>
         <div class="kategori">
             <label>Kategorier</label>
@@ -189,7 +189,19 @@
         height: 500px;
     }
 
+    .description {
+        margin-top: 50px;
+        margin-left: -400px;
+    }
 
+    .tastfelt {
+        float: left;
+    }
+
+    .submit-butt {
+        margin-left: 50px;
+        margin-top: -50px;
+    }
 
     .kategori {
         padding: 5px;
@@ -213,11 +225,12 @@
         background-color: lightgray;
         padding: 5px;
         float: left;
+        width: 550px;
     }
 
-        .name-price-description span {
-            display: block;
-        }
+    .name-price-description span {
+        display: block;
+    }
 
     .item-list {
         height: fit-content;
