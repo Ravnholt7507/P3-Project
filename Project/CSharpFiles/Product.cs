@@ -31,6 +31,7 @@ namespace Project.CSharpFiles
         public string Colour { get; set; }
         public List<string> ColourList { get; set; } = new List<string>();
         public string Size { get; set; }
+        public List<string> SizeList { get; set; } = new List<string>();
         public double Price { get; set; }
         public int Stock { get; set; }
         public string Transparency { get; set; }
