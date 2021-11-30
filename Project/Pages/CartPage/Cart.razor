@@ -75,17 +75,17 @@
     public void Delete(int prodId, int colourId, string size)
     {        
         string[] array = ItemsInCart.Split("&");
-        string[][] multiItemArray = new string[array.Length][];
         array = array.Skip(1).ToArray();
         array = array.Distinct().ToArray();
 
         CartItem = "";
         string prodToDel = " " + prodId + " " + colourId + " " + size + " ";
+        string prodToDel2 = " " + prodId + " " + colourId + " " + size;
         for (int i = 0; i < array.Length; i++)
         {
-            if (array[i] != prodToDel)
+            if (array[i] != prodToDel || array[i] != prodToDel2)
             {
-                CartItem += " " + array[i];
+                CartItem += "&" + array[i];
             }
         }
         Save();
