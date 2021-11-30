@@ -45,6 +45,7 @@
     public async Task Save()
     {
         await BrowserStorage.SetAsync("CartItems", CartItem);
+        Console.WriteLine("esben");
     }
 
     protected override Task OnInitializedAsync()
