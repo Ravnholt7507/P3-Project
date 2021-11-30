@@ -54,12 +54,25 @@ namespace Project.Pages.ItemPages
                     product.ColourList.Add(colourSizeArray[i][0]);
                 }
             }
-                        
+            
+            for (int i = 0; i < colourSizeArray.Length; i++)
             {
-                if (product.Id == prodid && product.Colour_id == colourid && product.Size == size)
-                    return product;
-                return null;
+                if (colourSizeArray[i] != null)
+                {
+                    for (int k = 2; k < colourSizeArray[i].Length; k++)
+                    {
+                        if (colourSizeArray[i][k] != null)
+                        {
+                            product.SizeList.Add(colourSizeArray[i][k]);
+                        }
+                    }                 
+                }
             }
+
+            if (product.Id == prodid && product.Colour_id == colourid && product.Size == size)
+                return product;
+            return null;
+         
         }
     }
 }

@@ -12,20 +12,30 @@
         <h5 class="card-title">@Prod.Name</h5>
         <h6 class="card-subtitle mb-2 text-muted">@Prod.Name</h6>
         <hr />
+        <p>Vælg en farve:</p>
         <select>
             @foreach (string item in Prod.ColourList)
             {
                 <option value="@item">@item</option>
             }
         </select>
+
+        <p>Vælg en størrelse:</p>
+        <select>
+            @foreach (string item in Prod.SizeList)
+            {
+                <option value="@item">@item</option>
+            }
+        </select>
+
         <p>
-            price:  <label style="color:darkred">@Prod.Price.ToString("Kr.")</label>
+            Pris:  <label style="color:darkred">@Prod.Price.ToString("Kr.")</label>
         </p>
         <p class="card-text">@Prod.Description</p>
     </div>
 </div>
 <NavLink href="/products"> Back To Products</NavLink>
-<button class="btn btn-primary" @onclick="() => { AddItem(); Save();}">Tilfoej til kurv</button>
+<button class="btn btn-primary" @onclick="() => { AddItem(); Save();}">Tilføj til kurv</button>
 
 @code {
 
