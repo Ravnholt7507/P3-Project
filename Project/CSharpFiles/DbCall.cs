@@ -276,23 +276,32 @@ namespace Project.CSharpFiles
                     string transparency = args[7].ToString();
                     using var con = new MySqlConnection(_cs);
                     con.Open();
-                    string sql = $"INSERT INTO products (prod_name, category, type, price, description, material, produced, transparency) VALUES ('{prodName}', '{category}', '{type}', '{price}', '{description}', '{material}', '{produced}', '{transparency}');";
-                    using var cmd = new MySqlCommand(sql, con);
+                    using var cmd = new MySqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandText = $"INSERT INTO products (prod_name, category, type, price, description, material, produced, transparency) VALUES ('{prodName}', '{category}', '{type}', '{price}', '{description}', '{material}', '{produced}', '{transparency}');";
+                    cmd.ExecuteNonQuery();
 
                     var colour = args[8];
-                    string[] img = args[9].ToString().Split("&");
+                    string img = args[9].ToString();
              
-                    string sql2 = $"INSERT INTO colours (prod_id, colour, img, kpi, sold) VALUES ((SELECT MAX(prod_id) FROM products), '{colour}, '{img}, 0, 0')";
-                    using var cmd2 = new MySqlCommand(sql2, con);
+                    cmd.CommandText = $"INSERT INTO colours (prod_id, colour, img, kpi, sold) VALUES ((SELECT MAX(prod_id) FROM products), '{colour}', '{img}', 0, 0)";
+                    cmd.ExecuteNonQuery();
 
-                    object sizeArray = args[10];
-                    string[] test;
+                    object objSizeArray = args[10];
+                    string[] sizeArray = (string[])(objSizeArray);
+                    
+                    object objStockArray = args[11];
+                    int[] stockArray = (int[])(objStockArray);
 
+                    //cmd.CommandText = "SET FOREIGN_KEY_CHECKS=0";
+                    //cmd.ExecuteNonQuery();
                     for (int j = 0; j < sizeArray.Length; j++)
                     {
-                        string sql3 = string.Format("INSERT INTO sizes (colour_id, prod_id, size, stock) VALUES ((SELECT MAX(colour_id) FROM colours), (SELECT MAX(colour_id) FROM colours), sizeArray[j]) ");
-                        using var cmd3 = new MySqlCommand(sql3, con);
+                        cmd.CommandText = string.Format("INSERT INTO sizes (colour_id, prod_id, size, stock) VALUES ((SELECT MAX(colour_id) FROM colours), (SELECT MAX(prod_id) FROM products), '{0}', '{1}')", sizeArray[j], stockArray[j]);
+                        cmd.ExecuteNonQuery();
                     }
+                    //cmd.CommandText = "SET FOREIGN_KEY_CHECKS=1";
+                    //cmd.ExecuteNonQuery();
                 }
             }
             

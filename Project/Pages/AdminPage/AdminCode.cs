@@ -275,21 +275,22 @@ namespace Project.Pages.AdminPage
 
             stockArray = stockList.ToArray();
 
-            string prodName = NewItem;
+            string prodName = "test";//NewItem;
             string category = "Kvinder";
-            string type = SelectedCat;
-            int price = int.Parse(Price);
-            string description = Description;
+            string type = "Bukser";//SelectedCat;
+            int price = 123;//int.Parse(Price);
+            string description = "Test";//Description;
             string material = "Uld";
             string produced = "Uganda";
             string transparency = "transparency";
-            string colour = SelectedColour;
-            string img = ChosenImg;
-            sizeArray = sizeArray;
-            stockArray = stockArray;
+            string colour = "Blå";//SelectedColour;
+            string img = "randImg";//ChosenImg;
+            string[] sizeArray2 = { "X-Small", "Small", "Medium", "Large", "X-Large" };
+            int[] stockArray2 = {5,4,3,2,1} ;
+            ;
             
             
-            call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray, stockArray);
+            call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray2, stockArray2);
         }
     }
     
