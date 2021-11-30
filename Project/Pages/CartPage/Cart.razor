@@ -78,14 +78,12 @@
         string[][] multiItemArray = new string[array.Length][];
         array = array.Skip(1).ToArray();
         array = array.Distinct().ToArray();
-        for (int i = 1; i < array.Length-1; i++)
-        {
-            multiItemArray[i] = array[i].Split();
-        }
+
         CartItem = "";
+        string prodToDel = " " + prodId + " " + colourId + " " + size + " ";
         for (int i = 0; i < array.Length; i++)
         {
-            if (array[i] != prodId.ToString())
+            if (array[i] != prodToDel)
             {
                 CartItem += " " + array[i];
             }
