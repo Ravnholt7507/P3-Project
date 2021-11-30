@@ -1,7 +1,10 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Cms;
 using Project.Pages;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace Project.CSharpFiles
 {
@@ -9,7 +12,6 @@ namespace Project.CSharpFiles
     {
         private readonly string _cs = @"server=localhost;userid=root;password=Password;database=ClothingStore";
 
-        //ændre i til barcode
         /*public string[] CartCall()
         {
             string[] array = new string[2];
@@ -82,30 +84,74 @@ namespace Project.CSharpFiles
             }
             else if (callType == "Specific Product")
             {
-                var prodId = args[0];
-                var colourId = args[1];
-                using var con = new MySqlConnection(_cs);
-                con.Open();
-                string sql = $"SELECT prod_name, price, description FROM products WHERE prod_id = {prodId};";
-                using var cmd = new MySqlCommand(sql, con);
-                using MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                if (args[0].ToString() == "Kald 1")
                 {
-                    string[] array = new string[4];
-                    array[0] = rdr.GetString(0);
-                    array[1] = rdr.GetString(1);
-                    array[2] = rdr.GetString(2);
-                    productArray[0] = array;
+                    var prodId = args[1];
+                    var colourId = args[2];
+                    using var con = new MySqlConnection(_cs);
+                    con.Open();
+                    string sql =
+                        $"SELECT prod_name, price, description, material, produced, transparency FROM products WHERE prod_id = {prodId};";
+                    using var cmd = new MySqlCommand(sql, con);
+                    using MySqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        string[] array = new string[10];
+                        array[0] = rdr.GetString(0);
+                        array[1] = rdr.GetString(1);
+                        array[2] = rdr.GetString(2);
+                        productArray[0] = array;
+                    }
+
+                    rdr.Close();
+                    string sql2 = $"SELECT img FROM colours WHERE prod_id = {prodId} AND colour_id = {colourId};";
+                    using var cmd2 = new MySqlCommand(sql2, con);
+                    using MySqlDataReader rdr2 = cmd2.ExecuteReader();
+                    while (rdr2.Read())
+                    {
+                        productArray[0][3] = rdr2.GetString(0);
+                    }
+
+                    rdr2.Close();
                 }
-                rdr.Close();
-                string sql2 = $"SELECT img FROM colours WHERE prod_id = {prodId} AND colour_id = {colourId};";
-                using var cmd2 = new MySqlCommand(sql2, con);
-                using MySqlDataReader rdr2 = cmd2.ExecuteReader();
-                while (rdr2.Read())
+                else if (args[0].ToString() == "Kald 2")
                 {
-                    productArray[0][3] = rdr2.GetString(0);
+                    var prodId = args[1];
+                    int[] colourIds = new int[25];
+                    using var con = new MySqlConnection(_cs);
+                    con.Open();
+                    string sql = $"SELECT colour_id, colour, img FROM colours WHERE prod_id ={prodId};";
+                    using var cmd = new MySqlCommand(sql, con);
+                    using MySqlDataReader rdr = cmd.ExecuteReader();
+                    int i = 0, j = 0;
+                    while (rdr.Read())
+                    {
+                        colourIds[j] = rdr.GetInt32(0);
+                        string[] array = new string[10];
+                        array[i] = rdr.GetString(1);
+                        array[i+1] = rdr.GetString(2);
+                        productArray[j] = array;
+                        i = 0;
+                        j++;
+                    }
+                    rdr.Close();
+                    int h = 0;
+                    for (int l = 0; l < colourIds.Length; l++)
+                    {
+                        int k = 2;
+                        string sql2 = $"SELECT size, stock FROM sizes WHERE prod_id = {prodId} AND colour_id = {colourIds[l]};";
+                        using var cmd2 = new MySqlCommand(sql2, con);
+                        using MySqlDataReader rdr2 = cmd2.ExecuteReader();
+                        while (rdr2.Read())
+                        {
+                            productArray[h][k] = rdr2.GetString(0) +"&"+ rdr2.GetString(1);
+                            k++;
+                        }
+                        h++;
+                        rdr2.Close();
+                    }
+
                 }
-                rdr2.Close();
             }
             else if (callType == "Cart Call")
             {
@@ -129,7 +175,7 @@ namespace Project.CSharpFiles
                 string sql2 = $"SELECT colour, img FROM colours WHERE prod_id = {prodId} AND colour_id = {colourId};";
                 using var cmd2 = new MySqlCommand(sql2, con);
                 using MySqlDataReader rdr2 = cmd2.ExecuteReader();
-                while (rdr2.Read())
+                while (rdr2.Read())  
                 {
                     productArray[0][2] = rdr2.GetString(0);
                     productArray[0][3] = rdr2.GetString(1);
@@ -146,6 +192,136 @@ namespace Project.CSharpFiles
                 rdr3.Close();
             }
             return productArray;
+        }
+
+        public string[][] AdminPages(string callType, string callSubType, params object[] args)
+        {
+            string[][] returnArray = {};
+
+            if (callType == "Get")
+            {
+                if (callSubType == "Categories")
+                {
+                    string[] categories = { };
+                    using var con = new MySqlConnection(_cs);
+                    con.Open();
+                    string sql = "SELECT category FROM categories;";
+                    using var cmd = new MySqlCommand(sql, con);
+                    using MySqlDataReader rdr = cmd.ExecuteReader();
+                    int i = 0;
+                    while (rdr.Read())
+                    {
+                        categories[i] = rdr.GetString(0);
+                        i++;
+                    }
+                    rdr.Close();
+                    con.Close();
+                    returnArray[0] = categories;
+                }
+                else if (callSubType == "Types")
+                {
+                    
+                }
+            }
+            else if (callType == "New")
+            {
+                if (callSubType == "Category")
+                {
+                    string category = args[0].ToString();
+                    using var con = new MySqlConnection(_cs);
+                    con.Open();
+            
+                    using var cmd = new MySqlCommand();
+                    cmd.Connection = con;
+                    
+                    cmd.CommandText = string.Format("INSERT IGNORE INTO categories (category) VALUES ('{0}')", category);
+                    cmd.ExecuteNonQuery();
+                    
+                    // Kan ikke håndtagere duplicate collumns
+                    cmd.CommandText = $"ALTER TABLE types ADD {category} INT DEFAULT 0";
+                    cmd.ExecuteNonQuery();
+                    
+                    con.Close();
+                }
+                else if (callSubType == "Type")
+                {
+                    string category = args[0].ToString();
+                    string type = args[1].ToString();
+                    using var con = new MySqlConnection(_cs);
+                    con.Open();
+            
+                    using var cmd = new MySqlCommand();
+                    cmd.Connection = con;
+                    
+                    cmd.CommandText = string.Format("INSERT IGNORE INTO types (type) VALUES ('{0}')", type);
+                    cmd.ExecuteNonQuery();
+
+                    //cmd.CommandText = string.Format("INSERT INTO types () VALUE (1) WHERE type = '{1}'", category, type);
+                    cmd.CommandText = $"UPDATE types SET {category}=1 WHERE type = '{type}' ";
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+                else if (callSubType == "Product")
+                {
+                    string prodName = args[0].ToString();
+                    string category = args[1].ToString();
+                    string type = args[2].ToString();
+                    double price = double.Parse(args[3].ToString());
+                    string description = args[4].ToString();
+                    string material = args[5].ToString();
+                    string produced = args[6].ToString();
+                    string transparency = args[7].ToString();
+                    using var con = new MySqlConnection(_cs);
+                    con.Open();
+                    string sql = $"INSERT INTO products (prod_name, category, type, price, description, material, produced, transparency) VALUES ('{prodName}', '{category}', '{type}', '{price}', '{description}', '{material}', '{produced}', '{transparency}');";
+                    using var cmd = new MySqlCommand(sql, con);
+
+                    string[] colourArray = args[8].ToString().Split("&");
+                    string[] imgArray = args[9].ToString().Split("&");
+                    for (int i = 0; i < colourArray.Length; i++)
+                    {
+                        string sql2 = $"INSERT INTO colours (prod_id, colour, img, kpi, sold) VALUES ((SELECT MAX(prod_id) FROM products), '{colourArray[i]}, '{imgArray[i]}, 0, 0')";
+                        using var cmd2 = new MySqlCommand(sql2, con);
+                    }
+
+                    string[] sizeArray = args[10].ToString().Split("&");
+                    for (int j = 0; j < sizeArray.Length; j++)
+                    {
+                        string sql2 = $"INSERT INTO colours (prod_id, colour, img, kpi, sold) VALUES ((SELECT MAX(prod_id) FROM products), '{colourArray[j]}, '{imgArray[j]}, 0, 0')";
+                        using var cmd2 = new MySqlCommand(sql2, con);
+                    }
+                }
+            }
+            
+            else if (callType == "Remove")
+            {
+                if (callSubType == "Category")
+                {
+                    string category = args[0].ToString();
+                    using var con = new MySqlConnection(_cs);
+                    con.Open();
+                    string sql = $"DELETE FROM categories WHERE category = '{category}';";
+                    using var cmd = new MySqlCommand(sql, con);
+                    string sql2 = $"ALTER TABLE types DROP '{category}';";
+                    using var cmd2 = new MySqlCommand(sql2, con);
+                    con.Close();
+                }
+                else if (callSubType == "Type")
+                {
+                    string type = args[0].ToString();
+                    using var con = new MySqlConnection(_cs);
+                    con.Open();
+                    string sql = $"DELETE FROM types WHERE type = '{type}';";
+                    using var cmd = new MySqlCommand(sql, con);
+                    con.Close();
+                }
+                else if (callSubType == "Product")
+                {
+                    string product = args[0].ToString();
+                }
+            }
+            
+            return returnArray;
         }
 
         //ændre i til barcode
@@ -426,6 +602,11 @@ namespace Project.CSharpFiles
             }
 
             return array;
+        }
+
+        public void login()
+        {
+            
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using Project.CSharpFiles;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace Project.Pages.AdminPage
 {
     public class AdminCode : ComponentBase
     {
+        DbCall _call = new DbCall();
+
         public string newTitle = null;
         public string newCategory = null;
         public string CategoryToRemove = null;
@@ -19,6 +22,7 @@ namespace Project.Pages.AdminPage
             {
                 if ((category.CategoryName == CategoryToRemove))
                 {
+                    _call.AdminPages("Remove", "Category", CategoryToRemove);
                     Categories.Remove(category);
                     CategoryToRemove = null;
                     break;
@@ -27,6 +31,7 @@ namespace Project.Pages.AdminPage
                 {
                     if (item.SubcategoryName == CategoryToRemove)
                     {
+                        _call.AdminPages("Remove", "Type", CategoryToRemove);
                         category.Subcategory.Remove(item);
                         CategoryToRemove = null;
                         break;
@@ -63,6 +68,8 @@ namespace Project.Pages.AdminPage
         public void UpdateList()
         {
             selectedCategory = newCategory;
+            _call.AdminPages("New", "Category", selectedCategory);
+            //_call.AdminPages("Get categories");
             Categories.Add(new Category(newCategory));
             newCategory = null;
         }
@@ -74,6 +81,7 @@ namespace Project.Pages.AdminPage
                 if (category.CategoryName == selectedCategory)
                 {
                     category.Subcategory.Add(new Subcategory(newTitle));
+                    _call.AdminPages("New", "Type", selectedCategory, newTitle);
                     newTitle = null;
                 }
             }

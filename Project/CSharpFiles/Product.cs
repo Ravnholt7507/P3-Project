@@ -64,7 +64,15 @@ namespace Project.CSharpFiles
 
             else if (callType == "Specific Product")
             {
-                productArray = dbCall.ProductCalls(callType, args[0], args[1]);
+                if (args[0].ToString() == "Kald 1")
+                {
+                    productArray = dbCall.ProductCalls(callType, args[0], args[1], args[2]);                    
+                }
+                else if (args[0].ToString() == "Kald 2")
+                {
+                    productArray = dbCall.ProductCalls(callType, args[0], args[1]);
+                }
+
             }
             else if (callType == "Cart Call")
             {

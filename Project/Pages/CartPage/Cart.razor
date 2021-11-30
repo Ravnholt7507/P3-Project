@@ -11,7 +11,7 @@
                 <h4>@item.Name x @item.OrderAmount <p class="right">@item.SubTotal,-</p></h4>
                 <button @onclick="() => { item.OrderAmount += ErrorPos(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><i class="fa fa-plus"></i></button>
                 <button @onclick="() => { item.OrderAmount -= ErrorNeg(item.OrderAmount, item.Stock); item.CalcPrice(); CalcTotal(); }" class="butt"><i class="fa fa-minus"></i></button>
-                <button @onclick="() => { Delete(item.Barcode); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right delete"><i class="fa fa-times"></i></button>
+                <button @onclick="() => { Delete(item.Id, item.Colour_id, item.Size); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right delete"><i class="fa fa-times"></i></button>
             </div>
         }
         <div class="order-total">
@@ -72,15 +72,20 @@
         StateHasChanged();
     }
 
-    public void Delete(string prodId/*, int colourId, string size*/)
-    {
-        string[] array = ItemsInCart.Split(" ");
+    public void Delete(int prodId, int colourId, string size)
+    {        
+        string[] array = ItemsInCart.Split("&");
+        string[][] multiItemArray = new string[array.Length][];
         array = array.Skip(1).ToArray();
         array = array.Distinct().ToArray();
+        for (int i = 1; i < array.Length-1; i++)
+        {
+            multiItemArray[i] = array[i].Split();
+        }
         CartItem = "";
         for (int i = 0; i < array.Length; i++)
         {
-            if (array[i] != prodId)
+            if (array[i] != prodId.ToString())
             {
                 CartItem += " " + array[i];
             }

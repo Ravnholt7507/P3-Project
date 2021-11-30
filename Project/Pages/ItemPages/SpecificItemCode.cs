@@ -40,7 +40,8 @@ namespace Project.Pages.ItemPages
                 Size = size
             };
             string[][] array = new string[1][];
-            array = product.Call("Specific Product", prodid, colourid);
+            array = product.Call("Specific Product", "Kald 1", prodid, colourid);
+            string[][] colourSizeArray = product.Call("Specific Product", "Kald 2", prodid);
             product.Name = array[0][0];
             product.Price = int.Parse(array[0][1]);
             product.Description = array[0][2];

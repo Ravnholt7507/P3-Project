@@ -38,7 +38,7 @@ namespace DbGenerator
             cmd.CommandText = "DROP TABLE IF EXISTS types";
             cmd.ExecuteNonQuery();
             
-            cmd.CommandText = "CREATE TABLE types (id INTEGER PRIMARY KEY AUTO_INCREMENT, type VARCHAR(200) UNIQUE NOT NULL)";
+            cmd.CommandText = "CREATE TABLE types (id INTEGER PRIMARY KEY AUTO_INCREMENT, type VARCHAR(200) UNIQUE NOT NULL, kvinder INT DEFAULT 1, drenge INT DEFAULT 1, Piger INT DEFAULT 1)";
             cmd.ExecuteNonQuery();
             
             string[] types = { "Trøjer", "Bukser", "T-shirts", "Strømper", "Jakker", "Jeans", "Sportstøj", "Shorts", "Undertøj", "Nattøj", "Badetøj" };

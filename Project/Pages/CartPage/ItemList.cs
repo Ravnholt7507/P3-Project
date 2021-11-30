@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Project.CSharpFiles;
@@ -65,9 +66,15 @@ namespace Project.Pages.CartPage
             Order = new List<Product>();
             for (int i = 0; i < array.Length; i++)
             {
+                string[] singleProd = array[i].Split(" ");
+                singleProd = singleProd.Skip(1).ToArray();
+
                 Product item = new Product();
+                item.Id = int.Parse(singleProd[0]);
+                item.Colour_id = int.Parse(singleProd[1]);
+                
                 string[][] prodArray = new string[1][];
-                prodArray= item.Call("Cart Call", array[i]);                
+                prodArray= item.Call("Cart Call", array[i]);
                 item.Name = prodArray[0][0];
                 item.Price = double.Parse(prodArray[0][1]);
                 item.Colour = prodArray[0][2];
