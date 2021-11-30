@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Project.CSharpFiles;
 using System.Linq;
 using System.Threading.Tasks;
@@ -69,7 +70,6 @@ namespace Project.Pages.AdminPage
         {
             selectedCategory = newCategory;
             _call.AdminPages("New", "Category", selectedCategory);
-            //_call.AdminPages("Get categories");
             Categories.Add(new Category(newCategory));
             newCategory = null;
         }
@@ -128,8 +128,8 @@ namespace Project.Pages.AdminPage
         public string placeholderColour;
         public string SelectedColour = "";
 
-        public string[] Colours = { "red", "blue", "yellow", "green", "Magenta", "Pink", "pisGul", "brækBrun" };
-        public string[] Sizes = { "Chunky", "FatAss", "XL", "big", "medium", "small", "Esben" };
+        public string[] Colours = { "Lilla", "Blå", "Grå", "Rød", "Grøn", "Lyserød", "Hvid", "Sort", "Beige", "Turkis", "Gul", "Orange", "Flerfarvet" };
+        public string[] Sizes = { "X-Small", "Small", "Medium", "Large", "X-Large" };
 
         public string SelectedCat = null;
         public string NewItem = null;
@@ -181,6 +181,7 @@ namespace Project.Pages.AdminPage
             Console.WriteLine(checkvalue);
             if ((bool)checkvalue)
                 SelectedSizes.Add(new SizeAndStock(size));
+
             if (!(bool)checkvalue)
                 SelectedSizes.Remove(new SizeAndStock(size));
         }
@@ -206,9 +207,7 @@ namespace Project.Pages.AdminPage
             {
                 Size = InputSize;
             }
-            public int id;
             public string Size;
-            public bool state = false;
             public int stock;
         }
 
@@ -229,5 +228,69 @@ namespace Project.Pages.AdminPage
             public color[] Color;
             public int Id = 0;
         }
+            public string ChosenImg = "";
+        string img = "";
+        string imgName = "N/A";
+        public List<string> filesList = new List<string>();
+        string path = $"{Directory.GetCurrentDirectory()}{@"/wwwroot/Images"}";
+
+        public void LoadImages()
+        {
+            var files = Directory.GetFiles(path);
+            foreach (var file in files)
+            {
+                filesList.Add(Path.GetFileName(file));
+            }
+        }
+
+        public void ReadFile(string fileName, color color)
+        {
+            if (color != null)
+            {
+                imgName = fileName.Split('.')[0];
+                img = "/Images/" + fileName;
+                color.ImageLink.Add(img);
+            }
+        }
+
+        public void finalize()
+        {
+            DbCall call = new DbCall();
+            List<string> sizeList = new List<string>();
+            List<int> stockList = new List<int>();
+            string[] sizeArray;
+            int[] stockArray;
+
+            foreach (var SnS in MyColors[0].SnS)
+            {
+                sizeList.Add(SnS.Size);
+            }
+
+            sizeArray = sizeList.ToArray();
+            
+            foreach (var SnS in MyColors[0].SnS)
+            {
+                stockList.Add(SnS.stock);
+            }
+
+            stockArray = stockList.ToArray();
+
+            string prodName = NewItem;
+            string category = "Kvinder";
+            string type = SelectedCat;
+            int price = int.Parse(Price);
+            string description = Description;
+            string material = "Uld";
+            string produced = "Uganda";
+            string transparency = "transparency";
+            string colour = SelectedColour;
+            string img = ChosenImg;
+            sizeArray = sizeArray;
+            stockArray = stockArray;
+            
+            
+            call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray, stockArray);
+        }
     }
+    
 }
