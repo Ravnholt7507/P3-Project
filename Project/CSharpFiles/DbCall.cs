@@ -581,6 +581,8 @@ namespace Project.CSharpFiles
 
         public string UserAdministration(string callType, params object[] args)
         {
+            string returnString = "";
+
             if (callType == "New user")
             {
                 string username = args[0].ToString();
@@ -629,26 +631,30 @@ namespace Project.CSharpFiles
                         accessToken = rdr2.GetString(0);
                        
                     }
-
-                    if (accessToken != EasyEncryption.SHA.ComputeSHA256Hash(DateTime.Now.ToString()))
-                    {
-                        string newAccesToken = EasyEncryption.SHA.ComputeSHA256Hash(DateTime.Now.ToString());
-                        using var cmd3 = new MySqlCommand();
-                        cmd3.Connection = con;
-
-                        cmd3.CommandText =
-                            string.Format(
-                                "UPDATE login SET access_token = '{0}' WHERE username = '{1}' AND hashed_password = '{2}'", newAccesToken, username, hashedPassword);
-                        cmd.ExecuteNonQuery();
-                    }
-                    return accessToken;
+                    returnString = accessToken;
                 }
                 else if (dbHashedPassword != hashedPassword)
                 {
                     Console.WriteLine("Wrong password");
                 }
             }
-            return "";
+            else if (callType == "verify")
+            {
+                string currentAccesToken = args[0].ToString();
+                string tokenInDb = "";
+                using var con = new MySqlConnection(_cs);
+                con.Open();
+                string sql = string.Format("SELECT access_token FROM login WHERE access_token = '{0}'", currentAccesToken);
+                using var cmd = new MySqlCommand(sql, con);
+                using MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    tokenInDb = rdr.GetString(0);
+                }
+
+                returnString = tokenInDb;
+            }
+            return returnString;
         }
     }
 }
