@@ -1,6 +1,10 @@
 ﻿@page "/Admin"
 @inherits AdminCode
-
+@inject ProtectedSessionStorage SessionStorage
+@inject NavigationManager NavManager
+@*if (Waitload() == 1)
+    {
+*@
 <div class="page">
     <h1>Admin page</h1>
     <div class="container">
@@ -21,7 +25,7 @@
         <div>
             <h4>Fjern en kategori eller artikel</h4>
             <form @onsubmit="Remove">
-                <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" required/>
+                <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" required />
                 <input class="butt add" type="submit" value="Fjern" />
             </form>
             <datalist id="Categories">
@@ -62,7 +66,39 @@
         }
     </div>
 </div>
+@*}*@
 
+@code
+{
+    public string FakeAccessToken = "1000";
+    public string AccessToken = null;
+
+    public void Verify()
+    {
+        if (FakeAccessToken != AccessToken)
+        {
+            NavManager.NavigateTo("/Login");
+        }
+    }
+
+    public async Task Read()
+    {
+        var AccessTokenSession = await SessionStorage.GetAsync<string>("UserName");
+        AccessToken = AccessTokenSession.Value;
+        //Verify();
+    }
+
+    public async Task Waitload()
+    {
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        Read();
+        LoadImages();
+        return base.OnInitializedAsync();
+    }
+}
 
 <style>
 
@@ -107,13 +143,3 @@
     }
 
 </style>
-
-@code {
-
-    protected override Task OnInitializedAsync()
-    {
-        LoadImages();
-        return base.OnInitializedAsync();
-    }
-
-}

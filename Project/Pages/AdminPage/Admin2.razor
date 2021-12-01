@@ -3,7 +3,10 @@
 @using System.IO;
 @using System.Linq;
 @inherits AdminCode
+@inject ProtectedSessionStorage SessionStorage
+@inject NavigationManager NavManager
 
+@*if (AccessToken == null) { return; } *@
 <div class="page">
     <h2>Tilføj items</h2>
     <div class="name-price-description">
@@ -137,6 +140,35 @@
             @*<a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('SelectedImages').style.display='block'">Finalize</a>*@
         }
     </div>
+</div>
+
+@code 
+{
+    public string FakeAccessToken = "1000";
+    public string AccessToken;
+
+    public void Verify()
+    {
+        if (FakeAccessToken != AccessToken)
+        {
+            NavManager.NavigateTo("/Login");
+        }
+    }
+
+    public async Task Read()
+    {
+        var AccessTokenSession = await SessionStorage.GetAsync<string>("UserName");
+        AccessToken = AccessTokenSession.Value;
+        //Verify();
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        Read();
+        LoadImages();
+        return base.OnInitializedAsync();
+    }
+}
 
 <style>
     .page {
@@ -235,12 +267,3 @@
         margin-left: 20px;
     }
 </style>
-
-
-@code {
-    protected override Task OnInitializedAsync()
-    {
-        LoadImages();
-        return base.OnInitializedAsync();
-    }
-}</div>
