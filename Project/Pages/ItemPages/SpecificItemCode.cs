@@ -63,7 +63,9 @@ namespace Project.Pages.ItemPages
                     {
                         if (colourSizeArray[i][k] != null)
                         {
-                            product.MyColours[i].Sizes.Add(colourSizeArray[i][k]); 
+                            string[] Temp_string_Array = colourSizeArray[i][k].Split("&");
+                            product.MyColours[i].Sizes.Add(Temp_string_Array[0]);
+                            product.MyColours[i].stock.Add(Temp_string_Array[1]);
                         }
                     }                 
                 }
