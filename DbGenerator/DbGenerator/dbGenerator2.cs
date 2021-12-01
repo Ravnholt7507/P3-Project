@@ -171,10 +171,11 @@ namespace DbGenerator
             cmd.CommandText = "DROP TABLE IF EXISTS login";
             cmd.ExecuteNonQuery();
 
-            cmd.CommandText = "CREATE TABLE login (id INTEGER PRIMARY KEY AUTO_INCREMENT, login_id TEXT, password TEXT, hashed_password TEXT)";
+            cmd.CommandText = "CREATE TABLE login (id INTEGER PRIMARY KEY AUTO_INCREMENT, username TEXT, hashed_password TEXT, access_token TEXT)";
             cmd.ExecuteNonQuery();
 
-            cmd.CommandText = "INSERT INTO login (login_id, password) VALUES ('AdminLogin1', 'AdminPassword1')";
+            cmd.CommandText = string.Format("INSERT INTO login (username, hashed_password, access_token) VALUES ('AdminLogin1', '{0}', '{1}')", EasyEncryption.SHA.ComputeSHA256Hash("AdminPassword1"), EasyEncryption.SHA.ComputeSHA256Hash(DateTime.Now.ToString()));
+            cmd.ExecuteNonQuery();
 
             cmd.CommandText = "SET FOREIGN_KEY_CHECKS=1";
             cmd.ExecuteNonQuery();

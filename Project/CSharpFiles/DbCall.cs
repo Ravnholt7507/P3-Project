@@ -15,28 +15,6 @@ namespace Project.CSharpFiles
     {
         private readonly string _cs = @"server=localhost;userid=root;password=Password;database=ClothingStore";
 
-        /*public string[] CartCall()
-        {
-            string[] array = new string[2];
-            using var con = new MySqlConnection(_cs);
-            con.Open();
-            string sql = $@"SELECT name, price, stock FROM articles WHERE id = '{i}'";
-            using var cmd = new MySqlCommand(sql, con);
-            using MySqlDataReader rdr = cmd.ExecuteReader();
-            
-            while (rdr.Read())
-            {
-                string name = rdr.GetString(0);
-                array[0] = name;
-                string price = rdr.GetString(1);
-                array[1] = price;
-                string stock = rdr.GetString(2);
-                array[2] = stock;
-            }
-            con.Close();
-            return array;
-        }*/
-
         public string[][] ProductCalls(string callType, params object[] args)
         {
             string[][] productArray = new string[10][];
@@ -199,13 +177,13 @@ namespace Project.CSharpFiles
 
         public string[][] AdminPages(string callType, string callSubType, params object[] args)
         {
-            string[][] returnArray = {};
+            string[][] returnArray = new string[25][];
 
             if (callType == "Get")
             {
                 if (callSubType == "Categories")
                 {
-                    string[] categories = { };
+                    string[] categories = new string[10];
                     using var con = new MySqlConnection(_cs);
                     con.Open();
                     string sql = "SELECT category FROM categories;";
@@ -223,7 +201,21 @@ namespace Project.CSharpFiles
                 }
                 else if (callSubType == "Types")
                 {
-                    
+                    string[] types = new string[10];
+                    using var con = new MySqlConnection(_cs);
+                    con.Open();
+                    string sql = "SELECT category FROM categories;";
+                    using var cmd = new MySqlCommand(sql, con);
+                    using MySqlDataReader rdr = cmd.ExecuteReader();
+                    int i = 0;
+                    while (rdr.Read())
+                    {
+                        types[i] = rdr.GetString(0);
+                        i++;
+                    }
+                    rdr.Close();
+                    con.Close();
+                    returnArray[0] = types;
                 }
             }
             else if (callType == "New")
@@ -334,45 +326,6 @@ namespace Project.CSharpFiles
             }
             
             return returnArray;
-        }
-
-        //ændre i til barcode
-        public string[] SpecificArticleCall(string barcode)
-        {
-            string[] array = new string[15];
-            using var con = new MySqlConnection(_cs);
-            con.Open();
-            string sql = $@"SELECT  name, description, colour, size, price, stock, transparency, category, type, img_link, barcode FROM articles WHERE barcode = '{barcode}'";
-            using var cmd = new MySqlCommand(sql, con);
-            using MySqlDataReader rdr = cmd.ExecuteReader();
-                
-            while (rdr.Read())
-            {
-                string name = rdr.GetString(0);
-                array[0] = name;
-                string description = rdr.GetString(1);
-                array[1] = description;
-                string colour = rdr.GetString(2);
-                array[2] = colour;
-                string size = rdr.GetString(3);
-                array[3] = size;
-                string price = rdr.GetString(4);
-                array[4] = price;
-                string stock = rdr.GetString(5);
-                array[5] = stock;
-                string transparency = rdr.GetString(6);
-                array[6] = transparency;
-                string category = rdr.GetString(7);
-                array[7] = category;
-                string type = rdr.GetString(8);
-                array[8] = type;
-                string imagelink = rdr.GetString(9);
-                array[9] = imagelink;
-                string Barcode = rdr.GetString(10);
-                array[10] = Barcode;
-            }
-            con.Close();
-            return array;
         }
 
         public string[] SearchCall(params object[] args)
@@ -547,12 +500,22 @@ namespace Project.CSharpFiles
 
         public string[] KPI(string callType)
         {
-            string[] array = {};
-            if (callType == "Type Call")
+            string[] array = new string[25];
+            if (callType == "Type call")
             {
-                string[] typeArray;
-                typeArray = TypeCall();
-                //Array = typeArray;
+                using var con = new MySqlConnection(_cs);
+                con.Open();
+                string sql = "SELECT type FROM types";
+                using var cmd = new MySqlCommand(sql, con);
+                using MySqlDataReader rdr = cmd.ExecuteReader();
+
+                int i = 0;
+                while (rdr.Read())
+                {
+                    array[i]= rdr.GetString(0);
+                    i++;
+                }
+                con.Close();
             }
             else if (callType == "Product type call")
             {
@@ -616,9 +579,49 @@ namespace Project.CSharpFiles
             return array;
         }
 
-        public void login()
+        public void UserAdministration(string callType, params object[] args)
         {
-            
+            if (callType == "New user")
+            {
+                
+            }
+            else if (callType == "User login")
+            {
+                string username = args[0].ToString();
+                string password = args[1].ToString();
+                string dbHashedPassword = "";
+                var hashedPassword = EasyEncryption.SHA.ComputeSHA256Hash(password);
+                
+                using var con = new MySqlConnection(_cs);
+                con.Open();
+                string sql = string.Format("SELECT hashed_password FROM login WHERE username = '{0}'", username);
+                using var cmd = new MySqlCommand(sql, con);
+                using MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    dbHashedPassword = rdr.GetString(0);
+                }
+
+                if (dbHashedPassword == "")
+                {
+                    Console.WriteLine("Wrong username");
+                }
+
+                else if (dbHashedPassword == hashedPassword)
+                {
+                    string sql2 = string.Format("SELECT access_token FROM login WHERE username = '{0}' AND hashed_password = '{1}'", username, hashedPassword);
+                    using var cmd2 = new MySqlCommand(sql2, con);
+                    using MySqlDataReader rdr2 = cmd.ExecuteReader();
+                    while (rdr2.Read())
+                    {
+                        
+                    }
+                }
+                else if (dbHashedPassword != hashedPassword)
+                {
+                    Console.WriteLine("Wrong password");
+                }
+            }
         }
     }
 }

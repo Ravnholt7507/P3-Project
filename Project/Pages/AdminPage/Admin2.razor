@@ -133,43 +133,10 @@
                     }
                 </div>
             </div>
-            @*<button class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Finalize </button>*@
-            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('SelectedImages').style.display='block'">Finalize</a>
+            <button class="btn btn-outline-dark btn-light" @onclick="finalize"> <i class="fa fa-fw fa-check"></i> Finalize </button>
+            @*<a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('SelectedImages').style.display='block'">Finalize</a>*@
         }
     </div>
-
-    <div id="SelectedImages" class="w3-modal">
-        <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
-            <div class="w3-container w3-white w3-center">
-                <div class="item-list">
-                    <table>
-                        <tr>
-                            <th>Produkt Navn</th>
-                            <th>Pris</th>
-                            <th>Farve</th>
-                            <th>Lager</th>
-                            <th>Størrelse</th>
-                        </tr>
-                        @foreach (var color in MyColors)
-                        {
-                            @foreach (var SnS in color.SnS)
-                            {
-                                <tr>
-                                    <td>@NewItem</td>
-                                    <td> @Price</td>
-                                    <td>@color.ColorName</td>
-                                    <td> @SnS.stock </td>
-                                    <td> @SnS.Size </td>
-                                </tr>
-                            }
-                        }
-                    </table>
-                    <i onclick="document.getElementById('SelectedImages').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <style>
     .page {
@@ -271,34 +238,9 @@
 
 
 @code {
-    string ChosenImg = "";
-    string img = "";
-    string imgName = "N/A";
-    List<string> filesList = new List<string>();
-    string path = $"{Directory.GetCurrentDirectory()}{@"/wwwroot/Images"}";
-
-    public void LoadImages()
-    {
-        var files = Directory.GetFiles(path);
-        foreach (var file in files)
-        {
-            filesList.Add(Path.GetFileName(file));
-        }
-    }
-
-    public void ReadFile(string fileName, color color)
-    {
-        if (color != null)
-        {
-            imgName = fileName.Split('.')[0];
-            img = "/Images/" + fileName;
-            color.ImageLink.Add(img);
-        }
-    }
-
     protected override Task OnInitializedAsync()
     {
         LoadImages();
         return base.OnInitializedAsync();
     }
-}
+}</div>

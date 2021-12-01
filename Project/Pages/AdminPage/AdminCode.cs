@@ -152,6 +152,8 @@ namespace Project.Pages.AdminPage
 
         protected override Task OnInitializedAsync()
         {
+            string[][] categoryArray = _call.AdminPages("Get", "Categories");
+            string[][] typeArray = _call.AdminPages("Get", "Types");
             cats[0].Subcategory.Add(new Subcategory("Trøje"));
             cats[0].Subcategory.Add(new Subcategory("Bukser"));
             cats[1].Subcategory.Add(new Subcategory("Jakke"));
@@ -255,7 +257,6 @@ namespace Project.Pages.AdminPage
 
         public void finalize()
         {
-            DbCall call = new DbCall();
             List<string> sizeList = new List<string>();
             List<int> stockList = new List<int>();
             string[] sizeArray;
@@ -290,7 +291,7 @@ namespace Project.Pages.AdminPage
             ;
             
             
-            call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray2, stockArray2);
+            _call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray2, stockArray2);
         }
     }
     

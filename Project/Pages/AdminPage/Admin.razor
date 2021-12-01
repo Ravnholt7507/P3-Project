@@ -107,3 +107,13 @@
     }
 
 </style>
+
+@code {
+
+    protected override Task OnInitializedAsync()
+    {
+        LoadImages();
+        return base.OnInitializedAsync();
+    }
+
+}
