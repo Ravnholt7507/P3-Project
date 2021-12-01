@@ -23,7 +23,6 @@ namespace Project.Pages.ItemPages
             int colourId = int.Parse(specificationArray[1]);
             string size = specificationArray[2];
             
-            
 
             if (prodId != 0 && colourId != 0 && size != "")
             {
@@ -51,28 +50,27 @@ namespace Project.Pages.ItemPages
             {
                 if (colourSizeArray[i] != null)
                 {
-                    product.ColourList.Add(colourSizeArray[i][0]);
+                    //product.ColourList.Add(colourSizeArray[i][0]);
+                    product.MyColours.Add(new Colour(colourSizeArray[i][0]));
                 }
             }
             
-            for (int i = 0; i < colourSizeArray.Length; i++)
+            for (int i = 0; i < colourSizeArray.Length; i++) 
             {
                 if (colourSizeArray[i] != null)
-                {
-                    for (int k = 2; k < colourSizeArray[i].Length; k++)
+                    {
+                    for (int k = 2; k < colourSizeArray.Length; k++)
                     {
                         if (colourSizeArray[i][k] != null)
                         {
-                            product.SizeList.Add(colourSizeArray[i][k]);
+                            product.MyColours[i].Sizes.Add(colourSizeArray[i][k]); 
                         }
                     }                 
                 }
             }
-
             if (product.Id == prodid && product.Colour_id == colourid && product.Size == size)
                 return product;
             return null;
-         
         }
     }
 }

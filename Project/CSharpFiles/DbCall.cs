@@ -579,17 +579,31 @@ namespace Project.CSharpFiles
             return array;
         }
 
-        public void UserAdministration(string callType, params object[] args)
+        public string UserAdministration(string callType, params object[] args)
         {
+            string returnString = "";
+
             if (callType == "New user")
             {
+                string username = args[0].ToString();
+                string password = args[1].ToString();
+                string hashedPassword = EasyEncryption.SHA.ComputeSHA256Hash(password);
+                string accessToken = EasyEncryption.SHA.ComputeSHA256Hash(DateTime.Now.ToString());
                 
+                using var con = new MySqlConnection(_cs);
+                con.Open();
+                using var cmd = new MySqlCommand();
+                cmd.Connection = con;
+
+                cmd.CommandText = string.Format("INSERT INTO Login (username, hashed_password, access_token) VALUES ('{0}', '{1}', '{2}')", username, hashedPassword, accessToken);
+                cmd.ExecuteNonQuery();
             }
             else if (callType == "User login")
             {
                 string username = args[0].ToString();
                 string password = args[1].ToString();
                 string dbHashedPassword = "";
+                string accessToken = "";
                 var hashedPassword = EasyEncryption.SHA.ComputeSHA256Hash(password);
                 
                 using var con = new MySqlConnection(_cs);
@@ -611,17 +625,36 @@ namespace Project.CSharpFiles
                 {
                     string sql2 = string.Format("SELECT access_token FROM login WHERE username = '{0}' AND hashed_password = '{1}'", username, hashedPassword);
                     using var cmd2 = new MySqlCommand(sql2, con);
-                    using MySqlDataReader rdr2 = cmd.ExecuteReader();
+                    using MySqlDataReader rdr2 = cmd2.ExecuteReader();
                     while (rdr2.Read())
                     {
-                        
+                        accessToken = rdr2.GetString(0);
+                       
                     }
+                    returnString = accessToken;
                 }
                 else if (dbHashedPassword != hashedPassword)
                 {
                     Console.WriteLine("Wrong password");
                 }
             }
+            else if (callType == "verify")
+            {
+                string currentAccesToken = args[0].ToString();
+                string tokenInDb = "";
+                using var con = new MySqlConnection(_cs);
+                con.Open();
+                string sql = string.Format("SELECT access_token FROM login WHERE access_token = '{0}'", currentAccesToken);
+                using var cmd = new MySqlCommand(sql, con);
+                using MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    tokenInDb = rdr.GetString(0);
+                }
+
+                returnString = tokenInDb;
+            }
+            return returnString;
         }
     }
 }

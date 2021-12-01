@@ -30,6 +30,7 @@ namespace Project.CSharpFiles
         public int Colour_id { get; set; }
         public string Colour { get; set; }
         public List<string> ColourList { get; set; } = new List<string>();
+        public List<Colour> MyColours { get; set; } = new List<Colour>();
         public string Size { get; set; }
         public List<string> SizeList { get; set; } = new List<string>();
         public double Price { get; set; }
@@ -48,7 +49,12 @@ namespace Project.CSharpFiles
             return SubTotal = OrderAmount * Price;
         }
 
-         public static Product CreateInstance(string barcode)
+        public Colour ColourFinder(string ColourString)
+        {
+           return MyColours.Find(x => x.ColourName == ColourString);
+        }
+
+        public static Product CreateInstance(string barcode)
          {
              return new Product();
          }
