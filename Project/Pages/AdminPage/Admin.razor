@@ -2,76 +2,84 @@
 @inherits AdminCode
 @inject ProtectedSessionStorage SessionStorage
 @inject NavigationManager NavManager
-@*if (Waitload() == 1)
-    {
-*@
-<div class="page">
-    <h1>Admin page</h1>
-    <div class="container">
-        <div>
-            <h4>Tilføj en kategori</h4>
-            <form @onsubmit="UpdateList">
-                <input @bind="newCategory" placeholder="Indtast kategori" required />
-                <input class="butt add" type="submit" value="Tilføj" />
-            </form>
+
+@if (isLoaded)
+{
+    <div class="page">
+        <h1>Admin page</h1>
+        <div class="container">
+            <div>
+                <h4>Tilføj en kategori</h4>
+                <form @onsubmit="UpdateList">
+                    <input @bind="newCategory" placeholder="Indtast kategori" required />
+                    <input class="butt add" type="submit" value="Tilføj" />
+                </form>
+            </div>
+            <div>
+                <h4>Tilføj en underkategori</h4>
+                <form @onsubmit="Insert">
+                    <input @bind="newTitle" placeholder="Indtast subkategori" required />
+                    <input class="butt add" type="submit" value="Tilføj" />
+                </form>
+            </div>
+            <div>
+                <h4>Fjern en kategori eller artikel</h4>
+                <form @onsubmit="Remove">
+                    <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" required />
+                    <input class="butt add" type="submit" value="Fjern" />
+                </form>
+                <datalist id="Categories">
+                    @foreach (Category category in Categories)
+                    {
+                        <option value=@category.CategoryName></option>
+                        foreach (Subcategory subcategory in category.Subcategory)
+                        {
+                            <option value=@subcategory.SubcategoryName></option>
+                        }
+                    }
+                </datalist>
+            </div>
         </div>
-        <div>
-            <h4>Tilføj en underkategori</h4>
-            <form @onsubmit="Insert">
-                <input @bind="newTitle" placeholder="Indtast subkategori" required />
-                <input class="butt add" type="submit" value="Tilføj" />
-            </form>
-        </div>
-        <div>
-            <h4>Fjern en kategori eller artikel</h4>
-            <form @onsubmit="Remove">
-                <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" required />
-                <input class="butt add" type="submit" value="Fjern" />
-            </form>
-            <datalist id="Categories">
+
+        <div class="container2">
+            <label for="Category">Vælg en kategori for at tilføje en underkategori:</label>
+            <select name="Category" id="Category" @bind="selectedCategory">
+                <option value="none" selected disabled hidden>Vælg en kategori</option>
                 @foreach (Category category in Categories)
                 {
-                    <option value=@category.CategoryName></option>
-                    foreach (Subcategory subcategory in category.Subcategory)
-                    {
-                        <option value=@subcategory.SubcategoryName></option>
-                    }
+                    <option value=@category.CategoryName>@category.CategoryName</option>
                 }
-            </datalist>
+            </select>
+
+            @for (int i = 0; i < Categories.Count; i++)
+            {
+                if (selectedCategory == Categories[i].CategoryName)
+                {
+                    <button class="w3-bar-Subcategory w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a>@Categories[i].CategoryName</a></button>
+                    <div class="dropdown-content2">
+                        @for (int k = 0; k < Categories[i].Subcategory.Count; k++)
+                        {
+                            <button class="w3-bar-Subcategory w3-button">@Categories[i].Subcategory[k].SubcategoryName</button>
+                        }
+                    </div>
+                }
+            }
         </div>
     </div>
+}
+else
+{
+    <p>Sorry, but Andreas made spaghtti code.</p>
+}
 
-    <div class="container2">
-        <label for="Category">Vælg en kategori for at tilføje en underkategori:</label>
-        <select name="Category" id="Category" @bind="selectedCategory">
-            <option value="none" selected disabled hidden>Vælg en kategori</option>
-            @foreach (Category category in Categories)
-            {
-                <option value=@category.CategoryName>@category.CategoryName</option>
-            }
-        </select>
 
-        @for (int i = 0; i < Categories.Count; i++)
-        {
-            if (selectedCategory == Categories[i].CategoryName)
-            {
-                <button class="w3-bar-Subcategory w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a>@Categories[i].CategoryName</a></button>
-                <div class="dropdown-content2">
-                    @for (int k = 0; k < Categories[i].Subcategory.Count; k++)
-                    {
-                        <button class="w3-bar-Subcategory w3-button">@Categories[i].Subcategory[k].SubcategoryName</button>
-                    }
-                </div>
-            }
-        }
-    </div>
-</div>
-@*}*@
 
 @code
 {
     public string FakeAccessToken = "1000";
     public string AccessToken = null;
+
+    bool isLoaded;
 
     public void Verify()
     {
@@ -85,18 +93,17 @@
     {
         var AccessTokenSession = await SessionStorage.GetAsync<string>("UserName");
         AccessToken = AccessTokenSession.Value;
-        //Verify();
     }
 
-    public async Task Waitload()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-    }
-
-    protected override Task OnInitializedAsync()
-    {
-        Read();
-        LoadImages();
-        return base.OnInitializedAsync();
+        await Read();
+        if (AccessToken != null)
+        {
+            LoadImages();
+            isLoaded = true;
+        }
+        StateHasChanged();
     }
 }
 
