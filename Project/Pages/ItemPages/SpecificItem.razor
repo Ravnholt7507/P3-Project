@@ -13,20 +13,24 @@
         <h6 class="card-subtitle mb-2 text-muted">@Prod.Name</h6>
         <hr />
         <p>Vælg en farve:</p>
-        <select>
-            @foreach (string item in Prod.ColourList)
+        <select @bind="SelectedColour">
+            @foreach (var item in Prod.MyColours)
             {
-                <option value="@item">@item</option>
+                <option value="@item.ColourName">@item.ColourName</option>
             }
         </select>
 
+
         <p>Vælg en størrelse:</p>
+        @if (Prod != null && Prod.ColourFinder(SelectedColour).Sizes.Count > 0)
+        {
         <select>
-            @foreach (string item in Prod.SizeList)
+            @foreach (var item in Prod.ColourFinder(SelectedColour).Sizes)
             {
                 <option value="@item">@item</option>
             }
         </select>
+        }
 
         <p>
             Pris:  <label style="color:darkred">@Prod.Price.ToString("Kr.")</label>
@@ -38,6 +42,7 @@
 <button class="btn btn-primary" @onclick="() => { AddItem(); Save();}">Tilføj til kurv</button>
 
 @code {
+    public string SelectedColour;
 
     public string CartItem;
 
@@ -65,6 +70,12 @@
     {
         Read();
         return base.OnInitializedAsync();
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        SelectedColour = Prod.MyColours[0].ColourName;
+        return base.OnParametersSetAsync();
     }
 }
 
