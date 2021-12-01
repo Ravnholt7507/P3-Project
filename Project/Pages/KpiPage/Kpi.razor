@@ -9,28 +9,18 @@
         <table>
             <tr>
                 <th>Product Name</th>
-                <th>ID</th>
-                <th>IMG</th>
                 <th>Show KPI</th>
             </tr>
-            <tr>
-                <td>Bukser</td>
-                <td>47</td>
-                <th>IMG</th>
-                <td style="text-align:center"><button class="butt" @onclick="Popup"><i class="fa fa-times"></i></button></td>
-            </tr>
-            <tr>
-                <td>Shirt</td>
-                <td>12</td>
-                <th>IMG</th>
-                <td style="text-align:center"><button class="butt" @onclick="Popup"><i class="fa fa-times"></i></button></td>
-            </tr>
-            <tr>
-                <td>Hat</td>
-                <td>52</td>
-                <th>IMG</th>
-                <td style="text-align:center"><button class="butt" @onclick="Popup"><i class="fa fa-times"></i></button></td>
-            </tr>
+            @foreach (var item in typeArray)
+            {
+                if (item != null)
+                {
+                    <tr>
+                        <td>@item</td>
+                        <td style="text-align:center"><button class="butt" @onclick="Popup"><i class="fa fa-times"></i></button></td>
+                    </tr>
+                }
+            }
         </table>
     </div>
     <div class="specific-item">

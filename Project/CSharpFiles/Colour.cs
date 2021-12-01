@@ -8,7 +8,7 @@ namespace Project.CSharpFiles
     public class Colour
     {
         public List<string> Sizes = new List<string>();
-        public string[] stock;
+        public List<string> stock = new List<string>();
         public string ColourName;
 
         public Colour(string name)

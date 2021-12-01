@@ -41,11 +41,13 @@ namespace Project.Pages.KpiPage
         public List<string> Kpis = new List<string>() { "Resultgrad", "Buffer", "Egenkapital", "Likviditet" };
         public List<string> Months = new List<string>() { "Jan", "Feb", "Mar", "Apr" };
         public List<string> Percent = new List<string>() { "5%", "10%", "30%", "70%" };
-
+        public string[] typeArray;
         protected override Task OnInitializedAsync()
         {
-            string[] typeArray = call.KPI("Type call");
+            typeArray = call.KPI("Type call");
             return base.OnInitializedAsync();
         }
+
+        
     }
 }
