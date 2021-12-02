@@ -31,3 +31,4 @@
 /Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/DbGenerator/DbGenerator/obj/Debug/DbGenerator.csproj.CopyComplete
 /Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/DbGenerator/DbGenerator/obj/Debug/DbGenerator.exe
 /Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/DbGenerator/DbGenerator/obj/Debug/DbGenerator.pdb
+/Users/minmacbook/OneDrive - Aalborg Universitet/Uni/Programmering/3. Semester/P3/P3-Project/DbGenerator/DbGenerator/bin/Debug/EasyEncryption.dll
