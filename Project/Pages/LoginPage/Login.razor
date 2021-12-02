@@ -1,0 +1,41 @@
+﻿@page "/Login"
+@inject NavigationManager NavManager
+@inject ProtectedSessionStorage SessionStorage
+
+<div class="page">
+    <h1>@LoggedIn</h1>
+
+    <form @onsubmit="Skovl">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" @bind="UserName" required><br>
+        <label for="pwd">Password:</label><br>
+        <input type="password" id="pwd" name="pwd" @bind="PassWord" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+@code
+{
+    public string FakeUserName = "admin";
+    public string FakePassWord = "password";
+
+    public string UserName;
+    public string PassWord;
+
+    public string LoggedIn;
+
+    public async Task Save()
+    {
+        await SessionStorage.SetAsync("UserName", "1000");
+    }
+
+    public void Skovl()
+    {
+        if (UserName == FakeUserName && PassWord == FakePassWord)
+        {
+            LoggedIn = "Logged In";
+            Save();
+            NavManager.NavigateTo("/Admin");
+        }
+    }
+}

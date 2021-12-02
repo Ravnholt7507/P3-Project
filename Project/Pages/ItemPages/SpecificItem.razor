@@ -13,7 +13,7 @@
         <h6 class="card-subtitle mb-2 text-muted">@Prod.Name</h6>
         <hr />
         <p>Vælg en farve:</p>
-        <select @bind="SelectedColour">
+        <select @bind="SelectedColour" @onclick="ResetSize">
             @foreach (var item in Prod.MyColours)
             {
                 <option value="@item.ColourName">@item.ColourName</option>
@@ -24,12 +24,13 @@
         <p>Vælg en størrelse:</p>
         @if (Prod != null && Prod.ColourFinder(SelectedColour).Sizes.Count > 0)
         {
-        <select>
+        <select @bind="SelectedSize">
             @foreach (var item in Prod.ColourFinder(SelectedColour).Sizes)
             {
                 <option value="@item">@item</option>
             }
         </select>
+        <div>På lager: @FindStock(SelectedColour, SelectedSize)</div>
         }
 
         <p>
@@ -43,6 +44,7 @@
 
 @code {
     public string SelectedColour;
+    public string SelectedSize;
 
     public string CartItem;
 
@@ -75,7 +77,24 @@
     protected override Task OnParametersSetAsync()
     {
         SelectedColour = Prod.MyColours[0].ColourName;
+        SelectedSize = Prod.MyColours[0].Sizes[0];
         return base.OnParametersSetAsync();
+    }
+
+    public void ResetSize()
+    {
+        SelectedSize = Prod.ColourFinder(SelectedColour).Sizes[0];
+    }
+
+    public string FindStock(string SelectedColour, string SelectedSize)
+    {
+        int TempVar = Prod.ColourFinder(SelectedColour).Sizes.FindIndex(x => x == SelectedSize);
+        if(TempVar < 0)
+        {
+            ResetSize();
+            return Prod.ColourFinder(SelectedColour).stock[0];
+        }
+        return Prod.ColourFinder(SelectedColour).stock[TempVar];
     }
 }
 
