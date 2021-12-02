@@ -251,7 +251,6 @@ namespace Project.CSharpFiles
                     cmd.CommandText = string.Format("INSERT IGNORE INTO types (type) VALUES ('{0}')", type);
                     cmd.ExecuteNonQuery();
 
-                    //cmd.CommandText = string.Format("INSERT INTO types () VALUE (1) WHERE type = '{1}'", category, type);
                     cmd.CommandText = $"UPDATE types SET {category}=1 WHERE type = '{type}' ";
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -284,16 +283,12 @@ namespace Project.CSharpFiles
                     
                     object objStockArray = args[11];
                     int[] stockArray = (int[])(objStockArray);
-
-                    //cmd.CommandText = "SET FOREIGN_KEY_CHECKS=0";
-                    //cmd.ExecuteNonQuery();
+                    
                     for (int j = 0; j < sizeArray.Length; j++)
                     {
                         cmd.CommandText = string.Format("INSERT INTO sizes (colour_id, prod_id, size, stock) VALUES ((SELECT MAX(colour_id) FROM colours), (SELECT MAX(prod_id) FROM products), '{0}', '{1}')", sizeArray[j], stockArray[j]);
                         cmd.ExecuteNonQuery();
                     }
-                    //cmd.CommandText = "SET FOREIGN_KEY_CHECKS=1";
-                    //cmd.ExecuteNonQuery();
                 }
             }
             
@@ -418,26 +413,6 @@ namespace Project.CSharpFiles
             }
             con.Close();
             return barcodeArray;
-        }
-        
-        public string[] TypeCall()
-        {
-            string[] array = {};
-            using var con = new MySqlConnection(_cs);
-            con.Open();
-            string sql = @"SELECT * FROM products";
-            using var cmd = new MySqlCommand(sql, con);
-            using MySqlDataReader rdr = cmd.ExecuteReader();
-
-            int i = 0;
-            while (rdr.Read())
-            {
-                string type = rdr.GetString(0);
-                array[i] = type;
-                i++;
-            }
-            con.Close();
-            return array;
         }
 
         public void Order(string callType, params object[] args)
@@ -615,6 +590,7 @@ namespace Project.CSharpFiles
                 {
                     dbHashedPassword = rdr.GetString(0);
                 }
+                rdr.Close();
 
                 if (dbHashedPassword == "")
                 {
@@ -631,6 +607,7 @@ namespace Project.CSharpFiles
                         accessToken = rdr2.GetString(0);
                        
                     }
+                    rdr2.Close();
                     returnString = accessToken;
                 }
                 else if (dbHashedPassword != hashedPassword)
@@ -651,6 +628,7 @@ namespace Project.CSharpFiles
                 {
                     tokenInDb = rdr.GetString(0);
                 }
+                rdr.Close();
                 returnString = tokenInDb;
             }
             return returnString;
