@@ -56,6 +56,7 @@
     </div>
 </div>
 
+
 @code {
     public string ItemsInCart;
     Order _newOrder = new Order();
@@ -69,7 +70,6 @@
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
         ItemsInCart = result.Value;
-        Console.WriteLine(ItemsInCart);
         if (ItemsInCart != null)
         {
             testArray = Id(ItemsInCart);

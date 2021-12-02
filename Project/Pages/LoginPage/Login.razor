@@ -4,15 +4,16 @@
 @inject ProtectedSessionStorage SessionStorage
 
 <div class="page">
-    <h1>@LoggedIn</h1>
-
-    <form @onsubmit="Skovl">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" @bind="UserName" required><br>
-        <label for="pwd">Password:</label><br>
-        <input type="password" id="pwd" name="pwd" @bind="PassWord" required><br><br>
-        <input type="submit" value="Submit">
-    </form>
+    <h1 class="header">@LoggedIn</h1>
+    <div class="main-area">
+        <form @onsubmit="Skovl">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" @bind="UserName" required><br>
+            <label for="pwd">Password:</label><br>
+            <input type="password" id="pwd" name="pwd" @bind="PassWord" required><br><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
 </div>
 
 @code
@@ -43,3 +44,44 @@
         }
     }
 }
+
+<style>
+
+    .page{
+        height: 500px;
+    }
+
+    .main-area {
+        width: 250px;
+        height: 300px;
+        float: left;
+        margin-left: 40%;
+        border: 2px solid black;
+        border-radius: 3px;
+        padding: 10px;
+        background-color: #f3f3f3;
+    }
+
+        .main-area h1 {
+            text-decoration: underline;
+        }
+
+    .header {
+        float: left;
+        margin-left: 40%;
+    }
+
+    label {
+        font-size: 20px;
+    }
+
+    #username {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #password {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
