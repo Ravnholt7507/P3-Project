@@ -651,7 +651,6 @@ namespace Project.CSharpFiles
                 {
                     tokenInDb = rdr.GetString(0);
                 }
-
                 returnString = tokenInDb;
             }
             return returnString;
