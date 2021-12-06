@@ -563,7 +563,7 @@ namespace Project.CSharpFiles
             return array;
         }
 
-        public string[][][] KPI2(string type)
+        public string[][][] KPI2()
         { 
             
             using var con = new MySqlConnection(_cs);
@@ -659,8 +659,8 @@ namespace Project.CSharpFiles
                     {
                         if (product[y][7] == typeArray[i][0])
                         {
-                            int amount = int.Parse(typeArray[i][1]);
-                            typeArray[i][1] = amount++.ToString();
+                            int amount = int.Parse(typeArray[i][1])+1;
+                            typeArray[i][1] = amount.ToString();
                         }
                     }
 
@@ -668,19 +668,32 @@ namespace Project.CSharpFiles
                 rdr3.Close();
             }
 
+            string[][][] test = new string[5][][];
+            string[][] test2 = new string[4][];
+            string[] test3 = new string[3];
+            test3[0] = "test4";
+
+            test[0] = test2;
+            test[0][0] = test3;
+
+
+
             string[][][] sortedProducts = new string[typeAmount][][];
 
             for (int i = 0; i < typeAmount; i++)
             {
-                string[][] types = new string[int.Parse(typeArray[i][1])][];
+                int k = 0;
+                int size = int.Parse(typeArray[i][1]);
+                string[][] types = new string[size][];
                 sortedProducts[i] = types;
-                for (int j = 0; j < sortedProducts[i].Length; j++)
+                for (int j = 0; j < product.Length; j++)
                 {
-                    if (product[i][7] == typeArray[i][0] )
+                    if (product[j][7] == typeArray[i][0] )
                     {
                         string[] productAttributes = new string[9];
-                        sortedProducts[i][j] = productAttributes;
-                        sortedProducts[i][j] = product[i];
+                        sortedProducts[i][k] = productAttributes;
+                        sortedProducts[i][k] = product[j];
+                        k++;
                     }
                 }
             }

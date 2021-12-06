@@ -42,9 +42,12 @@ namespace Project.Pages.KpiPage
         public List<string> Months = new List<string>() { "Jan", "Feb", "Mar", "Apr" };
         public List<string> Percent = new List<string>() { "5%", "10%", "30%", "70%" };
         public string[] typeArray;
+        public string[][][] ProductArray;
         protected override Task OnInitializedAsync()
         {
             typeArray = call.KPI("Type call");
+            ProductArray = call.KPI2();
+
             return base.OnInitializedAsync();
         }
 
