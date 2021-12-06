@@ -563,7 +563,7 @@ namespace Project.CSharpFiles
             return array;
         }
 
-        public string[][][] KPI2(string type)
+        public string[][][] KPI2()
         { 
             
             using var con = new MySqlConnection(_cs);
