@@ -154,14 +154,6 @@ else
 
     bool isLoaded;
 
-    public void Verify()
-    {
-        if (FakeAccessToken != AccessToken)
-        {
-            NavManager.NavigateTo("/Login");
-        }
-    }
-
     public async Task Read()
     {
         var AccessTokenSession = await SessionStorage.GetAsync<string>("UserName");
