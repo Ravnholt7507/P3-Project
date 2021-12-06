@@ -9,52 +9,20 @@
 
 <br />
 
-<table class="table">
-    <thread>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Brand
-            </th>
-            <th>
-                Price
-            </th>
-        </tr>
-    </thread>
-    <tbody>
-        @if (Products != null && Products.Count() > 0)
+@if (Products != null && Products.Count() > 0)
+{
+    <div class="row">
+        @foreach (var product in Products)
         {
-            @foreach (var product in Products)
-            {
-                @if (product != null)
-                {
-                    <tr>
-                        <td>
-                            <NavLink href="@($"Product/{product.Id +"&"+product.Colour_id +"&"+ product.Size}")">
-                                @product.Name
-                            </NavLink>
-                        </td>
-                        <td>@product.Name</td>
-                        <td>@product.Price.ToString("kr.")</td>
-                    </tr>
-                }
-            }
-        }
-        else
-        {
-            <tr>
-                <td colspan="3">
-                    cannot find products
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            <ProductCard Product="product"></ProductCard>}
+    </div>
+}
+else
+{
+    <p> No Products Found :(</p>}
 
 @code {
-    
+
     public void Loop()
     {
         Product productCall = new Product();
@@ -79,8 +47,8 @@
         Loop();
         return base.OnInitializedAsync();
     }
-    
-    public List<Product> Products = new List<Product>() {};
+
+    public List<Product> Products = new List<Product>() { };
 
     protected override void OnInitialized()
     {
@@ -102,7 +70,7 @@
             Console.WriteLine("Null");
             return Products;
         }
-        
+
         var array = filter.Split(' ');
         DbCall dbcall = new DbCall();
         string[] itemArray = dbcall.SearchCall("blå", "small");
@@ -116,5 +84,51 @@
     }
 
     [Parameter]
-        public Product CartItem{ get; set; }
+    public Product CartItem { get; set; }
 }
+
+
+
+@*<table class="table">
+        <thread>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Brand
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
+        </thread>
+        <tbody>
+            @if (Products != null && Products.Count() > 0)
+            {
+                @foreach (var product in Products)
+                {
+                    @if (product != null)
+                    {
+                        <tr>
+                            <td>
+                                <NavLink href="@($"Product/{product.Id +"&"+product.Colour_id +"&"+ product.Size}")">
+                                    @product.Name
+                                </NavLink>
+                            </td>
+                            <td>@product.Name</td>
+                            <td>@product.Price.ToString("kr.")</td>
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3">
+                        cannot find products
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

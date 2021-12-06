@@ -109,8 +109,9 @@ namespace Project.CSharpFiles
                     {
                         colourIds[j] = rdr.GetInt32(0);
                         string[] array = new string[10];
-                        array[i] = rdr.GetString(1);
-                        array[i+1] = rdr.GetString(2);
+                        array[i] = rdr.GetString(0);
+                        array[i+1] = rdr.GetString(1);
+                        array[i+2] = rdr.GetString(2);
                         productArray[j] = array;
                         i = 0;
                         j++;
@@ -119,7 +120,7 @@ namespace Project.CSharpFiles
                     int h = 0;
                     for (int l = 0; l < colourIds.Length; l++)
                     {
-                        int k = 2;
+                        int k = 3;
                         string sql2 = $"SELECT size, stock FROM sizes WHERE prod_id = {prodId} AND colour_id = {colourIds[l]};";
                         using var cmd2 = new MySqlCommand(sql2, con);
                         using MySqlDataReader rdr2 = cmd2.ExecuteReader();
@@ -251,7 +252,6 @@ namespace Project.CSharpFiles
                     cmd.CommandText = string.Format("INSERT IGNORE INTO types (type) VALUES ('{0}')", type);
                     cmd.ExecuteNonQuery();
 
-                    //cmd.CommandText = string.Format("INSERT INTO types () VALUE (1) WHERE type = '{1}'", category, type);
                     cmd.CommandText = $"UPDATE types SET {category}=1 WHERE type = '{type}' ";
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -284,16 +284,12 @@ namespace Project.CSharpFiles
                     
                     object objStockArray = args[11];
                     int[] stockArray = (int[])(objStockArray);
-
-                    //cmd.CommandText = "SET FOREIGN_KEY_CHECKS=0";
-                    //cmd.ExecuteNonQuery();
+                    
                     for (int j = 0; j < sizeArray.Length; j++)
                     {
                         cmd.CommandText = string.Format("INSERT INTO sizes (colour_id, prod_id, size, stock) VALUES ((SELECT MAX(colour_id) FROM colours), (SELECT MAX(prod_id) FROM products), '{0}', '{1}')", sizeArray[j], stockArray[j]);
                         cmd.ExecuteNonQuery();
                     }
-                    //cmd.CommandText = "SET FOREIGN_KEY_CHECKS=1";
-                    //cmd.ExecuteNonQuery();
                 }
             }
             
@@ -419,26 +415,6 @@ namespace Project.CSharpFiles
             con.Close();
             return barcodeArray;
         }
-        
-        public string[] TypeCall()
-        {
-            string[] array = {};
-            using var con = new MySqlConnection(_cs);
-            con.Open();
-            string sql = @"SELECT * FROM products";
-            using var cmd = new MySqlCommand(sql, con);
-            using MySqlDataReader rdr = cmd.ExecuteReader();
-
-            int i = 0;
-            while (rdr.Read())
-            {
-                string type = rdr.GetString(0);
-                array[i] = type;
-                i++;
-            }
-            con.Close();
-            return array;
-        }
 
         public void Order(string callType, params object[] args)
         {
@@ -498,9 +474,18 @@ namespace Project.CSharpFiles
             }
         }
 
-        public string[] KPI(string callType)
+        public string[] KPI(string callType, params object[] args)
         {
-            string[] array = new string[25];
+            int arraySize = 0;
+            if (callType == "Type call")
+            {
+                arraySize = 25;
+            }
+            else if (callType == "Product type call")
+            {
+                arraySize = 10000;
+            }
+            string[] array = new string[arraySize];
             if (callType == "Type call")
             {
                 using var con = new MySqlConnection(_cs);
@@ -569,7 +554,6 @@ namespace Project.CSharpFiles
                     }
                     rdr3.Close();
                 }
-                //Array = product;
             }
             else if (callType == "Specific product call")
             {
@@ -577,6 +561,148 @@ namespace Project.CSharpFiles
             }
 
             return array;
+        }
+
+        public string[][][] KPI2()
+        { 
+            
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+
+            string sql5 = "SELECT COUNT(colour_id) AS amount FROM sizes";
+            using var cmd5 = new MySqlCommand(sql5, con);
+            using MySqlDataReader rdr5 = cmd5.ExecuteReader();
+            int productAmount = 0;
+            
+            while (rdr5.Read())
+            {
+                 productAmount = rdr5.GetInt32(0);
+            }
+            rdr5.Close();
+            
+            string[][] product = new string[productAmount][];
+
+            string sql6 = "SELECT COUNT(type) AS amount FROM types";
+            using var cmd6 = new MySqlCommand(sql6, con);
+            using MySqlDataReader rdr6 = cmd6.ExecuteReader();
+            int typeAmount = 0;
+            
+            while (rdr6.Read())
+            {
+                typeAmount = rdr6.GetInt32(0);
+            }
+            rdr6.Close();
+            
+            int f = 0;
+            string[][] typeArray = new string[typeAmount][];
+            
+            string sql4 = "SELECT type FROM types";
+            using var cmd4 = new MySqlCommand(sql4, con);
+            using MySqlDataReader rdr4 = cmd4.ExecuteReader();
+            while (rdr4.Read())
+            {
+                string[] fields = new string[2];
+                typeArray[f] = fields;
+                typeArray[f][0] = rdr4.GetString(0);
+                typeArray[f][1] = 0.ToString();
+                f++;
+            }
+            rdr4.Close();
+            
+
+            typeArray = typeArray.Where(c => c != null).ToArray();
+            
+            string sql = "SELECT * FROM sizes";
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            int h = 0;
+
+            while (rdr.Read())
+            {
+                string[] singleProduct = new string[9];
+                
+                singleProduct[0] = rdr.GetString(0);
+                singleProduct[1] = rdr.GetString(1);
+                singleProduct[2] = rdr.GetString(2);
+                singleProduct[3] = rdr.GetString(3);
+                product[h] = singleProduct;
+                h++;
+            }
+            rdr.Close();
+
+            for (int j = 0; j < h; j++)
+            {
+                string sql2 = $"SELECT colour, img FROM colours WHERE prod_id ={product[j][1]}  AND colour_id = {product[j][0]};";
+                using var cmd2 = new MySqlCommand(sql2, con);
+                using MySqlDataReader rdr2 = cmd2.ExecuteReader();
+                while (rdr2.Read())
+                {
+                    product[j][4] = rdr2.GetString(0);
+                    product[j][5] = rdr2.GetString(1);
+                }
+                rdr2.Close();
+            }
+            
+            
+            for (int y = 0; y < h; y++)
+            {
+                string sql3 = $"SELECT prod_name, type, price FROM products WHERE prod_id ={product[y][1]};";
+                using var cmd3 = new MySqlCommand(sql3, con);
+                using MySqlDataReader rdr3 = cmd3.ExecuteReader();
+                while (rdr3.Read())
+                {
+                    product[y][6] = rdr3.GetString(0);
+                    product[y][7] = rdr3.GetString(1);
+                    product[y][8] = rdr3.GetString(2);
+
+                    for (int i = 0; i < typeAmount; i++)
+                    {
+                        if (product[y][7] == typeArray[i][0])
+                        {
+                            int amount = int.Parse(typeArray[i][1])+1;
+                            typeArray[i][1] = amount.ToString();
+                        }
+                    }
+
+                }
+                rdr3.Close();
+            }
+
+            string[][][] test = new string[5][][];
+            string[][] test2 = new string[4][];
+            string[] test3 = new string[3];
+            test3[0] = "test4";
+
+            test[0] = test2;
+            test[0][0] = test3;
+
+
+
+            string[][][] sortedProducts = new string[typeAmount][][];
+
+            for (int i = 0; i < typeAmount; i++)
+            {
+                int k = 0;
+                int size = int.Parse(typeArray[i][1]);
+                string[][] types = new string[size][];
+                sortedProducts[i] = types;
+                for (int j = 0; j < product.Length; j++)
+                {
+                    if (product[j][7] == typeArray[i][0] )
+                    {
+                        string[] productAttributes = new string[9];
+                        sortedProducts[i][k] = productAttributes;
+                        sortedProducts[i][k] = product[j];
+                        k++;
+                    }
+                }
+            }
+
+            return sortedProducts;
+        }
+
+        public void KPI3()
+        {
         }
 
         public string UserAdministration(string callType, params object[] args)
@@ -615,6 +741,7 @@ namespace Project.CSharpFiles
                 {
                     dbHashedPassword = rdr.GetString(0);
                 }
+                rdr.Close();
 
                 if (dbHashedPassword == "")
                 {
@@ -631,6 +758,7 @@ namespace Project.CSharpFiles
                         accessToken = rdr2.GetString(0);
                        
                     }
+                    rdr2.Close();
                     returnString = accessToken;
                 }
                 else if (dbHashedPassword != hashedPassword)
@@ -651,6 +779,7 @@ namespace Project.CSharpFiles
                 {
                     tokenInDb = rdr.GetString(0);
                 }
+                rdr.Close();
                 returnString = tokenInDb;
             }
             return returnString;

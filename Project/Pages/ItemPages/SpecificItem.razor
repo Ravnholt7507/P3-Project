@@ -156,7 +156,11 @@
     // Add an item to a string in local storage that works as a cart
     public void AddItem()
     {
-        CartItem += "& " + Prod.Id + " " + Prod.Colour_id + " " + Prod.Size;
+        CartItem += $"& {Prod.Id} {Prod.ColourFinder(SelectedColour).ColourId} {SelectedSize}";
+        Console.WriteLine(Prod.ColourFinder(SelectedColour).Sizes[0]);
+        Console.WriteLine(SelectedSize);
+
+        //   CartItem += $"& {Prod.Id} {Prod.Colour_id} {Prod.Size}";
     }
 
     // Load the cart from local storage

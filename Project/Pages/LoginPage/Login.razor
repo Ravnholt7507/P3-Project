@@ -1,4 +1,5 @@
 ﻿@page "/Login"
+@using Project.CSharpFiles
 @inject NavigationManager NavManager
 @inject ProtectedSessionStorage SessionStorage
 
@@ -22,17 +23,20 @@
 
     public string UserName;
     public string PassWord;
-
-    public string LoggedIn = "Admin login";
+    public string AcessToken;
+    
+    public string LoggedIn;
 
     public async Task Save()
     {
-        await SessionStorage.SetAsync("UserName", "1000");
+        await SessionStorage.SetAsync("UserName", AcessToken);
     }
 
     public void Skovl()
     {
-        if (UserName == FakeUserName && PassWord == FakePassWord)
+        DbCall call = new DbCall();
+        AcessToken= call.UserAdministration("User login", UserName, PassWord);
+        if (AcessToken != "")
         {
             LoggedIn = "Logged In";
             Save();
