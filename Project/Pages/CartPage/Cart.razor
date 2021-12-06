@@ -69,14 +69,12 @@
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
         ItemsInCart = result.Value;
-        Console.WriteLine(ItemsInCart);
         if (ItemsInCart != null)
         {
             testArray = Id(ItemsInCart);
             Order = LoadItems(Id(ItemsInCart));
         }
         CalcTotal();
-        Console.WriteLine(ItemsInCart);
         StateHasChanged();
     }
 
@@ -107,7 +105,7 @@
     {
         var array = Cookie.Split('&');
         array = array.Skip(1).ToArray();
-  //      array = array.Distinct().ToArray();
+        array = array.Distinct().ToArray();
         return array;
     }
 
