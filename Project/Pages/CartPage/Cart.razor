@@ -69,21 +69,18 @@
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
         ItemsInCart = result.Value;
-        Console.WriteLine(ItemsInCart);
         if (ItemsInCart != null)
         {
             testArray = Id(ItemsInCart);
             Order = LoadItems(Id(ItemsInCart));
         }
         CalcTotal();
-        Console.WriteLine(ItemsInCart);
         StateHasChanged();
     }
 
     // Remove a items from the cart
     public void Delete(int prodId, int colourId, string size)
     {
-
         string Dele = " " + prodId + " " + colourId + " " + size;
         string newCart = "";
         foreach (var item in testArray)

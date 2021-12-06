@@ -6,6 +6,13 @@
 
 <h2>Product details</h2>
 
+<button @onclick="Read">
+    Glizzy Gobbler
+</button>
+<button @onclick="Save">
+    Shrek the movie
+</button>
+
 <div class="w3" style="width: 28rem;">
     <div class="card-body">
         <img src="@Prod.ImageLink" />
@@ -16,7 +23,7 @@
         <select @bind="SelectedColour" @onclick="ResetSize">
             @foreach (var item in Prod.MyColours)
             {
-                <option value="@item.ColourName">@item.ColourName</option>
+                <option value="@item.ColourName" @onclick="ResetSize">@item.ColourName</option>
             }
         </select>
 
@@ -51,7 +58,11 @@
     // Add an item to a string in local storage that works as a cart
     public void AddItem()
     {
-        CartItem += "& " + Prod.Id + " " + Prod.Colour_id + " " + Prod.Size;
+        CartItem += $"& {Prod.Id} {Prod.ColourFinder(SelectedColour).ColourId} {SelectedSize}";
+        Console.WriteLine(Prod.ColourFinder(SelectedColour).Sizes[0]);
+        Console.WriteLine(SelectedSize);
+
+        //   CartItem += $"& {Prod.Id} {Prod.Colour_id} {Prod.Size}";
     }
 
     // Load the cart from local storage

@@ -15,9 +15,6 @@
                 <input class="tastfelt" @bind="NewItem" placeholder="Indtast artikelnavn" required />
                 <input class="tastfelt" @bind="Price" placeholder="Indtast pris" required />
                 <textarea class="description" @bind="Description" placeholder="Description" required />
-
-
-                <input class="submit-butt" type="submit" value="Submit" />
             </form>
             <div class="kategori">
                 <label>Kategorier</label>
@@ -156,14 +153,6 @@ else
     public string AccessToken = null;
 
     bool isLoaded;
-
-    public void Verify()
-    {
-        if (FakeAccessToken != AccessToken)
-        {
-            NavManager.NavigateTo("/Login");
-        }
-    }
 
     public async Task Read()
     {

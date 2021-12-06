@@ -21,6 +21,7 @@ namespace Project.Pages.ItemPages
             specificationArray = ItemSpecification.Split("&");
             int prodId = int.Parse(specificationArray[0]);
             int colourId = int.Parse(specificationArray[1]);
+
             string size = specificationArray[2];
             
 
@@ -38,6 +39,7 @@ namespace Project.Pages.ItemPages
                 Colour_id = colourid,
                 Size = size
             };
+
             string[][] array = new string[1][];
             array = product.Call("Specific Product", "Kald 1", prodid, colourid);
             string[][] colourSizeArray = product.Call("Specific Product", "Kald 2", prodid);
@@ -51,15 +53,16 @@ namespace Project.Pages.ItemPages
                 if (colourSizeArray[i] != null)
                 {
                     //product.ColourList.Add(colourSizeArray[i][0]);
-                    product.MyColours.Add(new Colour(colourSizeArray[i][0]));
+                    product.MyColours.Add(new Colour(colourSizeArray[i][1], int.Parse(colourSizeArray[i][0])));
                 }
             }
-            
+
+
             for (int i = 0; i < colourSizeArray.Length; i++) 
             {
                 if (colourSizeArray[i] != null)
                     {
-                    for (int k = 2; k < colourSizeArray.Length; k++)
+                    for (int k = 3; k < colourSizeArray.Length; k++)
                     {
                         if (colourSizeArray[i][k] != null)
                         {
