@@ -10,10 +10,12 @@ namespace Project.CSharpFiles
         public List<string> Sizes = new List<string>();
         public List<string> stock = new List<string>();
         public string ColourName;
+        public int ColourId;
 
-        public Colour(string name)
+        public Colour(string name, int colourid)
         {
             ColourName = name;
+            ColourId = colourid;
         }
     }
 }

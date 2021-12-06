@@ -83,7 +83,6 @@
     // Remove a items from the cart
     public void Delete(int prodId, int colourId, string size)
     {
-
         string Dele = " " + prodId + " " + colourId + " " + size;
         string newCart = "";
         foreach (var item in testArray)
@@ -108,7 +107,7 @@
     {
         var array = Cookie.Split('&');
         array = array.Skip(1).ToArray();
-        array = array.Distinct().ToArray();
+  //      array = array.Distinct().ToArray();
         return array;
     }
 
