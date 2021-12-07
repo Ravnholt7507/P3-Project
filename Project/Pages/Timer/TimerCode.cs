@@ -5,25 +5,29 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-
-
 namespace Project.Pages
 {
     public class TimerCode : ComponentBase
     {
         public int Counter;
+        public int LastCount;
         public DateTime dt;
+        public List<int> Clicks = new List<int>();
 
-        public void Main2()
+        public void FirstTime()
         {
-            dt = DateTime.Now;
-            Main3();
-
+            dt = DateTime.Now;   
         }
 
         public void Store()
         {
             dt = DateTime.Now;
+            Clicks.Add(Counter);
+            if (Clicks.Count > 4)
+            {
+                Clicks.RemoveAt(0);
+            }
+            Counter = 0;
         }
 
         public void Count()
@@ -31,31 +35,24 @@ namespace Project.Pages
             Counter++;
         }
 
-        protected override Task OnInitializedAsync()
+        public async Task DoSomethingEveryTreeSeconds()
         {
-            Main2();
-            return base.OnInitializedAsync();
-        }
-
-        public void ShowTime()
-        {
-            for (; ; )
+            while (true)
             {
-                Console.WriteLine(DateTime.Now.ToString());
-                Console.WriteLine("\a");
-                Thread.Sleep(1000);
-                Console.Clear();
+                var delayTask = Task.Delay(3000);
+                Store();
+                StateHasChanged();
+                await delayTask; // wait until at least 10s elapsed since delayTask created
             }
         }
 
-        static void Main3()
+        protected override Task OnInitializedAsync()
         {
-            TimerCode PC = new TimerCode();
-            ThreadStart TS = new ThreadStart(PC.ShowTime);
-            Thread t = new Thread(TS);
-            t.Start();
-            Console.ReadLine();
+            FirstTime();
+            DoSomethingEveryTreeSeconds();
+            return base.OnInitializedAsync();
         }
+
     }
 }
 
