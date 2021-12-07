@@ -147,7 +147,7 @@
 }
 else
 {
-    <p>Sorry, but Andreas made spaghtti code.</p>
+    <p>Sorry, but Rune made spaghtti code.</p>
 }
 
 @code
@@ -156,14 +156,6 @@ else
     public string AccessToken = null;
 
     bool isLoaded;
-
-    public void Verify()
-    {
-        if (FakeAccessToken != AccessToken)
-        {
-            NavManager.NavigateTo("/Login");
-        }
-    }
 
     public async Task Read()
     {
