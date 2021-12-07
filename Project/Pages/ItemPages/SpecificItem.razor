@@ -17,17 +17,15 @@
             <h6 class="card-subtitle mb-2 text-muted">@Prod.Name</h6>
             <hr />
 
-
             <div class="colour">
                 <p>Vælg en farve:</p>
                 <select @bind="SelectedColour" @onclick="ResetSize">
                     @foreach (var item in Prod.MyColours)
                     {
-                        <option value="@item.ColourName">@item.ColourName</option>
+                        <option value="@item.ColourName" @onclick="ResetSize"> @item.ColourName</option>
                     }
                 </select>
             </div>
-
 
             <div class="size">
                 <p class="pick-size">Vælg en størrelse:</p>
@@ -41,7 +39,6 @@
                     </select>
                 }
             </div>
-
 
             <div class="non-interactive">
                 <p>

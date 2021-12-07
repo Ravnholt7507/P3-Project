@@ -1,0 +1,267 @@
+﻿@page "/EditProducts"
+@using CSharpFiles;
+@using System.IO;
+@using System.Linq;
+@inherits AdminCode
+
+<div class="page">
+    <div>
+        <label>Vælg et product for at lave ændringer</label>
+        <select class="form-select">
+            <option value="1"> 1 </option>
+            <option value="2"> 2 </option>
+            <option value="3"> 3 </option>
+        </select>
+    </div>
+
+    <div class="Form-Container">
+        <h2>Tilføj items</h2>
+        <div class="name-price-description">
+            <form>
+                <input class="tastfelt" @bind="PlaceholderName" placeholder="Indtast artikelnavn" required />
+                <input class="tastfelt" @bind="PlaceholderPrice" placeholder="Indtast pris" required />
+                <textarea class="description" @bind="PlaceholderDescription" placeholder="Description" required />
+            </form>
+            <div>
+                <label>Typer</label>
+                <select class="form-select">
+                    @foreach (var type in TypeArray)
+                    {
+                        <option value="@type"> @type </option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="Colour-Container">
+        <h3>Ændre farve, størrelser, inventar og billeder </h3>
+        <div class="item-list">
+            <table>
+                <tr>
+                    <th>Farve</th>
+                    <th>Størrelse</th>
+                    <th>Inventar</th>
+                    <th>Billeder </th>
+                </tr>
+
+                <th> <input class="tastfelt" placeholder="Indtast artikelnavn" required /></th>
+                <th> <input class="tastfelt" placeholder="Indtast artikelnavn" required /></th>
+                <th> <input class="tastfelt" placeholder="Indtast artikelnavn" required /></th>
+                <th> <input class="tastfelt" placeholder="Indtast artikelnavn" required /></th>
+
+                @*<tr>
+            @foreach (var colour in Colours)
+            {
+                if (colour != null)
+                {
+                    @foreach (var size in Colours.sizes)
+                    {
+                        <td>@colour.colourName</td>
+                        <td>@size </td>
+                        <td>@stock</td>
+                        <td>Knap til at ændre billeder</td>
+                    }
+                }
+        </tr>*@
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+
+    <style>
+    .page {
+        height: 750px;
+    }
+
+    .Form-Container {
+        height: 500px;
+  
+    }
+
+    .Colour-Container{
+        position: relative;
+        left: 600px;
+        bottom: 500px;
+    }
+
+    .item-list, .specific-item, .stats {
+        float: left;
+        height: fit-content;
+        width: fit-content;
+        border: 1px solid black;
+        border-radius: 3px;
+    }
+
+    .specific-item, .stats{
+        margin-left: 50px;
+    }
+
+    td, th {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e6e6e6;
+    }
+
+    .specific-item {
+        display: none;
+        display: @Visible;
+    }
+
+    </style>
+
+    <style>
+        .page {
+            height: 500px;
+        }
+
+        .description {
+            margin-top: 50px;
+            margin-left: -400px;
+        }
+
+        .tastfelt {
+            float: left;
+        }
+
+        .submit-butt {
+            margin-left: 50px;
+            margin-top: -50px;
+        }
+
+        .kategori {
+            padding: 5px;
+        }
+
+        .farvevalgMenu {
+            border: 1px solid black;
+            border-radius: 3px;
+            height: fit-content;
+            width: fit-content;
+            background-color: lightgray;
+            padding: 5px;
+            float: left;
+            margin-left: 1%
+        }
+
+        .name-price-description {
+            border: 1px solid black;
+            border-radius: 3px;
+            height: 45%;
+            background-color: lightgray;
+            padding: 5px;
+            float: left;
+            width: 550px;
+        }
+
+            .name-price-description span {
+                display: block;
+            }
+
+        .item-list {
+            height: fit-content;
+            width: fit-content;
+            border: 1px solid black;
+            border-radius: 3px;
+        }
+
+        td, th {
+            border: 1px solid black;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .CheckForInput {
+            color: red;
+        }
+
+        Norm {
+            display: inline-block;
+        }
+
+            Norm label {
+                display: block;
+            }
+
+        .ColorSize {
+            display: flex;
+        }
+
+        .column {
+            flex: 50%;
+        }
+
+        .Color, .Size {
+            border: 1px solid black;
+            border-radius: 3px;
+            height: fit-content;
+            background-color: #efefef;
+            padding: 5px;
+        }
+
+        .Size {
+            margin-left: 20px;
+        }
+    </style>
+
+
+    @code {
+        public int i = 1;
+        public string Visible = "";
+
+        public void Popup()
+        {
+            i++;
+            if (i % 2 == 0)
+            {
+                Visible = "block";
+            }
+            else
+            {
+                Visible = "none";
+            }
+        }
+        public void StatsPopup()
+        {
+            i++;
+            if (i % 2 == 0)
+            {
+                Visible = "block";
+            }
+            else
+            {
+                Visible = "none";
+            }
+        }
+        public List<string> Kpis = new List<string>() { "Resultgrad", "Buffer", "Egenkapital", "Likviditet" };
+        public List<string> Months = new List<string>() { "Jan", "Feb", "Mar", "Apr" };
+        public List<string> Percent = new List<string>() { "5%", "10%", "30%", "70%" };
+
+
+        string PlaceholderName;
+        string PlaceholderPrice;
+        string PlaceholderDescription;
+
+
+        private DbCall call = new DbCall();
+
+        public string[] TypeArray;
+
+        protected override Task OnInitializedAsync()
+        {
+            TypeArray = call.KPI("Type call");
+
+            return base.OnInitializedAsync();
+        }
+    }
