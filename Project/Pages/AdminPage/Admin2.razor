@@ -15,9 +15,6 @@
                 <input class="tastfelt" @bind="NewItem" placeholder="Indtast artikelnavn" required />
                 <input class="tastfelt" @bind="Price" placeholder="Indtast pris" required />
                 <textarea class="description" @bind="Description" placeholder="Description" required />
-
-
-                <input class="submit-butt" type="submit" value="Submit" />
             </form>
             <div class="kategori">
                 <label>Kategorier</label>
@@ -139,7 +136,6 @@
                     </div>
                 </div>
                 <button class="btn btn-outline-dark btn-light" @onclick="finalize"> <i class="fa fa-fw fa-check"></i> Finalize </button>
-                @*<a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('SelectedImages').style.display='block'">Finalize</a>*@
             }
         </div>
     </div>
@@ -168,11 +164,42 @@ else
         await Read();
         if (AccessToken != null)
         {
-            LoadImages();
             isLoaded = true;
         }
         StateHasChanged();
     }
+
+    public string ChosenImg = "";
+    string img = "";
+    string imgName = "N/A";
+    public List<string> filesList = new List<string>();
+    string path = $"{Directory.GetCurrentDirectory()}{@"/wwwroot/Images"}";
+
+    public void LoadImages()
+    {
+        var files = Directory.GetFiles(path);
+        foreach (var file in files)
+        {
+            filesList.Add(Path.GetFileName(file));
+        }
+    }
+
+    public void ReadFile(string fileName, color color)
+    {
+        if (color != null)
+        {
+            imgName = fileName.Split('.')[0];
+            img = "/Images/" + fileName;
+            color.ImageLink.Add(img);
+        }
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        LoadImages();
+        return base.OnInitializedAsync();
+    }
+
 }
 
 

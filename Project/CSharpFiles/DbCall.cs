@@ -701,6 +701,10 @@ namespace Project.CSharpFiles
             return sortedProducts;
         }
 
+        public void KPI3()
+        {
+        }
+
         public string UserAdministration(string callType, params object[] args)
         {
             string returnString = "";
