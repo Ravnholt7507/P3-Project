@@ -33,18 +33,33 @@
 
         <div class="farvevalgMenu">
             <h2> Vælg farve, størrelse og antal</h2>
+            
             <div class="ColorSize">
-                <div class="Color">
-                    @foreach (string Colour in Colours)
-                    {
-                        <div class="column">
-                            <input type="radio" name="ChosenColor" @onchange="() => CheckboxColours(Colour)" />
-                            <label>
-                                @Colour
-                            </label>
-                        </div>
-                    }
+                @for (int i = 0; i < num_col; i++)
+                {
+                    <div class="Color">
+                        @for (int k = 0; k < 4; k++)
+                        {
+                            int counter = (4 * i+k);
+                            if ((counter) > (Colours.Length - 1))
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                <div class="column">
+                                    <input type="radio" name="ChosenColor" @onclick="() => CheckboxColours(Colours[counter])" />
+                                    <a>@k</a>
+
+                                    <label>
+                                        @Colours[counter]
+                                    </label>
+                                </div>
+                            }
+                        }
                 </div>
+                }
+                        
                 <div class="Size">
                     @foreach (string Size in Sizes)
                     {

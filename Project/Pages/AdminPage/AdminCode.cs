@@ -140,6 +140,7 @@ namespace Project.Pages.AdminPage
         {
             string[][] categoryArray = _call.AdminPages("Get", "Categories");
             string[][] typeArray = _call.AdminPages("Get", "Types");
+            col_numbers();
             return base.OnInitializedAsync();
         }
 
@@ -242,6 +243,15 @@ namespace Project.Pages.AdminPage
             
             
             _call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray2, stockArray2);
+        }
+
+        public double num_col;
+        public double num_col2;
+
+        public void col_numbers()
+        {
+            num_col2 = (double)Colours.Length/4;
+            num_col=Math.Ceiling(num_col2);
         }
     }
     
