@@ -127,6 +127,7 @@ namespace Project.Pages.AdminPage
 
         public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
 
+        public bool show_ektraValgMenu = false;
         public void Verify()
         {
             NewColor = new color(SelectedColour);
@@ -134,6 +135,7 @@ namespace Project.Pages.AdminPage
             MyColors.Add(NewColor);
             SelectedSizes.Clear();
             NewColor = null;
+            show_ektraValgMenu = true;
         }
 
         protected override Task OnInitializedAsync()

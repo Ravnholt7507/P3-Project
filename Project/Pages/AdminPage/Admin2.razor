@@ -5,42 +5,43 @@
 @inherits AdminCode
 @inject ProtectedSessionStorage SessionStorage
 @inject NavigationManager NavManager
-
-@if (isLoaded)
-{
-    <div class="page">
-        <h2>Tilføj items</h2>
-        <div class="name-price-description">
-            <form>
-                <input class="tastfelt" @bind="NewItem" placeholder="Indtast artikelnavn" required />
-                <input class="tastfelt" @bind="Price" placeholder="Indtast pris" required />
-                <textarea class="description" @bind="Description" placeholder="Description" required />
-            </form>
-            <div class="kategori">
-                <label>Kategorier</label>
-                <select @bind="SelectedCat" class="form-select">
-                    @foreach (Category cat in cats)
+@*if (isLoaded)
+    {*@
+<div class="page">
+    <h2>Tilføj items</h2>
+    <div class="namePriceMenu">
+        <form>
+            <input class="tastfelt" @bind="NewItem" placeholder="Indtast artikelnavn" required />
+            <input class="tastfelt" @bind="Price" placeholder="Indtast pris" required />
+            <textarea class="description" @bind="Description" placeholder="Description" required />
+        </form>
+        <div class="kategori">
+            <label>Kategorier</label>
+            <select @bind="SelectedCat" class="form-select">
+                @foreach (Category cat in cats)
+                {
+                    <optgroup label="@cat.CategoryName"> @cat.CategoryName </optgroup>
+                    foreach (Subcategory subcat in cat.Subcategory)
                     {
-                        <optgroup label="@cat.CategoryName"> @cat.CategoryName </optgroup>
-                        foreach (Subcategory subcat in cat.Subcategory)
-                        {
-                            <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
-                        }
+                        <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
                     }
-                </select>
-            </div>
+                }
+            </select>
         </div>
+    </div>
 
+    <div class=" farvevalgMenu_outer">
+        <h2 class=""> Vælg farve, størrelse og antal</h2>
         <div class="farvevalgMenu">
-            <h2> Vælg farve, størrelse og antal</h2>
-            
+
+
             <div class="ColorSize">
                 @for (int i = 0; i < num_col; i++)
                 {
                     <div class="Color">
                         @for (int k = 0; k < 4; k++)
                         {
-                            int counter = (4 * i+k);
+                            int counter = (4 * i + k);
                             if ((counter) > (Colours.Length - 1))
                             {
                                 break;
@@ -49,7 +50,6 @@
                             {
                                 <div class="column">
                                     <input type="radio" name="ChosenColor" @onclick="() => CheckboxColours(Colours[counter])" />
-                                    <a>@k</a>
 
                                     <label>
                                         @Colours[counter]
@@ -57,9 +57,9 @@
                                 </div>
                             }
                         }
-                </div>
+                    </div>
                 }
-                        
+
                 <div class="Size">
                     @foreach (string Size in Sizes)
                     {
@@ -76,7 +76,13 @@
                 <i class="fa fa-fw fa-check"></i>
                 Tilføj kombi
             </button>
+        </div>
+    </div>
 
+
+    @if (show_ektraValgMenu == true)
+    {
+        <div class="ekstraValgMenu">
             @if (MyColors.Count != 0)
             {
                 <table>
@@ -105,17 +111,23 @@
                 </table>
                 <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Confirm</button>
             }
+        </div>
+    }
 
-            @if (MyColors.Count != 0 && imgState == true)
-            {
-                <h2> Indsæt billede</h2>
+
+
+    @if (MyColors.Count != 0 && imgState == true)
+    {
+        <div class=" pictureMenu_outer">
+            <h2> Indsæt billede</h2>
+            <div class="pictureMenu">
                 <div class="row">
                     <div>
                         <label>
-                            <input list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
+                            <input class="imageListe" list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
                         </label>
 
-                        <button @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light">
+                        <button  @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light testt">
                             Indsæt
                         </button>
 
@@ -127,7 +139,7 @@
                         </datalist>
                     </div>
 
-                    <div>
+                    <div class="colourSelect">
                         <select @bind="ChosenColor">
                             <option> </option>
                             @foreach (color Color in MyColors)
@@ -151,16 +163,18 @@
                     </div>
                 </div>
                 <button class="btn btn-outline-dark btn-light" @onclick="finalize"> <i class="fa fa-fw fa-check"></i> Finalize </button>
-            }
+            </div>
         </div>
-    </div>
+    }
 
-}
-else
-{
+</div>
+
+@*}
+    else
+    {
     <p>Sorry, but Rune made spaghtti code.</p>
-}
-
+    }
+*@
 @code
 {
     public string FakeAccessToken = "1000";
@@ -220,17 +234,100 @@ else
 
 <style>
     .page {
-        height: 500px;
+        height: fit-content;
     }
 
-    .description {
-        margin-top: 50px;
-        margin-left: -400px;
+    .namePriceMenu {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: 45%;
+        background-color: lightgray;
+        padding: 5px;
+        width: 582px;
+        position: relative;
+    }
+        
+        .tastfelt {
+            float: left;
+            margin: 5px;
+        }
+
+        .description {
+        position: relative;
+        margin: 5px;
+        width: 197px;
+        }
+
+    .farvevalgMenu {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: fit-content;
+        width: fit-content;
+        background-color: lightgray;
+        padding: 10px;
+        margin-left: 20px;
+        position: relative;
+        right: 20px;
     }
 
-    .tastfelt {
-        float: left;
+        .farvevalgMenu_outer {
+            position: relative;
+        }
+
+
+    .ekstraValgMenu {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: fit-content;
+        width: fit-content;
+        background-color: lightgray;
+        padding: 10px;
+        margin-left: 1%;
+        position: relative;
+        left: 600px;
+        bottom: 457px;
     }
+
+    .pictureMenu {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: fit-content;
+        width: fit-content;
+        background-color: lightgray;
+        padding: 10px;
+        margin-left: 1%;
+        position: relative;
+        right: 10px;
+    }
+
+        .pictureMenu_outer {
+            position: relative;
+            left: 610px;
+            bottom: 440px;
+        }
+
+        .imageListe{
+            position: relative;
+            left: 20px;
+        }
+
+        .testt {
+            position: relative;
+            left: 50px;
+            
+        }
+
+        .colourSelect{
+            position: relative;
+            top: 50px;
+            right: 257px;
+        }
+
+        .col-md-3{
+            position: relative;
+            top: 30px;
+            right: 140px;
+        }
 
     .submit-butt {
         margin-left: 50px;
@@ -241,28 +338,11 @@ else
         padding: 5px;
     }
 
-    .farvevalgMenu {
-        border: 1px solid black;
-        border-radius: 3px;
-        height: fit-content;
-        width: fit-content;
-        background-color: lightgray;
-        padding: 5px;
-        float: left;
-        margin-left: 1%
+    .column {
+        margin: 10px 10px 10px 10px;
     }
 
-    .name-price-description {
-        border: 1px solid black;
-        border-radius: 3px;
-        height: 45%;
-        background-color: lightgray;
-        padding: 5px;
-        float: left;
-        width: 550px;
-    }
-
-        .name-price-description span {
+        .namePriceMenu span {
             display: block;
         }
 
