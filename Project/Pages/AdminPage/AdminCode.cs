@@ -105,27 +105,14 @@ namespace Project.Pages.AdminPage
 
         // ADMIN 2 ----------------------------------- //
 
-        public List<string> SelectedColours = new List<string>();
         public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
         public List<string> PlaceholderSizes = new List<string>();
-
-        public int PHColor = 0;
-        public int placeholder = 0;
-
-        public bool[] chosenColors = { false, false, false, false };
-        public bool[] chosenSizes = { false, false, false };
-        public bool CheckForInput = false;
-
-
 
         public string SelectedValue;
         public string Description;
         public string Price;
         public bool imgState = false;
 
-        protected bool IsDisabled { get; set; } = false;
-
-        public string placeholderColour;
         public string SelectedColour = "";
 
         public string[] Colours = { "Lilla", "Blå", "Grå", "Rød", "Grøn", "Lyserød", "Hvid", "Sort", "Beige", "Turkis", "Gul", "Orange", "Flerfarvet" };
@@ -140,37 +127,28 @@ namespace Project.Pages.AdminPage
 
         public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
 
+        public bool show_ektraValgMenu = false;
         public void Verify()
         {
             NewColor = new color(SelectedColour);
             NewColor.SnS = SelectedSizes.ToArray();
             MyColors.Add(NewColor);
             SelectedSizes.Clear();
-            placeholderColour = null;
             NewColor = null;
+            show_ektraValgMenu = true;
         }
 
         protected override Task OnInitializedAsync()
         {
             string[][] categoryArray = _call.AdminPages("Get", "Categories");
             string[][] typeArray = _call.AdminPages("Get", "Types");
-            cats[0].Subcategory.Add(new Subcategory("Trøje"));
-            cats[0].Subcategory.Add(new Subcategory("Bukser"));
-            cats[1].Subcategory.Add(new Subcategory("Jakke"));
-            cats[1].Subcategory.Add(new Subcategory("Sko"));
+            col_numbers();
             return base.OnInitializedAsync();
         }
 
         public color SwitchFuntion(string colour)
         {
-            switch (colour)
-            {
-                case "red": return MyColors.Find(x => x.ColorName == "red");
-                case "blue": return MyColors.Find(x => x.ColorName == "blue");
-                case "yellow": return MyColors.Find(x => x.ColorName == "yellow");
-                case "green": return MyColors.Find(x => x.ColorName == "green");
-                default: return null;
-            }
+            return MyColors.Find(x => x.ColorName == colour);
         }
 
         public void ConfirmStock()
@@ -183,7 +161,6 @@ namespace Project.Pages.AdminPage
             Console.WriteLine(checkvalue);
             if ((bool)checkvalue)
                 SelectedSizes.Add(new SizeAndStock(size));
-
             if (!(bool)checkvalue)
                 SelectedSizes.Remove(new SizeAndStock(size));
         }
@@ -230,30 +207,6 @@ namespace Project.Pages.AdminPage
             public color[] Color;
             public int Id = 0;
         }
-            public string ChosenImg = "";
-        string img = "";
-        string imgName = "N/A";
-        public List<string> filesList = new List<string>();
-        string path = $"{Directory.GetCurrentDirectory()}{@"/wwwroot/Images"}";
-
-        public void LoadImages()
-        {
-            var files = Directory.GetFiles(path);
-            foreach (var file in files)
-            {
-                filesList.Add(Path.GetFileName(file));
-            }
-        }
-
-        public void ReadFile(string fileName, color color)
-        {
-            if (color != null)
-            {
-                imgName = fileName.Split('.')[0];
-                img = "/Images/" + fileName;
-                color.ImageLink.Add(img);
-            }
-        }
 
         public void finalize()
         {
@@ -292,6 +245,15 @@ namespace Project.Pages.AdminPage
             
             
             _call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray2, stockArray2);
+        }
+
+        public double num_col;
+        public double num_col2;
+
+        public void col_numbers()
+        {
+            num_col2 = (double)Colours.Length/4;
+            num_col=Math.Ceiling(num_col2);
         }
     }
     

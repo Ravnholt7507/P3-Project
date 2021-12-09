@@ -1,4 +1,6 @@
 ﻿@page "/"
+
+@inject ProtectedSessionStorage SessionStorage
 <!-- Product grid -->
 <div class="w3-row w3-grayscale">
     <div class="w3-col l3 s6">
@@ -57,3 +59,21 @@
         </div>
     </div>
 </div>
+
+@code {
+
+    public string Visits;
+    // Load the cart from local storage
+    public async Task Read()
+    {
+        var result = await SessionStorage.GetAsync<string>("PagesVisited");
+        Visits = result.Success ? result.Value : "";
+        Console.WriteLine(Visits);
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        Read();
+        return base.OnInitializedAsync();
+    }
+}

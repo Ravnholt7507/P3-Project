@@ -1,0 +1,87 @@
+﻿@page "/Timer"
+@inherits TimerCode
+
+<div class="page">
+
+    <h3>Timer</h3>
+    <button @onclick="APageVisit" class="butt">Visit</button>
+    <button @onclick="APurchase" class="butt">Purchase</button>
+
+    <select @bind="SListSize">
+        <option value=4>4 weeks</option>
+        <option value=12>12 weeks</option>
+        <option value=26>26 weeks</option>
+        <option value=52>52 weeks</option>
+    </select>
+    <a>Showing @SListSize weeks</a>
+
+    <a>Visits: @Visit</a>
+    <br />
+    <a>Purchased: @Purchase</a>
+    <div class="stats">
+        <table>
+            <tr>
+                <td>Week</td>
+                @foreach (var item in Weeks)
+                {
+                    <th>@item</th>
+                }
+            </tr>
+            <tr>
+                <td>Visits</td>
+                @foreach (var item in PageVisits)
+                {
+                    <th>@item</th>
+                }
+            </tr>
+            <tr>
+                <td>Purchases</td>
+                @foreach (var item in Purchases)
+                {
+                    <th>@item</th>
+                }
+            </tr>
+        </table>
+    </div>
+   
+    <a>Last checked: @DateNow</a>
+    <br />
+    <a>KPIS update date: @Update_Date</a>
+  
+</div>
+<style>
+    .page {
+        height: 500px;
+    }
+    .stats {
+        float: left;
+        height: fit-content;
+        width: fit-content;
+        border: 1px solid black;
+        border-radius: 3px;
+    }
+
+    td, th {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e6e6e6;
+    }
+
+    .butt {
+        width: fit-content;
+    }
+
+    .kpis_select, .kpis_table, .kpis_dates {
+        border: 1px solid black;
+        border-radius: 3px;
+        width: fit-content;
+        height: fit-content;
+        float: left;
+    }
+
+
+</style>

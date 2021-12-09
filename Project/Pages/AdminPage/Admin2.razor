@@ -5,12 +5,11 @@
 @inherits AdminCode
 @inject ProtectedSessionStorage SessionStorage
 @inject NavigationManager NavManager
-
 @if (isLoaded)
 {
     <div class="page">
         <h2>Tilføj items</h2>
-        <div class="name-price-description">
+        <div class="namePriceMenu">
             <form>
                 <input class="tastfelt" @bind="NewItem" placeholder="Indtast artikelnavn" required />
                 <input class="tastfelt" @bind="Price" placeholder="Indtast pris" required />
@@ -31,120 +30,150 @@
             </div>
         </div>
 
-        <div class="farvevalgMenu">
-            <h2> Vælg farve, størrelse og antal</h2>
-            <div class="ColorSize">
-                <div class="Color">
-                    @foreach (string Colour in Colours)
+        <div class=" farvevalgMenu_outer">
+            <h2 class=""> Vælg farve, størrelse og antal</h2>
+            <div class="farvevalgMenu">
+
+
+                <div class="ColorSize">
+                    @for (int i = 0; i < num_col; i++)
                     {
-                        <div class="column">
-                            <input type="radio" name="ChosenColor" @onchange="() => CheckboxColours(Colour)" />
-                            <label>
-                                @Colour
-                            </label>
+                        <div class="Color">
+                            @for (int k = 0; k < 4; k++)
+                            {
+                                int counter = (4 * i + k);
+                                if ((counter) > (Colours.Length - 1))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    <div class="column">
+                                        <input type="radio" name="ChosenColor" @onclick="() => CheckboxColours(Colours[counter])" />
+
+                                        <label>
+                                            @Colours[counter]
+                                        </label>
+                                    </div>
+                                }
+                            }
                         </div>
                     }
+
+                    <div class="Size">
+                        @foreach (string Size in Sizes)
+                        {
+                            <div class="form-check column">
+                                <input type="checkbox" @onchange="e => { CheckboxSizes(Size, e.Value); }" />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    @Size
+                                </label>
+                            </div>
+                        }
+                    </div>
                 </div>
-                <div class="Size">
-                    @foreach (string Size in Sizes)
-                    {
-                        <div class="form-check column">
-                            <input type="checkbox" @onchange="e => { CheckboxSizes(Size, e.Value); }" />
-                            <label class="form-check-label" for="flexCheckDefault">
-                                @Size
+                <button @onclick="Verify" class="btn btn-outline-dark btn-light OOS">
+                    <i class="fa fa-fw fa-check"></i>
+                    Tilføj kombi
+                </button>
+            </div>
+        </div>
+
+
+        @if (show_ektraValgMenu == true)
+        {
+            <div class="ekstraValgMenu">
+                @if (MyColors.Count != 0)
+                {
+                    <table>
+                        <tr>
+                            <th>Item </th>
+                            <th>Input stock</th>
+                        </tr>
+                        @foreach (color Color in MyColors)
+                        {
+                            @for (int i = 0; i < Color.SnS.Length; i++)
+                            {
+                                int k = i;
+                                <tr>
+                                    <td>@Color.ColorName</td>
+                                    <td>@Color.SnS[k].Size</td>
+                                    <td>
+                                        <input type="text" @bind="Color.SnS[k].stock" placeholder="stock" />
+                                    </td>
+                                    <td>
+                                        <button @onclick="() => RemoveItem(k, Color)" class="btn btn-outline-dark btn-light btn-sm">x</button>
+                                    </td>
+                                    <td>@k</td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                    <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Confirm</button>
+                }
+            </div>
+        }
+
+
+
+        @if (MyColors.Count != 0 && imgState == true)
+        {
+            <div class=" pictureMenu_outer">
+                <h2> Indsæt billede</h2>
+                <div class="pictureMenu">
+                    <div class="row">
+                        <div>
+                            <label>
+                                <input class="imageListe" list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
                             </label>
+
+                            <button  @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light testt">
+                                Indsæt
+                            </button>
+
+                            <datalist id="Images">
+                                @foreach (string ChosenImg in filesList)
+                                {
+                                    <option value=@ChosenImg> </option>
+                                }
+                            </datalist>
                         </div>
-                    }
+
+                        <div class="colourSelect">
+                            <select @bind="ChosenColor">
+                                <option> </option>
+                                @foreach (color Color in MyColors)
+                                {
+                                    <option value="@Color.ColorName"> @Color.ColorName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <hr />
+                            <h2>File List</h2>
+                            <hr />
+                            @if (SwitchFuntion(ChosenColor) != null && SwitchFuntion(ChosenColor).ImageLink != null)
+                            {
+                                @foreach (string imageLink in SwitchFuntion(ChosenColor).ImageLink)
+                                {
+                                    <img src="@imageLink" asp-append-version="true" style="width:150px;height:150px;" />
+                                }
+                            }
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-dark btn-light" @onclick="finalize"> <i class="fa fa-fw fa-check"></i> Finalize </button>
                 </div>
             </div>
-            <button @onclick="Verify" class="btn btn-outline-dark btn-light OOS">
-                <i class="fa fa-fw fa-check"></i>
-                Tilføj kombi
-            </button>
+        }
 
-            @if (MyColors.Count != 0)
-            {
-                <table>
-                    <tr>
-                        <th>Item </th>
-                        <th>Input stock</th>
-                    </tr>
-                    @foreach (color Color in MyColors)
-                    {
-                        @for (int i = 0; i < Color.SnS.Length; i++)
-                        {
-                            int k = i;
-                            <tr>
-                                <td>@Color.ColorName</td>
-                                <td>@Color.SnS[k].Size</td>
-                                <td>
-                                    <input type="text" @bind="Color.SnS[k].stock" placeholder="stock" />
-                                </td>
-                                <td>
-                                    <button @onclick="() => RemoveItem(k, Color)" class="btn btn-outline-dark btn-light btn-sm">x</button>
-                                </td>
-                                <td>@k</td>
-                            </tr>
-                        }
-                    }
-                </table>
-                <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Confirm</button>
-            }
-
-            @if (MyColors.Count != 0 && imgState == true)
-            {
-                <h2> Indsæt billede</h2>
-                <div class="row">
-                    <div>
-                        <label>
-                            <input list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
-                        </label>
-
-                        <button @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light">
-                            Indsæt
-                        </button>
-
-                        <datalist id="Images">
-                            @foreach (string ChosenImg in filesList)
-                            {
-                                <option value=@ChosenImg> </option>
-                            }
-                        </datalist>
-                    </div>
-
-                    <div>
-                        <select @bind="ChosenColor">
-                            <option> </option>
-                            @foreach (color Color in MyColors)
-                            {
-                                <option value="@Color.ColorName"> @Color.ColorName</option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="col-md-3">
-                        <hr />
-                        <h2>File List</h2>
-                        <hr />
-                        @if (SwitchFuntion(ChosenColor) != null && SwitchFuntion(ChosenColor).ImageLink != null)
-                        {
-                            @foreach (string imageLink in SwitchFuntion(ChosenColor).ImageLink)
-                            {
-                                <img src="@imageLink" asp-append-version="true" style="width:150px;height:150px;" />
-                            }
-                        }
-                    </div>
-                </div>
-                <button class="btn btn-outline-dark btn-light" @onclick="finalize"> <i class="fa fa-fw fa-check"></i> Finalize </button>
-                @*<a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('SelectedImages').style.display='block'">Finalize</a>*@
-            }
-        </div>
     </div>
 
 }
+
 else
 {
-    <p>Sorry, but Andreas made spaghtti code.</p>
+    <p>Sorry, but Rune made spaghtti code.</p>
 }
 
 @code
@@ -165,27 +194,141 @@ else
         await Read();
         if (AccessToken != null)
         {
-            LoadImages();
             isLoaded = true;
         }
         StateHasChanged();
     }
+
+    public string ChosenImg = "";
+    string img = "";
+    string imgName = "N/A";
+    public List<string> filesList = new List<string>();
+    string path = $"{Directory.GetCurrentDirectory()}{@"/wwwroot/Images"}";
+
+    public void LoadImages()
+    {
+        var files = Directory.GetFiles(path);
+        foreach (var file in files)
+        {
+            filesList.Add(Path.GetFileName(file));
+        }
+    }
+
+    public void ReadFile(string fileName, color color)
+    {
+        if (color != null)
+        {
+            imgName = fileName.Split('.')[0];
+            img = "/Images/" + fileName;
+            color.ImageLink.Add(img);
+        }
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        LoadImages();
+        return base.OnInitializedAsync();
+    }
+
 }
 
 
 <style>
     .page {
-        height: 500px;
+        height: fit-content;
     }
 
-    .description {
-        margin-top: 50px;
-        margin-left: -400px;
+    .namePriceMenu {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: 45%;
+        background-color: lightgray;
+        padding: 5px;
+        width: 582px;
+        position: relative;
+    }
+        
+        .tastfelt {
+            float: left;
+            margin: 5px;
+        }
+
+        .description {
+        position: relative;
+        margin: 5px;
+        width: 197px;
+        }
+
+    .farvevalgMenu {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: fit-content;
+        width: fit-content;
+        background-color: lightgray;
+        padding: 10px;
+        margin-left: 20px;
+        position: relative;
+        right: 20px;
     }
 
-    .tastfelt {
-        float: left;
+        .farvevalgMenu_outer {
+            position: relative;
+        }
+
+
+    .ekstraValgMenu {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: fit-content;
+        width: fit-content;
+        background-color: lightgray;
+        padding: 10px;
+        margin-left: 1%;
+        position: relative;
+        left: 600px;
+        bottom: 457px;
     }
+
+    .pictureMenu {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: fit-content;
+        width: fit-content;
+        background-color: lightgray;
+        padding: 10px;
+        margin-left: 1%;
+        position: relative;
+        right: 10px;
+    }
+
+        .pictureMenu_outer {
+            position: relative;
+            left: 610px;
+            bottom: 440px;
+        }
+
+        .imageListe{
+            position: relative;
+            left: 20px;
+        }
+
+        .testt {
+            position: relative;
+            left: 50px;
+            
+        }
+
+        .colourSelect{
+            position: relative;
+            top: 50px;
+            right: 257px;
+        }
+
+        .col-md-3{
+            position: relative;
+            top: 30px;
+            right: 140px;
+        }
 
     .submit-butt {
         margin-left: 50px;
@@ -196,28 +339,11 @@ else
         padding: 5px;
     }
 
-    .farvevalgMenu {
-        border: 1px solid black;
-        border-radius: 3px;
-        height: fit-content;
-        width: fit-content;
-        background-color: lightgray;
-        padding: 5px;
-        float: left;
-        margin-left: 1%
+    .column {
+        margin: 10px 10px 10px 10px;
     }
 
-    .name-price-description {
-        border: 1px solid black;
-        border-radius: 3px;
-        height: 45%;
-        background-color: lightgray;
-        padding: 5px;
-        float: left;
-        width: 550px;
-    }
-
-        .name-price-description span {
+        .namePriceMenu span {
             display: block;
         }
 
