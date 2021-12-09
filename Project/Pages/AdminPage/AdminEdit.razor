@@ -20,6 +20,8 @@
             <form>
                 <input class="tastfelt" @bind="PlaceholderName" placeholder="Indtast artikelnavn" required />
                 <input class="tastfelt" @bind="PlaceholderPrice" placeholder="Indtast pris" required />
+                <input class="tastfelt" @bind="PlaceholderMaterials" placeholder="Indtast Materialer" required />
+                <input class="tastfelt" @bind="PlaceholderTransparency" placeholder="Indtast Transparency" required />
                 <textarea class="description" @bind="PlaceholderDescription" placeholder="Description" required />
             </form>
             <div>
@@ -115,104 +117,93 @@
         display: @Visible;
     }
 
-    </style>
+    .page {
+        height: 500px;
+    }
 
-    <style>
-        .page {
-            height: 500px;
+    .description {
+        margin-top: 50px;
+        margin-left: -400px;
+    }
+
+    .tastfelt {
+        float: left;
+    }
+
+    .submit-butt {
+        margin-left: 50px;
+        margin-top: -50px;
+    }
+
+    .kategori {
+        padding: 5px;
+    }
+
+    .farvevalgMenu {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: fit-content;
+        width: fit-content;
+        background-color: lightgray;
+        padding: 5px;
+        float: left;
+        margin-left: 1%
+    }
+
+    .name-price-description {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: 45%;
+        background-color: lightgray;
+        padding: 5px;
+        float: left;
+        width: 550px;
+    }
+
+        .name-price-description span {
+            display: block;
         }
 
-        .description {
-            margin-top: 50px;
-            margin-left: -400px;
-        }
+    .item-list {
+        height: fit-content;
+        width: fit-content;
+        border: 1px solid black;
+        border-radius: 3px;
+    }
 
-        .tastfelt {
-            float: left;
-        }
+    td, th {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+    }
 
-        .submit-butt {
-            margin-left: 50px;
-            margin-top: -50px;
-        }
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
 
-        .kategori {
-            padding: 5px;
-        }
+    .CheckForInput {
+        color: red;
+    }
 
-        .farvevalgMenu {
-            border: 1px solid black;
-            border-radius: 3px;
-            height: fit-content;
-            width: fit-content;
-            background-color: lightgray;
-            padding: 5px;
-            float: left;
-            margin-left: 1%
-        }
+    .ColorSize {
+        display: flex;
+    }
 
-        .name-price-description {
-            border: 1px solid black;
-            border-radius: 3px;
-            height: 45%;
-            background-color: lightgray;
-            padding: 5px;
-            float: left;
-            width: 550px;
-        }
+    .column {
+        flex: 50%;
+    }
 
-            .name-price-description span {
-                display: block;
-            }
+    .Color, .Size {
+        border: 1px solid black;
+        border-radius: 3px;
+        height: fit-content;
+        background-color: #efefef;
+        padding: 5px;
+    }
 
-        .item-list {
-            height: fit-content;
-            width: fit-content;
-            border: 1px solid black;
-            border-radius: 3px;
-        }
-
-        td, th {
-            border: 1px solid black;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-
-        .CheckForInput {
-            color: red;
-        }
-
-        Norm {
-            display: inline-block;
-        }
-
-            Norm label {
-                display: block;
-            }
-
-        .ColorSize {
-            display: flex;
-        }
-
-        .column {
-            flex: 50%;
-        }
-
-        .Color, .Size {
-            border: 1px solid black;
-            border-radius: 3px;
-            height: fit-content;
-            background-color: #efefef;
-            padding: 5px;
-        }
-
-        .Size {
-            margin-left: 20px;
-        }
+    .Size {
+        margin-left: 20px;
+    }
     </style>
 
 
@@ -232,26 +223,14 @@
                 Visible = "none";
             }
         }
-        public void StatsPopup()
-        {
-            i++;
-            if (i % 2 == 0)
-            {
-                Visible = "block";
-            }
-            else
-            {
-                Visible = "none";
-            }
-        }
-        public List<string> Kpis = new List<string>() { "Resultgrad", "Buffer", "Egenkapital", "Likviditet" };
-        public List<string> Months = new List<string>() { "Jan", "Feb", "Mar", "Apr" };
-        public List<string> Percent = new List<string>() { "5%", "10%", "30%", "70%" };
+
 
 
         string PlaceholderName;
         string PlaceholderPrice;
         string PlaceholderDescription;
+        string PlaceholderTransparency;
+        string PlaceholderMaterials;
 
 
         private DbCall call = new DbCall();
