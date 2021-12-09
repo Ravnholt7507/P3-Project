@@ -60,6 +60,14 @@ namespace Project.Pages.KpiPage
             return result * 100;
         }
 
+        public double viewsToSold(double views, double sold)
+        {
+            double result = 0;
+            result = views / sold;
+
+            return result;
+        }
+
         
     }
 }
