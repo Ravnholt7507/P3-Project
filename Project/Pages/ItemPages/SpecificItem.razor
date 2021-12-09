@@ -6,7 +6,6 @@
 
 
 <h2>Product details</h2>
-
 <div class="page">
     <div class="card-body">
         <div class="img-container">
@@ -102,6 +101,15 @@
     public async Task Read2() {
         var result = await SessionStorage.GetAsync<string>("PagesVisited");
         Visits = result.Success ? result.Value : "";
+        var VisitArray = SplitVisits();
+
+        // DbCall
+        if (!VisitArray.Contains(Prod.Id.ToString()))
+        {
+            DbCall call = new DbCall();
+            call.VisitUpdate(Prod.Id);
+            Console.WriteLine("database called");
+        }
         Visits += "$" + Prod.Id;
         Save();
     }
@@ -113,6 +121,14 @@
         await SessionStorage.SetAsync("PagesVisited", Visits);
     }
 
+    public string[] SplitVisits()
+    {
+        var array = Visits.Split('$');
+        array = array.Skip(1).ToArray();
+        array = array.Distinct().ToArray();
+        return array;
+    }
+
     // Load specific methods on page load
     protected override Task OnInitializedAsync()
     {
@@ -120,8 +136,6 @@
         Read2();
         return base.OnInitializedAsync();
     }
-
-
 }
 
 

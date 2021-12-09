@@ -176,6 +176,15 @@ namespace Project.CSharpFiles
             return productArray;
         }
 
+        public void VisitUpdate(int Prod_Id)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = $"UPDATE products SET views = views + 1 WHERE prod_id = {Prod_Id}";
+            using var cmd = new MySqlCommand(sql, con);
+            con.Close();
+        }
+
         public string[][] AdminPages(string callType, string callSubType, params object[] args)
         {
             string[][] returnArray = new string[25][];
