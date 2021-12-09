@@ -52,7 +52,7 @@ namespace DbGenerator
 
             cmd.CommandText = "DROP TABLE IF EXISTS products";
             cmd.ExecuteNonQuery();
-            cmd.CommandText = "CREATE TABLE products (prod_id INTEGER PRIMARY KEY AUTO_INCREMENT, prod_name TEXT, category VARCHAR(200), type VARCHAR(200), price INT, description TEXT, material TEXT, produced TEXT, transparency TEXT, FOREIGN KEY (category) REFERENCES categories(category), FOREIGN KEY (type) REFERENCES types(type))";
+            cmd.CommandText = "CREATE TABLE products (prod_id INTEGER PRIMARY KEY AUTO_INCREMENT, prod_name TEXT, category VARCHAR(200), type VARCHAR(200), price INT, description TEXT, material TEXT, produced TEXT, transparency TEXT, views INT DEFAULT 0, week_1 INT DEFAULT 0, week_2 INT DEFAULT 0, week_3 INT DEFAULT 0, week_4 INT DEFAULT 0, investment INT, FOREIGN KEY (category) REFERENCES categories(category), FOREIGN KEY (type) REFERENCES types(type))";
             cmd.ExecuteNonQuery();
             
             cmd.CommandText = "DROP TABLE IF EXISTS colours";
