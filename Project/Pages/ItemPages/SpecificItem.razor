@@ -101,17 +101,16 @@
     public async Task Read2() {
         var result = await SessionStorage.GetAsync<string>("PagesVisited");
         Visits = result.Success ? result.Value : "";
-        var VisitArray = SplitVisits();
+        var visitArray = SplitVisits();
 
         // DbCall
-        if (!VisitArray.Contains(Prod.Id.ToString()))
+        if (!visitArray.Contains(Prod.Id.ToString()))
         {
             DbCall call = new DbCall();
             call.VisitUpdate(Prod.Id);
-            Console.WriteLine("database called");
         }
         Visits += "$" + Prod.Id;
-        Save();
+        await Save();
     }
 
     // Save the string into local storage
