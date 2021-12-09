@@ -57,7 +57,7 @@ namespace Project.Pages.KpiPage
 
             result = (amountSold * price) / investment;
 
-            return result;
+            return result * 100;
         }
 
         
