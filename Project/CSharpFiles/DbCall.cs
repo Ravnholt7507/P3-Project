@@ -190,6 +190,18 @@ namespace Project.CSharpFiles
             con.Close();
         }
 
+        public void PurchaseUpdate(int Prod_Id, int Colour_Id, int Amount)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = $"UPDATE colours SET sold = sold + {Amount} WHERE prod_id = {Prod_Id} AND colour_id = {Colour_Id}";
+            using var cmd = new MySqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = sql;
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
         public string[][] AdminPages(string callType, string callSubType, params object[] args)
         {
             string[][] returnArray = new string[25][];
