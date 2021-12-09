@@ -51,6 +51,15 @@ namespace Project.Pages.KpiPage
             return base.OnInitializedAsync();
         }
 
+        public double RoI(double investment, double amountSold, double price)
+        {
+            double result = 0;
+
+            result = (amountSold * price) / investment;
+
+            return result;
+        }
+
         
     }
 }
