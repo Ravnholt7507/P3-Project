@@ -26,6 +26,7 @@ namespace Project.Pages.KpiPage
                 Visible = "none";
             }
         }
+
         public void StatsPopup()
         {
             i++;
@@ -38,11 +39,13 @@ namespace Project.Pages.KpiPage
                 Visible = "none";
             }
         }
+
         public List<string> Kpis = new List<string>() { "Resultgrad", "Buffer", "Egenkapital", "Likviditet" };
         public List<string> Months = new List<string>() { "Jan", "Feb", "Mar", "Apr" };
         public List<string> Percent = new List<string>() { "5%", "10%", "30%", "70%" };
         public string[] typeArray;
         public string[][][] ProductArray;
+
         protected override Task OnInitializedAsync()
         {
             typeArray = call.KPI("Type call");
@@ -51,7 +54,7 @@ namespace Project.Pages.KpiPage
             return base.OnInitializedAsync();
         }
 
-        public double RoI(double investment, double amountSold, double price)
+        public double RoI(double investment, int amountSold, double price)
         {
             double result = 0;
 
@@ -60,14 +63,13 @@ namespace Project.Pages.KpiPage
             return result * 100;
         }
 
-        public double viewsToSold(double views, double sold)
+        public double viewsToSold(int views, int sold)
         {
             double result = 0;
+
             result = views / sold;
 
             return result;
-        }
-
-        
+        }        
     }
 }
