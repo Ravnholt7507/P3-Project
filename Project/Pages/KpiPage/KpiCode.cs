@@ -63,7 +63,7 @@ namespace Project.Pages.KpiPage
             return result * 100;
         }
 
-        public double viewsToSold(int views, int sold)
+        public double SoldPrView(int views, int sold)
         {
             double result = 0;
 
