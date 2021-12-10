@@ -1140,8 +1140,8 @@ namespace Project.CSharpFiles
             cmd.Connection = con;
             if (callType == "Create new order")
             {
-                cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, phonenumber, email, adress, zipcode, country, ordered_items) 
-                VALUES ('{args[0]}','{args[1]}','{args[2]}','{args[3]}','{args[4]}','{args[5]}','{args[6]}','{args[7]}')";
+                cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, email, phonenumber, city, street, zipcode, country, ordered_items) 
+                VALUES ('{args[0]}','{args[1]}','{args[2]}','{args[3]}','{args[4]}','{args[5]}','{args[6]}','{args[7]}', 'test')";
                 cmd.ExecuteNonQuery();
                 
                 Stockchange("Reduce stock", "1 Hvid Medium 560 Lyserød X-Small ");
@@ -1191,10 +1191,19 @@ namespace Project.CSharpFiles
 
         public string[] KPI(string callType, params object[] args)
         {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            
             int arraySize = 0;
             if (callType == "Type call")
             {
-                arraySize = 25;
+                string sql = "SELECT COUNT(type) as amount FROM types";
+                using var cmd = new MySqlCommand(sql, con);
+                using MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    arraySize = rdr.GetInt32(0);
+                }
             }
             else if (callType == "Product type call")
             {
@@ -1203,8 +1212,7 @@ namespace Project.CSharpFiles
             string[] array = new string[arraySize];
             if (callType == "Type call")
             {
-                using var con = new MySqlConnection(_cs);
-                con.Open();
+
                 string sql = "SELECT type FROM types";
                 using var cmd = new MySqlCommand(sql, con);
                 using MySqlDataReader rdr = cmd.ExecuteReader();
@@ -1221,9 +1229,6 @@ namespace Project.CSharpFiles
             {
                 string[][] product = new string[10000][];
                 
-                
-                using var con = new MySqlConnection(_cs);
-                con.Open();
                 string sql = "SELECT * FROM sizes";
                 using var cmd = new MySqlCommand(sql, con);
                 using MySqlDataReader rdr = cmd.ExecuteReader();
@@ -1412,7 +1417,6 @@ namespace Project.CSharpFiles
                     }
                 }
             }
-
             return sortedProducts;
         }
 

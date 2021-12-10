@@ -14,6 +14,15 @@ namespace Project.Pages.KpiPage
         public int i = 1;
         public string Visible = "";
 
+        public int fillTable;
+        
+        public void ShowProducts(int i)
+        {
+            ProductArray = call.KPI2();
+            fillTable = i;
+            StateHasChanged();
+        }
+
         public void Popup()
         {
             i++;
@@ -49,7 +58,6 @@ namespace Project.Pages.KpiPage
         protected override Task OnInitializedAsync()
         {
             typeArray = call.KPI("Type call");
-            ProductArray = call.KPI2();
 
             return base.OnInitializedAsync();
         }

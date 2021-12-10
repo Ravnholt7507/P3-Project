@@ -10,20 +10,46 @@
                 <th>Product Name</th>
                 <th>Show KPI</th>
             </tr>
-            @foreach (var item in typeArray)
+            @for (int index = 0; index < typeArray.Length; index++)
+            {
+                if (typeArray[index] != null)
+                {
+                    <tr>
+                        <td>@typeArray[index]</td>
+                        <td style="text-align:center"><button class="butt" @onclick="() => ShowProducts(index)"><i class="fa fa-times"></i></button></td>
+                    </tr>
+                }
+            }
+            @*@foreach (var item in typeArray)
             {
                 if (item != null)
                 {
                     <tr>
                         <td>@item</td>
-                        <td style="text-align:center"><button class="butt" @onclick="Popup"><i class="fa fa-times"></i></button></td>
+                        <td style="text-align:center"><button class="butt" @onclick="ShowProducts(index)"><i class="fa fa-times"></i></button></td>
                     </tr>
                 }
-            }
+            }*@
         </table>
     </div>
     <div class="specific-item">
         <table>
+            @if (fillTable != 0)
+            {
+                foreach (var prod in ProductArray[fillTable-1])
+                {
+                    <tr>
+                        <td>@prod[0]</td>
+                        <td>Bukser</td>
+                        <td>Blue</td>
+                        <th>XXL</th>
+                        <th>1000,-</th>
+                        <th>12</th>
+                        <th>IMG</th>
+                        <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
+                    </tr>
+                }
+            }
             <tr>
                 <th>Product Name</th>
                 <th>Type</th>
@@ -80,6 +106,11 @@
     </div>
 </div>
 
+
+@code
+{
+    int index = 0;
+}
 
 <style>
     .page {
