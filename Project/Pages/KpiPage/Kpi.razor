@@ -21,19 +21,18 @@
 
 
                 @*@foreach (var item in typeArray)
-                {
-                    if (item != null)
                     {
-                        <tr>
-                            <td>@item</td>
-                            <td style="text-align:center"><button class="butt" @onclick="ShowProducts(index)"><i class="fa fa-times"></i></button></td>
-                        </tr>
-                    }
-                }*@
+                        if (item != null)
+                        {
+                            <tr>
+                                <td>@item</td>
+                                <td style="text-align:center"><button class="butt" @onclick="ShowProducts(index)"><i class="fa fa-times"></i></button></td>
+                            </tr>
+                        }
+                    }*@
             </table>
         </div>
     </div>
-
     <div class="outer_specific-item">
         <h3>Specifikke Artikler</h3>
         <div class="specific-item">
@@ -69,35 +68,28 @@
                     }
                     Counter++;
                 }
-        </table>
-    </div>
-    <div class="stats">
-        <table>
-            <tr>
-                @foreach (var Month in Kpis)
-                {
-                    <th>@Month</th>
-                }
-            </tr>
-                <tr>
-                    @foreach (var stat in Percent)
+            </table>
+        </div>
+        @if (Kpis.Count != 0)
+        {
+            <div class="stats">
+                <table>
+                    @for (int i = 0; i < Percent.Count; i++)
                     {
-                        <th>@stat</th>
+                        <tr>
+                            <th>@Kpis[i] </th>
+                            <th>@Percent[i]</th>
+                        </tr>
                     }
-                </tr>
-        </table>
+                </table>
+            </div>
+        }
     </div>
 </div>
 
-
-@code
-{
-    int index = 0;
-}
-
 <style>
     .page {
-        height: 500px;
+        height: fit-content;
     }
 
     .outer_item-list {
@@ -125,7 +117,6 @@
     .outer_stats {
         position: relative;
         left: 1200px;
-        bottom: 1000px;
     }
         .stats {
             height: fit-content;

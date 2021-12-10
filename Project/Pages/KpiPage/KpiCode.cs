@@ -104,6 +104,6 @@ namespace Project.Pages.KpiPage
                 }
             }
             Percent = placeholderdata;
-    }
+        }
     }
 }

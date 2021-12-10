@@ -15,12 +15,12 @@
                 <button @onclick="() => { Delete(item.Id, item.Colour_id, item.Size); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right delete"><i class="fa fa-times"></i></button>
             </div>
         }
-    <div class="order-total">
-        <p>Ordre Total:<b class="right"> @Total,-</b></p>
-        <b class="Supply_Demand error">Not enough in stock :(</b>
-        <b class="Negative_Order error">If you want to remove press X instead</b>
-        <button class="butt" @onclick="() => {_newOrder.Dbcall(createOrder); PurchaseCount(); }">Checkout</button>
-    </div>
+        <div class="order-total">
+            <p>Ordre Total:<b class="right"> @Total,-</b></p>
+            <b class="Supply_Demand error">Not enough in stock :(</b>
+            <b class="Negative_Order error">If you want to remove press X instead</b>
+            <button class="butt" @onclick="() => {_newOrder.Dbcall(createOrder); PurchaseCount(); }">Checkout</button>
+        </div>
     </div>
     <div class="row">
         <div class="col-75">
@@ -36,7 +36,7 @@
                             <input type="text" placeholder="Frederikshavnvej 2" @bind="@_newOrder.Adress" @oninput="@((e) => { _newOrder.Adress=(string)e.Value;})">
                             <label><i class="fa fa-fw fa-building"></i> By</label>
                             <input type="text" placeholder="KÃ¸benhavn" @bind="@_newOrder.City" @oninput="@((e) => { _newOrder.City=(string)e.Value;})">
-                            
+
                         </div>
                         <div class="col-50">
                             <label><i class="fa fa-fw fa-star"></i> Efternavn</label>
@@ -68,9 +68,9 @@
     {
         DbCall call = new DbCall();
         foreach (var item in Order)
-        {   
+        {
             call.PurchaseUpdate(item.Id, item.Colour_id, item.OrderAmount);
-            Console.WriteLine("Product: " + item.Id +"Color: "+ item.Colour_id +"Amount: "+ item.OrderAmount);
+            Console.WriteLine("Product: " + item.Id + "Color: " + item.Colour_id + "Amount: " + item.OrderAmount);
         }
     }
 
