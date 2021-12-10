@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Pages.KpiPage
+namespace Project.Pages.LoginPage
 {
     #line hidden
     using System;
@@ -103,14 +103,14 @@ using System.Linq;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "c:\users\runef\source\repos\p3-project\project\Pages\KpiPage\Kpi.razor"
-using CSharpFiles;
+#line 2 "c:\users\runef\source\repos\p3-project\project\Pages\LoginPage\Login.razor"
+using Project.CSharpFiles;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Kpi")]
-    public partial class Kpi : KpiCode
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Login")]
+    public partial class Login : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -118,13 +118,41 @@ using CSharpFiles;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 115 "c:\users\runef\source\repos\p3-project\project\Pages\KpiPage\Kpi.razor"
+#line 21 "c:\users\runef\source\repos\p3-project\project\Pages\LoginPage\Login.razor"
  
-    int index = 0;
+    public string UserName;
+    public string PassWord;
+    public string AcessToken;
+    public string Visibility = "none";
+
+    public string LoggedIn;
+
+    public async Task Save()
+    {
+        await SessionStorage.SetAsync("UserName", AcessToken);
+    }
+
+    public void Skovl()
+    {
+        DbCall call = new DbCall();
+        AcessToken = call.UserAdministration("User login", UserName, PassWord);
+        if (AcessToken != "")
+        {
+            LoggedIn = "Logged In";
+            Save();
+            NavManager.NavigateTo("/Admin");
+        }
+        if (AcessToken == "")
+        {
+            Visibility = "block";
+        }
+    }
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ProtectedSessionStorage SessionStorage { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavManager { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Pages.KpiPage
+namespace Project.Pages.Timer
 {
     #line hidden
     using System;
@@ -102,29 +102,14 @@ using System.Linq;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 3 "c:\users\runef\source\repos\p3-project\project\Pages\KpiPage\Kpi.razor"
-using CSharpFiles;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Kpi")]
-    public partial class Kpi : KpiCode
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Timer")]
+    public partial class Timer : TimerCode
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 115 "c:\users\runef\source\repos\p3-project\project\Pages\KpiPage\Kpi.razor"
- 
-    int index = 0;
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591
