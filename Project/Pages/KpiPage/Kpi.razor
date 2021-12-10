@@ -10,16 +10,15 @@
                 <th>Product Name</th>
                 <th>Show KPI</th>
             </tr>
-            @for (int index = 0; index < typeArray.Length; index++)
+            @foreach (var type in typeArray)
             {
-                if (typeArray[index] != null)
-                {
-                    <tr>
-                        <td>@typeArray[index]</td>
-                        <td style="text-align:center"><button class="butt" @onclick="() => ShowProducts(index)"><i class="fa fa-times"></i></button></td>
+                <tr>
+                        <td>@type</td>
+                        <td style="text-align:center"><button class="butt" @onclick="() => ShowProducts(type)"><i class="fa fa-times"></i></button></td>
                     </tr>
-                }
-            }
+            }  
+            
+
             @*@foreach (var item in typeArray)
             {
                 if (item != null)
@@ -34,22 +33,7 @@
     </div>
     <div class="specific-item">
         <table>
-            @if (fillTable != 0)
-            {
-                foreach (var prod in ProductArray[fillTable-1])
-                {
-                    <tr>
-                        <td>@prod[0]</td>
-                        <td>Bukser</td>
-                        <td>Blue</td>
-                        <th>XXL</th>
-                        <th>1000,-</th>
-                        <th>12</th>
-                        <th>IMG</th>
-                        <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
-                    </tr>
-                }
-            }
+ 
             <tr>
                 <th>Product Name</th>
                 <th>Type</th>
@@ -60,6 +44,26 @@
                 <th>IMG</th>
                 <th>Stats</th>
             </tr>
+               @foreach (var type in typeArray)
+                {
+                    if (fillTable == type)
+                    {
+                        foreach (var prod in ProductArray[Counter])
+                        {
+                            <tr>
+                                <td>@prod[6]</td>
+                                <td>@prod[7]</td>
+                                <td>@prod[4]</td>
+                                <th>@prod[2]</th>
+                                <th>@prod[8],-</th>
+                                <th>@prod[3]</th>
+                                <th>@prod[5]</th>
+                                <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
+                            </tr>
+                        }
+                    }
+                    Counter++;
+                }
             <tr>
                 <td>The Buks</td>
                 <td>Bukser</td>
