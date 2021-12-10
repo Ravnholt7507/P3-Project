@@ -40,10 +40,10 @@ namespace Project.CSharpFiles
         public string Type { get; set; }
         public string ImageLink { get; set; }
         public string Barcode { get; set; }
-
         public int OrderAmount = 1;
         public double SubTotal { get; set; }
-
+        public int Sold { get; set; }
+        public int Views { get; set; }
         public double CalcPrice()
         {
             return SubTotal = OrderAmount * Price;

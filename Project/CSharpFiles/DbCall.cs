@@ -1419,9 +1419,40 @@ namespace Project.CSharpFiles
             }
             return sortedProducts;
         }
-
-        public void KPI3()
+        public List<Product> KPI3(int product_ID)
         {
+            int count = 0;
+            List<Product> Sold = new List<Product>();
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+
+            string sql2 = $"SELECT sold, colour FROM colours WHERE prod_id = {product_ID}";
+            using var cmd2 = new MySqlCommand(sql2, con);
+            using MySqlDataReader rdr2 = cmd2.ExecuteReader();
+
+            while (rdr2.Read())
+            {
+                Product KPI = new Product();
+                KPI.Sold = rdr2.GetInt32(0);
+                KPI.Colour = rdr2.GetString(1);
+
+                Sold.Add(KPI);
+
+            }
+            rdr2.Close();
+
+            string sql = $"SELECT views FROM products WHERE prod_id = {product_ID}";
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                Sold[count].Views = rdr.GetInt32(0);
+
+                count++;
+            }
+            rdr.Close();
+
+            return Sold;
         }
 
         public string UserAdministration(string callType, params object[] args)
