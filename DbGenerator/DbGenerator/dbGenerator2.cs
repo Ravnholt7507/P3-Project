@@ -139,7 +139,7 @@ namespace DbGenerator
             cmd.CommandText = "DROP TABLE IF EXISTS orders";
             cmd.ExecuteNonQuery();
             
-            cmd.CommandText = "CREATE TABLE orders (id INTEGER PRIMARY KEY AUTO_INCREMENT, firstname TEXT, lastname TEXT, phonenumber TEXT, email TEXT, adress TEXT, zipcode INT, country TEXT, ordered_items TEXT)";
+            cmd.CommandText = "CREATE TABLE orders (id INTEGER PRIMARY KEY AUTO_INCREMENT, firstname TEXT, lastname TEXT, phonenumber TEXT, email TEXT, city TEXT, street TEXT, zipcode INT, country TEXT, ordered_items TEXT)";
             cmd.ExecuteNonQuery();
 
             string[] firstnames = { "Jens", "Mikkel", "Patrick", "Nathan", "Rune", "Esben", "Benjamin", "Raymond", "Andreas", "Simone", "Lene", "Lis", "Marianne", "Dorthe", "Pernille"};
@@ -150,7 +150,8 @@ namespace DbGenerator
                 string randLastName = lastnames[rd.Next(0, 6)];
                 string phonenumber = "+45" + rd.Next(10000000,99999999);
                 string email = randFirstName + randLastName + "@hotmail.com";
-                string adress = "random fucking adress 123";
+                string city = "random fucking city";
+                string street = "random fucking adress 123";
                 int zipcode = rd.Next(1000, 9999);
                 string country = "Danmark";
 
@@ -164,7 +165,7 @@ namespace DbGenerator
 
                     order += itemId +" "+ colour +" "+ size + ", ";
                 }
-                cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, phonenumber, email, adress, zipcode, country, ordered_items) VALUES ('{randFirstName}', '{randLastName}', '{phonenumber}', '{email}', '{adress}', '{zipcode}', '{country}', '{order}')";
+                cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, phonenumber, email, city, street, zipcode, country, ordered_items) VALUES ('{randFirstName}', '{randLastName}', '{phonenumber}', '{email}', '{city}', '{street}', '{zipcode}', '{country}', '{order}')";
                 cmd.ExecuteNonQuery();
             }
 

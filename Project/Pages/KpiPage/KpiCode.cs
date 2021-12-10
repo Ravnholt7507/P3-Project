@@ -13,6 +13,17 @@ namespace Project.Pages.KpiPage
         
         public int i = 1;
         public string Visible = "";
+        public int Counter = 0;
+
+        public string fillTable;
+        
+        public void ShowProducts(string type)
+        {
+            fillTable = type;
+            Popup();
+            StateHasChanged();
+            Counter = 0;
+        }
 
         public void Popup()
         {
@@ -50,7 +61,6 @@ namespace Project.Pages.KpiPage
         {
             typeArray = call.KPI("Type call");
             ProductArray = call.KPI2();
-
             return base.OnInitializedAsync();
         }
 
