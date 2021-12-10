@@ -11,6 +11,7 @@
             <input type="text" id="username" name="username" @bind="UserName" required><br>
             <label for="pwd">Password:</label><br>
             <input type="password" id="pwd" name="pwd" @bind="PassWord" required><br><br>
+            <p class="error_msg">Forkert brugernavn eller password</p>
             <input type="submit" value="Login">
         </form>
     </div>
@@ -18,13 +19,11 @@
 
 @code
 {
-    public string FakeUserName = "admin";
-    public string FakePassWord = "password";
-
     public string UserName;
     public string PassWord;
     public string AcessToken;
-    
+    public string Visibility = "none";
+
     public string LoggedIn;
 
     public async Task Save()
@@ -35,12 +34,16 @@
     public void Skovl()
     {
         DbCall call = new DbCall();
-        AcessToken= call.UserAdministration("User login", UserName, PassWord);
+        AcessToken = call.UserAdministration("User login", UserName, PassWord);
         if (AcessToken != "")
         {
             LoggedIn = "Logged In";
             Save();
             NavManager.NavigateTo("/Admin");
+        }
+        if (AcessToken == "")
+        {
+            Visibility = "block";
         }
     }
 }
@@ -83,5 +86,10 @@
     #password {
         margin-top: 10px;
         margin-bottom: 10px;
+    }
+
+    .error_msg {
+        display: @Visibility;
+        color: red;
     }
 </style>

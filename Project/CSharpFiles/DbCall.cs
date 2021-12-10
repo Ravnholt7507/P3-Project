@@ -1485,23 +1485,36 @@ namespace Project.CSharpFiles
                     Console.WriteLine("Wrong password");
                 }
             }
-            else if (callType == "verify")
-            {
-                string currentAccesToken = args[0].ToString();
-                string tokenInDb = "";
-                using var con = new MySqlConnection(_cs);
-                con.Open();
-                string sql = string.Format("SELECT access_token FROM login WHERE access_token = '{0}'", currentAccesToken);
-                using var cmd = new MySqlCommand(sql, con);
-                using MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    tokenInDb = rdr.GetString(0);
-                }
-                rdr.Close();
-                returnString = tokenInDb;
-            }
             return returnString;
+        }
+        public bool Verify(string currentAccesToken)
+        {
+            string tokenInDb = "";
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = string.Format("SELECT access_token FROM login WHERE access_token = '{0}'", currentAccesToken);
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                tokenInDb = rdr.GetString(0);
+            }
+            rdr.Close();
+            if (currentAccesToken != null)
+            { 
+                if (currentAccesToken.Equals(tokenInDb))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+               return false;
+            }
         }
     }
 }

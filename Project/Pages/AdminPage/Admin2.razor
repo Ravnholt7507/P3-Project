@@ -178,7 +178,6 @@ else
 
 @code
 {
-    public string FakeAccessToken = "1000";
     public string AccessToken = null;
 
     bool isLoaded;
@@ -192,7 +191,7 @@ else
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await Read();
-        if (AccessToken != null)
+        if (DataBaseVerify(AccessToken))
         {
             isLoaded = true;
         }
