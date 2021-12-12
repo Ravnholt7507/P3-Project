@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -8,6 +9,7 @@ using Org.BouncyCastle.Cms;
 using Project.Pages;
 using System.Text;
 using System.Security.Cryptography;
+using Project.Pages.AdminPage;
 
 namespace Project.CSharpFiles
 {
@@ -176,6 +178,30 @@ namespace Project.CSharpFiles
             return productArray;
         }
 
+        public void VisitUpdate(int prodId)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = $"UPDATE products SET views = views + 1 WHERE prod_id = {prodId}";
+            using var cmd = new MySqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = sql;
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public void PurchaseUpdate(int Prod_Id, int Colour_Id, int Amount)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = $"UPDATE colours SET sold = sold + {Amount} WHERE prod_id = {Prod_Id} AND colour_id = {Colour_Id}";
+            using var cmd = new MySqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = sql;
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
         public string[][] AdminPages(string callType, string callSubType, params object[] args)
         {
             string[][] returnArray = new string[25][];
@@ -326,94 +352,783 @@ namespace Project.CSharpFiles
 
         public string[] SearchCall(params object[] args)
         {
-            string[] searchArray = new string[10];
+            string[] searchParams = new string[args.Length];
             for (int i = 0; i < args.Length; i++)
             {
-                searchArray[i] = args[i].ToString();
+                searchParams[i] = args[i].ToString().ToLower();
             }
 
-            ItemAttributes attributes = new ItemAttributes();
-            
-            string[] array = new string[4];
-            for (int j = 0; j < searchArray.Length; j++)
-            {
-                if (array[0] == null && searchArray[j] != null)
-                {
-                    for (int k = 0; k < attributes.Colours.Length; k++)
-                    {
-                        bool attribute = attributes.Colours[k]
-                            .Contains(searchArray[j], StringComparison.OrdinalIgnoreCase);
-                        if (attribute)
-                        {
-                            array[0] = attributes.Colours[k];
-                            k = attributes.Colours.Length;
-                        }
-                    }
-                }
-
-                if (array[1] == null && searchArray[j] != null)
-                {
-                    for (int k = 0; k < attributes.Sizes.Length; k++)
-                    {
-                        bool attribute = attributes.Sizes[k]
-                            .Contains(searchArray[j], StringComparison.OrdinalIgnoreCase);
-                        if (attribute)
-                        {
-                            array[1] = attributes.Sizes[k];
-                            k = attributes.Sizes.Length;
-                        }
-                    }
-                }
-
-                if (array[2] == null && searchArray[j] != null)
-                {
-                    for (int k = 0; k < attributes.Category.Length; k++)
-                    {
-                        bool attribute = attributes.Category[k]
-                            .Contains(searchArray[j], StringComparison.OrdinalIgnoreCase);
-                        if (attribute)
-                        {
-                            array[2] = attributes.Category[k];
-                            k = attributes.Category.Length;
-                        }
-                    }
-                }
-
-                if (array[3] == null && searchArray[j] != null)
-                {
-                    for (int k = 0; k < attributes.Type.Length; k++)
-                    {
-                        bool attribute = attributes.Type[k]
-                            .Contains(searchArray[j], StringComparison.OrdinalIgnoreCase);
-                        if (attribute)
-                        {
-                            array[3] = attributes.Type[j];
-                            k = attributes.Type.Length;
-                        }
-                    }
-                }
-            }
-
-            
+            string[] columns = { "category", "type", "colour", "size" };
+            string[] tables = { "categories", "types", "colours", "sizes" };
+            int[] columnLengths = new int[4];
             using var con = new MySqlConnection(_cs);
             con.Open();
-            string sql = $@"select barcode from articles where colour like '%{array[0]}%' and size like '%{array[1]}%' and category like '%{array[2]}%' and type like '%{array[3]}%'";
-            using var cmd = new MySqlCommand(sql, con);
-            using MySqlDataReader rdr = cmd.ExecuteReader();
 
-            string[] barcodeArray={};
-            
-            
-            int h = 0;
-            while (rdr.Read())
+            for (int i = 0; i < 4; i++)
             {
-                string barcode = rdr.GetString(0);
-                barcodeArray[h] = barcode;
-                h++;
-                //barcodeArray[].
+                string sql = $"SELECT COUNT(DISTINCT {columns[i]}) AS amount FROM {tables[i]}";
+                using var cmd = new MySqlCommand(sql, con);
+                using MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    columnLengths[i] = rdr.GetInt32(0);
+                }
+
+                rdr.Close();
             }
+
+            string[] categoryArray = new string[columnLengths[0]];
+            string[] typeArray = new string[columnLengths[1]];
+            string[] colourArray = new string[columnLengths[2]];
+            string[] sizeArray = new string[columnLengths[3]];
+
+            for (int i = 0; i < 4; i++)
+            {
+                int k = 0;
+                string sql = $"SELECT DISTINCT {columns[i]} FROM {tables[i]}";
+                using var cmd = new MySqlCommand(sql, con);
+                using MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    if (i == 0)
+                    {
+                        categoryArray[k] = rdr.GetString(0);
+                    }
+                    else if (i == 1)
+                    {
+                        typeArray[k] = rdr.GetString(0);
+                    }
+                    else if (i == 2)
+                    {
+                        colourArray[k] = rdr.GetString(0);
+                    }
+                    else if (i == 3)
+                    {
+                        sizeArray[k] = rdr.GetString(0);
+                    }
+
+                    k++;
+                }
+
+                rdr.Close();
+            }
+
+            bool category = false, type = false, colour = false, size = false;
+            string[] searchCategoryArray = new string[columnLengths[0]];
+            string[] searchTypeArray = new string[columnLengths[1]];
+            string[] searchColourArray = new string[columnLengths[2]];
+            string[] searchSizeArray = new string[columnLengths[3]];
+
+            int cat = 0, typ = 0, col = 0, siz = 0;
+
+            for (int i = 0; i < searchParams.Length; i++)
+            {
+                for (int j = 0; j < categoryArray.Length; j++)
+                {
+                    if (categoryArray[j].ToLower() == searchParams[i])
+                    {
+                        category = true;
+                        searchCategoryArray[cat] = searchParams[i];
+                        cat++;
+                    }
+                }
+
+                for (int j = 0; j < typeArray.Length; j++)
+                {
+                    if (typeArray[j].ToLower() == searchParams[i])
+                    {
+                        type = true;
+                        searchTypeArray[typ] = searchParams[i];
+                        typ++;
+                    }
+                }
+
+                for (int j = 0; j < colourArray.Length; j++)
+                {
+                    if (colourArray[j].ToLower() == searchParams[i])
+                    {
+                        colour = true;
+                        searchColourArray[col] = searchParams[i];
+                        col++;
+                    }
+                }
+
+                for (int j = 0; j < sizeArray.Length; j++)
+                {
+                    if (sizeArray[j].ToLower() == searchParams[i])
+                    {
+                        size = true;
+                        searchSizeArray[siz] = searchParams[i];
+                        siz++;
+                    }
+                }
+            }
+
+            searchCategoryArray = searchCategoryArray.Where(c => c != null).ToArray();
+            searchTypeArray = searchTypeArray.Where(c => c != null).ToArray();
+            searchColourArray = searchColourArray.Where(c => c != null).ToArray();
+            searchSizeArray = searchSizeArray.Where(c => c != null).ToArray();
+
+
+            List<Product> foundProducts = new List<Product>();
+            int FoundprodId = 0;
+            int FoundcolourId = 0;
+            string Foundsize = "";
+
+            if (category == true)
+            {
+                FoundprodId = 0;
+                FoundcolourId = 0;
+                Foundsize = "";
+
+                for (int i = 0; i < searchCategoryArray.Length; i++)
+                {
+                    if (type == true)
+                    {
+                        for (int j = 0; j < searchTypeArray.Length; j++)
+                        {
+                            string sql =
+                                string.Format("SELECT prod_id FROM products WHERE category ='{0}' AND type = '{1}'",
+                                    searchCategoryArray[i], searchTypeArray[j]);
+                            using var cmd = new MySqlCommand(sql, con);
+                            using MySqlDataReader rdr = cmd.ExecuteReader();
+                            while (rdr.Read())
+                            {
+                                FoundprodId = rdr.GetInt32(0);
+                                if (FoundprodId != 0)
+                                {
+                                    Product newFound = new Product();
+                                    newFound.Id = FoundprodId;
+                                    foundProducts.Add(newFound);
+                                    FoundprodId = 0;
+                                }
+                            }
+
+                            rdr.Close();
+                            if (colour == true)
+                            {
+                                for (int k = 0; k < searchColourArray.Length; k++)
+                                {
+                                    foreach (var prod1 in foundProducts)
+                                    {
+                                        string sql2 =
+                                            string.Format("SELECT colour_id FROM colours WHERE prod_id = '{0}' AND colour = '{1}'",
+                                                prod1.Id, searchColourArray[k]);
+                                        using var cmd2 = new MySqlCommand(sql2, con);
+                                        using MySqlDataReader rdr2 = cmd2.ExecuteReader();
+                                        while (rdr2.Read())
+                                        {
+                                            FoundcolourId = rdr2.GetInt32(0);
+                                            if (FoundcolourId != 0)
+                                            {
+                                                prod1.Colour_id = FoundcolourId;
+                                                FoundcolourId = 0;
+                                            }
+
+                                        }
+
+                                        rdr2.Close();
+                                        if (size == true)
+                                        {
+                                            for (int l = 0; l < searchSizeArray.Length; l++)
+                                            {
+                                                foreach (var prod2 in foundProducts)
+                                                {
+                                                    string sql3 = string.Format(
+                                                        "SELECT size FROM sizes WHERE prod_id = '{0}' AND colour_id = '{1}'",
+                                                        prod2.Id, prod2.Colour_id);
+                                                    using var cmd3 = new MySqlCommand(sql3, con);
+                                                    using MySqlDataReader rdr3 = cmd3.ExecuteReader();
+                                                    while (rdr3.Read())
+                                                    {
+                                                        Foundsize = rdr3.GetString(0);
+                                                        if (Foundsize != "")
+                                                        {
+                                                            prod2.Size = Foundsize;
+                                                            Foundsize = "";
+                                                        }
+                                                    }
+                                                    rdr3.Close();
+                                                }
+                                            }
+                                        }
+                                        else if (size == false)
+                                        {
+
+                                        }
+                                    }
+                                }
+                            }
+                            else if (colour == false)
+                            {
+                                if (size == true)
+                                {
+                                    for (int l = 0; l < searchSizeArray.Length; l++)
+                                    {
+                                        foreach (var prod2 in foundProducts)
+                                        {
+                                            string sql3 = string.Format("SELECT size FROM sizes WHERE prod_id = '{0}'",
+                                                prod2.Id);
+                                            using var cmd3 = new MySqlCommand(sql3, con);
+                                            using MySqlDataReader rdr3 = cmd3.ExecuteReader();
+                                            while (rdr3.Read())
+                                            {
+                                                Foundsize = rdr3.GetString(0);
+                                                if (Foundsize != "")
+                                                {
+                                                    prod2.Size = Foundsize;
+                                                    Foundsize = "";
+                                                }
+                                            }
+                                            rdr3.Close();
+                                        }
+                                    }
+                                }
+                                else if (size == false)
+                                {
+                                }
+                            }
+                        }
+                    }
+                    else if (type == false)
+                    {
+                        if (colour == true)
+                        {
+                            for (int j = 0; j < searchCategoryArray.Length; j++)
+                            {
+                                string sql =
+                                    string.Format("SELECT prod_id FROM products WHERE category ='{0}'",
+                                        searchCategoryArray[i]);
+                                using var cmd = new MySqlCommand(sql, con);
+                                using MySqlDataReader rdr = cmd.ExecuteReader();
+                                while (rdr.Read())
+                                {
+                                    FoundprodId = rdr.GetInt32(0);
+                                    if (FoundprodId != 0)
+                                    {
+                                        Product newFound = new Product();
+                                        newFound.Id = FoundprodId;
+                                        foundProducts.Add(newFound);
+                                        FoundprodId = 0;
+                                    }
+                                }
+                            }
+
+                            for (int k = 0; k < searchColourArray.Length; k++)
+                            {
+                                foreach (var prod1 in foundProducts)
+                                {
+                                    string sql2 =
+                                        string.Format("SELECT colour_id FROM colours WHERE prod_id = '{0}' AND colour = '{1}'",
+                                            prod1.Id, searchColourArray[k]);
+                                    using var cmd2 = new MySqlCommand(sql2, con);
+                                    using MySqlDataReader rdr2 = cmd2.ExecuteReader();
+                                    while (rdr2.Read())
+                                    {
+                                        FoundcolourId = rdr2.GetInt32(0);
+                                        if (FoundcolourId != 0)
+                                        {
+                                            prod1.Colour_id = FoundcolourId;
+                                            FoundcolourId = 0;
+                                        }
+
+                                    }
+                                    rdr2.Close();
+                                    if (size == true)
+                                    {
+                                        for (int l = 0; l < searchSizeArray.Length; l++)
+                                        {
+                                            foreach (var prod2 in foundProducts)
+                                            {
+                                                string sql3 = string.Format(
+                                                    "SELECT size FROM sizes WHERE prod_id = '{0}' AND colour_id = '{1}'",
+                                                    prod2.Id, prod2.Colour_id);
+                                                using var cmd3 = new MySqlCommand(sql3, con);
+                                                using MySqlDataReader rdr3 = cmd3.ExecuteReader();
+                                                while (rdr3.Read())
+                                                {
+                                                    Foundsize = rdr3.GetString(0);
+                                                    if (Foundsize != "")
+                                                    {
+                                                        prod2.Size = Foundsize;
+                                                        Foundsize = "";
+                                                    }
+                                                }
+                                                rdr3.Close();
+                                            }
+                                        }
+                                    }
+                                    else if (size == false)
+                                    {
+                                    }
+                                }
+                            }
+                        }
+                        else if (colour == false)
+                        {
+                            if (size == true)
+                            {
+                                for (int j = 0; j < searchCategoryArray.Length; j++)
+                                {
+                                    string sql =
+                                        string.Format("SELECT prod_id FROM products WHERE category ='{0}'",
+                                            searchCategoryArray[i]);
+                                    using var cmd = new MySqlCommand(sql, con);
+                                    using MySqlDataReader rdr = cmd.ExecuteReader();
+                                    while (rdr.Read())
+                                    {
+                                        FoundprodId = rdr.GetInt32(0);
+                                        if (FoundprodId != 0)
+                                        {
+                                            Product newFound = new Product();
+                                            newFound.Id = FoundprodId;
+                                            foundProducts.Add(newFound);
+                                            FoundprodId = 0;
+                                        }
+                                    }
+                                }
+
+                                for (int l = 0; l < searchSizeArray.Length; l++)
+                                {
+                                    foreach (var prod2 in foundProducts)
+                                    {
+                                        string sql3 = string.Format("SELECT size FROM sizes WHERE prod_id = '{0}'",
+                                            prod2.Id);
+                                        using var cmd3 = new MySqlCommand(sql3, con);
+                                        using MySqlDataReader rdr3 = cmd3.ExecuteReader();
+                                        while (rdr3.Read())
+                                        {
+                                            Foundsize = rdr3.GetString(0);
+                                            if (Foundsize != "")
+                                            {
+                                                prod2.Size = Foundsize;
+                                                Foundsize = "";
+                                            }
+                                        }
+                                        rdr3.Close();
+                                    }
+                                }
+                            }
+                            else if (size == false)
+                            {
+                                for (int j = 0; j < searchCategoryArray.Length; j++)
+                                {
+                                    string sql =
+                                        string.Format("SELECT prod_id FROM products WHERE category ='{0}'",
+                                            searchCategoryArray[i]);
+                                    using var cmd = new MySqlCommand(sql, con);
+                                    using MySqlDataReader rdr = cmd.ExecuteReader();
+                                    while (rdr.Read())
+                                    {
+                                        FoundprodId = rdr.GetInt32(0);
+                                        if (FoundprodId != 0)
+                                        {
+                                            Product newFound = new Product();
+                                            newFound.Id = FoundprodId;
+                                            foundProducts.Add(newFound);
+                                            FoundprodId = 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            else if (category == false)
+            {
+                FoundprodId = 0;
+                FoundcolourId = 0;
+                Foundsize = "";
+
+                if (type == true)
+                {
+                    for (int j = 0; j < searchTypeArray.Length; j++)
+                    {
+                        string sql =
+                            string.Format("SELECT prod_id FROM products WHERE type = '{0}'",
+                                searchTypeArray[j]);
+                        using var cmd = new MySqlCommand(sql, con);
+                        using MySqlDataReader rdr = cmd.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            FoundprodId = rdr.GetInt32(0);
+                            if (FoundprodId != 0)
+                            {
+                                Product newFound = new Product();
+                                newFound.Id = FoundprodId;
+                                foundProducts.Add(newFound);
+                                FoundprodId = 0;
+                            }
+                        }
+                        rdr.Close();
+                        if (colour == true)
+                        {
+                            for (int k = 0; k < searchColourArray.Length; k++)
+                            {
+                                foreach (var prod1 in foundProducts)
+                                {
+                                    string sql2 =
+                                        string.Format("SELECT colour_id FROM colours WHERE prod_id = '{0}' AND colour = '{1}'",
+                                            prod1.Id, searchColourArray[k]);
+                                    using var cmd2 = new MySqlCommand(sql2, con);
+                                    using MySqlDataReader rdr2 = cmd2.ExecuteReader();
+                                    while (rdr2.Read())
+                                    {
+                                        FoundcolourId = rdr2.GetInt32(0);
+                                        if (FoundcolourId != 0)
+                                        {
+                                            prod1.Colour_id = FoundcolourId;
+                                            FoundcolourId = 0;
+                                        }
+                                    }
+                                    rdr2.Close();
+                                    if (size == true)
+                                    {
+                                        for (int l = 0; l < searchSizeArray.Length; l++)
+                                        {
+                                            foreach (var prod2 in foundProducts)
+                                            {
+                                                string sql3 = string.Format(
+                                                    "SELECT size FROM sizes WHERE prod_id = '{0}' AND colour_id = '{1}'",
+                                                    prod2.Id, prod2.Colour_id);
+                                                using var cmd3 = new MySqlCommand(sql3, con);
+                                                using MySqlDataReader rdr3 = cmd3.ExecuteReader();
+                                                while (rdr3.Read())
+                                                {
+                                                    Foundsize = rdr3.GetString(0);
+                                                    if (Foundsize != "")
+                                                    {
+                                                        prod2.Size = Foundsize;
+                                                        Foundsize = "";
+                                                    }
+                                                }
+                                                rdr3.Close();
+                                            }
+                                        }
+                                    }
+                                    else if (size == false)
+                                    {
+                                    }
+                                }
+                            }
+                        }
+                        else if (colour == false)
+                        {
+                            if (size == true)
+                            {
+                                for (int l = 0; l < searchSizeArray.Length; l++)
+                                {
+                                    foreach (var prod2 in foundProducts)
+                                    {
+                                        string sql3 = string.Format("SELECT size FROM sizes WHERE prod_id = '{0}'",
+                                            prod2.Id);
+                                        using var cmd3 = new MySqlCommand(sql3, con);
+                                        using MySqlDataReader rdr3 = cmd3.ExecuteReader();
+                                        while (rdr3.Read())
+                                        {
+                                            Foundsize = rdr3.GetString(0);
+                                            if (Foundsize != "")
+                                            {
+                                                prod2.Size = Foundsize;
+                                                Foundsize = "";
+                                            }
+                                        }
+                                        rdr3.Close();
+                                    }
+                                }
+                            }
+                            else if (size == false)
+                            {
+                            }
+                        }
+                    }
+                }
+                else if (type == false)
+                {
+                    if (colour == true)
+                    {
+                        for (int j = 0; j < searchColourArray.Length; j++)
+                        {
+                            string sql =
+                                string.Format("SELECT prod_id, colour_id FROM colours WHERE colour ='{0}'",
+                                    searchColourArray[j]);
+                            using var cmd = new MySqlCommand(sql, con);
+                            using MySqlDataReader rdr = cmd.ExecuteReader();
+                            while (rdr.Read())
+                            {
+                                FoundprodId = rdr.GetInt32(0);
+                                FoundcolourId = rdr.GetInt32(1);
+                                if (FoundprodId != 0)
+                                {
+                                    Product newFound = new Product();
+                                    newFound.Id = FoundprodId;
+                                    newFound.Colour_id = FoundcolourId;
+                                    foundProducts.Add(newFound);
+                                    FoundprodId = 0;
+                                    FoundcolourId = 0;
+                                }
+                            }
+                            if (size == true)
+                            {
+                                for (int l = 0; l < searchSizeArray.Length; l++)
+                                {
+                                    foreach (var prod2 in foundProducts)
+                                    {
+                                        string sql3 = string.Format(
+                                            "SELECT size FROM sizes WHERE prod_id = '{0}' AND colour_id = '{1}'",
+                                            prod2.Id, prod2.Colour_id);
+                                        using var cmd3 = new MySqlCommand(sql3, con);
+                                        using MySqlDataReader rdr3 = cmd3.ExecuteReader();
+                                        while (rdr3.Read())
+                                        {
+                                            Foundsize = rdr3.GetString(0);
+                                            if (Foundsize != "")
+                                            {
+                                                prod2.Size = Foundsize;
+                                                Foundsize = "";
+                                            }
+                                        }
+                                        rdr3.Close();
+                                    }
+                                }
+                            }
+                            else if (size == false)
+                            {
+                            }
+                        }
+                    }
+                    else if (colour == false)
+                    {
+                        if (size == true)
+                        {
+                            for (int j = 0; j < searchSizeArray.Length; j++)
+                            {
+                                string sql =
+                                    string.Format("SELECT prod_id, size FROM sizes WHERE size ='{0}'",
+                                        searchSizeArray[j]);
+                                using var cmd = new MySqlCommand(sql, con);
+                                using MySqlDataReader rdr = cmd.ExecuteReader();
+                                while (rdr.Read())
+                                {
+                                    FoundprodId = rdr.GetInt32(0);
+                                    Foundsize = rdr.GetString(1);
+                                    if (FoundprodId != 0)
+                                    {
+                                        Product newFound = new Product();
+                                        newFound.Id = FoundprodId;
+                                        newFound.Size = Foundsize;
+                                        foundProducts.Add(newFound);
+                                        FoundprodId = 0;
+                                        Foundsize = "";
+                                    }
+                                }
+                            }
+                        }
+                        else if (size == false)
+                        {
+                        }
+                    }
+                }
+            }
+
+            List<Product> editedFoundProducts = new List<Product>();
+
+            foreach (var prod in foundProducts)
+            {
+                if (category)
+                {
+                    if (type)
+                    {
+                        if (colour)
+                        {
+                            if (size)
+                            {
+                                if (prod.Id == 0 || prod.Colour_id == 0 || prod.Size == "")
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                            else if (!size)
+                            {
+                                if (prod.Id == 0 || prod.Colour_id == 0)
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                        }
+                        else if (!colour)
+                        {
+                            if (size)
+                            {
+                                if (prod.Id == 0 || prod.Size == "" )
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                            else if (!size)
+                            {
+                                if (prod.Id == 0)
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                        }
+                    }
+                    else if (!type)
+                    {
+                        if (colour)
+                        {
+                            if (size)
+                            {
+                                if (prod.Id == 0 || prod.Colour_id == 0 || prod.Size == "")
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                            else if (!size)
+                            {
+                                if (prod.Id == 0 || prod.Colour_id == 0)
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                        }
+                        else if (!colour)
+                        {
+                            if (size)
+                            {
+                                if (prod.Id == 0 || prod.Size == "" )
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                            else if (!size)
+                            {
+                                if (prod.Id == 0)
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (!category)
+                {
+                    if (type)
+                    {
+                        if (colour)
+                        {
+                            if (size)
+                            {
+                                if (prod.Id == 0 || prod.Colour_id == 0 || prod.Size == "")
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                            else if (!size)
+                            {
+                                if (prod.Id == 0 || prod.Colour_id == 0)
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                        }
+                        else if (!colour)
+                        {
+                            if (size)
+                            {
+                                if (prod.Id == 0 || prod.Size == "" )
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                            else if (!size)
+                            {
+                                if (prod.Id == 0)
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                        }
+                    }
+                    else if (!type)
+                    {
+                        if (colour)
+                        {
+                            if (size)
+                            {
+                                if (prod.Id == 0 || prod.Colour_id == 0 || prod.Size == "")
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                            else if (!size)
+                            {
+                                if (prod.Id == 0 || prod.Colour_id == 0)
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                        }
+                        else if (!colour)
+                        {
+                            if (size)
+                            {
+                                if (prod.Id == 0 || prod.Size == "" )
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                            else if (!size)
+                            {
+                                if (prod.Id == 0)
+                                {
+                                    editedFoundProducts.Add(prod);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            int foundProductsLength = foundProducts.Count;
+
+            for (int i = 0; i < foundProductsLength; i++)
+            {
+                foreach (var prod in editedFoundProducts)
+                {
+                    if (foundProducts.Contains(prod))
+                    {
+                        foundProducts.Remove(prod);
+                    }
+                }
+            }
+            
+            foundProducts.TrimExcess();
+
+            foreach (var prod2 in foundProducts)
+            {
+                Console.WriteLine(prod2.Id);
+            }
+
+
+            string testbhgfds = "";
+
+
+            // varierende SQL-kald alt efter mængden af parametertyper tilstede.
+
+            // size, colour, type, category
+
+            // type + category -> colour -> size
+
+
+            string[] test = { "placeholder" };
+
+            // return prod_id[]
             con.Close();
-            return barcodeArray;
+            return test;
         }
 
         public void Order(string callType, params object[] args)
@@ -425,8 +1140,8 @@ namespace Project.CSharpFiles
             cmd.Connection = con;
             if (callType == "Create new order")
             {
-                cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, phonenumber, email, adress, zipcode, country, ordered_items) 
-                VALUES ('{args[0]}','{args[1]}','{args[2]}','{args[3]}','{args[4]}','{args[5]}','{args[6]}','{args[7]}')";
+                cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, email, phonenumber, city, street, zipcode, country, ordered_items) 
+                VALUES ('{args[0]}','{args[1]}','{args[2]}','{args[3]}','{args[4]}','{args[5]}','{args[6]}','{args[7]}', 'test')";
                 cmd.ExecuteNonQuery();
                 
                 Stockchange("Reduce stock", "1 Hvid Medium 560 Lyserød X-Small ");
@@ -476,10 +1191,19 @@ namespace Project.CSharpFiles
 
         public string[] KPI(string callType, params object[] args)
         {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            
             int arraySize = 0;
             if (callType == "Type call")
             {
-                arraySize = 25;
+                string sql = "SELECT COUNT(type) as amount FROM types";
+                using var cmd = new MySqlCommand(sql, con);
+                using MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    arraySize = rdr.GetInt32(0);
+                }
             }
             else if (callType == "Product type call")
             {
@@ -488,8 +1212,7 @@ namespace Project.CSharpFiles
             string[] array = new string[arraySize];
             if (callType == "Type call")
             {
-                using var con = new MySqlConnection(_cs);
-                con.Open();
+
                 string sql = "SELECT type FROM types";
                 using var cmd = new MySqlCommand(sql, con);
                 using MySqlDataReader rdr = cmd.ExecuteReader();
@@ -506,9 +1229,6 @@ namespace Project.CSharpFiles
             {
                 string[][] product = new string[10000][];
                 
-                
-                using var con = new MySqlConnection(_cs);
-                con.Open();
                 string sql = "SELECT * FROM sizes";
                 using var cmd = new MySqlCommand(sql, con);
                 using MySqlDataReader rdr = cmd.ExecuteReader();
@@ -697,12 +1417,42 @@ namespace Project.CSharpFiles
                     }
                 }
             }
-
             return sortedProducts;
         }
-
-        public void KPI3()
+        public List<Product> KPI3(int product_ID)
         {
+            int count = 0;
+            List<Product> Sold = new List<Product>();
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+
+            string sql2 = $"SELECT sold, colour FROM colours WHERE prod_id = {product_ID}";
+            using var cmd2 = new MySqlCommand(sql2, con);
+            using MySqlDataReader rdr2 = cmd2.ExecuteReader();
+
+            while (rdr2.Read())
+            {
+                Product KPI = new Product();
+                KPI.Sold = rdr2.GetInt32(0);
+                KPI.Colour = rdr2.GetString(1);
+
+                Sold.Add(KPI);
+
+            }
+            rdr2.Close();
+
+            string sql = $"SELECT views FROM products WHERE prod_id = {product_ID}";
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                Sold[count].Views = rdr.GetInt32(0);
+
+                count++;
+            }
+            rdr.Close();
+
+            return Sold;
         }
 
         public string UserAdministration(string callType, params object[] args)
@@ -766,23 +1516,36 @@ namespace Project.CSharpFiles
                     Console.WriteLine("Wrong password");
                 }
             }
-            else if (callType == "verify")
-            {
-                string currentAccesToken = args[0].ToString();
-                string tokenInDb = "";
-                using var con = new MySqlConnection(_cs);
-                con.Open();
-                string sql = string.Format("SELECT access_token FROM login WHERE access_token = '{0}'", currentAccesToken);
-                using var cmd = new MySqlCommand(sql, con);
-                using MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    tokenInDb = rdr.GetString(0);
-                }
-                rdr.Close();
-                returnString = tokenInDb;
-            }
             return returnString;
+        }
+        public bool Verify(string currentAccesToken)
+        {
+            string tokenInDb = "";
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = string.Format("SELECT access_token FROM login WHERE access_token = '{0}'", currentAccesToken);
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                tokenInDb = rdr.GetString(0);
+            }
+            rdr.Close();
+            if (currentAccesToken != null)
+            { 
+                if (currentAccesToken.Equals(tokenInDb))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+               return false;
+            }
         }
     }
 }

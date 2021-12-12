@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Project.Pages.KpiPage
+namespace Project.Pages.AdminPage
 {
     #line hidden
     using System;
@@ -96,21 +96,28 @@ using Project.Shared.ComponentCode;
 #line hidden
 #nullable disable
 #nullable restore
-#line 13 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
-using System.Linq;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "c:\users\runef\source\repos\p3-project\project\Pages\KpiPage\Kpi.razor"
+#line 2 "c:\users\runef\source\repos\p3-project\project\Pages\AdminPage\AdminEdit.razor"
 using CSharpFiles;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Kpi")]
-    public partial class Kpi : KpiCode
+#nullable restore
+#line 3 "c:\users\runef\source\repos\p3-project\project\Pages\AdminPage\AdminEdit.razor"
+using System.IO;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "c:\users\runef\source\repos\p3-project\project\Pages\AdminPage\AdminEdit.razor"
+using System.Linq;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/EditProducts")]
+    public partial class AdminEdit : AdminCode
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -118,9 +125,44 @@ using CSharpFiles;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 115 "c:\users\runef\source\repos\p3-project\project\Pages\KpiPage\Kpi.razor"
- 
-    int index = 0;
+#line 210 "c:\users\runef\source\repos\p3-project\project\Pages\AdminPage\AdminEdit.razor"
+           
+        public int i = 1;
+        public string Visible = "";
+
+        public void Popup()
+        {
+            i++;
+            if (i % 2 == 0)
+            {
+                Visible = "block";
+            }
+            else
+            {
+                Visible = "none";
+            }
+        }
+
+
+
+        string PlaceholderName;
+        string PlaceholderPrice;
+        string PlaceholderDescription;
+        string PlaceholderTransparency;
+        string PlaceholderMaterials;
+
+
+        private DbCall call = new DbCall();
+
+        public string[] TypeArray;
+
+        protected override Task OnInitializedAsync()
+        {
+            TypeArray = call.KPI("Type call");
+
+            return base.OnInitializedAsync();
+        }
+    
 
 #line default
 #line hidden

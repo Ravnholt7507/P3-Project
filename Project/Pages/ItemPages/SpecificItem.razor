@@ -1,11 +1,11 @@
 ﻿@page "/Product/{ItemSpecification}"
 @using Project.CSharpFiles
 @inject ProtectedLocalStorage BrowserStorage
+@inject ProtectedSessionStorage SessionStorage
 @inherits SpecificItemCode
 
 
 <h2>Product details</h2>
-
 <div class="page">
     <div class="card-body">
         <div class="img-container">
@@ -54,20 +54,98 @@
             </div>
         </div>
     </div>
-    
 </div>
 
+@code {
+    public string SelectedColour;
+    public string SelectedSize;
+    public string Visits;
+    public string CartItem;
+
+    // Add an item to a string in local storage that works as a cart
+    public void AddItem()
+    {
+        CartItem += $"& {Prod.Id} {Prod.ColourFinder(SelectedColour).ColourId} {SelectedSize}";
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        SelectedColour = Prod.MyColours[0].ColourName;
+        SelectedSize = Prod.MyColours[0].Sizes[0];
+        return base.OnParametersSetAsync();
+    }
+
+    public void ResetSize()
+    {
+        SelectedSize = Prod.ColourFinder(SelectedColour).Sizes[0];
+    }
+
+    public string FindStock(string SelectedColour, string SelectedSize)
+    {
+        int TempVar = Prod.ColourFinder(SelectedColour).Sizes.FindIndex(x => x == SelectedSize);
+        if (TempVar < 0)
+        {
+            ResetSize();
+            return Prod.ColourFinder(SelectedColour).stock[0];
+        }
+        return Prod.ColourFinder(SelectedColour).stock[TempVar];
+    }
+
+    // Load the cart from local storage
+    public async Task Read()
+    {
+        var result = await BrowserStorage.GetAsync<string>("CartItems");
+        CartItem = result.Success ? result.Value : "";
+    }
+
+    public async Task Read2() {
+        var result = await SessionStorage.GetAsync<string>("PagesVisited");
+        Visits = result.Success ? result.Value : "";
+        var visitArray = SplitVisits();
+
+        // DbCall
+        if (!visitArray.Contains(Prod.Id.ToString()))
+        {
+            DbCall call = new DbCall();
+            call.VisitUpdate(Prod.Id);
+        }
+        Visits += "$" + Prod.Id;
+        await Save();
+    }
+
+    // Save the string into local storage
+    public async Task Save()
+    {
+        await BrowserStorage.SetAsync("CartItems", CartItem);
+        await SessionStorage.SetAsync("PagesVisited", Visits);
+    }
+
+    public string[] SplitVisits()
+    {
+        var array = Visits.Split('$');
+        array = array.Skip(1).ToArray();
+        array = array.Distinct().ToArray();
+        return array;
+    }
+
+    // Load specific methods on page load
+    protected override Task OnInitializedAsync()
+    {
+        Read();
+        Read2();
+        return base.OnInitializedAsync();
+    }
+}
 
 
 <style>
-
     .page {
         height: fit-content;
         margin-bottom: 30px;
         outline: 2px solid gray;
         padding: 3px;
-
     }
+
     .card-body {
         height: fit-content;
         margin-bottom: -400px;
@@ -80,7 +158,7 @@
         bottom: 550px;
     }
 
-    .card-title{
+    .card-title {
         font-family: fantasy;
         text-decoration: underline;
         font-size: x-large;
@@ -110,98 +188,31 @@
         height: 500px;
     }
 
-    .non-interactive{
+    .non-interactive {
         margin-top: 70px;
     }
 
-    .btns{
+    .btns {
         margin-top: 50px;
     }
 
-    .btnnn{
-        display:inline-block;
-        padding:0.35em 1.2em;
-        border:0.1em solid #FFFFFF;
-        margin:0 0.3em 0.3em 0;
-        border-radius:0.12em;
+    .btnnn {
+        display: inline-block;
+        padding: 0.35em 1.2em;
+        border: 0.1em solid #FFFFFF;
+        margin: 0 0.3em 0.3em 0;
+        border-radius: 0.12em;
         box-sizing: border-box;
-        text-decoration:none;
-        font-family:'Roboto',sans-serif;
-        font-weight:300;
-        color:#FFFFFF;
-        text-align:center;
+        text-decoration: none;
+        font-family: 'Roboto',sans-serif;
+        font-weight: 300;
+        color: #FFFFFF;
+        text-align: center;
         transition: all 0.2s;
     }
-        
-    .btnnn{
-            color:#000000;
-            background-color:#FFFFFF;
+
+    .btnnn {
+        color: #000000;
+        background-color: #FFFFFF;
     }
-
-    
-
-
 </style>
-
-
-@code {
-    public string SelectedColour;
-    public string SelectedSize;
-
-    public string CartItem;
-
-    // Add an item to a string in local storage that works as a cart
-    public void AddItem()
-    {
-        CartItem += $"& {Prod.Id} {Prod.ColourFinder(SelectedColour).ColourId} {SelectedSize}";
-        Console.WriteLine(Prod.ColourFinder(SelectedColour).Sizes[0]);
-        Console.WriteLine(SelectedSize);
-
-        //   CartItem += $"& {Prod.Id} {Prod.Colour_id} {Prod.Size}";
-    }
-
-    // Load the cart from local storage
-    public async Task Read()
-    {
-        var result = await BrowserStorage.GetAsync<string>("CartItems");
-        CartItem = result.Success ? result.Value : "";
-    }
-
-    // Save the string into local storage
-    public async Task Save()
-    {
-        await BrowserStorage.SetAsync("CartItems", CartItem);
-    }
-
-    // Load specific methods on page load
-    protected override Task OnInitializedAsync()
-    {
-        Read();
-        return base.OnInitializedAsync();
-    }
-
-    protected override Task OnParametersSetAsync()
-    {
-        SelectedColour = Prod.MyColours[0].ColourName;
-        SelectedSize = Prod.MyColours[0].Sizes[0];
-        return base.OnParametersSetAsync();
-    }
-
-    public void ResetSize()
-    {
-        SelectedSize = Prod.ColourFinder(SelectedColour).Sizes[0];
-    }
-
-    public string FindStock(string SelectedColour, string SelectedSize)
-    {
-        int TempVar = Prod.ColourFinder(SelectedColour).Sizes.FindIndex(x => x == SelectedSize);
-        if(TempVar < 0)
-        {
-            ResetSize();
-            return Prod.ColourFinder(SelectedColour).stock[0];
-        }
-        return Prod.ColourFinder(SelectedColour).stock[TempVar];
-    }
-}
-
-

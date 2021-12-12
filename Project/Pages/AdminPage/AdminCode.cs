@@ -17,6 +17,11 @@ namespace Project.Pages.AdminPage
         public string CategoryToRemove = null;
         public string NewItemName = null;
 
+        public bool DataBaseVerify(string AccesToken)
+        {
+            return _call.Verify(AccesToken);
+        }
+
         public void Remove()
         {
             foreach (Category category in Categories)

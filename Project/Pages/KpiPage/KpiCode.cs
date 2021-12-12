@@ -10,9 +10,21 @@ namespace Project.Pages.KpiPage
     public class KpiCode : ComponentBase
     {
         private DbCall call = new DbCall();
-        
+        List<Product> KPIData = new List<Product>();
         public int i = 1;
         public string Visible = "";
+        public int Counter = 0;
+        public int CounterOverride = 0;
+        double _SoldPrView = 0;
+        public string fillTable;
+        
+        public void ShowProducts(string type)
+        {
+            fillTable = type;
+            Popup();
+            StateHasChanged();
+            Counter = 0;
+        }
 
         public void Popup()
         {
@@ -26,6 +38,7 @@ namespace Project.Pages.KpiPage
                 Visible = "none";
             }
         }
+
         public void StatsPopup()
         {
             i++;
@@ -38,19 +51,59 @@ namespace Project.Pages.KpiPage
                 Visible = "none";
             }
         }
-        public List<string> Kpis = new List<string>() { "Resultgrad", "Buffer", "Egenkapital", "Likviditet" };
-        public List<string> Months = new List<string>() { "Jan", "Feb", "Mar", "Apr" };
-        public List<string> Percent = new List<string>() { "5%", "10%", "30%", "70%" };
+
+        public List<string> Kpis = new List<string>() { "Antal produktvisninger", "Totale salg", "Visninger per salg, for produkt", "Salg af valgte farve", "RoI"};
+        //public List<string> Months = new List<string>() { "Jan", "Feb", "Mar", "Apr" };
+        public List<string> Percent = new List<string>();
         public string[] typeArray;
         public string[][][] ProductArray;
+
         protected override Task OnInitializedAsync()
         {
             typeArray = call.KPI("Type call");
             ProductArray = call.KPI2();
-
             return base.OnInitializedAsync();
         }
 
+        public double RoI(double investment, int amountSold, double price)
+        {
+            double result = 0;
+
+            result = (amountSold * price) / investment;
+
+            return result * 100;
+        }
+
+        public double SoldPrView(int views, int sold)
+        {
+            double result = 0;
+
+            result = views / sold;
+
+            return result;
+        }
         
+        public void ShowKPI(string[] productkpi)
+        {
+            List<string> placeholderdata = new List<string>();
+            int TotalSales = 0;
+            KPIData = call.KPI3(int.Parse(productkpi[1]));
+            foreach (var item in KPIData)
+            {
+                TotalSales += item.Sold;
+            }
+            _SoldPrView = SoldPrView(KPIData[0].Views, TotalSales);
+            placeholderdata.Add(KPIData[0].Views.ToString());
+            placeholderdata.Add(TotalSales.ToString());
+            placeholderdata.Add(_SoldPrView.ToString());
+            foreach (var item in KPIData)
+            {
+                if (item.Colour == productkpi[4])
+                {
+                    placeholderdata.Add(item.Sold.ToString());
+                }
+            }
+            Percent = placeholderdata;
+        }
     }
 }
