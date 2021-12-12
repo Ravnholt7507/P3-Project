@@ -41,27 +41,26 @@ namespace Project.Pages.AdminPage
             }
         }
 
-        public class Category
+        public List<Category> TestRemove(string CategoryToRemove)
         {
-            public string CategoryName;
-
-            public Category(string Name)
+            foreach (Category category in TestCats1)
             {
-                CategoryName = Name;
+                if (category.CategoryName == CategoryToRemove)
+                {
+                    TestCats1.Remove(category);
+                    return TestCats1;
+                }
             }
-
-            public List<Subcategory> Subcategory = new List<Subcategory>();
+            return TestCats1;
         }
 
-        public class Subcategory
+        List<Category> TestCats1 = new List<Category>()
         {
-            public string SubcategoryName;
+            new Category("Drenge"),
+            new Category("Kvinder"),
+            new Category("TestCategory"),
+        };
 
-            public Subcategory(string Name)
-            {
-                SubcategoryName = Name;
-            }
-        }
 
         public List<Category> Categories = new List<Category>();
         public string selectedCategory = null;
@@ -73,6 +72,18 @@ namespace Project.Pages.AdminPage
             Categories.Add(new Category(newCategory));
             newCategory = null;
         }
+
+        public List<Category> TestUpdateList(string CategoryName)
+        {
+            TestCats2.Add(new Category(CategoryName));
+            return TestCats2;
+        }
+
+        List<Category> TestCats2 = new List<Category>()
+        {
+            new Category("Drenge"),
+            new Category("TestCategory"),
+        };
 
         public void Insert()
         {
@@ -86,6 +97,28 @@ namespace Project.Pages.AdminPage
                 }
             }
         }
+
+        public Subcategory TestInsert(string selectedCategory, string newTitle)
+        {
+            foreach (Category category in TestCats)
+            {
+                if (category.CategoryName == selectedCategory)
+                {
+                    category.Subcategory.Add(new Subcategory(newTitle));
+                    return new Subcategory(newTitle);
+                }
+            }
+            return null;
+        }
+
+        public List<Category> TestCats = new List<Category>()
+        {
+            new Category("Drenge"),
+            new Category("Kvinder"),
+            new Category("TestCategory"),
+        };
+
+
 
         public string Visible;
         private int i = 1;
@@ -106,7 +139,6 @@ namespace Project.Pages.AdminPage
         // ADMIN 2 ----------------------------------- //
 
         public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
-        public List<string> PlaceholderSizes = new List<string>();
 
         public string SelectedValue;
         public string Description;
@@ -130,12 +162,34 @@ namespace Project.Pages.AdminPage
         public bool show_ektraValgMenu = false;
         public void Verify()
         {
-            NewColor = new color(SelectedColour);
-            NewColor.SnS = SelectedSizes.ToArray();
-            MyColors.Add(NewColor);
-            SelectedSizes.Clear();
-            NewColor = null;
-            show_ektraValgMenu = true;
+            if (!MyColors.Contains(SwitchFuntion(SelectedColour)))
+            {
+                NewColor = new color(SelectedColour);
+                NewColor.SnS = SelectedSizes.ToArray();
+                MyColors.Add(NewColor);
+                SelectedSizes.Clear();
+                NewColor = null;
+                show_ektraValgMenu = true;
+            }
+
+            //else
+            //{
+            //    List<SizeAndStock> Placeholder = new List<SizeAndStock>();
+            //    for (int i = 0; i < Sizes.Length; i++)
+            //    {
+            //        if (SwitchFuntion(SelectedColour).SnS[i] != null)
+            //        {
+            //            if (SwitchFuntion(SelectedColour).SnS.Contains(SwitchFuntion(SelectedColour).SnS[i]))
+            //            {
+            //                Console.WriteLine(SwitchFuntion(SelectedColour).SnS[i]);
+            //                SelectedSizes.Remove(SwitchFuntion(SelectedColour).SnS[i]);
+            //            }
+            //        }
+            //    }
+                
+            //    SwitchFuntion(SelectedColour).SnS.ToList().AddRange(SelectedSizes);
+            //    SwitchFuntion(SelectedColour).SnS.ToArray();
+            //}
         }
 
         protected override Task OnInitializedAsync()
@@ -151,6 +205,12 @@ namespace Project.Pages.AdminPage
             return MyColors.Find(x => x.ColorName == colour);
         }
 
+        public SizeAndStock FindSizeByName(string size)
+        {
+            SizeAndStock SelectedSize = Array.Find(SwitchFuntion(SelectedColour).SnS, x => x.Size == size);
+            return SelectedSize;
+        }
+
         public void ConfirmStock()
         {
             imgState = !imgState;
@@ -158,7 +218,6 @@ namespace Project.Pages.AdminPage
 
         public void CheckboxSizes(string size, object checkvalue)
         {
-            Console.WriteLine(checkvalue);
             if ((bool)checkvalue)
                 SelectedSizes.Add(new SizeAndStock(size));
             if (!(bool)checkvalue)
@@ -167,12 +226,12 @@ namespace Project.Pages.AdminPage
 
         public void CheckboxColours(string colour)
         {
-            SelectedColour = colour;
+            if (!MyColors.Contains(SwitchFuntion(colour)))
+                SelectedColour = colour;
         }
 
         public void RemoveItem(int i, color Color)
         {
-            Console.WriteLine(i);
             Color.SnS = Color.SnS.Where((source, index) => index != i).ToArray();
             if (Color.SnS.Length == 0)
             {
