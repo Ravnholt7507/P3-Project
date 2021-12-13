@@ -26,6 +26,23 @@
                 body, h1, h2, h3, h4, h5, h6, .w3-wide {
                     font-family: "Montserrat", sans-serif;
                 }
+
+                .buttright{
+                      font-family: "Open Sans", sans-serif;
+                      font-size: 16px;
+                      letter-spacing: 2px;
+                      text-decoration: none;
+                      text-transform: uppercase;
+                      color: #000;
+                      cursor: pointer;
+                      border: 3px solid;
+                      padding: 0.25em 0.5em;
+                      box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+                      position: relative;
+                      user-select: none;
+                      -webkit-user-select: none;
+                      touch-action: manipulation;
+                }
             </style>
 
             <body class="w3-content" style="max-width: 100%">
@@ -51,9 +68,9 @@
                         <p class="w3-right">
                             @if (isLoaded)
                             {
-                                <a class="butt" href="Admin">Admin</a>
-                                <a class="butt" href="Admin2">Admin2</a>
-                                <a class="butt" href="Kpi">Kpi</a>
+                                <a class="buttright" href="Admin">Admin</a>
+                                <a class="buttright" href="Admin2">Admin2</a>
+                                <a class="buttright" href="Kpi">Kpi</a>
                             }
                             <a class="w3-button" href="Cart"><i class="fa fa-shopping-cart w3-margin-right"> Cart </i></a>
                             <i class="fa fa-search"></i>
