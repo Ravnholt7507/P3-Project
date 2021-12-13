@@ -13,6 +13,7 @@ namespace Project.Pages.KpiPage
         List<Product> KPIData = new List<Product>();
         public int i = 1;
         public string Visible = "";
+        public string Visible2 = "";
         public int Counter = 0;
         public int CounterOverride = 0;
         double _SoldPrView = 0;
@@ -41,14 +42,15 @@ namespace Project.Pages.KpiPage
 
         public void StatsPopup()
         {
+            i = 1;
             i++;
             if (i % 2 == 0)
             {
-                Visible = "block";
+                Visible2 = "block";
             }
             else
             {
-                Visible = "none";
+                Visible2 = "none";
             }
         }
 

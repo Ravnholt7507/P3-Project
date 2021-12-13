@@ -15,7 +15,7 @@
                 {
                     <tr>
                         <td>@type</td>
-                        <td style="text-align:center"><button class="butt" @onclick="() => { ShowProducts(type); }"><i class="fa fa-times"></i></button></td>
+                        <td style="text-align:center"><button class="butt_kpi" @onclick="() => { ShowProducts(type); }"><i class="fa fa-search-plus"></i></button></td>
                     </tr>
                 }
 
@@ -62,7 +62,7 @@
                                 <th>@prod[8],-</th> @*Price*@
                                 <th>@prod[3]</th> @*Stock*@
                                 <th>@prod[5]</th> @*Image*@
-                                <td style="text-align:center"><button class="butt" @onclick="() => { Counter = 0; ShowKPI(prod); }"><i class="fa fa-times"></i></button></td>
+                                <td style="text-align:center"><button class="butt_kpi" @onclick="() => { Counter = 0; ShowKPI(prod); StatsPopup(); }"><i class="fa fa-info"></i></button></td>
                             </tr>
                         }
                     }
@@ -70,20 +70,23 @@
                 }
             </table>
         </div>
-        @if (Kpis.Count != 0)
-        {
-            <div class="stats">
-                <table>
-                    @for (int i = 0; i < Percent.Count; i++)
-                    {
-                        <tr>
-                            <th>@Kpis[i] </th>
-                            <th>@Percent[i]</th>
-                        </tr>
-                    }
-                </table>
+
+        
+            <div class="outer_stats">
+                <h3>Statestik</h3>
+                <div class="stats">
+                    <table>
+                        @for (int i = 0; i < Percent.Count; i++)
+                        {
+                            <tr>
+                                <th>@Kpis[i] </th>
+                                <th>@Percent[i]</th>
+                            </tr>
+                        }
+                    </table>
+                </div>
             </div>
-        }
+        
     </div>
 </div>
 
@@ -96,8 +99,10 @@
         position: relative;
     }
         .item-list{
+            position: relative;
+            right: 20px;
             width: fit-content;
-            height: 450px;
+            height: 700px;
             overflow: auto;
             padding: 20px;
         }
@@ -105,26 +110,37 @@
     .outer_specific-item {
         position: relative;
         left: 325px;
-        bottom: 500px;
+        bottom: 750px;
     }
-    .specific-item {
-        width: fit-content;
-        height: 450px;
-        overflow: auto;
-        padding: 20px;
-    }
+        .specific-item {
+            position: relative;
+            right: 20px;
+            width: fit-content;
+            height: 565px;
+            overflow: auto;
+            padding: 20px;
+        }
 
     .outer_stats {
         position: relative;
-        left: 1200px;
+        left: 860px;
+        bottom: 615px;
+        display: none;
+        display: @Visible2;
     }
         .stats {
+            position: relative;
+            top: 20px;
             height: fit-content;
             width: fit-content;
             border: 1px solid black;
             border-radius: 3px;
             padding: 20px;
         }
+
+    .butt_kpi{
+
+    }
 
     td, th {
         border: 1px solid black;
