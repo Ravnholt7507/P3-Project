@@ -199,6 +199,10 @@ namespace Project.CSharpFiles
             cmd.Connection = con;
             cmd.CommandText = sql;
             cmd.ExecuteNonQuery();
+            
+            cmd.CommandText = $"UPDATE sizes SET stock = stock - {Amount} WHERE prod_id = {Prod_Id} AND colour_id = {Colour_Id}";
+            cmd.ExecuteNonQuery();
+            
             con.Close();
         }
 
@@ -1144,7 +1148,7 @@ namespace Project.CSharpFiles
                 VALUES ('{args[0]}','{args[1]}','{args[2]}','{args[3]}','{args[4]}','{args[5]}','{args[6]}','{args[7]}', 'test')";
                 cmd.ExecuteNonQuery();
                 
-                Stockchange("Reduce stock", "1 Hvid Medium 560 Lyserød X-Small ");
+                //Stockchange("Reduce stock", "1 Hvid Medium 560 Lyserød X-Small ");
             }
             else if (callType == "Update order")
             {
