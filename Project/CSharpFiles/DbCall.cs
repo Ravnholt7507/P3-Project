@@ -350,13 +350,17 @@ namespace Project.CSharpFiles
             return returnArray;
         }
 
-        public string[] SearchCall(params object[] args)
+        public List<Product> SearchCall(params object[] args)
         {
             string[] searchParams = new string[args.Length];
-            for (int i = 0; i < args.Length; i++)
-            {
-                searchParams[i] = args[i].ToString().ToLower();
-            }
+            var inputsplit = args[0].ToString();
+            searchParams = inputsplit.ToLower().Split(" ");
+            //for (int i = 0; i < args.Length; i++)
+            //{
+            //    searchParams[i] = inputsplit[i];
+
+            //}
+
 
             string[] columns = { "category", "type", "colour", "size" };
             string[] tables = { "categories", "types", "colours", "sizes" };
@@ -1128,8 +1132,49 @@ namespace Project.CSharpFiles
 
             // return prod_id[]
             con.Close();
-            return test;
+            return foundProducts;
         }
+
+        public Product GetProdByID(int id)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+
+            Product searchedProduct = new Product();
+            string sql =$"SELECT prod_name, price, prod_id FROM products WHERE prod_id = {id};";
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                searchedProduct.Name = rdr.GetString(0);
+                searchedProduct.Price = rdr.GetDouble(1);
+                searchedProduct.Id = rdr.GetInt32(2);
+            }
+
+            rdr.Close();
+            string sqlImg = $"SELECT img, colour_id, colour FROM colours WHERE prod_id = {id} LIMIT 1;";
+            using var cmdImg = new MySqlCommand(sqlImg, con);
+            using MySqlDataReader rdrImg = cmdImg.ExecuteReader();
+            while (rdrImg.Read())
+            {
+                searchedProduct.ImageLink = rdrImg.GetString(0);
+                searchedProduct.Colour_id = rdrImg.GetInt32(1);
+                searchedProduct.Colour = rdrImg.GetString(2);
+            }
+            rdrImg.Close();
+
+            string sqlSize = $"SELECT size FROM sizes WHERE prod_id = {id} LIMIT 1;";
+            using var cmdSize = new MySqlCommand(sqlSize, con);
+            using MySqlDataReader rdrSize = cmdSize.ExecuteReader();
+            while (rdrSize.Read())
+            {
+                searchedProduct.Size = rdrSize.GetString(0);
+            }
+            rdrSize.Close();
+
+            return searchedProduct;
+        }
+
 
         public void Order(string callType, params object[] args)
         {

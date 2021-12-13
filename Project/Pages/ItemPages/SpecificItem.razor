@@ -57,8 +57,7 @@
 </div>
 
 @code {
-    public string SelectedColour;
-    public string SelectedSize;
+    
     public string Visits;
     public string CartItem;
 
@@ -66,13 +65,6 @@
     public void AddItem()
     {
         CartItem += $"& {Prod.Id} {Prod.ColourFinder(SelectedColour).ColourId} {SelectedSize}";
-    }
-
-    protected override Task OnParametersSetAsync()
-    {
-        SelectedColour = Prod.MyColours[0].ColourName;
-        SelectedSize = Prod.MyColours[0].Sizes[0];
-        return base.OnParametersSetAsync();
     }
 
     public void ResetSize()

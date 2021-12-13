@@ -69,17 +69,25 @@ else
         {
             return Products;
         }
-
-        var array = filter.Split(' ');
+        List<Product> ProductID = new List<Product>();
+        
         DbCall dbcall = new DbCall();
-        string[] itemArray = dbcall.SearchCall("Kvinder", "bukser", "blå", "small");
-        Console.WriteLine(itemArray[0][0]);
-        List<Product> newProducts = new List<Product>();
-        for (int i = 0; i < itemArray.Length; i++)
+        ProductID = dbcall.SearchCall(filter);
+
+        List<Product> searchedProducts = new List<Product>();
+
+        foreach ( var prod in ProductID)
         {
-            newProducts.Add(Product.CreateInstance(itemArray[i]));
+            searchedProducts.Add(dbcall.GetProdByID(prod.Id));
         }
-        return newProducts;
+
+        //Console.WriteLine(itemArray[0][0]);
+
+        //for (int i = 0; i < itemArray.Length; i++)
+        //{
+        //    newProducts.Add(Product.CreateInstance(itemArray[i]));
+        //}
+        return searchedProducts;
     }
 
     [Parameter]

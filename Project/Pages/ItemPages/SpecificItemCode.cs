@@ -13,7 +13,8 @@ namespace Project.Pages.ItemPages
         [Parameter]
         public string ItemSpecification { get; set; }
 
-
+        public string SelectedColour;
+        public string SelectedSize;
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
@@ -22,13 +23,19 @@ namespace Project.Pages.ItemPages
             int prodId = int.Parse(specificationArray[0]);
             int colourId = int.Parse(specificationArray[1]);
 
+
+            
+
             string size = specificationArray[2];
             
 
             if (prodId != 0 && colourId != 0 && size != "")
             {
                 Prod = GetProduct(prodId, colourId, size);
+                SelectedColour = Prod.MyColours[0].ColourName;
+                SelectedSize = Prod.MyColours[0].Sizes[0];
             }
+
         }
 
         public Product GetProduct(int prodid, int colourid, string size)
@@ -43,6 +50,7 @@ namespace Project.Pages.ItemPages
             string[][] array = new string[1][];
             array = product.Call("Specific Product", "Kald 1", prodid, colourid);
             string[][] colourSizeArray = product.Call("Specific Product", "Kald 2", prodid);
+
             product.Name = array[0][0];
             product.Price = int.Parse(array[0][1]);
             product.Description = array[0][2];
@@ -50,10 +58,12 @@ namespace Project.Pages.ItemPages
      
             for (int i = 0; i < colourSizeArray.Length; i++)
             {
+                Console.WriteLine("test1");
                 if (colourSizeArray[i] != null)
                 {
                     //product.ColourList.Add(colourSizeArray[i][0]);
                     product.MyColours.Add(new Colour(colourSizeArray[i][1], int.Parse(colourSizeArray[i][0])));
+                    Console.WriteLine("test");
                 }
             }
 
