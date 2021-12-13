@@ -67,11 +67,16 @@ a, .btn-link {
     border-radius: 4px;
 }
 
-    .butt:hover {
-        background: #fff;
-        box-shadow: 0px 2px 10px 5px #1abc9c;
-        color: #000;
-    }
+.admin_kpi_btns{
+    position: relative;
+    right: 20px;
+}
+
+.butt:hover {
+    background: #fff;
+    box-shadow: 0px 2px 10px 5px #1abc9c;
+    color: #000;
+}
 
     .butt:focus {
         outline: 0;
