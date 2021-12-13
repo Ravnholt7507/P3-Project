@@ -9,7 +9,7 @@ namespace Project.Pages.KpiPage
 {
     public class KpiCode : ComponentBase
     {
-        private DbCall call = new DbCall();
+        public DbCall call = new DbCall();
         List<Product> KPIData = new List<Product>();
         public string Visible = "";
         private int i = 1;
@@ -106,6 +106,10 @@ namespace Project.Pages.KpiPage
                 }
             }
             Percent = placeholderdata;
+        }
+        public bool DataBaseVerify(string AccesToken)
+        {
+            return call.Verify(AccesToken);
         }
     }
 }

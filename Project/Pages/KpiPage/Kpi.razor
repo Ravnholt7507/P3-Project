@@ -1,77 +1,81 @@
 ﻿@page "/Kpi"
 @inherits KpiCode
+@inject ProtectedSessionStorage SessionStorage
 @using CSharpFiles
 
-<div class="page">
-    <h3>Kpi</h3>
-    <div class="outer_item-list">
-        <div class="item-list">
-            <table>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Show KPI</th>
-                </tr>
-                @foreach (var type in typeArray)
-                {
+@if (isLoaded)
+{
+    <div class="page">
+        <h3>Kpi</h3>
+        <div class="outer_item-list">
+            <div class="item-list">
+                <table>
                     <tr>
-                        <td>@type</td>
-                        <td style="text-align:center"><button class="butt_kpi" @onclick="() => { ShowProducts(type); }"><i class="fa fa-search-plus"></i></button></td>
+                        <th>Product Name</th>
+                        <th>Show KPI</th>
                     </tr>
-                }
-
-
-                @*@foreach (var item in typeArray)
+                    @foreach (var type in typeArray)
                     {
-                        if (item != null)
-                        {
-                            <tr>
-                                <td>@item</td>
-                                <td style="text-align:center"><button class="butt" @onclick="ShowProducts(index)"><i class="fa fa-times"></i></button></td>
-                            </tr>
-                        }
-                    }*@
-            </table>
-        </div>
-    </div>
-    <div class="outer_specific-item">
-        <h3>Specifikke Artikler</h3>
-        <div class="specific-item">
-            <table>
-
-                <tr>
-                    <th>Product Name</th>
-                    <th>Type</th>
-                    <th>Color</th>
-                    <th>Size</th>
-                    <th>Prize</th>
-                    <th>Stock</th>
-                    <th>IMG</th>
-                    <th>Stats</th>
-                </tr>
-                @foreach (var type in typeArray)
-                {
-                    if (fillTable == type)
-                    {
-                        foreach (var prod in ProductArray[Counter])
-                        {
-                            <tr>
-                                <td>@prod[6]</td> @*Product Name*@
-                                <td>@prod[7]</td> @*Type*@
-                                <td>@prod[4]</td> @*Color*@
-                                <th>@prod[2]</th> @*Size*@
-                                <th>@prod[8],-</th> @*Price*@
-                                <th>@prod[3]</th> @*Stock*@
-                                <th>@prod[5]</th> @*Image*@
-                                <td style="text-align:center"><button class="butt_kpi" @onclick="() => { Counter = 0; ShowKPI(prod); StatsPopup(); }"><i class="fa fa-info"></i></button></td>
-                            </tr>
-                        }
+                        Counter = 0;
+                        <tr>
+                            <td>@type</td>
+                            <td style="text-align:center"><button class="butt_kpi" @onclick="() => { ShowProducts(type); }"><i class="fa fa-search-plus"></i></button></td>
+                        </tr>
                     }
-                    Counter++;
-                }
-            </table>
-        </div>
 
-        
+
+                    @*@foreach (var item in typeArray)
+                        {
+                            if (item != null)
+                            {
+                                <tr>
+                                    <td>@item</td>
+                                    <td style="text-align:center"><button class="butt" @onclick="ShowProducts(index)"><i class="fa fa-times"></i></button></td>
+                                </tr>
+                            }
+                        }*@
+                </table>
+            </div>
+        </div>
+        <div class="outer_specific-item">
+            <h3>Specifikke Artikler</h3>
+            <div class="specific-item">
+                <table>
+
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Type</th>
+                        <th>Color</th>
+                        <th>Size</th>
+                        <th>Prize</th>
+                        <th>Stock</th>
+                        <th>IMG</th>
+                        <th>Stats</th>
+                    </tr>
+                    @foreach (var type in typeArray)
+                    {
+                        if (fillTable == type)
+                        {
+                            foreach (var prod in ProductArray[Counter])
+                            {
+                                <tr>
+                                    <td>@prod[6]</td> @*Product Name*@
+                                    <td>@prod[7]</td> @*Type*@
+                                    <td>@prod[4]</td> @*Color*@
+                                    <th>@prod[2]</th> @*Size*@
+                                    <th>@prod[8],-</th> @*Price*@
+                                    <th>@prod[3]</th> @*Stock*@
+                                    <th>@prod[5]</th> @*Image*@
+                                    <td style="text-align:center"><button class="butt_kpi" @onclick="() => { Counter = 0; ShowKPI(prod); StatsPopup(); }"><i class="fa fa-info"></i></button></td>
+                                </tr>
+                            }
+                        }
+                        Counter++;
+                    }
+                </table>
+            </div>
+
+
             <div class="outer_stats">
                 <h3>Statestik</h3>
                 <div class="stats">
@@ -86,9 +90,38 @@
                     </table>
                 </div>
             </div>
-        
+
+        </div>
     </div>
-</div>
+}
+else
+{
+    <p>Rune er en fucking luder</p>
+}
+
+@code
+{
+    public string AccessToken = null;
+
+    bool isLoaded;
+
+    public async Task Read()
+    {
+        var AccessTokenSession = await SessionStorage.GetAsync<string>("UserName");
+        AccessToken = AccessTokenSession.Value;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Read();
+        if (DataBaseVerify(AccessToken))
+        {
+            isLoaded = true;
+        }
+        StateHasChanged();
+    }
+}
+
 
 <style>
     .page {
