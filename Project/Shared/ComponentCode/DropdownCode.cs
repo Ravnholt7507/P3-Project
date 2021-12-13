@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using Project.CSharpFiles;
 
 namespace Project.Shared.ComponentCode
 {
@@ -21,6 +22,17 @@ namespace Project.Shared.ComponentCode
             }
         }
 
-        public List<string> InsertPages = new List<string>() { "Admin", "Admin2", "Kpi", "Products", "EditProducts" };
+        DbCall call = new DbCall();
+        public List<string> InsertPages = new List<string>();
+
+        public void DbCallType()
+        {
+            InsertPages.Clear();
+            var array = call.KPI("Type call");
+            foreach (string item in array)
+            {
+                InsertPages.Add(item);
+            }
+        }
     }
 }

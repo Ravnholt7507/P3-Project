@@ -1,91 +1,127 @@
 ﻿@page "/Kpi"
 @inherits KpiCode
+@inject ProtectedSessionStorage SessionStorage
 @using CSharpFiles
 
-<div class="page">
-    <h3>Kpi</h3>
-    <div class="outer_item-list">
-        <div class="item-list">
-            <table>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Show KPI</th>
-                </tr>
-                @foreach (var type in typeArray)
-                {
-                    <tr>
-                        <td>@type</td>
-                        <td style="text-align:center"><button class="butt" @onclick="() => { ShowProducts(type); }"><i class="fa fa-times"></i></button></td>
-                    </tr>
-                }
-
-
-                @*@foreach (var item in typeArray)
-                    {
-                        if (item != null)
-                        {
-                            <tr>
-                                <td>@item</td>
-                                <td style="text-align:center"><button class="butt" @onclick="ShowProducts(index)"><i class="fa fa-times"></i></button></td>
-                            </tr>
-                        }
-                    }*@
-            </table>
-        </div>
-    </div>
-    <div class="outer_specific-item">
-        <h3>Specifikke Artikler</h3>
-        <div class="specific-item">
-            <table>
-
-                <tr>
-                    <th>Product Name</th>
-                    <th>Type</th>
-                    <th>Color</th>
-                    <th>Size</th>
-                    <th>Prize</th>
-                    <th>Stock</th>
-                    <th>IMG</th>
-                    <th>Stats</th>
-                </tr>
-                @foreach (var type in typeArray)
-                {
-                    if (fillTable == type)
-                    {
-                        foreach (var prod in ProductArray[Counter])
-                        {
-                            <tr>
-                                <td>@prod[6]</td> @*Product Name*@
-                                <td>@prod[7]</td> @*Type*@
-                                <td>@prod[4]</td> @*Color*@
-                                <th>@prod[2]</th> @*Size*@
-                                <th>@prod[8],-</th> @*Price*@
-                                <th>@prod[3]</th> @*Stock*@
-                                <th>@prod[5]</th> @*Image*@
-                                <td style="text-align:center"><button class="butt" @onclick="() => { Counter = 0; ShowKPI(prod); }"><i class="fa fa-times"></i></button></td>
-                            </tr>
-                        }
-                    }
-                    Counter++;
-                }
-            </table>
-        </div>
-        @if (Kpis.Count != 0)
-        {
-            <div class="stats">
+@if (isLoaded)
+{
+    <div class="page">
+        <h3>Kpi</h3>
+        <div class="outer_item-list">
+            <div class="item-list">
                 <table>
-                    @for (int i = 0; i < Percent.Count; i++)
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Show KPI</th>
+                    </tr>
+                    @foreach (var type in typeArray)
                     {
+                        Counter = 0;
                         <tr>
-                            <th>@Kpis[i] </th>
-                            <th>@Percent[i]</th>
+                            <td>@type</td>
+                            <td style="text-align:center"><button class="butt_kpi" @onclick="() => { ShowProducts(type); }"><i class="fa fa-search-plus"></i></button></td>
                         </tr>
+                    }
+
+
+                    @*@foreach (var item in typeArray)
+                        {
+                            if (item != null)
+                            {
+                                <tr>
+                                    <td>@item</td>
+                                    <td style="text-align:center"><button class="butt" @onclick="ShowProducts(index)"><i class="fa fa-times"></i></button></td>
+                                </tr>
+                            }
+                        }*@
+                </table>
+            </div>
+        </div>
+        <div class="outer_specific-item">
+            <h3>Specifikke Artikler</h3>
+            <div class="specific-item">
+                <table>
+
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Type</th>
+                        <th>Color</th>
+                        <th>Size</th>
+                        <th>Prize</th>
+                        <th>Stock</th>
+                        <th>IMG</th>
+                        <th>Stats</th>
+                    </tr>
+                    @foreach (var type in typeArray)
+                    {
+                        if (fillTable == type)
+                        {
+                            foreach (var prod in ProductArray[Counter])
+                            {
+                                <tr>
+                                    <td>@prod[6]</td> @*Product Name*@
+                                    <td>@prod[7]</td> @*Type*@
+                                    <td>@prod[4]</td> @*Color*@
+                                    <th>@prod[2]</th> @*Size*@
+                                    <th>@prod[8],-</th> @*Price*@
+                                    <th>@prod[3]</th> @*Stock*@
+                                    <th>@prod[5]</th> @*Image*@
+                                    <td style="text-align:center"><button class="butt_kpi" @onclick="() => { Counter = 0; ShowKPI(prod); StatsPopup(); }"><i class="fa fa-info"></i></button></td>
+                                </tr>
+                            }
+                        }
+                        Counter++;
                     }
                 </table>
             </div>
-        }
+
+
+            <div class="outer_stats">
+                <h3>Statestik</h3>
+                <div class="stats">
+                    <table>
+                        @for (int i = 0; i < Percent.Count; i++)
+                        {
+                            <tr>
+                                <th>@Kpis[i] </th>
+                                <th>@Percent[i]</th>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
+}
+else
+{
+    <p>Rune er en fucking luder</p>
+}
+
+@code
+{
+    public string AccessToken = null;
+
+    bool isLoaded;
+
+    public async Task Read()
+    {
+        var AccessTokenSession = await SessionStorage.GetAsync<string>("UserName");
+        AccessToken = AccessTokenSession.Value;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Read();
+        if (DataBaseVerify(AccessToken))
+        {
+            isLoaded = true;
+        }
+        StateHasChanged();
+    }
+}
+
 
 <style>
     .page {
@@ -96,8 +132,10 @@
         position: relative;
     }
         .item-list{
+            position: relative;
+            right: 20px;
             width: fit-content;
-            height: 450px;
+            height: 700px;
             overflow: auto;
             padding: 20px;
         }
@@ -105,26 +143,41 @@
     .outer_specific-item {
         position: relative;
         left: 325px;
-        bottom: 500px;
+        bottom: 750px;
+        display: none;
+        display: @Visible;
+        margin-bottom: -614px;
     }
-    .specific-item {
-        width: fit-content;
-        height: 450px;
-        overflow: auto;
-        padding: 20px;
-    }
+        .specific-item {
+            position: relative;
+            right: 20px;
+            width: fit-content;
+            height: 565px;
+            overflow: auto;
+            padding: 20px;
+        }
 
     .outer_stats {
         position: relative;
-        left: 1200px;
+        left: 860px;
+        bottom: 615px;
+        display: none;
+        display: @Visible2;
+        margin-bottom: -865px;
     }
         .stats {
+            position: relative;
+            top: 20px;
             height: fit-content;
             width: fit-content;
             border: 1px solid black;
             border-radius: 3px;
             padding: 20px;
         }
+
+    .butt_kpi{
+
+    }
 
     td, th {
         border: 1px solid black;
@@ -136,9 +189,5 @@
         background-color: #e6e6e6;
     }
 
-    .outer_specific-item {
-        display: none;
-        display: @Visible;
-    }
 
 </style>

@@ -9,10 +9,12 @@ namespace Project.Pages.KpiPage
 {
     public class KpiCode : ComponentBase
     {
-        private DbCall call = new DbCall();
+        public DbCall call = new DbCall();
         List<Product> KPIData = new List<Product>();
-        public int i = 1;
         public string Visible = "";
+        private int i = 1;
+        private int i2 = 1;
+        public string Visible2 = "";
         public int Counter = 0;
         public int CounterOverride = 0;
         double _SoldPrView = 0;
@@ -21,8 +23,8 @@ namespace Project.Pages.KpiPage
         public void ShowProducts(string type)
         {
             fillTable = type;
-            Popup();
             StateHasChanged();
+            Popup();
             Counter = 0;
         }
 
@@ -41,14 +43,14 @@ namespace Project.Pages.KpiPage
 
         public void StatsPopup()
         {
-            i++;
-            if (i % 2 == 0)
+            i2++;
+            if (i2 % 2 == 0)
             {
-                Visible = "block";
+                Visible2 = "block";
             }
             else
             {
-                Visible = "none";
+                Visible2 = "none";
             }
         }
 
@@ -104,6 +106,10 @@ namespace Project.Pages.KpiPage
                 }
             }
             Percent = placeholderdata;
+        }
+        public bool DataBaseVerify(string AccesToken)
+        {
+            return call.Verify(AccesToken);
         }
     }
 }
