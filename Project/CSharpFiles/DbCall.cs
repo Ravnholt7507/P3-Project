@@ -1135,26 +1135,16 @@ namespace Project.CSharpFiles
             return test;
         }
 
-        public void Order(string callType, params object[] args)
+        public void Order(params object[] args)
         {
             using var con = new MySqlConnection(_cs);
             con.Open();
-
             using var cmd = new MySqlCommand();
             cmd.Connection = con;
-            if (callType == "Create new order")
-            {
-                cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, email, phonenumber, city, street, zipcode, country, ordered_items) 
-                VALUES ('{args[0]}','{args[1]}','{args[2]}','{args[3]}','{args[4]}','{args[5]}','{args[6]}','{args[7]}', 'test')";
-                cmd.ExecuteNonQuery();
-                
-                //Stockchange("Reduce stock", "1 Hvid Medium 560 Lyserød X-Small ");
-            }
-            else if (callType == "Update order")
-            {
-                
-            }
 
+            cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, email, phonenumber, city, street, zipcode, country, ordered_items) 
+            VALUES ('{args[1]}','{args[2]}','{args[3]}','{args[4]}','{args[5]}','{args[6]}','{args[7]}','{args[8]}', '{args[9]}')";
+            cmd.ExecuteNonQuery();
             con.Close();
         }
 

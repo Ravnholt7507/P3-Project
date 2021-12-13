@@ -57,8 +57,8 @@
 
 
 @code {
-    public string ItemsInCart;
     Order _newOrder = new Order();
+    public string ItemsInCart;
     string createOrder = "Create new order";
     DbCall KPItest = new DbCall();
     string kpi = "Product type call";
@@ -85,6 +85,7 @@
             Order = LoadItems(Id(ItemsInCart));
         }
         CalcTotal();
+        _newOrder.Items = ItemsInCart;
         StateHasChanged();
     }
 
