@@ -4,6 +4,7 @@
 @inject ProtectedLocalStorage BrowserStorage
 
 <div class="page">
+    <button @onclick="DeleteCoochie">delet</button>
     <div class="cart-overview">
         @foreach (var item in Order)
         {
@@ -15,38 +16,37 @@
                 <button @onclick="() => { Delete(item.Id, item.Colour_id, item.Size); Order.Remove(item); CalcTotal(); RemoveError(); }" class="butt right delete"><i class="fa fa-times"></i></button>
             </div>
         }
-    <div class="order-total">
-        <p>Ordre Total:<b class="right"> @Total,-</b></p>
-        <b class="Supply_Demand error">Not enough in stock :(</b>
-        <b class="Negative_Order error">If you want to remove press X instead</b>
-        <button class="butt" @onclick="() => {_newOrder.Dbcall(createOrder); PurchaseCount(); }">Checkout</button>
-    </div>
+        <div class="order-total">
+            <p>Ordre Total:<b class="right"> @Total,-</b></p>
+            <b class="Supply_Demand error">Not enough in stock :(</b>
+            <b class="Negative_Order error">If you want to remove press X instead</b>
+        </div>
     </div>
     <div class="row">
         <div class="col-75">
             <div class="container">
-                <form>
+                <form @onsubmit="()=> {  DeleteCoochie(); }"> @*_newOrder.Dbcall(createOrder); PurchaseCount();*@
                     <div class="row">
                         <div class="col-50">
                             <label><i class="fa fa-fw fa-user-circle"></i> Fornavn</label>
-                            <input type="text" placeholder="Gurlig" @bind="@_newOrder.Firstname" @oninput="@((e) => { _newOrder.Firstname=(string)e.Value;})">
+                            <input type="text" placeholder="Gurlig" @bind="@_newOrder.Firstname" @oninput="@((e) => { _newOrder.Firstname=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-envelope"></i> Email</label>
-                            <input type="text" placeholder="gurlig1234@example.com" @bind="@_newOrder.Email" @oninput="@((e) => { _newOrder.Email=(string)e.Value;})">
+                            <input type="text" placeholder="gurlig1234@example.com" @bind="@_newOrder.Email" @oninput="@((e) => { _newOrder.Email=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-map-marker"></i> Addresse</label>
-                            <input type="text" placeholder="Frederikshavnvej 2" @bind="@_newOrder.Adress" @oninput="@((e) => { _newOrder.Adress=(string)e.Value;})">
+                            <input type="text" placeholder="Frederikshavnvej 2" @bind="@_newOrder.Adress" @oninput="@((e) => { _newOrder.Adress=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-building"></i> By</label>
-                            <input type="text" placeholder="KÃ¸benhavn" @bind="@_newOrder.City" @oninput="@((e) => { _newOrder.City=(string)e.Value;})">
-                            
+                            <input type="text" placeholder="København" @bind="@_newOrder.City" @oninput="@((e) => { _newOrder.City=(string)e.Value;})" required>
+                            <input type="submit"/>
                         </div>
                         <div class="col-50">
                             <label><i class="fa fa-fw fa-star"></i> Efternavn</label>
-                            <input type="text" placeholder="Marghrete .2" @bind="@_newOrder.Lastname" @oninput="@((e) => { _newOrder.Lastname=(string)e.Value;})">
+                            <input type="text" placeholder="Marghrete .2" @bind="@_newOrder.Lastname" @oninput="@((e) => { _newOrder.Lastname=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-phone"></i> Telefonnummer</label>
-                            <input type="text" placeholder="12345678" @bind="@_newOrder.Phonenumber" @oninput="@((e) => { _newOrder.Phonenumber=(string)e.Value;})">
+                            <input type="text" placeholder="12345678" @bind="@_newOrder.Phonenumber" @oninput="@((e) => { _newOrder.Phonenumber=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-globe"></i> Postnummer</label>
-                            <input type="text" placeholder="1010" @bind="@_newOrder.Zipcode" @oninput="@((e) => { _newOrder.Zipcode=(string)e.Value;})">
+                            <input type="text" placeholder="1010" @bind="@_newOrder.Zipcode" @oninput="@((e) => { _newOrder.Zipcode=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-globe"></i> Land</label>
-                            <input type="text" placeholder="Danmark" @bind="@_newOrder.Country" @oninput="@((e) => { _newOrder.Country=(string)e.Value;})">
+                            <input type="text" placeholder="Danmark" @bind="@_newOrder.Country" @oninput="@((e) => { _newOrder.Country=(string)e.Value;})" required>
                         </div>
                     </div>
                 </form>
@@ -68,10 +68,15 @@
     {
         DbCall call = new DbCall();
         foreach (var item in Order)
-        {   
+        {
             call.PurchaseUpdate(item.Id, item.Colour_id, item.OrderAmount);
-            Console.WriteLine("Product: " + item.Id +"Color: "+ item.Colour_id +"Amount: "+ item.OrderAmount);
+            Console.WriteLine("Product: " + item.Id + "Color: " + item.Colour_id + "Amount: " + item.OrderAmount);
         }
+    }
+
+    public async Task DeleteCoochie()
+    {
+        await BrowserStorage.DeleteAsync("CartItems");
     }
 
     // Load items into the cart page from the local storage in the browser
@@ -175,6 +180,10 @@
 
     .butt right {
         background-color: red;
+    }
+
+    .butt lul{
+        width: fit-content;
     }
 
     .cart-overview b {

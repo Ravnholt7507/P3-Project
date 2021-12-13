@@ -4,133 +4,142 @@
 
 <div class="page">
     <h3>Kpi</h3>
-    <div class="item-list">
-        <table>
-            <tr>
-                <th>Product Name</th>
-                <th>Show KPI</th>
-            </tr>
-            @foreach (var type in typeArray)
-            {
+    <div class="outer_item-list">
+        <div class="item-list">
+            <table>
                 <tr>
-                        <td>@type</td>
-                        <td style="text-align:center"><button class="butt" @onclick="() => ShowProducts(type)"><i class="fa fa-times"></i></button></td>
-                    </tr>
-            }  
-            
-
-            @*@foreach (var item in typeArray)
-            {
-                if (item != null)
+                    <th>Product Name</th>
+                    <th>Show KPI</th>
+                </tr>
+                @foreach (var type in typeArray)
                 {
                     <tr>
-                        <td>@item</td>
-                        <td style="text-align:center"><button class="butt" @onclick="ShowProducts(index)"><i class="fa fa-times"></i></button></td>
+                        <td>@type</td>
+                        <td style="text-align:center"><button class="butt_kpi" @onclick="() => { ShowProducts(type); }"><i class="fa fa-search-plus"></i></button></td>
                     </tr>
                 }
-            }*@
-        </table>
+
+
+                @*@foreach (var item in typeArray)
+                    {
+                        if (item != null)
+                        {
+                            <tr>
+                                <td>@item</td>
+                                <td style="text-align:center"><button class="butt" @onclick="ShowProducts(index)"><i class="fa fa-times"></i></button></td>
+                            </tr>
+                        }
+                    }*@
+            </table>
+        </div>
     </div>
-    <div class="specific-item">
-        <table>
- 
-            <tr>
-                <th>Product Name</th>
-                <th>Type</th>
-                <th>Color</th>
-                <th>Size</th>
-                <th>Prize</th>
-                <th>Stock</th>
-                <th>IMG</th>
-                <th>Stats</th>
-            </tr>
-               @foreach (var type in typeArray)
+    <div class="outer_specific-item">
+        <h3>Specifikke Artikler</h3>
+        <div class="specific-item">
+            <table>
+
+                <tr>
+                    <th>Product Name</th>
+                    <th>Type</th>
+                    <th>Color</th>
+                    <th>Size</th>
+                    <th>Prize</th>
+                    <th>Stock</th>
+                    <th>IMG</th>
+                    <th>Stats</th>
+                </tr>
+                @foreach (var type in typeArray)
                 {
                     if (fillTable == type)
                     {
                         foreach (var prod in ProductArray[Counter])
                         {
                             <tr>
-                                <td>@prod[6]</td>
-                                <td>@prod[7]</td>
-                                <td>@prod[4]</td>
-                                <th>@prod[2]</th>
-                                <th>@prod[8],-</th>
-                                <th>@prod[3]</th>
-                                <th>@prod[5]</th>
-                                <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
+                                <td>@prod[6]</td> @*Product Name*@
+                                <td>@prod[7]</td> @*Type*@
+                                <td>@prod[4]</td> @*Color*@
+                                <th>@prod[2]</th> @*Size*@
+                                <th>@prod[8],-</th> @*Price*@
+                                <th>@prod[3]</th> @*Stock*@
+                                <th>@prod[5]</th> @*Image*@
+                                <td style="text-align:center"><button class="butt_kpi" @onclick="() => { Counter = 0; ShowKPI(prod); StatsPopup(); }"><i class="fa fa-info"></i></button></td>
                             </tr>
                         }
                     }
                     Counter++;
                 }
-            <tr>
-                <td>The Buks</td>
-                <td>Bukser</td>
-                <td>Blue</td>
-                <th>XXL</th>
-                <th>1000,-</th>
-                <th>12</th>
-                <th>IMG</th>
-                <td style="text-align:center"><button class="butt"><i class="fa fa-times"></i></button></td>
-            </tr>
-            <tr>
-                <td>The Buks</td>
-                <td>Bukser</td>
-                <td>Red</td>
-                <th>S</th>
-                <th>1000,-</th>
-                <th>5</th>
-                <th>IMG</th>
-                <td style="text-align:center"><button class="butt" @onclick="StatsPopup"><i class="fa fa-times"></i></button></td>
-            </tr>
-        </table>
-    </div>
-    <div class="stats">
-        <table>
-            <tr>
-                <td></td>
-                @foreach (var Month in Months)
-                {
-                    <th>@Month</th>
-                }
-            </tr>
+            </table>
+        </div>
 
-            @foreach (var item in Kpis)
-            {
-                <tr>
-                    <th>@item</th>
-                    @foreach (var stat in Percent)
-                    {
-                        <th>@stat</th>
-                    }
-                </tr>
-            }
-        </table>
+        
+            <div class="outer_stats">
+                <h3>Statestik</h3>
+                <div class="stats">
+                    <table>
+                        @for (int i = 0; i < Percent.Count; i++)
+                        {
+                            <tr>
+                                <th>@Kpis[i] </th>
+                                <th>@Percent[i]</th>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        
     </div>
 </div>
 
-
-@code
-{
-    int index = 0;
-}
-
 <style>
     .page {
-        height: 500px;
-    }
-
-    .item-list, .specific-item, .stats {
-        float: left;
         height: fit-content;
-        width: fit-content;
-        border: 1px solid black;
-        border-radius: 3px;
     }
 
-    .specific-item, .stats{
-        margin-left: 50px;
+    .outer_item-list {
+        position: relative;
+    }
+        .item-list{
+            position: relative;
+            right: 20px;
+            width: fit-content;
+            height: 700px;
+            overflow: auto;
+            padding: 20px;
+        }
+
+    .outer_specific-item {
+        position: relative;
+        left: 325px;
+        bottom: 750px;
+    }
+        .specific-item {
+            position: relative;
+            right: 20px;
+            width: fit-content;
+            height: 565px;
+            overflow: auto;
+            padding: 20px;
+        }
+
+    .outer_stats {
+        position: relative;
+        left: 860px;
+        bottom: 615px;
+        display: none;
+        display: @Visible2;
+    }
+        .stats {
+            position: relative;
+            top: 20px;
+            height: fit-content;
+            width: fit-content;
+            border: 1px solid black;
+            border-radius: 3px;
+            padding: 20px;
+        }
+
+    .butt_kpi{
+
     }
 
     td, th {
@@ -143,7 +152,7 @@
         background-color: #e6e6e6;
     }
 
-    .specific-item {
+    .outer_specific-item {
         display: none;
         display: @Visible;
     }

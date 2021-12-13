@@ -26,12 +26,12 @@
             </form>
             <div>
                 <label>Typer</label>
-                <select class="form-select">
+                @*<select class="form-select">
                     @foreach (var type in TypeArray)
                     {
                         <option value="@type"> @type </option>
                     }
-                </select>
+                </select>*@
             </div>
         </div>
     </div>
@@ -232,15 +232,4 @@
         string PlaceholderTransparency;
         string PlaceholderMaterials;
 
-
-        private DbCall call = new DbCall();
-
-        public string[] TypeArray;
-
-        protected override Task OnInitializedAsync()
-        {
-            TypeArray = call.KPI("Type call");
-
-            return base.OnInitializedAsync();
-        }
     }
