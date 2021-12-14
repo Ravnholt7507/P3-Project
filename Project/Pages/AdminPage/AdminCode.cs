@@ -148,6 +148,12 @@ namespace Project.Pages.AdminPage
         public string SelectedValue;
         public string Description;
         public string Price;
+        public string TransportPrice;
+        public string ResourcePrice;
+        public string ProductionPrice;
+        public string TrimPrice;
+        public string MillingPrice;
+
         public bool imgState = false;
         public string SelectedSubCat;
 
@@ -320,7 +326,7 @@ namespace Project.Pages.AdminPage
             string description = Description;
             string material = "Uld";
             string produced = "Uganda";
-            string transparency = "transparency";
+            string transparency = TransportPrice + "&" + ResourcePrice +"&" + ProductionPrice + "&" + TrimPrice + "&" + MillingPrice;
             foreach (var specificColour in MyColors)
             {
                 string colour = specificColour.ColorName;
