@@ -305,9 +305,8 @@ namespace Project.Pages.AdminPage
             string img = "randImg";//ChosenImg;
             string[] sizeArray2 = { "X-Small", "Small", "Medium", "Large", "X-Large" };
             int[] stockArray2 = {5,4,3,2,1} ;
-            ;
             
-            
+                
             _call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray2, stockArray2);
         }
 
