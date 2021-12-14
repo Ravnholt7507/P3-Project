@@ -13,6 +13,15 @@
         <form>
             <input class="tastfelt" @bind="NewItem" placeholder="Indtast artikelnavn" required />
             <input class="tastfelt" @bind="Price" placeholder="Indtast pris" required />
+            <br />
+            <a>Cost breakdown</a>
+            <br />
+            <input class="tastfelt" @bind="TransportPrice" placeholder="Indtast transportpris" required />
+            <input class="tastfelt" @bind="ResourcePrice" placeholder="Indtast råvarepris" required />
+            <input class="tastfelt" @bind="ProductionPrice" placeholder="Indtast produktionspris" required />
+            <input class="tastfelt" @bind="TrimPrice" placeholder="Indtast trimpris" required />
+            <input class="tastfelt" @bind="MillingPrice" placeholder="Indtast millingpris" required />
+            <br />
             <textarea class="description" @bind="Description" placeholder="Description" required />
         </form>
         <div class="kategori">
@@ -20,12 +29,15 @@
             <select @bind="SelectedCat" class="form-select">
                 @foreach (Category cat in cats)
                 {
-                    <optgroup label="@cat.CategoryName"> @cat.CategoryName </optgroup>
-                    foreach (Subcategory subcat in cat.Subcategory)
+                    <option value="@cat.CategoryName"> @cat.CategoryName </option>
+                }
+            </select>
+            <select @bind="SelectedSubCat" class="form-select">
+                @foreach (Subcategory subcat in cats[0].Subcategory)
                     {
                         <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
                     }
-                }
+                    
             </select>
         </div>
     </div>

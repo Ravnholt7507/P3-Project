@@ -232,10 +232,10 @@ namespace Project.CSharpFiles
                 }
                 else if (callSubType == "Types")
                 {
-                    string[] types = new string[10];
+                    string[] types = new string[25];
                     using var con = new MySqlConnection(_cs);
                     con.Open();
-                    string sql = "SELECT category FROM categories;";
+                    string sql = "SELECT type FROM types;";
                     using var cmd = new MySqlCommand(sql, con);
                     using MySqlDataReader rdr = cmd.ExecuteReader();
                     int i = 0;
@@ -300,8 +300,12 @@ namespace Project.CSharpFiles
                     con.Open();
                     using var cmd = new MySqlCommand();
                     cmd.Connection = con;
-                    cmd.CommandText = $"INSERT INTO products (prod_name, category, type, price, description, material, produced, transparency) VALUES ('{prodName}', '{category}', '{type}', '{price}', '{description}', '{material}', '{produced}', '{transparency}');";
-                    cmd.ExecuteNonQuery();
+                    if (args[12].ToString() != "same")
+                    {
+                        cmd.CommandText =
+                            $"INSERT INTO products (prod_name, category, type, price, description, material, produced, transparency) VALUES ('{prodName}', '{category}', '{type}', '{price}', '{description}', '{material}', '{produced}', '{transparency}');";
+                        cmd.ExecuteNonQuery();
+                    }
 
                     var colour = args[8];
                     string img = args[9].ToString();
