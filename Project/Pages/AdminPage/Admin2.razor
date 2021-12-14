@@ -20,12 +20,15 @@
             <select @bind="SelectedCat" class="form-select">
                 @foreach (Category cat in cats)
                 {
-                    <optgroup label="@cat.CategoryName"> @cat.CategoryName </optgroup>
-                    foreach (Subcategory subcat in cat.Subcategory)
+                    <option value="@cat.CategoryName"> @cat.CategoryName </option>
+                }
+            </select>
+            <select @bind="SelectedSubCat" class="form-select">
+                @foreach (Subcategory subcat in cats[0].Subcategory)
                     {
                         <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
                     }
-                }
+                    
             </select>
         </div>
     </div>

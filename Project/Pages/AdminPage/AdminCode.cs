@@ -149,6 +149,7 @@ namespace Project.Pages.AdminPage
         public string Description;
         public string Price;
         public bool imgState = false;
+        public string SelectedSubCat;
 
         public string SelectedColour = "";
 
@@ -162,7 +163,7 @@ namespace Project.Pages.AdminPage
         color NewColor;
         public string ChosenColor;
 
-        public List<Category> cats = new List<Category>() { new Category("Mens Clothing"), new Category("Womens clothing") };
+        public List<Category> cats = new List<Category>();
 
         public bool show_ektraValgMenu = false;
         public void Verify()
@@ -200,8 +201,29 @@ namespace Project.Pages.AdminPage
         protected override Task OnInitializedAsync()
         {
             string[][] categoryArray = _call.AdminPages("Get", "Categories");
+            foreach (var category in categoryArray[0])
+            {
+                if (category != null)
+                {
+                    Category newCategory = new Category(category);
+                    cats.Add(newCategory);
+                }
+            }
             string[][] typeArray = _call.AdminPages("Get", "Types");
+            foreach (var category in cats)
+            {
+                foreach (var type in typeArray[0])
+                {
+                    if (type != null)
+                    {
+                        Subcategory subcategory = new Subcategory(type);
+                        category.Subcategory.Add(subcategory);
+                    }
+                }
+            }
             col_numbers();
+            SelectedSubCat = cats[0].Subcategory[0].SubcategoryName;
+            SelectedCat = cats[0].CategoryName;
             return base.OnInitializedAsync();
         }
 
@@ -291,24 +313,33 @@ namespace Project.Pages.AdminPage
                 stockList.Add(SnS.stock);
             }
 
-            stockArray = stockList.ToArray();
-
-            string prodName = "test";//NewItem;
-            string category = "Kvinder";
-            string type = "Bukser";//SelectedCat;
-            int price = 123;//int.Parse(Price);
-            string description = "Test";//Description;
+            string prodName = NewItem;
+            string category = SelectedCat;
+            string type = SelectedSubCat;
+            int price = int.Parse(Price);
+            string description = Description;
             string material = "Uld";
             string produced = "Uganda";
             string transparency = "transparency";
-            string colour = "Blå";//SelectedColour;
-            string img = "randImg";//ChosenImg;
-            string[] sizeArray2 = { "X-Small", "Small", "Medium", "Large", "X-Large" };
-            int[] stockArray2 = {5,4,3,2,1} ;
-            ;
-            
-            
-            _call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray2, stockArray2);
+            foreach (var specificColour in MyColors)
+            {
+                string colour = specificColour.ColorName;
+                string img = "";
+                foreach (var image in specificColour.ImageLink)
+                {
+                    img += image + "&";
+                }
+                stockArray = stockList.ToArray();
+                sizeArray = sizeList.ToArray();
+                if (specificColour.ColorName == MyColors[0].ColorName)
+                {
+                    _call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray, stockArray, "");
+                }
+                else
+                {
+                    _call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray, stockArray, "same");
+                }
+            }
         }
 
         public double num_col;
