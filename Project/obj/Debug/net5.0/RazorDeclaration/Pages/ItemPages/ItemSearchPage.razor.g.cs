@@ -12,98 +12,98 @@ namespace Project.Pages.ItemPages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 1 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 2 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 3 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 4 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 5 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 6 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 7 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 8 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 9 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 10 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Project;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 11 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Project.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 12 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 12 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using Project.Shared.ComponentCode;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 13 "c:\users\runef\source\repos\p3-project\project\_Imports.razor"
+#line 13 "C:\Users\runef\Source\Repos\p3-project\Project\_Imports.razor"
 using System.Linq;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "c:\users\runef\source\repos\p3-project\project\Pages\ItemPages\ItemSearchPage.razor"
+#line 2 "C:\Users\runef\Source\Repos\p3-project\Project\Pages\ItemPages\ItemSearchPage.razor"
 using Project.CSharpFiles;
 
 #line default
@@ -118,7 +118,7 @@ using Project.CSharpFiles;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 24 "c:\users\runef\source\repos\p3-project\project\Pages\ItemPages\ItemSearchPage.razor"
+#line 25 "C:\Users\runef\Source\Repos\p3-project\Project\Pages\ItemPages\ItemSearchPage.razor"
        
 
     public void Loop()
@@ -167,17 +167,25 @@ using Project.CSharpFiles;
         {
             return Products;
         }
-
-        var array = filter.Split(' ');
+        List<Product> ProductID = new List<Product>();
+        
         DbCall dbcall = new DbCall();
-        string[] itemArray = dbcall.SearchCall("Kvinder", "bukser", "blå", "small");
-        Console.WriteLine(itemArray[0][0]);
-        List<Product> newProducts = new List<Product>();
-        for (int i = 0; i < itemArray.Length; i++)
+        ProductID = dbcall.SearchCall(filter);
+
+        List<Product> searchedProducts = new List<Product>();
+
+        foreach ( var prod in ProductID)
         {
-            newProducts.Add(Product.CreateInstance(itemArray[i]));
+            searchedProducts.Add(dbcall.GetProdByID(prod.Id));
         }
-        return newProducts;
+
+        //Console.WriteLine(itemArray[0][0]);
+
+        //for (int i = 0; i < itemArray.Length; i++)
+        //{
+        //    newProducts.Add(Product.CreateInstance(itemArray[i]));
+        //}
+        return searchedProducts;
     }
 
     [Parameter]
