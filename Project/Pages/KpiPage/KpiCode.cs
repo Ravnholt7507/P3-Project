@@ -80,9 +80,12 @@ namespace Project.Pages.KpiPage
         {
             double result = 0;
 
-            result = views / sold;
+            if (sold != 0)
+            {
+                result = views / sold;
+            }
 
-            return result;
+            return result;     
         }
         
         public void ShowKPI(string[] productkpi)
