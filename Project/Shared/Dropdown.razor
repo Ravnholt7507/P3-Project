@@ -13,21 +13,7 @@
         </div>
     </div>
 </div>
-@code{
 
-   
-
-    public List<Product> ItemsForCategories()
-    {
-        List<Product> searchedProducts = new List<Product>();
-        DbCall dbcall = new DbCall();
-
-        searchedProducts = dbcall.SearchCall(Pages);
-
-        return searchedProducts;
-    }
-
-}
 <style>
     .dropdown-content {
         display: none;
