@@ -65,17 +65,19 @@
                     <!-- Top header -->
                     <header class="w3-container w3-xlarge">
                         <a class="w3-left" href=""></a>
-                        <p class="w3-right">
+                        <p class="w3-right_costum">
                             @if (isLoaded)
                             {
-                            <div class="admin_kpi_btns">
-                                <a class="buttright" href="Categories">Tilføj/fjern kategorier</a>
-                                <a class="buttright" href="Additems">Tilføj/fjern produkter</a>
-                                <a class="buttright" href="Kpi">Kpi</a>
-                            </div>
+                                <div class="admin_kpi_btns">
+                                    <a class="buttright" href="Categories">Tilføj/fjern kategorier</a>
+                                    <a class="buttright" href="Additems">Tilføj/fjern produkter</a>
+                                    <a class="buttright" href="Kpi">Kpi</a>
+                                </div>
                             }
-                            <a class="w3-button" href="Cart"><i class="fa fa-shopping-cart w3-margin-right"> Kurv </i></a>
-                            <i class="fa fa-search"></i>
+                            <div class="cart_and_search">
+                                <a class="w3-button" href="Cart"><i class="fa fa-shopping-cart w3-margin-right"> Kurv </i></a>
+                                <i class="fa fa-search"></i>
+                            </div>
                         </p>
                     </header>
 
@@ -113,12 +115,17 @@
 </div>
 
 <style>
-    .text_field{
+
+    .w3-right_costum{
+
+    }
+
+    .text_field {
         position: relative;
         left: 500px;
         bottom: 50px;
-        text-align:center;
-        width:800px;
+        text-align: center;
+        width: 800px;
         height: 50px;
     }
 
@@ -131,6 +138,11 @@
         position:relative;
         left:750px;
         bottom: 105px;
+    }
+
+    .cart_and_search{
+        position: relative;
+        left: 1600px;
     }
 
 </style>
