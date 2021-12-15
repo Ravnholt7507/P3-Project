@@ -23,15 +23,15 @@ namespace Project.Shared.ComponentCode
         }
 
         DbCall call = new DbCall();
-        public List<string> InsertPages = new List<string>();
+        public List<string> Pages = new List<string>();
 
         public void DbCallType()
         {
-            InsertPages.Clear();
+            Pages.Clear();
             var array = call.KPI("Type call");
             foreach (string item in array)
             {
-                InsertPages.Add(item);
+                Pages.Add(item);
             }
         }
     }
