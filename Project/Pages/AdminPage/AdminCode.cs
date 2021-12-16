@@ -154,6 +154,9 @@ namespace Project.Pages.AdminPage
         public string TrimPrice;
         public string MillingPrice;
 
+
+
+        public int result;
         public bool imgState = false;
         public string SelectedSubCat;
 
@@ -322,7 +325,10 @@ namespace Project.Pages.AdminPage
             string prodName = NewItem;
             string category = SelectedCat;
             string type = SelectedSubCat;
-            int price = int.Parse(Price);
+            if (int.TryParse(Price, out result))
+            {
+                int.Parse(Price);
+            }
             string description = Description;
             string material = "Uld";
             string produced = "Uganda";
@@ -339,11 +345,11 @@ namespace Project.Pages.AdminPage
                 sizeArray = sizeList.ToArray();
                 if (specificColour.ColorName == MyColors[0].ColorName)
                 {
-                    _call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray, stockArray, "");
+                    _call.AdminPages("New", "Product", prodName, category, type, Price, description, material, produced, transparency, colour, img, sizeArray, stockArray, "");
                 }
                 else
                 {
-                    _call.AdminPages("New", "Product", prodName, category, type, price, description, material, produced, transparency, colour, img, sizeArray, stockArray, "same");
+                    _call.AdminPages("New", "Product", prodName, category, type, Price, description, material, produced, transparency, colour, img, sizeArray, stockArray, "same");
                 }
             }
         }
