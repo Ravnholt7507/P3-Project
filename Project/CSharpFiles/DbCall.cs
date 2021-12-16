@@ -235,7 +235,7 @@ namespace Project.CSharpFiles
                     string[] types = new string[25];
                     using var con = new MySqlConnection(_cs);
                     con.Open();
-                    string sql = "SELECT type FROM types;";
+                    string sql = string.Format("SELECT type FROM types WHERE {0} = 1", args[0].ToString());
                     using var cmd = new MySqlCommand(sql, con);
                     using MySqlDataReader rdr = cmd.ExecuteReader();
                     int i = 0;
@@ -415,19 +415,19 @@ namespace Project.CSharpFiles
                 {
                     if (i == 0)
                     {
-                        categoryArray[k] = rdr.GetString(0);
+                        categoryArray[k] = rdr.GetString(0).ToLower();
                     }
                     else if (i == 1)
                     {
-                        typeArray[k] = rdr.GetString(0);
+                        typeArray[k] = rdr.GetString(0).ToLower();
                     }
                     else if (i == 2)
                     {
-                        colourArray[k] = rdr.GetString(0);
+                        colourArray[k] = rdr.GetString(0).ToLower();
                     }
                     else if (i == 3)
                     {
-                        sizeArray[k] = rdr.GetString(0);
+                        sizeArray[k] = rdr.GetString(0).ToLower();
                     }
 
                     k++;
@@ -448,40 +448,40 @@ namespace Project.CSharpFiles
             {
                 for (int j = 0; j < categoryArray.Length; j++)
                 {
-                    if (categoryArray[j].ToLower() == searchParams[i])
+                    if (categoryArray[j].Contains(searchParams[i]))
                     {
                         category = true;
-                        searchCategoryArray[cat] = searchParams[i];
+                        searchCategoryArray[cat] = categoryArray[j];
                         cat++;
                     }
                 }
 
                 for (int j = 0; j < typeArray.Length; j++)
                 {
-                    if (typeArray[j].ToLower() == searchParams[i])
+                    if (typeArray[j].Contains(searchParams[i]))
                     {
                         type = true;
-                        searchTypeArray[typ] = searchParams[i];
+                        searchTypeArray[typ] = typeArray[j];
                         typ++;
                     }
                 }
 
                 for (int j = 0; j < colourArray.Length; j++)
                 {
-                    if (colourArray[j].ToLower() == searchParams[i])
+                    if (colourArray[j].Contains(searchParams[i]))
                     {
                         colour = true;
-                        searchColourArray[col] = searchParams[i];
+                        searchColourArray[col] = colourArray[j];
                         col++;
                     }
                 }
 
                 for (int j = 0; j < sizeArray.Length; j++)
                 {
-                    if (sizeArray[j].ToLower() == searchParams[i])
+                    if (sizeArray[j].Contains(searchParams[i]))
                     {
                         size = true;
-                        searchSizeArray[siz] = searchParams[i];
+                        searchSizeArray[siz] = sizeArray[j];
                         siz++;
                     }
                 }
@@ -511,7 +511,7 @@ namespace Project.CSharpFiles
                         for (int j = 0; j < searchTypeArray.Length; j++)
                         {
                             string sql =
-                                string.Format("SELECT prod_id FROM products WHERE category ='{0}' AND type = '{1}'",
+                                string.Format("SELECT prod_id FROM products WHERE category = '{0}' AND type = '{1}'",
                                     searchCategoryArray[i], searchTypeArray[j]);
                             using var cmd = new MySqlCommand(sql, con);
                             using MySqlDataReader rdr = cmd.ExecuteReader();

@@ -40,40 +40,40 @@
                 </datalist>
             </div>
             @*<div>
-                <h4>Fjern en type</h4>
-                <form @onsubmit="Remove">
-                    <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" required />
-                    <input class="butt add" type="submit" value="Fjern" />
-                </form>
-                <datalist id="Categories">
-                    @foreach (Subcategory subcategory in category.Subcategory)
-                        {
-                            <option value=@subcategory.SubcategoryName></option>
-                        }
-                    
-                </datalist>
-            </div>*@
+                    <h4>Fjern en type</h4>
+                    <form @onsubmit="Remove">
+                        <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" required />
+                        <input class="butt add" type="submit" value="Fjern" />
+                    </form>
+                    <datalist id="Categories">
+                        @foreach (Subcategory subcategory in category.Subcategory)
+                            {
+                                <option value=@subcategory.SubcategoryName></option>
+                            }
+
+                    </datalist>
+                </div>*@
         </div>
 
         <div class="container2">
             <label for="Category">Vælg en kategori for at tilføje en underkategori:</label>
             <select name="Category" id="Category" @bind="selectedCategory">
                 <option value="none" selected disabled hidden>Vælg en kategori</option>
-                @foreach (Category category in Categories)
+                @foreach (Category category in cats)
                 {
                     <option value=@category.CategoryName>@category.CategoryName</option>
                 }
             </select>
 
-            @for (int i = 0; i < Categories.Count-1; i++)
+            @for (int i = 0; i < cats.Count - 1; i++)
             {
-                if (selectedCategory == Categories[i].CategoryName)
+                if (selectedCategory == cats[i].CategoryName)
                 {
-                    <button class="w3-bar-Subcategory w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a>@Categories[i].CategoryName</a></button>
+                    <button class="w3-bar-Subcategory w3-button" @onclick="(() => { Dropdownbtn(); CallSubcats(selectedCategory); })"><i class="fa fa-bars"></i><a>@cats[i].CategoryName</a></button>
                     <div class="dropdown-content2">
-                        @for (int k = 0; k < Categories[i].Subcategory.Count-1; k++)
+                        @foreach (Subcategory subcat in cats[0].Subcategory)
                         {
-                            <button class="w3-bar-Subcategory w3-button" @onclick="() => { RemoveTypeFromCategory(Categories[i].CategoryName, Categories[i].Subcategory[k].SubcategoryName); }">@Categories[i].Subcategory[k].SubcategoryName</button>
+                            <button class="w3-bar-Subcategory w3-button">@subcat.SubcategoryName</button>
                         }
                     </div>
                 }
@@ -86,7 +86,7 @@ else
     <p>Sorry, but Andreas made spaghtti code.</p>
 }
 
-
+@*@onclick="() => { RemoveTypeFromCategory(cats[i].CategoryName, cats[i].Subcategory[k].SubcategoryName); }"*@
 
 @code
 {
@@ -115,7 +115,7 @@ else
 
     .page {
         height: fit-content;
-        
+
         margin-bottom: 30px;
     }
 
@@ -159,7 +159,7 @@ else
         font-size: small;
         padding-left: 10px;
         padding-right: 10px;
-        
+
     }
 
 </style>
