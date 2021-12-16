@@ -24,13 +24,13 @@
     <div class="row">
         <div class="col-75">
             <div class="container">
-                <form @onsubmit="()=> {  DeleteCoochie(); }"> @*_newOrder.Dbcall(createOrder); PurchaseCount();*@
+                <form @onsubmit="()=> { _newOrder.Dbcall(createOrder); PurchaseCount(); DeleteCoochie();  }">
                     <div class="row">
                         <div class="col-50">
                             <label><i class="fa fa-fw fa-user-circle"></i> Fornavn</label>
                             <input type="text" placeholder="Gurlig" @bind="@_newOrder.Firstname" @oninput="@((e) => { _newOrder.Firstname=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-envelope"></i> Email</label>
-                            <input type="text" placeholder="gurlig1234@example.com" @bind="@_newOrder.Email" @oninput="@((e) => { _newOrder.Email=(string)e.Value;})" required>
+                            <input type="email" placeholder="gurlig1234@example.com" @bind="@_newOrder.Email" @oninput="@((e) => { _newOrder.Email=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-map-marker"></i> Addresse</label>
                             <input type="text" placeholder="Frederikshavnvej 2" @bind="@_newOrder.Adress" @oninput="@((e) => { _newOrder.Adress=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-building"></i> By</label>
@@ -41,9 +41,9 @@
                             <label><i class="fa fa-fw fa-star"></i> Efternavn</label>
                             <input type="text" placeholder="Marghrete .2" @bind="@_newOrder.Lastname" @oninput="@((e) => { _newOrder.Lastname=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-phone"></i> Telefonnummer</label>
-                            <input type="text" placeholder="12345678" @bind="@_newOrder.Phonenumber" @oninput="@((e) => { _newOrder.Phonenumber=(string)e.Value;})" required>
+                            <input type="number" placeholder="12345678" @bind="@_newOrder.Phonenumber" @oninput="@((e) => { _newOrder.Phonenumber=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-globe"></i> Postnummer</label>
-                            <input type="text" placeholder="1010" @bind="@_newOrder.Zipcode" @oninput="@((e) => { _newOrder.Zipcode=(string)e.Value;})" required>
+                            <input type="number" placeholder="1010" @bind="@_newOrder.Zipcode" @oninput="@((e) => { _newOrder.Zipcode=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-globe"></i> Land</label>
                             <input type="text" placeholder="Danmark" @bind="@_newOrder.Country" @oninput="@((e) => { _newOrder.Country=(string)e.Value;})" required>
                         </div>
@@ -216,7 +216,7 @@
         float: left;
     }
 
-    input[type=text] {
+    input[type=text], input[type=email], input[type=number] {
       width: 100%;
       margin-bottom: 20px;
       padding: 12px;

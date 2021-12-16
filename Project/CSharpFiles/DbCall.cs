@@ -83,6 +83,7 @@ namespace Project.CSharpFiles
                         array[0] = rdr.GetString(0);
                         array[1] = rdr.GetString(1);
                         array[2] = rdr.GetString(2);
+                        array[5] = rdr.GetString(5);
                         productArray[0] = array;
                     }
 

@@ -1,8 +1,11 @@
 ﻿@page "/Product/{ItemSpecification}"
 @using Project.CSharpFiles
+@using ChartJs.Blazor.PieChart
+
 @inject ProtectedLocalStorage BrowserStorage
 @inject ProtectedSessionStorage SessionStorage
 @inherits SpecificItemCode
+
 
 <div class="page">
     <div class="card-body">
@@ -43,11 +46,13 @@
                     Pris:  <label style="color:darkred">@Prod.Price.ToString("Kr.")</label>
                 </p>
                 <p class="card-text">@Prod.Description</p>
+                <Chart Config="_config"></Chart>
+
             </div>
 
 
             <div class="btns">
-                <NavLink href="/Products"> Back To Products</NavLink>
+                <NavLink href="/Products"> Tilbage til produkter</NavLink>
                 <button class="btnnn" @onclick="() => { AddItem(); Save();}">Tilføj til kurv</button>
             </div>
         </div>
@@ -55,7 +60,7 @@
 </div>
 
 @code {
-    
+
     public string Visits;
     public string CartItem;
 
@@ -88,7 +93,8 @@
         CartItem = result.Success ? result.Value : "";
     }
 
-    public async Task Read2() {
+    public async Task Read2()
+    {
         var result = await SessionStorage.GetAsync<string>("PagesVisited");
         Visits = result.Success ? result.Value : "";
         var visitArray = SplitVisits();
@@ -125,6 +131,9 @@
         Read2();
         return base.OnInitializedAsync();
     }
+
+
+
 }
 
 
@@ -203,6 +212,6 @@
 
     .btnnn {
         color: #000000;
-        background-color: #FFFFFF;
+        background-color: orange;
     }
 </style>

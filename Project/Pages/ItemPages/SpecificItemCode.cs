@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Project.CSharpFiles;
+using System.Linq;
+using ChartJs.Blazor.PieChart;
+using ChartJs.Blazor.PieChart;
+using ChartJs.Blazor.Util;
+using ChartJs.Blazor.Common;
 
 namespace Project.Pages.ItemPages
 {
@@ -34,8 +39,48 @@ namespace Project.Pages.ItemPages
                 Prod = GetProduct(prodId, colourId, size);
                 SelectedColour = Prod.MyColours[0].ColourName;
                 SelectedSize = Prod.MyColours[0].Sizes[0];
+                SetChartConfigurations();
             }
 
+        }
+
+        public PieConfig _config;
+
+        public void SetChartConfigurations()
+        {
+            string[] CostBreakdownStrings = { "Production", "Resources", "Transport", "Trims", "Milling" };
+            int[] CostBreakdown = Array.ConvertAll(Prod.Transparency.Split("&"), s => int.Parse(s)); //Splits transparency string and converts it to integers
+
+            _config = new PieConfig
+            {
+                Options = new PieOptions
+                {
+                    Responsive = true,
+                    Title = new OptionsTitle
+                    {
+                        Display = true,
+                        Text = "ChartJs.Blazor Pie Chart"
+                    }
+                }
+            };
+
+            foreach (string color in CostBreakdownStrings)
+            {
+                _config.Data.Labels.Add(color);
+            }
+
+            PieDataset<int> dataset = new PieDataset<int>(CostBreakdown)
+            {
+                BackgroundColor = new[]
+                {
+            ColorUtil.ColorHexString(190, 159, 196),
+            ColorUtil.ColorHexString(159, 196, 190),
+            ColorUtil.ColorHexString(159, 169, 196),
+            ColorUtil.ColorHexString(196, 195, 159),
+            ColorUtil.ColorHexString(219, 143, 129),
+            }
+            };
+            _config.Data.Datasets.Add(dataset);
         }
 
         public Product GetProduct(int prodid, int colourid, string size)
@@ -55,6 +100,7 @@ namespace Project.Pages.ItemPages
             product.Price = int.Parse(array[0][1]);
             product.Description = array[0][2];
             product.ImageLink = array[0][3];
+            product.Transparency = array[0][5];
      
             for (int i = 0; i < colourSizeArray.Length; i++)
             {
