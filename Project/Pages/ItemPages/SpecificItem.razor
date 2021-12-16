@@ -39,21 +39,22 @@
                         }
                     </select>
                 }
-            </div>
 
-            <div class="non-interactive">
-                <p>
+                <p class="price_id">
                     Pris:  <label style="color:darkred">@Prod.Price.ToString("Kr.")</label>
                 </p>
+
                 <p class="card-text">@Prod.Description</p>
-                <Chart Config="_config"></Chart>
-
             </div>
-
 
             <div class="btns">
                 <NavLink href="/Products"> Tilbage til produkter</NavLink>
                 <button class="btnnn" @onclick="() => { AddItem(); Save();}">Tilføj til kurv</button>
+            </div>
+
+            <div class="non-interactive">
+
+                <Chart Config="_config"></Chart>
             </div>
         </div>
     </div>
@@ -139,15 +140,20 @@
 
 <style>
     .page {
-        height: fit-content;
+        height: 800px;
         margin-bottom: 30px;
         outline: 2px solid gray;
         padding: 3px;
     }
+    
 
     .card-body {
         height: fit-content;
         margin-bottom: -400px;
+    }
+
+    .price_id{
+        margin-top:20px;
     }
 
     .card-info {
@@ -188,11 +194,16 @@
     }
 
     .non-interactive {
-        margin-top: 70px;
+        position: relative;
+        bottom: 400px;
+        height: 40vh;
+        width: 80vw;
     }
 
     .btns {
-        margin-top: 50px;
+        
+        position: relative;
+        top: 100px;
     }
 
     .btnnn {
