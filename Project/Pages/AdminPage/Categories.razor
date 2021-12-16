@@ -39,6 +39,20 @@
                     }
                 </datalist>
             </div>
+            @*<div>
+                <h4>Fjern en type</h4>
+                <form @onsubmit="Remove">
+                    <input list="Categories" @bind="CategoryToRemove" placeholder="Fjern Kategori eller item" required />
+                    <input class="butt add" type="submit" value="Fjern" />
+                </form>
+                <datalist id="Categories">
+                    @foreach (Subcategory subcategory in category.Subcategory)
+                        {
+                            <option value=@subcategory.SubcategoryName></option>
+                        }
+                    
+                </datalist>
+            </div>*@
         </div>
 
         <div class="container2">
@@ -51,15 +65,15 @@
                 }
             </select>
 
-            @for (int i = 0; i < Categories.Count; i++)
+            @for (int i = 0; i < Categories.Count-1; i++)
             {
                 if (selectedCategory == Categories[i].CategoryName)
                 {
                     <button class="w3-bar-Subcategory w3-button" @onclick="Dropdownbtn"><i class="fa fa-bars"></i><a>@Categories[i].CategoryName</a></button>
                     <div class="dropdown-content2">
-                        @for (int k = 0; k < Categories[i].Subcategory.Count; k++)
+                        @for (int k = 0; k < Categories[i].Subcategory.Count-1; k++)
                         {
-                            <button class="w3-bar-Subcategory w3-button">@Categories[i].Subcategory[k].SubcategoryName</button>
+                            <button class="w3-bar-Subcategory w3-button" @onclick="() => { RemoveTypeFromCategory(Categories[i].CategoryName, Categories[i].Subcategory[k].SubcategoryName); }">@Categories[i].Subcategory[k].SubcategoryName</button>
                         }
                     </div>
                 }

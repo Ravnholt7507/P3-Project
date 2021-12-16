@@ -134,7 +134,6 @@ namespace Project.CSharpFiles
                         h++;
                         rdr2.Close();
                     }
-
                 }
             }
             else if (callType == "Cart Call")
@@ -336,7 +335,7 @@ namespace Project.CSharpFiles
                     con.Open();
                     string sql = $"DELETE FROM categories WHERE category = '{category}';";
                     using var cmd = new MySqlCommand(sql, con);
-                    string sql2 = $"ALTER TABLE types DROP '{category}';";
+                    string sql2 = $"ALTER TABLE types DROP COLUMN {category}";
                     using var cmd2 = new MySqlCommand(sql2, con);
                     con.Close();
                 }
@@ -356,6 +355,17 @@ namespace Project.CSharpFiles
             }
             
             return returnArray;
+        }
+
+        public void RemoveTypeFromCategory(string category, string type)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            using var cmd = new MySqlCommand();
+            cmd.Connection = con;
+
+            cmd.CommandText = $"UPDATE types SET {category} = 0 WHERE type = '{type}'";
+            cmd.ExecuteNonQuery();
         }
 
         public List<Product> SearchCall(params object[] args)

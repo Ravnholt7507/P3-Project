@@ -46,6 +46,11 @@ namespace Project.Pages.AdminPage
             }
         }
 
+        public void RemoveTypeFromCategory(string category, string type)
+        {
+            _call.RemoveTypeFromCategory(category, type);
+        }
+
         public List<Category> TestRemove(string CategoryToRemove)
         {
             foreach (Category category in TestCats1)
@@ -96,7 +101,7 @@ namespace Project.Pages.AdminPage
             {
                 if (category.CategoryName == selectedCategory)
                 {
-                    category.Subcategory.Add(new Subcategory(newTitle));
+                    //category.Subcategory.Add(new Subcategory(newTitle));
                     _call.AdminPages("New", "Type", selectedCategory, newTitle);
                     newTitle = null;
                 }
@@ -213,6 +218,7 @@ namespace Project.Pages.AdminPage
                 {
                     Category newCategory = new Category(category);
                     cats.Add(newCategory);
+                    Categories.Add(newCategory);
                 }
             }
             string[][] typeArray = _call.AdminPages("Get", "Types");
