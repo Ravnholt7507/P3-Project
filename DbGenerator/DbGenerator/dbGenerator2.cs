@@ -178,6 +178,15 @@ namespace DbGenerator
             cmd.CommandText = string.Format("INSERT INTO login (username, hashed_password, access_token) VALUES ('AdminLogin1', '{0}', '{1}')", EasyEncryption.SHA.ComputeSHA256Hash("AdminPassword1"), EasyEncryption.SHA.ComputeSHA256Hash(DateTime.Now.ToString()));
             cmd.ExecuteNonQuery();
 
+            cmd.CommandText = "ALTER TABLE types ALTER COLUMN kvinder SET DEFAULT 0";
+            cmd.ExecuteNonQuery();
+            
+            cmd.CommandText = "ALTER TABLE types ALTER COLUMN Piger SET DEFAULT 0";
+            cmd.ExecuteNonQuery();
+            
+            cmd.CommandText = "ALTER TABLE types ALTER COLUMN drenge SET DEFAULT 0";
+            cmd.ExecuteNonQuery();
+
             cmd.CommandText = "SET FOREIGN_KEY_CHECKS=1";
             cmd.ExecuteNonQuery();
             
