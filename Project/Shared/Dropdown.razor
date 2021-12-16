@@ -1,9 +1,16 @@
 ﻿@inherits DropdownCode
+@using CSharpFiles
+
 
 <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-    <button class="w3-bar-item w3-button" @onclick="()=>{ Dropdownbtn(); DbCallType(); }" ><i class="fa fa-bars"></i>Kategorier</button>
+    <button class="w3-bar-item w3-button" @onclick="() => { Dropdownbtn(); DbCallType(); }"><i class="fa fa-bars"></i>Kategorier</button>
     <div class="dropdown-content">
-        <PrintList Pages="InsertPages" />
+        <div class="Kasse">
+            @for (int i = 0; i < Pages.Count; i++)
+            {
+                <a href="Products/@Pages[i]" class="w3-bar-item w3-button" >@Pages[i]</a>
+            }
+        </div>
     </div>
 </div>
 

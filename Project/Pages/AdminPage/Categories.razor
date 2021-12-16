@@ -1,4 +1,4 @@
-﻿@page "/Admin"
+﻿@page "/Categories"
 @inherits AdminCode
 @inject ProtectedSessionStorage SessionStorage
 @inject NavigationManager NavManager
@@ -6,7 +6,7 @@
 @if (isLoaded)
 {
     <div class="page">
-        <h1>Admin page</h1>
+        <h1>Tilføj kategorier</h1>
         <div class="container">
             <div>
                 <h4>Tilføj en kategori</h4>
@@ -115,7 +115,7 @@ else
 
     .page {
         height: fit-content;
-        overflow: auto;
+        
         margin-bottom: 30px;
     }
 
@@ -149,6 +149,7 @@ else
         position: relative;
         top: 30px;
         margin-left: 20px;
+        margin-bottom: 40px;
     }
 
     .add {

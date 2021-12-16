@@ -1,13 +1,10 @@
-﻿@page "/Products"
+﻿@page "/Products/{Searched}"
+@page "/Products"
+
 @using Project.CSharpFiles
 
 <h3>Search Products</h3>
 
-<br />
-
-<SearchBarComponent OnSearch="HandleSearch"> </SearchBarComponent>
-
-<br />
 
 @if (Products != null && Products.Count() > 0)
 {
@@ -23,6 +20,9 @@ else
 }
 
 @code {
+
+    [Parameter]
+    public string Searched { get; set; }
 
     public void Loop()
     {
@@ -51,11 +51,11 @@ else
 
     public List<Product> Products = new List<Product>() { };
 
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
 
-        Products = GetProducts();
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Products = GetProducts(Searched);
     }
 
     public void HandleSearch(string filter)
@@ -71,13 +71,13 @@ else
             return Products;
         }
         List<Product> ProductID = new List<Product>();
-        
+
         DbCall dbcall = new DbCall();
         ProductID = dbcall.SearchCall(filter);
 
         List<Product> searchedProducts = new List<Product>();
 
-        foreach ( var prod in ProductID)
+        foreach (var prod in ProductID)
         {
             searchedProducts.Add(dbcall.GetProdByID(prod.Id));
         }
