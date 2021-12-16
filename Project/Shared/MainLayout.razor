@@ -65,9 +65,12 @@
 
                     <!-- Top header -->
                     <header class="w3-container w3-xlarge">
-                        <SearchBarComponent OnSearch="HandleSearch"> </SearchBarComponent>
+                        <div class="search_icon">
 
-                        <a class="w3-left" href=""></a>
+                            <SearchBarComponent OnSearch="HandleSearch"> </SearchBarComponent>
+                        </div>
+
+                        
                         <p class="w3-right_costum">
 
                             @if (isLoaded)
@@ -78,7 +81,7 @@
                                     <a class="buttright" href="Kpi">Kpi</a>
                                 </div>
                             }
-                            <div class="cart_and_search">
+                            <div class="cart_icon">
                                 <a class="w3-button" href="Cart"><i class="fa fa-shopping-cart w3-margin-right"> Kurv </i></a>
                             </div>
                         </p>
@@ -140,9 +143,15 @@
         bottom: 100px;
     }
 
-    .cart_and_search{
-        position: sticky;
-        right: 90%;
+    .cart_icon{
+        position: relative;
+        left: 90%;
+        bottom:70px;
+    }
+
+    .search_icon{
+        position: relative;
+        left:40%;
     }
 
     .admin_kpi_btns {
