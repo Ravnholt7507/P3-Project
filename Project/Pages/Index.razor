@@ -1,51 +1,40 @@
-﻿@page "/"
-<!-- Product grid -->
-<div class="w3-row">
-    <div class="w3-col l3 s6">
-        <div class="w3-container">
-            <img src="/Images/bedøvet vuf.png" style="width:80%">
-            <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-        </div>
-        <div class="w3-container">
-            <img src="/Images/bedøvet vuf.png" style="width:80%">
-            <p>Mega Ripped Jeans<br><b>$19.99</b></p>
-        </div>
-    </div>
+﻿@using Project.CSharpFiles;
+@using System.Linq;
 
-    <div class="w3-col l3 s6">
-        <div class="w3-container">
-            <div class="w3-display-container">
-                <img src="/Images/bedøvet vuf.png" style="width:80%">
-            </div>
-            <p>Mega Ripped Jeans<br><b>$19.99</b></p>
-        </div>
-        <div class="w3-container">
-            <img src="/Images/bedøvet vuf.png" style="width:80%">
-            <p>Washed Skinny Jeans<br><b>$20.50</b></p>
-        </div>
-    </div>
 
-    <div class="w3-col l3 s6">
-        <div class="w3-container">
-            <img src="/Images/bedøvet vuf.png" style="width:80%">
-            <p>Washed Skinny Jeans<br><b>$20.50</b></p>
+@page "/"
+@page "/index"
+    <!-- Product grid -->
+    @if (ViewedProducts != null && ViewedProducts.Count() > 0)
+    {
+        <p> Most Viewed Products </p>
+        <div class="row">
+            @foreach (var product in ViewedProducts)
+            {
+                <ProductCard Product="product"></ProductCard>
+            }
         </div>
-        <div class="w3-container">
-            <div class="w3-display-container">
-                <img src="/Images/bedøvet vuf.png" style="width:80%">
-            </div>
-            <p>Vintage Skinny Jeans<br><b>$14.99</b></p>
-        </div>
-    </div>
+    }
+    else
+    {
+        <p> No Products Found :(</p>
+    }
 
-    <div class="w3-col l3 s6">
-        <div class="w3-container">
-            <img src="/Images/bedøvet vuf.png" style="width:80%">
-            <p>Vintage Skinny Jeans<br><b>$14.99</b></p>
-        </div>
-        <div class="w3-container">
-            <img src="/Images/bedøvet vuf.png" style="width:80%">
-            <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-        </div>
-    </div>
-</div>
+    @code
+    {
+        public List<Product> GetProductIDs;
+        public List<Product> ViewedProducts = new List<Product>();
+        public DbCall call = new DbCall();
+
+        protected override void OnInitialized()
+        {
+            GetProductIDs = call.MostKPIViews(10);
+
+            foreach (var product in GetProductIDs)
+            {
+                Console.WriteLine(product);
+                ViewedProducts.Add(call.GetProdByID(product.Id));
+            }
+            ViewedProducts.ForEach(x => Console.WriteLine(x.Views));
+        }
+    }

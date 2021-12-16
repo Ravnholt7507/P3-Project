@@ -1160,7 +1160,7 @@ namespace Project.CSharpFiles
             con.Open();
 
             Product searchedProduct = new Product();
-            string sql =$"SELECT prod_name, price, prod_id FROM products WHERE prod_id = {id};";
+            string sql =$"SELECT prod_name, price, prod_id, views FROM products WHERE prod_id = {id};";
             using var cmd = new MySqlCommand(sql, con);
             using MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
@@ -1168,6 +1168,7 @@ namespace Project.CSharpFiles
                 searchedProduct.Name = rdr.GetString(0);
                 searchedProduct.Price = rdr.GetDouble(1);
                 searchedProduct.Id = rdr.GetInt32(2);
+                searchedProduct.Views = rdr.GetInt32(3);
             }
 
             rdr.Close();
@@ -1490,7 +1491,6 @@ namespace Project.CSharpFiles
                 KPI.Colour = rdr2.GetString(1);
 
                 Sold.Add(KPI);
-
             }
             rdr2.Close();
 
@@ -1507,6 +1507,33 @@ namespace Project.CSharpFiles
 
             return Sold;
         }
+
+        public List<Product> MostKPIViews(int Count)
+        {
+            List<Product> MostViewedProducts = new List<Product>();
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+
+            string sql = $"SELECT prod_id FROM Products ORDER BY views Desc LIMIT {Count}";
+
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                Product ViewedProduct = new Product();
+                ViewedProduct.Id = rdr.GetInt32(0);
+
+                MostViewedProducts.Add(ViewedProduct);
+            }
+            rdr.Close();
+            con.Close();
+
+            return MostViewedProducts;
+        }
+
+
+
 
         public string UserAdministration(string callType, params object[] args)
         {
