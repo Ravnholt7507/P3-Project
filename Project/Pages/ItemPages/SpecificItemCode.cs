@@ -55,11 +55,14 @@ namespace Project.Pages.ItemPages
             {
                 Options = new PieOptions
                 {
-                    Responsive = true,
+
+                    //      MaintainAspectRatio = true,
+                    AspectRatio = 500 / 500,
+                    Responsive = false,
                     Title = new OptionsTitle
                     {
                         Display = true,
-                        Text = "ChartJs.Blazor Pie Chart"
+                        Text = "Cost Breakdown"
                     }
                 }
             };
@@ -107,7 +110,7 @@ namespace Project.Pages.ItemPages
                 Console.WriteLine("test1");
                 if (colourSizeArray[i] != null)
                 {
-                    //product.ColourList.Add(colourSizeArray[i][0]);
+
                     product.MyColours.Add(new Colour(colourSizeArray[i][1], int.Parse(colourSizeArray[i][0])));
                     Console.WriteLine("test");
                 }
