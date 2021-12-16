@@ -1,17 +1,32 @@
 ﻿@inherits DropdownCode
 @using CSharpFiles
 
-
 <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-    <button class="w3-bar-item w3-button" @onclick="() => { Dropdownbtn(); DbCallType(); }"><i class="fa fa-bars"></i>Kategorier</button>
-    <div class="dropdown-content">
-        <div class="Kasse">
-            @for (int i = 0; i < Pages.Count; i++)
-            {
-                <a href="Products/@Pages[i]" class="w3-bar-item w3-button" >@Pages[i]</a>
-            }
+
+    @foreach (string selCat in categoryArray[0])
+    {
+        if (selCat != null)
+        {
+            <button class="w3-bar-item w3-button" @onclick="() => { Dropdownbtn(); CallSubcats(selCat); }"><i class="fa fa-bars"></i>@selCat</button>
+        }
+    }
+
+    @if (typeArray != null && typeArray[0].Length != 0)
+    {
+        <div class="dropdown-content">
+            <div class="Kasse">
+                @foreach (string selSubCats in typeArray[0])
+                {
+                    @if (selSubCats != null)
+                    {
+                        <a href="Products/@selSubCats" class="w3-bar-item w3-button">@selSubCats</a>
+                    }
+                }
+            </div>
         </div>
-    </div>
+    }
+
+
 </div>
 
 <style>
