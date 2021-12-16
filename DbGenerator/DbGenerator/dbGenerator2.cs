@@ -1,5 +1,6 @@
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DbGenerator
@@ -75,8 +76,11 @@ namespace DbGenerator
             string transparency =  "222&23&342&22&22";
             string[] material = {"Bomuld", "Uld", "Denim", "Silke", "Velour", "Hamp", "Nylon", "Polyester", "Acetat", "Elastan", "Læder"};
             string[] produced = {"Danmark", "Beirut", "Kina", "Tyrkiet", "Taiwain", "Indien", "Ungarn", "Afrika", "Nordkorea", "kazakhstan", "Honduras" };
-            string img = "Images/bedøvet vuf.png";
 
+            List<string> images = new List<string>();
+            images.Add("Images/bedøvet vuf.png");
+            images.Add("Images/Burger.png");
+            images.Add("Images/Ketchup.png");
 
             Random rd = new Random();
             
@@ -88,6 +92,8 @@ namespace DbGenerator
                 string randMat = material[rd.Next(0, 11)];
                 string randProduced = produced[rd.Next(0, 11)];
                 string randProdName = randCat + " " + randType;
+                string img = images[rd.Next(0,3)];
+
                 
                 cmd.CommandText = $@"INSERT INTO products (prod_name, Category, type, price, description, material, produced, transparency) VALUES ('{randProdName}', '{randCat}', '{randType}', '{randPrice}', '{description}', '{randMat}', '{randProduced}', '{transparency}')";
                 cmd.ExecuteNonQuery();

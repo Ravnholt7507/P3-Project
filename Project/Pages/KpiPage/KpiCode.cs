@@ -30,6 +30,7 @@ namespace Project.Pages.KpiPage
 
         public void Popup()
         {
+            i = 1;
             i++;
             if (i % 2 == 0)
             {
@@ -43,6 +44,7 @@ namespace Project.Pages.KpiPage
 
         public void StatsPopup()
         {
+            i2 = 1;
             i2++;
             if (i2 % 2 == 0)
             {
