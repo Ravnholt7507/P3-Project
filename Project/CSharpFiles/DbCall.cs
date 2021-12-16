@@ -235,7 +235,7 @@ namespace Project.CSharpFiles
                     string[] types = new string[25];
                     using var con = new MySqlConnection(_cs);
                     con.Open();
-                    string sql = "SELECT type FROM types;";
+                    string sql = string.Format("SELECT type FROM types WHERE {0} = 1", args[0].ToString());
                     using var cmd = new MySqlCommand(sql, con);
                     using MySqlDataReader rdr = cmd.ExecuteReader();
                     int i = 0;

@@ -224,7 +224,16 @@ namespace Project.Pages.AdminPage
                     Categories.Add(newCategory);
                 }
             }
-            string[][] typeArray = _call.AdminPages("Get", "Types");
+            
+            col_numbers();
+            
+            SelectedCat = cats[0].CategoryName;
+            return base.OnInitializedAsync();
+        }
+        public void CallSubcats(string selectedCat)
+        {
+            cats[0].Subcategory.Clear();
+            string[][] typeArray = _call.AdminPages("Get", "Types", selectedCat);
             foreach (var category in cats)
             {
                 foreach (var type in typeArray[0])
@@ -233,13 +242,24 @@ namespace Project.Pages.AdminPage
                     {
                         Subcategory subcategory = new Subcategory(type);
                         category.Subcategory.Add(subcategory);
+                        
                     }
                 }
             }
-            col_numbers();
-            SelectedSubCat = cats[0].Subcategory[0].SubcategoryName;
-            SelectedCat = cats[0].CategoryName;
-            return base.OnInitializedAsync();
+
+            try
+            {
+                SelectedSubCat = cats[0].Subcategory[0].SubcategoryName;
+            }
+            catch(NullReferenceException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch(ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
         }
 
         public color SwitchFuntion(string colour)

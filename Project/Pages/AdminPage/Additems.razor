@@ -26,7 +26,7 @@
         </form>
         <div class="kategori">
             <label>Kategorier</label>
-            <select @bind="SelectedCat" class="form-select">
+            <select @bind="SelectedCat" @onclick="(() => CallSubcats(SelectedCat))" class="form-select">
                 @foreach (Category cat in cats)
                 {
                     <option value="@cat.CategoryName"> @cat.CategoryName </option>
