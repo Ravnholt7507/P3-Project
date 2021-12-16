@@ -57,7 +57,7 @@ namespace Project.Pages.ItemPages
                 {
 
                     //      MaintainAspectRatio = true,
-                    AspectRatio = 500 / 500,
+                    AspectRatio = 0.5,
                     Responsive = false,
                     Title = new OptionsTitle
                     {
