@@ -67,10 +67,6 @@ a, .btn-link {
     border-radius: 4px;
 }
 
-.admin_kpi_btns{
-    position: relative;
-    left: 1130px;
-}
 
 .butt:hover {
     background: #fff;

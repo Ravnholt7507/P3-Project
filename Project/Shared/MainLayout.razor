@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject ProtectedSessionStorage SessionStorage
+@inject NavigationManager navigationManager
 
 <div class="page">
     <div>
@@ -64,8 +65,11 @@
 
                     <!-- Top header -->
                     <header class="w3-container w3-xlarge">
+                        <SearchBarComponent OnSearch="HandleSearch"> </SearchBarComponent>
+
                         <a class="w3-left" href=""></a>
                         <p class="w3-right_costum">
+
                             @if (isLoaded)
                             {
                                 <div class="admin_kpi_btns">
@@ -76,7 +80,6 @@
                             }
                             <div class="cart_and_search">
                                 <a class="w3-button" href="Cart"><i class="fa fa-shopping-cart w3-margin-right"> Kurv </i></a>
-                                <i class="fa fa-search"></i>
                             </div>
                         </p>
                     </header>
@@ -93,7 +96,7 @@
                                 Vores naturlige indfarvning sker med restprodukter fra fødevareproduktion (skal fra granatæbler, citronblade, olivenblade, lavendel) og et ler-mineral, som får det naturlige farvestof til at binde til metervaren mindst lige så godt som ved traditionelle kemiske farvestoffer. Dette resulterer i 80% mindre vandforbrug og 50% mindre energiforbrug i farveprocessen, fordi vi ikke skal bruge energi på at skylle kemi ud af produktet for at komme under EU’s max krav til kemiindhold i tekstiler.
                             </div>
 
-                            <div class="store_dims">
+                            <div class="store_desc">
                                 <h4>Butik</h4>
                                 <p><i class="fa fa-fw fa-map-marker"></i> Firmanavn</p>
                                 <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
@@ -119,8 +122,8 @@
 
     .text_field {
         position: relative;
-        left: 500px;
-        bottom: 50px;
+        left: 25%;
+        bottom: 40px;
         text-align: center;
         width: 800px;
         height: 50px;
@@ -131,21 +134,33 @@
         bottom: 120px;
     }
 
-    .store_dims{
+    .store_desc{ 
         position:relative;
-        left:750px;
-        bottom: 105px;
+        left:40%;
+        bottom: 100px;
     }
 
     .cart_and_search{
-        position: relative;
-        left: 1600px;
+        position: sticky;
+        right: 90%;
     }
+
+    .admin_kpi_btns {
+        position: sticky;
+        left: 100%;
+    }
+
 
 </style>
 
 @code
 {
+    public void HandleSearch(string filter)
+    {
+        if (!string.IsNullOrWhiteSpace(filter))
+            navigationManager.NavigateTo($"/products/{filter}");
+    }
+
     public string AccessToken = null;
 
     bool isLoaded;
