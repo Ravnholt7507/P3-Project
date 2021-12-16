@@ -72,7 +72,7 @@ namespace DbGenerator
             string[] colours = { "Lilla", "Blå", "Grå", "Rød", "Grøn", "Lyserød", "Hvid", "Sort", "Beige", "Turkis", "Gul", "Orange", "Flerfarvet" };
             string[] sizes = { "X-Small", "Small", "Medium", "Large", "X-Large" };
             string description = "Lorem ipsum dolor sit amet, consectetur.";
-            string transparency =  "Lorem ipsum dolor sit amet";
+            string transparency =  "222&23&342&22&22";
             string[] material = {"Bomuld", "Uld", "Denim", "Silke", "Velour", "Hamp", "Nylon", "Polyester", "Acetat", "Elastan", "Læder"};
             string[] produced = {"Danmark", "Beirut", "Kina", "Tyrkiet", "Taiwain", "Indien", "Ungarn", "Afrika", "Nordkorea", "kazakhstan", "Honduras" };
             string img = "Images/bedøvet vuf.png";
