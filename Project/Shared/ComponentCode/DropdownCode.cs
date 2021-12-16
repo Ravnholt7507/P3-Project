@@ -7,7 +7,6 @@ namespace Project.Shared.ComponentCode
 {
     public class DropdownCode : ComponentBase
     {
-        public string selectedCat;
         public string Visible;
         private int i = 1;
 
@@ -25,22 +24,33 @@ namespace Project.Shared.ComponentCode
         }
 
         DbCall call = new DbCall();
-        public List<string> Pages = new List<string>();
-
         DbCall _call = new DbCall();
+        public List<string> categories = new List<string>();
+        public List<string> types = new List<string>();
+
         public string[][] categoryArray;
+        public string[][] typeArray;
         protected override Task OnInitializedAsync()
         {
             categoryArray = _call.AdminPages("Get", "Categories");
-            System.Console.WriteLine(categoryArray[0][0]);
+
+            foreach (string cat in categoryArray[0])
+            {
+                if (cat != null)
+                    categories.Add(cat);
+            }
             return base.OnInitializedAsync();
         }
-        public string[][] typeArray;
+
         public void CallSubcats(string selectedCat)
-        {
-            System.Console.WriteLine("asdfas" + selectedCat);
+        {         
             typeArray = _call.AdminPages("Get", "Types", selectedCat);
-            
+
+            foreach (string type in typeArray[0])
+            {
+                if (type != null)
+                    types.Add(type);
+            }
         }
     }
 }
