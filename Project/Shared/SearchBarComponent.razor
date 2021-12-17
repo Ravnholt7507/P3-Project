@@ -1,7 +1,7 @@
 ﻿@using Project.CSharpFiles
 <div class="input-group mb-3">
     <div class="input-group-text">
-        <input type="text" class="form-control" @bind-value="filter" placeholder="Søg her" aria-label="Text input with checkbox">
+        <input type="text" class="form-control" @bind-value="filter" placeholder="Søg her" aria-label="Text input with checkbox" @onkeyup="@Enter">
         <button  class="butt" @onclick="HandleSearchBar"> <i class="fa fa-search"></i> </button>
     </div>
 </div>
@@ -12,6 +12,14 @@
     [Parameter]
     public EventCallback<string> OnSearch { get; set; }
 
+
+public void Enter(KeyboardEventArgs e)
+{
+    if (e.Code == "Enter" || e.Code == "NumpadEnter")
+    {
+         HandleSearchBar();
+    }
+}
     private void HandleSearchBar()
     {
         OnSearch.InvokeAsync(filter);
