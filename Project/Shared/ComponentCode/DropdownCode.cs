@@ -34,6 +34,7 @@ namespace Project.Shared.ComponentCode
         {
             categoryArray = _call.AdminPages("Get", "Categories");
 
+
             foreach (string cat in categoryArray[0])
             {
                 if (cat != null)
@@ -45,6 +46,7 @@ namespace Project.Shared.ComponentCode
         public void CallSubcats(string selectedCat)
         {         
             typeArray = _call.AdminPages("Get", "Types", selectedCat);
+            types.Clear();
 
             foreach (string type in typeArray[0])
             {
