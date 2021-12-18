@@ -18,5 +18,10 @@ namespace Project.CSharpFiles
             ColourName = name;
             ColourId = colourid;
         }
+
+        public string GetIMGByNr(int count)
+        {
+            return Images[count];
+        }
     }
 }

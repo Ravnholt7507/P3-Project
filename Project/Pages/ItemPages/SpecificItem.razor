@@ -10,9 +10,13 @@
 <div class="page">
     <div class="card-body">
         <div class="img-container">
-            <img class="img" src="@Prod.ColourFinder(SelectedColour).Images[0]" />
+            <img class="img" src="@Prod.ColourFinder(SelectedColour).GetIMGByNr(ImageCounter)" />
         </div>
-
+        @foreach(var img in Prod.ColourFinder(SelectedColour).Images)
+        {
+            <button @onclick="() => ImageSelecter(SelectedImage)"> @SelectedImage </button>
+            SelectedImage ++;
+        }
         <div class="card-info">
             <h5 class="card-title">@Prod.Name</h5>
             <h6 class="card-subtitle mb-2 text-muted">@Prod.Name</h6>
@@ -61,6 +65,13 @@
 </div>
 
 @code {
+
+    public void ImageSelecter(int SelectedImage)
+    {
+        ImageCounter = SelectedImage; 
+    }
+
+    public int SelectedImage = 0;
 
     public string Visits;
     public string CartItem;

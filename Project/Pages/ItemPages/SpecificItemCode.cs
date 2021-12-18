@@ -12,6 +12,7 @@ namespace Project.Pages.ItemPages
 {
     public class SpecificItemCode : ComponentBase
     {
+        public int ImageCounter;
         DbCall dbCall = new DbCall();
         public Product Prod;
 
@@ -39,6 +40,7 @@ namespace Project.Pages.ItemPages
                 Prod = GetProduct(prodId, colourId, size);
                 SelectedColour = Prod.MyColours[0].ColourName;
                 SelectedSize = Prod.MyColours[0].Sizes[0];
+                ImageCounter = 0;
                 SetChartConfigurations();
             }
 
