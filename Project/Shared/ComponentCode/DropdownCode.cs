@@ -7,7 +7,7 @@ namespace Project.Shared.ComponentCode
 {
     public class DropdownCode : ComponentBase
     {
-        public bool[] ExpandSubNav;
+       
         public string Visible;
         private int i = 1;
 
@@ -28,6 +28,7 @@ namespace Project.Shared.ComponentCode
         DbCall _call = new DbCall();
         public List<string> categories = new List<string>();
         public List<string> types = new List<string>();
+        public List<bool> ExpandSubNav = new List<bool>();
 
         public string[][] categoryArray;
         public string[][] typeArray;
