@@ -178,6 +178,46 @@ namespace Project.CSharpFiles
             return productArray;
         }
 
+
+
+        //public void GetAllColourIDs(int ProdID)
+        //{
+        //    int i =0;
+        //    using var con = new MySqlConnection(_cs);
+        //    con.Open();
+
+        //    string sql = $"SELECT * colour_id from colours where Prod_id = {ProdID}";
+
+        //    using var cmd = new MySqlCommand(sql, con);
+        //    using MySqlDataReader rdr = cmd.ExecuteReader();
+
+        //    while (rdr.Read())
+        //    {
+        //        int[] colourIDs = rdr.GetInt32(0);
+        //    }
+        //    rdr.Close();
+        //}
+
+
+        public void GetImages(int ColourID)
+        {
+            string images = "";
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+
+            string sql = $"SELECT img from colours where colour_id = {ColourID}";
+
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                images = rdr.GetString(0);
+            }
+            rdr.Close();
+        }
+
+
         public void VisitUpdate(int prodId)
         {
             using var con = new MySqlConnection(_cs);
@@ -1148,8 +1188,6 @@ namespace Project.CSharpFiles
 
 
             string[] test = { "placeholder" };
-
-            // return prod_id[]
             con.Close();
             return foundProducts;
         }
