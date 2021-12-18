@@ -3,20 +3,28 @@
 
 <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
 
-    @foreach (string selCat in categories)
+    @for(int i = 0; i < categories.Count; i++)
     {
-            <button class="w3-bar-item w3-button" @onclick="() => {Dropdownbtn(); CallSubcats(selCat); }"><i class="fa fa-bars"></i>@selCat</button>
+        ExpandSubNav[i] = false;
+        int copy = i;
+        <button class="w3-bar-item w3-button" @onclick="() =>ExpandSubNav[copy] = !ExpandSubNav[copy]"><i class="fa fa-bars"></i>@categories[copy]</button>
+
+        if (ExpandSubNav[copy])
+        {
+            CallSubcats(categories[copy]);
+            Dropdownbtn();
+            <div class="dropdown-content">
+                <div class="Kasse">
+                    @foreach (string selSubCats in types)
+                    {
+                        <a href="Products/@selSubCats" class="w3-bar-item w3-button">@selSubCats</a>
+                    }
+                </div>
+            </div>
+        }
+
     }
 
-
-    <div class="dropdown-content">
-        <div class="Kasse">
-            @foreach (string selSubCats in types)
-            {
-                    <a href="Products/@selSubCats" class="w3-bar-item w3-button">@selSubCats</a>
-            }
-        </div>
-    </div>
     
 
 

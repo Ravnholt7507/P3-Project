@@ -7,6 +7,7 @@ namespace Project.Shared.ComponentCode
 {
     public class DropdownCode : ComponentBase
     {
+        public bool[] ExpandSubNav;
         public string Visible;
         private int i = 1;
 
