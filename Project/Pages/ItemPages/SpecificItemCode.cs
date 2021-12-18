@@ -108,7 +108,7 @@ namespace Project.Pages.ItemPages
 
 
 
-            product.ImageLink = array[0][3];
+         //   product.ImageLink = array[0][3];
 
 
 

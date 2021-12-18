@@ -9,15 +9,14 @@
 
 <div class="page">
     <div class="card-body">
-        @for(int i=0; i<Prod.ColourFinder(SelectedColour).Images.Length; i++)
-        {
-            int copy = i;
-            Console.WriteLine(copy);
-            <button value="@copy" @onclick="() => ImageCounter = copy"> @copy </button>
-        }
         <div class="img-container">
             <img class="img" src="@Prod.ColourFinder(SelectedColour).GetIMGByNr(ImageCounter)" />
         </div>
+        @for(int i=0; i<Prod.ColourFinder(SelectedColour).Images.Length-1; i++)
+        {
+            int copy = i;
+            <button @onclick="() => ImageCounter = copy"> @copy </button>
+        }
         <div class="card-info">
             <h5 class="card-title">@Prod.Name</h5>
             <h6 class="card-subtitle mb-2 text-muted">@Prod.Name</h6>
