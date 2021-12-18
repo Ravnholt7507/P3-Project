@@ -322,13 +322,7 @@ namespace Project.Pages.AdminPage
             public string Id;
             public SizeAndStock[] SnS;
         }
-
-        public class product
-        {
-            public color[] Color;
-            public int Id = 0;
-        }
-
+        
         public void finalize()
         {
             List<string> sizeList = new List<string>();
