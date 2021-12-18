@@ -60,7 +60,6 @@ namespace Project.Pages.CartPage
             }
         }
     
-
         public List<Product> LoadItems(string[] array)
         {
             Order = new List<Product>();
