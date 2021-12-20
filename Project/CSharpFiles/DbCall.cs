@@ -1202,7 +1202,7 @@ namespace Project.CSharpFiles
             using var cmd = new MySqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, email, phonenumber, city, street, zipcode, country, ordered_items) 
+            cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, email, phonenumber, street, city, zipcode, country, ordered_items) 
             VALUES ('{args[1]}','{args[2]}','{args[3]}','{args[4]}','{args[5]}','{args[6]}','{args[7]}','{args[8]}', '{args[9]}')";
             cmd.ExecuteNonQuery();
             con.Close();
