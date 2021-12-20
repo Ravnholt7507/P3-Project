@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Components;
 using Project.CSharpFiles;
 using System.Linq;
 using ChartJs.Blazor.PieChart;
-using ChartJs.Blazor.PieChart;
 using ChartJs.Blazor.Util;
 using ChartJs.Blazor.Common;
 
@@ -13,6 +12,8 @@ namespace Project.Pages.ItemPages
 {
     public class SpecificItemCode : ComponentBase
     {
+        public int ImageCounter;
+        DbCall dbCall = new DbCall();
         public Product Prod;
 
         [Parameter]
@@ -39,6 +40,7 @@ namespace Project.Pages.ItemPages
                 Prod = GetProduct(prodId, colourId, size);
                 SelectedColour = Prod.MyColours[0].ColourName;
                 SelectedSize = Prod.MyColours[0].Sizes[0];
+                ImageCounter = 0;
                 SetChartConfigurations();
             }
 
@@ -99,10 +101,17 @@ namespace Project.Pages.ItemPages
             array = product.Call("Specific Product", "Kald 1", prodid, colourid);
             string[][] colourSizeArray = product.Call("Specific Product", "Kald 2", prodid);
 
+
             product.Name = array[0][0];
             product.Price = int.Parse(array[0][1]);
             product.Description = array[0][2];
-            product.ImageLink = array[0][3];
+
+
+
+         //   product.ImageLink = array[0][3];
+
+
+
             product.Transparency = array[0][5];
      
             for (int i = 0; i < colourSizeArray.Length; i++)
@@ -120,7 +129,8 @@ namespace Project.Pages.ItemPages
             for (int i = 0; i < colourSizeArray.Length; i++) 
             {
                 if (colourSizeArray[i] != null)
-                    {
+                {
+                    product.MyColours[i].Images = colourSizeArray[i][2].Split("&");
                     for (int k = 3; k < colourSizeArray.Length; k++)
                     {
                         if (colourSizeArray[i][k] != null)

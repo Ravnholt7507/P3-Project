@@ -1,5 +1,6 @@
 ﻿@using Project.CSharpFiles;
 @using System.Linq;
+@using System.Collections.Generic;
 
 
 @page "/"
@@ -22,19 +23,25 @@
 
     @code
     {
-        public List<Product> GetProductIDs;
+        public List<Product> ProductIDs;
         public List<Product> ViewedProducts = new List<Product>();
         public DbCall call = new DbCall();
+        List<int> ColourIDs;
+        public List<string> images = new List<string>();
 
         protected override void OnInitialized()
         {
-            GetProductIDs = call.MostKPIViews(10);
+            ProductIDs = call.MostKPIViews(10);
 
-            foreach (var product in GetProductIDs)
+
+
+
+
+            foreach (var product in ProductIDs)
             {
-                Console.WriteLine(product);
-                ViewedProducts.Add(call.GetProdByID(product.Id));
+                Product prod = call.GetProdByID(product.Id);
+                prod.ImageLink = prod.ImageLink.Split("&")[0];
+                ViewedProducts.Add(prod);
             }
-            ViewedProducts.ForEach(x => Console.WriteLine(x.Views));
         }
     }

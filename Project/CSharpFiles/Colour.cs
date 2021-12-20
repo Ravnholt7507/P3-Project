@@ -9,6 +9,7 @@ namespace Project.CSharpFiles
     {
         public List<string> Sizes = new List<string>();
         public List<string> stock = new List<string>();
+        public string[] Images;
         public string ColourName;
         public int ColourId;
 
@@ -16,6 +17,11 @@ namespace Project.CSharpFiles
         {
             ColourName = name;
             ColourId = colourid;
+        }
+
+        public string GetIMGByNr(int count)
+        {
+            return Images[count];
         }
     }
 }
