@@ -2,26 +2,35 @@
 @using CSharpFiles
 
 <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-
-    @foreach (string selCat in categories)
+    
+    @foreach (var item in categories)
     {
-            <button class="w3-bar-item w3-button" @onclick="() => {Dropdownbtn(); CallSubcats(selCat); }"><i class="fa fa-bars"></i>@selCat</button>
+        ExpandSubNav.Add(false);
+    } 
+
+    @for (int i = 0; i < categories.Count; i++)
+    {
+        int copy = i;
+        <button class="w3-bar-item w3-button" @onclick="() => {Dropdownbtn(); ExpandSubNav[copy] = !ExpandSubNav[copy];}"><i class="fa fa-bars"></i>@categories[copy]</button>
+
+        if (ExpandSubNav[copy])
+        {
+            CallSubcats(categories[copy]);
+            <div class="dropdown-content">
+                <div class="Kasse">
+                    @foreach (string selSubCats in types)
+                    {
+                        <a href="Products/@selSubCats" class="w3-bar-item w3-button">@selSubCats</a>
+                    }
+                </div>
+            </div>
+        }
+
     }
 
 
-    <div class="dropdown-content">
-        <div class="Kasse">
-            @foreach (string selSubCats in types)
-            {
-                    <a href="Products/@selSubCats" class="w3-bar-item w3-button">@selSubCats</a>
-            }
-        </div>
-    </div>
-    
-
-
 </div>
-
+    
 <style>
     .dropdown-content {
         display: none;
