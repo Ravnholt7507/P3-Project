@@ -414,12 +414,6 @@ namespace Project.CSharpFiles
             string[] searchParams = new string[args.Length];
             var inputsplit = args[0].ToString();
             searchParams = inputsplit.ToLower().Split(" ");
-            //for (int i = 0; i < args.Length; i++)
-            //{
-            //    searchParams[i] = inputsplit[i];
-
-            //}
-
 
             string[] columns = { "category", "type", "colour", "size" };
             string[] tables = { "categories", "types", "colours", "sizes" };
@@ -538,15 +532,11 @@ namespace Project.CSharpFiles
             int FoundcolourId = 0;
             string Foundsize = "";
 
-            if (category == true)
+            if (category)
             {
-                FoundprodId = 0;
-                FoundcolourId = 0;
-                Foundsize = "";
-
                 for (int i = 0; i < searchCategoryArray.Length; i++)
                 {
-                    if (type == true)
+                    if (type)
                     {
                         for (int j = 0; j < searchTypeArray.Length; j++)
                         {
@@ -568,7 +558,7 @@ namespace Project.CSharpFiles
                             }
 
                             rdr.Close();
-                            if (colour == true)
+                            if (colour)
                             {
                                 for (int k = 0; k < searchColourArray.Length; k++)
                                 {
@@ -591,7 +581,7 @@ namespace Project.CSharpFiles
                                         }
 
                                         rdr2.Close();
-                                        if (size == true)
+                                        if (size)
                                         {
                                             for (int l = 0; l < searchSizeArray.Length; l++)
                                             {
@@ -615,16 +605,16 @@ namespace Project.CSharpFiles
                                                 }
                                             }
                                         }
-                                        else if (size == false)
+                                        else if (!size)
                                         {
 
                                         }
                                     }
                                 }
                             }
-                            else if (colour == false)
+                            else if (!colour)
                             {
-                                if (size == true)
+                                if (size)
                                 {
                                     for (int l = 0; l < searchSizeArray.Length; l++)
                                     {
@@ -647,15 +637,15 @@ namespace Project.CSharpFiles
                                         }
                                     }
                                 }
-                                else if (size == false)
+                                else if (!size)
                                 {
                                 }
                             }
                         }
                     }
-                    else if (type == false)
+                    else if (!type)
                     {
-                        if (colour == true)
+                        if (colour)
                         {
                             for (int j = 0; j < searchCategoryArray.Length; j++)
                             {
@@ -697,7 +687,7 @@ namespace Project.CSharpFiles
 
                                     }
                                     rdr2.Close();
-                                    if (size == true)
+                                    if (size)
                                     {
                                         for (int l = 0; l < searchSizeArray.Length; l++)
                                         {
@@ -721,15 +711,15 @@ namespace Project.CSharpFiles
                                             }
                                         }
                                     }
-                                    else if (size == false)
+                                    else if (!size)
                                     {
                                     }
                                 }
                             }
                         }
-                        else if (colour == false)
+                        else if (!colour)
                         {
-                            if (size == true)
+                            if (size)
                             {
                                 for (int j = 0; j < searchCategoryArray.Length; j++)
                                 {
@@ -772,7 +762,7 @@ namespace Project.CSharpFiles
                                     }
                                 }
                             }
-                            else if (size == false)
+                            else if (!size)
                             {
                                 for (int j = 0; j < searchCategoryArray.Length; j++)
                                 {
@@ -799,13 +789,9 @@ namespace Project.CSharpFiles
                 }
             }
 
-            else if (category == false)
+            else if (!category)
             {
-                FoundprodId = 0;
-                FoundcolourId = 0;
-                Foundsize = "";
-
-                if (type == true)
+                if (type)
                 {
                     for (int j = 0; j < searchTypeArray.Length; j++)
                     {
@@ -826,7 +812,7 @@ namespace Project.CSharpFiles
                             }
                         }
                         rdr.Close();
-                        if (colour == true)
+                        if (colour)
                         {
                             for (int k = 0; k < searchColourArray.Length; k++)
                             {
@@ -847,7 +833,7 @@ namespace Project.CSharpFiles
                                         }
                                     }
                                     rdr2.Close();
-                                    if (size == true)
+                                    if (size)
                                     {
                                         for (int l = 0; l < searchSizeArray.Length; l++)
                                         {
@@ -871,15 +857,15 @@ namespace Project.CSharpFiles
                                             }
                                         }
                                     }
-                                    else if (size == false)
+                                    else if (!size)
                                     {
                                     }
                                 }
                             }
                         }
-                        else if (colour == false)
+                        else if (!colour)
                         {
-                            if (size == true)
+                            if (size)
                             {
                                 for (int l = 0; l < searchSizeArray.Length; l++)
                                 {
@@ -902,15 +888,15 @@ namespace Project.CSharpFiles
                                     }
                                 }
                             }
-                            else if (size == false)
+                            else if (!size)
                             {
                             }
                         }
                     }
                 }
-                else if (type == false)
+                else if (!type)
                 {
-                    if (colour == true)
+                    if (colour)
                     {
                         for (int j = 0; j < searchColourArray.Length; j++)
                         {
@@ -933,7 +919,7 @@ namespace Project.CSharpFiles
                                     FoundcolourId = 0;
                                 }
                             }
-                            if (size == true)
+                            if (size)
                             {
                                 for (int l = 0; l < searchSizeArray.Length; l++)
                                 {
@@ -957,14 +943,14 @@ namespace Project.CSharpFiles
                                     }
                                 }
                             }
-                            else if (size == false)
+                            else if (!size)
                             {
                             }
                         }
                     }
-                    else if (colour == false)
+                    else if (!colour)
                     {
-                        if (size == true)
+                        if (size)
                         {
                             for (int j = 0; j < searchSizeArray.Length; j++)
                             {
@@ -989,7 +975,7 @@ namespace Project.CSharpFiles
                                 }
                             }
                         }
-                        else if (size == false)
+                        else if (!size)
                         {
                         }
                     }
@@ -1170,24 +1156,7 @@ namespace Project.CSharpFiles
             }
             
             foundProducts.TrimExcess();
-
-            foreach (var prod2 in foundProducts)
-            {
-                Console.WriteLine(prod2.Id);
-            }
-
-
-            string testbhgfds = "";
-
-
-            // varierende SQL-kald alt efter mængden af parametertyper tilstede.
-
-            // size, colour, type, category
-
-            // type + category -> colour -> size
-
-
-            string[] test = { "placeholder" };
+            
             con.Close();
             return foundProducts;
         }
