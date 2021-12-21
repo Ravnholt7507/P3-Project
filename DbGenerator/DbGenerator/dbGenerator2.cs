@@ -111,7 +111,7 @@ namespace DbGenerator
                 int randPrice = rd.Next(100, 1000);
                 string randMat = material[rd.Next(0, 11)];
                 string randProduced = produced[rd.Next(0, 11)];
-                string randProdName = categoryNames[randCatnum] + typeNames[randTypenum];
+                string randProdName = typeNames[randTypenum];
                 string img = images[randTypenum];
 
                 
