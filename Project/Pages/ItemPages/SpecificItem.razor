@@ -10,9 +10,13 @@
 <div class="page">
     <div class="card-body">
         <div class="img-container">
-            <img class="img" src="@Prod.ImageLink" />
+            <img class="img" src="@Prod.ColourFinder(SelectedColour).GetIMGByNr(ImageCounter)" />
         </div>
-
+        @for(int i=0; i<Prod.ColourFinder(SelectedColour).Images.Length-1; i++)
+        {
+            int copy = i;
+            <button @onclick="() => ImageCounter = copy"> @copy </button>
+        }
         <div class="card-info">
             <h5 class="card-title">@Prod.Name</h5>
             <h6 class="card-subtitle mb-2 text-muted">@Prod.Name</h6>
@@ -23,7 +27,7 @@
                 <select @bind="SelectedColour" @onclick="ResetSize">
                     @foreach (var item in Prod.MyColours)
                     {
-                        <option value="@item.ColourName" @onclick="ResetSize"> @item.ColourName</option>
+                    <option value="@item.ColourName" @onclick="ResetSize"> @item.ColourName</option>
                     }
                 </select>
             </div>
@@ -32,13 +36,20 @@
                 <p class="pick-size">Vælg en størrelse:</p>
                 @if (Prod != null && Prod.ColourFinder(SelectedColour).Sizes.Count > 0)
                 {
-                    <select @bind="SelectedSize">
-                        @foreach (var item in Prod.ColourFinder(SelectedColour).Sizes)
+                <select @bind="SelectedSize">
+                    @foreach (var item in Prod.ColourFinder(SelectedColour).Sizes)
                         {
-                            <option value="@item">@item</option>
+                    <option value="@item">@item</option>
                         }
-                    </select>
+                </select>
                 }
+
+                <br />
+                <br />
+
+                <p>
+                    Stock:  <label style="color:darkred">@FindStock(SelectedColour, SelectedSize)</label>
+                </p>
 
                 <p class="price_id">
                     Pris:  <label style="color:darkred">@Prod.Price.ToString("Kr.")</label>
@@ -61,7 +72,6 @@
 </div>
 
 @code {
-
     public string Visits;
     public string CartItem;
 
@@ -224,4 +234,11 @@
         color: #000000;
         background-color: orange;
     }
+
+    
+
+    .btnnn:focus{
+        background-color: lightgreen;
+    }
+
 </style>

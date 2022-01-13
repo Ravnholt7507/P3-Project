@@ -116,7 +116,6 @@
                                 <td>
                                     <button @onclick="() => RemoveItem(k, Color)" class="btn btn-outline-dark btn-light btn-sm">x</button>
                                 </td>
-                                <td>@k</td>
                             </tr>
                         }
                     }
@@ -143,17 +142,16 @@
                             Indsæt
                         </button>
 
-                        <datalist id="Images">
+                        <select id="Images">
                             @foreach (string ChosenImg in filesList)
                             {
                                 <option value=@ChosenImg> </option>
                             }
-                        </datalist>
+                        </select>
                     </div>
 
                     <div class="colourSelect">
                         <select @bind="ChosenColor">
-                            <option> </option>
                             @foreach (color Color in MyColors)
                             {
                                 <option value="@Color.ColorName"> @Color.ColorName</option>

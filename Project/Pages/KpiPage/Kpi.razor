@@ -38,7 +38,7 @@
                         <th>Size</th>
                         <th>Prize</th>
                         <th>Stock</th>
-                        <th>IMG</th>
+
                         <th>Stats</th>
                     </tr>
                     @foreach (var type in typeArray)
@@ -54,7 +54,7 @@
                                     <th>@prod[2]</th> @*Size*@
                                     <th>@prod[8],-</th> @*Price*@
                                     <th>@prod[3]</th> @*Stock*@
-                                    <th>@prod[5]</th> @*Image*@
+
                                     <td style="text-align:center"><button class="butt_kpi" @onclick="() => { Counter = 0; ShowKPI(prod); StatsPopup(); }"><i class="fa fa-info"></i></button></td>
                                 </tr>
                             }
@@ -176,5 +176,8 @@ else
         background-color: #e6e6e6;
     }
 
+    .img-felt{
+        overflow:hidden;
+    }
 
 </style>

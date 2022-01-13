@@ -191,25 +191,6 @@ namespace Project.Pages.AdminPage
                 NewColor = null;
                 show_ektraValgMenu = true;
             }
-
-            //else
-            //{
-            //    List<SizeAndStock> Placeholder = new List<SizeAndStock>();
-            //    for (int i = 0; i < Sizes.Length; i++)
-            //    {
-            //        if (SwitchFuntion(SelectedColour).SnS[i] != null)
-            //        {
-            //            if (SwitchFuntion(SelectedColour).SnS.Contains(SwitchFuntion(SelectedColour).SnS[i]))
-            //            {
-            //                Console.WriteLine(SwitchFuntion(SelectedColour).SnS[i]);
-            //                SelectedSizes.Remove(SwitchFuntion(SelectedColour).SnS[i]);
-            //            }
-            //        }
-            //    }
-                
-            //    SwitchFuntion(SelectedColour).SnS.ToList().AddRange(SelectedSizes);
-            //    SwitchFuntion(SelectedColour).SnS.ToArray();
-            //}
         }
 
         protected override Task OnInitializedAsync()
@@ -259,7 +240,6 @@ namespace Project.Pages.AdminPage
             {
                 Console.WriteLine(e.Message);
             }
-
         }
 
         public color SwitchFuntion(string colour)
@@ -276,6 +256,7 @@ namespace Project.Pages.AdminPage
         public void ConfirmStock()
         {
             imgState = !imgState;
+            ChosenColor = MyColors[0].ColorName;
         }
 
         public void CheckboxSizes(string size, object checkvalue)
@@ -322,13 +303,7 @@ namespace Project.Pages.AdminPage
             public string Id;
             public SizeAndStock[] SnS;
         }
-
-        public class product
-        {
-            public color[] Color;
-            public int Id = 0;
-        }
-
+        
         public void finalize()
         {
             List<string> sizeList = new List<string>();

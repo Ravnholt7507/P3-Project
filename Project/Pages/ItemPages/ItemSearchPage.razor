@@ -1,6 +1,7 @@
 ﻿@page "/Products/{Searched}"
 @page "/Products"
 
+@using System.Collections.Generic
 @using Project.CSharpFiles
 
 <h3>Search Products</h3>
@@ -23,6 +24,8 @@ else
 
     [Parameter]
     public string Searched { get; set; }
+    public string ImageToShow;
+
 
     public void Loop()
     {
@@ -36,7 +39,7 @@ else
                 Name = productArray[i][1],
                 Price = double.Parse(productArray[i][2]),
                 Colour_id = int.Parse(productArray[i][3]),
-                ImageLink = productArray[i][4],
+                ImageLink = productArray[i][4].Split("&")[0],
                 Size = productArray[i][5]
             };
             Products.Add(newproduct);
@@ -58,11 +61,6 @@ else
         Products = GetProducts(Searched);
     }
 
-    public void HandleSearch(string filter)
-    {
-        Products = GetProducts(filter);
-    }
-
 
     public List<Product> GetProducts(string filter = null)
     {
@@ -79,64 +77,14 @@ else
 
         foreach (var prod in ProductID)
         {
-            searchedProducts.Add(dbcall.GetProdByID(prod.Id));
+            Product NewProduct = dbcall.GetProdByID(prod.Id);
+            NewProduct.ImageLink = NewProduct.ImageLink.Split("&")[0];
+            searchedProducts.Add(NewProduct);
         }
 
-        //Console.WriteLine(itemArray[0][0]);
-
-        //for (int i = 0; i < itemArray.Length; i++)
-        //{
-        //    newProducts.Add(Product.CreateInstance(itemArray[i]));
-        //}
         return searchedProducts;
     }
 
     [Parameter]
     public Product CartItem { get; set; }
 }
-
-
-
-@*<table class="table">
-        <thread>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Brand
-                </th>
-                <th>
-                    Price
-                </th>
-            </tr>
-        </thread>
-        <tbody>
-            @if (Products != null && Products.Count() > 0)
-            {
-                @foreach (var product in Products)
-                {
-                    @if (product != null)
-                    {
-                        <tr>
-                            <td>
-                                <NavLink href="@($"Product/{product.Id +"&"+product.Colour_id +"&"+ product.Size}")">
-                                    @product.Name
-                                </NavLink>
-                            </td>
-                            <td>@product.Name</td>
-                            <td>@product.Price.ToString("kr.")</td>
-                        </tr>
-                    }
-                }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="3">
-                        cannot find products
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@

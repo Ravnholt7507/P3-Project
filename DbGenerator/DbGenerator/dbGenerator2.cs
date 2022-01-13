@@ -27,6 +27,7 @@ namespace DbGenerator
             cmd.ExecuteNonQuery();
             
             string[] categories = { "Kvinder", "Drenge", "Piger" };
+            string[] categoryNames = { "Kvinde", "Drenge", "Pige" };
 
             foreach (var category in categories)
             {
@@ -43,6 +44,12 @@ namespace DbGenerator
             cmd.ExecuteNonQuery();
             
             string[] types = { "Trøjer", "Bukser", "T-shirts", "Strømper", "Jakker", "Jeans", "Sportstøj", "Shorts", "Undertøj", "Nattøj", "Badetøj" };
+            string[] typeNames =
+            {
+                "trøje", "bukser", "t-shirt", "strømper", "jakke", "jeans", "sportstøj", "shorts", "undertøj", "nattøj",
+                "badetøj"
+            };
+            
             foreach (var type in types)
             {
                 cmd.CommandText = $@"INSERT INTO types(type) VALUES('{type}')";
@@ -71,6 +78,9 @@ namespace DbGenerator
             
             
             string[] colours = { "Lilla", "Blå", "Grå", "Rød", "Grøn", "Lyserød", "Hvid", "Sort", "Beige", "Turkis", "Gul", "Orange", "Flerfarvet" };
+            string[] Secondarycolours = { "Lilla", "Blå", "Grå", "Røde", "Grønne", "Lyserøde", "Hvide", "Sorte", "Beige", "Turkis", "Gule", "Orange", "Flerfarvede" };
+            string[] tertiarycolours = { "Lilla", "Blåt", "Gråt", "Rødt", "Grønt", "Lyserødt", "Hvidt", "Sort", "Beige", "Turkis", "Gult", "Orange", "Flerfarvet" };
+
             string[] sizes = { "X-Small", "Small", "Medium", "Large", "X-Large" };
             string description = "Lorem ipsum dolor sit amet, consectetur.";
             string transparency =  "222&23&342&22&22";
@@ -78,21 +88,31 @@ namespace DbGenerator
             string[] produced = {"Danmark", "Beirut", "Kina", "Tyrkiet", "Taiwain", "Indien", "Ungarn", "Afrika", "Nordkorea", "kazakhstan", "Honduras" };
 
             List<string> images = new List<string>();
-            images.Add("Images/bedøvet vuf.png");
-            images.Add("Images/Burger.png");
-            images.Add("Images/Ketchup.png");
-
+            images.Add("Images/ClothesPlaceholders/lilla trøje.tiff");
+            images.Add("Images/ClothesPlaceholders/blå bukser.tiff");
+            images.Add("Images/ClothesPlaceholders/grå t-shirt.tiff");
+            images.Add("Images/ClothesPlaceholders/røde strømper.tiff");
+            images.Add("Images/ClothesPlaceholders/grøn jakke.tiff");
+            images.Add("Images/ClothesPlaceholders/pink jeans.tiff");
+            images.Add("Images/ClothesPlaceholders/hvidt sportstøj.tiff");
+            images.Add("Images/ClothesPlaceholders/sorte shorts.tiff");
+            images.Add("Images/ClothesPlaceholders/orange undertøj.tiff");
+            images.Add("Images/ClothesPlaceholders/turkis nattøj.tiff");
+            images.Add("Images/ClothesPlaceholders/gult badetøj.tiff");
+            
             Random rd = new Random();
             
             for (int i = 0; i < 1000; i++)
             {
-                string randCat = categories[rd.Next(0, 3)];
-                string randType = types[rd.Next(0, 11)];
+                int randCatnum = rd.Next(0, 3);
+                int randTypenum = rd.Next(0, 11);
+                string randCat = categories[randCatnum];
+                string randType = types[randTypenum];
                 int randPrice = rd.Next(100, 1000);
                 string randMat = material[rd.Next(0, 11)];
                 string randProduced = produced[rd.Next(0, 11)];
-                string randProdName = randCat + " " + randType;
-                string img = images[rd.Next(0,3)];
+                string randProdName = typeNames[randTypenum];
+                string img = images[randTypenum];
 
                 
                 cmd.CommandText = $@"INSERT INTO products (prod_name, Category, type, price, description, material, produced, transparency) VALUES ('{randProdName}', '{randCat}', '{randType}', '{randPrice}', '{description}', '{randMat}', '{randProduced}', '{transparency}')";
@@ -100,6 +120,10 @@ namespace DbGenerator
 
                 int randColourAmm = rd.Next(1, 5);
                 int[] prevColours = new int[5];
+                
+                // 0, 2, 4
+                // 1, 3, 5, 7,
+                // 6,8 ,9,10
                 
                 for (int j = 0; j < randColourAmm; j++)
                 {
@@ -109,7 +133,20 @@ namespace DbGenerator
                         randColourIndex = rd.Next(0, 13);  
                     } while (prevColours.Contains(randColourIndex));
 
-                    string randColour = colours[randColourIndex];
+                    string randColour = "";
+                    if (randTypenum == 0 || randTypenum == 2 || randTypenum == 4)
+                    {
+                        randColour = colours[randColourIndex];
+                    }
+                    else if (randTypenum == 1 || randTypenum == 3 || randTypenum == 5 || randTypenum == 7)
+                    {
+                        randColour = Secondarycolours[randColourIndex];
+                    }
+                    else if (randTypenum == 6 || randTypenum == 8 || randTypenum == 9 || randTypenum == 10)
+                    {
+                        randColour = tertiarycolours[randColourIndex];
+                    }
+
                     prevColours[j] = randColourIndex; 
                     
                     int randKpi = rd.Next(0, 101);
