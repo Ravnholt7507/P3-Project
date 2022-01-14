@@ -101,8 +101,10 @@ namespace DbGenerator
             images.Add("Images/ClothesPlaceholders/gult badetøj.tiff");
             
             Random rd = new Random();
+
+            int itemAmm = 500;
             
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < itemAmm; i++)
             {
                 int randCatnum = rd.Next(0, 3);
                 int randTypenum = rd.Next(0, 11);
@@ -113,9 +115,10 @@ namespace DbGenerator
                 string randProduced = produced[rd.Next(0, 11)];
                 string randProdName = typeNames[randTypenum];
                 string img = images[randTypenum];
+                int views = rd.Next(0, 500);
 
                 
-                cmd.CommandText = $@"INSERT INTO products (prod_name, Category, type, price, description, material, produced, transparency) VALUES ('{randProdName}', '{randCat}', '{randType}', '{randPrice}', '{description}', '{randMat}', '{randProduced}', '{transparency}')";
+                cmd.CommandText = $@"INSERT INTO products (prod_name, Category, type, price, description, material, produced, transparency, views) VALUES ('{randProdName}', '{randCat}', '{randType}', '{randPrice}', '{description}', '{randMat}', '{randProduced}', '{transparency}', '{views}')";
                 cmd.ExecuteNonQuery();
 
                 int randColourAmm = rd.Next(1, 5);
@@ -182,12 +185,14 @@ namespace DbGenerator
             cmd.CommandText = "DROP TABLE IF EXISTS orders";
             cmd.ExecuteNonQuery();
             
-            cmd.CommandText = "CREATE TABLE orders (id INTEGER PRIMARY KEY AUTO_INCREMENT, firstname TEXT, lastname TEXT, phonenumber TEXT, email TEXT, city TEXT, street TEXT, zipcode INT, country TEXT, ordered_items TEXT)";
+            cmd.CommandText = "CREATE TABLE orders (id INTEGER PRIMARY KEY AUTO_INCREMENT, firstname TEXT, lastname TEXT, phonenumber TEXT, email TEXT, city TEXT, street TEXT, zipcode INT, country TEXT, ordered_items TEXT, status TEXT)";
             cmd.ExecuteNonQuery();
 
             string[] firstnames = { "Jens", "Mikkel", "Patrick", "Nathan", "Rune", "Esben", "Benjamin", "Raymond", "Andreas", "Simone", "Lene", "Lis", "Marianne", "Dorthe", "Pernille"};
             string[] lastnames = { "Jensen", "Larsen", "Pedersen", "Hansen", "Thorsen", "Mikkelsen", "Pedersen"};
-            for (int i = 0; i < 25; i++)
+            string[] status = { "Pending", "Fulfilled", "Canelled", "Returned" };
+
+            for (int i = 0; i < 75; i++)
             {
                 string randFirstName = firstnames[rd.Next(0, 14)];
                 string randLastName = lastnames[rd.Next(0, 6)];
@@ -197,18 +202,19 @@ namespace DbGenerator
                 string street = "random fucking adress 123";
                 int zipcode = rd.Next(1000, 9999);
                 string country = "Danmark";
+                string currentStatus = status[rd.Next(0,3)];
 
                 string order = "";
                 
                 for (int j = 0; j < rd.Next(1,3); j++)
                 {
-                    int itemId = rd.Next(0, 1000);
+                    int itemId = rd.Next(0, itemAmm);
                     string colour = colours[rd.Next(0,13)];
                     string size = sizes[rd.Next(0, 5)];
 
                     order += itemId +" "+ colour +" "+ size + ", ";
                 }
-                cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, phonenumber, email, city, street, zipcode, country, ordered_items) VALUES ('{randFirstName}', '{randLastName}', '{phonenumber}', '{email}', '{city}', '{street}', '{zipcode}', '{country}', '{order}')";
+                cmd.CommandText = $@"INSERT INTO orders (firstname, lastname, phonenumber, email, city, street, zipcode, country, ordered_items, status) VALUES ('{randFirstName}', '{randLastName}', '{phonenumber}', '{email}', '{city}', '{street}', '{zipcode}', '{country}', '{order}', '{currentStatus}')";
                 cmd.ExecuteNonQuery();
             }
 
@@ -230,10 +236,34 @@ namespace DbGenerator
             cmd.CommandText = "ALTER TABLE types ALTER COLUMN drenge SET DEFAULT 0";
             cmd.ExecuteNonQuery();
 
-            cmd.CommandText = "SET FOREIGN_KEY_CHECKS=1";
+            string[] monthsArr =
+            {
+                "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "Septemper", "Oktober",
+                "November", "December"
+            };
+
+            string appString = "";
+
+            foreach (var month in monthsArr)
+            {
+                DateTime date = DateTime.Now;
+                string year = date.Year.ToString();
+                appString = appString + month + "_" + year + " " + "TEXT,";
+            }
+            cmd.CommandText = "DROP TABLE IF EXISTS kpi";
             cmd.ExecuteNonQuery();
             
+            cmd.CommandText = string.Format("CREATE TABLE kpi (prod_id INT, {0} FOREIGN KEY (prod_id) REFERENCES products(prod_id))", appString);
+            cmd.ExecuteNonQuery();
+
+            for (int i = 1; i < itemAmm+1; i++)
+            {
+                cmd.CommandText = string.Format("INSERT INTO kpi (prod_id, Januar_2022) VALUES ({0}, '0')", i);
+                cmd.ExecuteNonQuery();
+            }
             
+            cmd.CommandText = "SET FOREIGN_KEY_CHECKS=1";
+            cmd.ExecuteNonQuery();
             
             con.Close();
         }
