@@ -34,7 +34,7 @@
                 }
             </select>
             <select @bind="SelectedSubCat"  @onclick="(() => CallSubcats(SelectedCat))" class="form-select">
-                <option value="none" selected disabled hidden>Vælg en kategori</option>
+                <option value="none" selected disabled hidden>Vælg en under kategori</option>
                 @foreach (Subcategory subcat in cats[0].Subcategory)
                     {
                         <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
