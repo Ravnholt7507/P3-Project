@@ -233,6 +233,8 @@ namespace DbGenerator
             cmd.CommandText = "SET FOREIGN_KEY_CHECKS=1";
             cmd.ExecuteNonQuery();
             
+            
+            
             con.Close();
         }
     }
