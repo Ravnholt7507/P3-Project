@@ -81,12 +81,13 @@ namespace Project.Pages
         {
             Purchase++;
         }
-        
+
         public void MonthCheck()
         {
             DateNow = DateTime.Now;
             if (DateTime.Compare(DateNow, Update_Date) > 0)
             {
+                // place db call ();
                 StoreKpi();
                 RetrieveKpi();
                 Update_Date = DateNow.AddSeconds(3);
