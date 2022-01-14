@@ -1,7 +1,7 @@
 ﻿@using Project.CSharpFiles;
 @using System.Linq;
 @using System.Collections.Generic;
-
+@inherits TimerCode
 
 @page "/"
 @page "/index"
@@ -33,9 +33,7 @@
         {
             ProductIDs = call.MostKPIViews(10);
 
-
-
-
+            DoSomethingEveryTreeSeconds();
 
             foreach (var product in ProductIDs)
             {
@@ -44,4 +42,5 @@
                 ViewedProducts.Add(prod);
             }
         }
+
     }

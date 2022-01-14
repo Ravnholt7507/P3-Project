@@ -26,13 +26,15 @@
         </form>
         <div class="kategori">
             <label>Kategorier</label>
-            <select @bind="SelectedCat" @onclick="(() => CallSubcats(SelectedCat))" class="form-select">
+            <select @bind="SelectedCat" class="form-select">
+                <option value="none" selected disabled hidden>Vælg en kategori</option>
                 @foreach (Category cat in cats)
                 {
                     <option value="@cat.CategoryName"> @cat.CategoryName </option>
                 }
             </select>
-            <select @bind="SelectedSubCat" class="form-select">
+            <select @bind="SelectedSubCat"  @onclick="(() => CallSubcats(SelectedCat))" class="form-select">
+                <option value="none" selected disabled hidden>Vælg en under kategori</option>
                 @foreach (Subcategory subcat in cats[0].Subcategory)
                     {
                         <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
