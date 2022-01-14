@@ -4,50 +4,47 @@
 <div class="page">
 
     <h3>Timer</h3>
+    <button @onclick="()=> { ShowMonths(ListSize); }" class="butt">Show KPI</button>
     <button @onclick="APageVisit" class="butt">Visit</button>
     <button @onclick="APurchase" class="butt">Purchase</button>
-
-    <select @bind="SListSize">
-        <option value=4>4 weeks</option>
-        <option value=12>12 weeks</option>
-        <option value=26>26 weeks</option>
-        <option value=52>52 weeks</option>
+    <select @bind="ListSize">
+        @for (int i = 0; i < Months.Count; i++)
+        {
+            <option value=@i>Month @i</option>
+        }
     </select>
-    <a>Showing @SListSize weeks</a>
-
-    <a>Visits: @Visit</a>
+    <a>Showing month @ListSize</a>
     <br />
-    <a>Purchased: @Purchase</a>
     <div class="stats">
         <table>
             <tr>
-                <td>Week</td>
-                @foreach (var item in Weeks)
+                <td>Month</td>
+                @foreach (var item in SubMonths)
                 {
                     <th>@item</th>
                 }
             </tr>
             <tr>
                 <td>Visits</td>
-                @foreach (var item in PageVisits)
+                @foreach (var item in SubVisits)
                 {
                     <th>@item</th>
                 }
             </tr>
             <tr>
                 <td>Purchases</td>
-                @foreach (var item in Purchases)
+                @foreach (var item in SubPurchases)
                 {
                     <th>@item</th>
                 }
             </tr>
         </table>
     </div>
-   
+
     <a>Last checked: @DateNow</a>
     <br />
     <a>KPIS update date: @Update_Date</a>
-  
+
 </div>
 <style>
     .page {
