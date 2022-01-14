@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Dynamic;
 
 namespace Project.CSharpFiles
@@ -14,6 +15,7 @@ namespace Project.CSharpFiles
         public string Zipcode { get; set; }
         public string Country { get; set; }
         public string Items { get; set; }
+        public List<Product> OrderedItems = new List<Product>();
 
         public void Dbcall(string type)
         {

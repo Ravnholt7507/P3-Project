@@ -1634,5 +1634,227 @@ namespace Project.CSharpFiles
                return false;
             }
         }
+
+        public Order GetOrderById(int orderId)
+        {
+            Order order = new Order();
+
+            string orderedItems = "";
+
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = string.Format("SELECT firstname, lastname, phonenumber, email, city, street, zipcode, country, ordered_items FROM orders WHERE id = {0}", orderId);
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                order.Firstname = rdr.GetString(0);
+                order.Lastname = rdr.GetString(1);
+                order.Phonenumber = rdr.GetString(2);
+                order.Email = rdr.GetString(3);
+                order.City = rdr.GetString(4);
+                order.Adress = rdr.GetString(5);
+                order.Zipcode = rdr.GetInt32(6).ToString();
+                order.Country = rdr.GetString(7);
+                orderedItems = rdr.GetString(8);
+            }
+            rdr.Close();
+
+            var splitOrderedItems = orderedItems.Split(",");
+            var actualOrdered = splitOrderedItems.SkipLast(1);
+            foreach (var item in actualOrdered)
+            {
+                var splitItem = item.Split(" ");
+                if (splitItem[0] == "")
+                {
+                    splitItem = splitItem.Skip(1).ToArray();
+                }
+                Product product = new Product();
+                product.Id = int.Parse(splitItem[0]);
+                product.Colour = splitItem[1];
+                product.Size = splitItem[2];
+                order.OrderedItems.Add(product);
+            }
+
+            return order;
+        }
+
+        public List<Order> GetAllOrders()
+        {
+            List<Order> orders = new List<Order>();
+            int amount = 0;
+
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = string.Format("SELECT COUNT(id) as amount FROM orders");
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                amount = rdr.GetInt32(0);
+            }
+            rdr.Close();
+
+            for (int i = 0; i < amount; i++)
+            {
+                orders.Add(GetOrderById(i));
+            }
+            
+            return orders;
+        }
+
+        public List<Order> GetOrdersBy(string variable, string value)
+        {
+            List<Order> orders = new List<Order>();
+
+            value = value.ToLower();
+            
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = string.Format("SELECT id FROM orders WHERE {0} = {1}", variable, value);
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                orders.Add(GetOrderById(rdr.GetInt32(0)));
+            }
+            rdr.Close();
+            
+            return orders;
+        }
+
+        public List<Order> GetOrdersByMultiple(params object[] variables)
+        {
+            List<Order> orders = new List<Order>();
+            
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = $"SELECT id FROM orders WHERE {variables[0]} = {variables[1]}";
+            if (variables.Length > 1)
+            {
+                for (int i = 2; i < variables.Length; i++)
+                {
+                    sql = sql + $" AND {variables[i]} = {variables[i+1]}";
+                    i++;
+                }
+            }
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                orders.Add(GetOrderById(rdr.GetInt32(0)));
+            }
+            rdr.Close();
+            
+            return orders;
+        }
+
+        public void AppendKpi()
+        {
+            DateTime date = DateTime.Now;
+
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql = string.Format("SELECT ");
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+  
+            }
+            rdr.Close();
+            
+            if (true)
+            {
+                string[] monthsArr =
+                {
+                    "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "Septemper", "Oktober",
+                    "November", "December"
+                };
+
+                string appString = "";
+
+                foreach (var month in monthsArr)
+                {
+                    string year = date.Year.ToString();
+                    appString = appString + month + "_" + year + " " + "TEXT,";
+                }
+            }
+        }
+
+        public void SaveToKpi()
+        {
+            List<int> prodIds = new List<int>();
+
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            string sql3 = string.Format("SELECT prod_id FROM kpi");
+            using var cmd3 = new MySqlCommand(sql3, con);
+            using MySqlDataReader rdr3 = cmd3.ExecuteReader();
+            while (rdr3.Read())
+            {
+                int id = rdr3.GetInt32(0);
+                prodIds.Add(id);
+            }
+            rdr3.Close();
+
+            foreach (var id in prodIds)
+            {
+                double views = 0;
+                double sales = 0;
+                double viewPerSold = 0;
+                
+                string sql = string.Format("SELECT views FROM products WHERE prod_id = {0}", id);
+                using var cmd = new MySqlCommand(sql, con);
+                using MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    views = rdr.GetInt32(0);
+                }
+                rdr.Close();
+
+                string sql2 = string.Format("SELECT sold FROM colours WHERE prod_id = {0}", id);
+                using var cmd2 = new MySqlCommand(sql2, con);
+                using MySqlDataReader rdr2 = cmd2.ExecuteReader();
+                while (rdr2.Read())
+                {
+                    sales = sales + rdr2.GetInt32(0);
+                }
+                rdr2.Close();
+
+            
+                if (sales != 0)
+                {
+                    viewPerSold = views/sales;
+                }
+                else if (sales == 0)
+                {
+                    viewPerSold = 0;
+                }
+            
+                using var cmdCommand = new MySqlCommand();
+                cmd.Connection = con;
+
+                string data = views.ToString() + "," + sales.ToString() + "," + viewPerSold.ToString();
+
+                string[] monthsArr =
+                {
+                    "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "Septemper", "Oktober",
+                    "November", "December"
+                };
+                
+                DateTime date = DateTime.Now;
+                int month = date.Month;
+                int year = date.Year;
+
+                string currMonth = monthsArr[month - 1];
+                string variable = currMonth + "_" + year;
+                
+                cmd.CommandText = string.Format("UPDATE kpi SET {0} = '{1}' WHERE prod_id = {2}", variable, data, id);
+                cmd.ExecuteNonQuery();
+            }
+            
+            
+        }
     }
 }
