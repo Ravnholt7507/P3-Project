@@ -202,13 +202,13 @@ namespace Project.Pages.AdminPage
         public int result;
         public bool imgState = false;
         public string SelectedSubCat;
-
+        public string SelectedCat = null;
         public string SelectedColour = "";
 
         public string[] Colours = { "Lilla", "Blå", "Grå", "Rød", "Grøn", "Lyserød", "Hvid", "Sort", "Beige", "Turkis", "Gul", "Orange", "Flerfarvet" };
         public string[] Sizes = { "X-Small", "Small", "Medium", "Large", "X-Large" };
 
-        public string SelectedCat = null;
+       
         public string NewItem = null;
 
         public List<color> MyColors = new List<color>();
@@ -216,6 +216,7 @@ namespace Project.Pages.AdminPage
         public string ChosenColor;
 
         public List<Category> cats = new List<Category>();
+
 
         public bool show_ektraValgMenu = false;
         public bool ShowColours = false;
@@ -279,7 +280,7 @@ namespace Project.Pages.AdminPage
 
             col_numbers();
             
-            SelectedCat = cats[0].CategoryName;
+
             return base.OnInitializedAsync();
         }
         public void CallSubcats(string selectedCat)

@@ -11,68 +11,63 @@ namespace Project.Pages
     {
         public int Visit;
         public int Purchase;
-        private int Week = 1;
-        public string SListSize = "4";
+        private int Month = 1;
+        public int ListSize;
         public DateTime DateNow;
         public DateTime Update_Date;
-        public List<int> Weeks = new List<int>();
+        public List<int> Months = new List<int>();
         public List<int> PageVisits = new List<int>();
         public List<int> Purchases = new List<int>();
 
+        public List<int> SubMonths = new List<int>();
+        public List<int> SubVisits = new List<int>();
         public List<int> SubPurchases = new List<int>();
-        public List<int> SubPageVisits = new List<int>();
-        public List<int> SubWeeks = new List<int>();
-        
-        // Start timer
-        private void FirstTime()
+
+        public void ShowMonths(int k)
         {
-            DateNow = DateTime.Now;
-            //WeekCalc();
-            Update_Date = DateNow.AddSeconds(1);
+            SubMonths.Clear();
+            SubVisits.Clear();
+            SubPurchases.Clear();
+
+            for (int i = k; i < k + 4; i++)
+            {
+                if (i < Months.Count)
+                {
+                    SubMonths.Add(Months.ElementAt(i));
+                    SubVisits.Add(PageVisits.ElementAt(i));
+                    SubPurchases.Add(Purchases.ElementAt(i));
+                }
+            }
         }
 
-        //public void WeekCalc()
-        //{
-        //    for (int i = 0; i < 4; i++)
-        //    {
-        //        if (Weeks.Count != ) {
-        //            var item = Weeks[^1] - i;
-        //            SubWeeks[i] = item;
-
-        //            SubPageVisits[i] = PageVisits[SubWeeks[i]];
-
-        //            if (SubWeeks.Count > int.Parse(SListSize))
-        //            {
-        //                SubWeeks.RemoveAt(0);
-        //                SubPageVisits.RemoveAt(0);
-        //            }
-        //        }
-        //    }
-        //}
+        // Start timer
+        public void FirstTime()
+        {
+            DateNow = DateTime.Now;
+            Update_Date = DateNow.AddSeconds(3);
+            if (Months.Count < 4)
+            {
+                ShowMonths(0);
+            }
+            else
+            {
+                ShowMonths(Months.Count - 4);
+            }
+        }
 
         //Store Kpis in database
         private void StoreKpi()
         {
             PageVisits.Add(Visit);
             Purchases.Add(Purchase);
-            Weeks.Add(Week);
-            if (Weeks.Count > int.Parse(SListSize))
-            {
-                for (int i = 0; i < Weeks.Count - int.Parse(SListSize); i++)
-                {
-                    PageVisits.RemoveAt(0);
-                    Purchases.RemoveAt(0);
-                    Weeks.RemoveAt(0);
-                }
-               
-            }
+            Months.Add(Month);
         }
 
         // Retrieve Kpis from database
         private void RetrieveKpi()
         {
-            if (Week == 52) { Week = 0; }
-            Week++;
+            if (Month == 12) { Month = 0; }
+            Month++;
             Visit = 0;
             Purchase = 0;
         }
@@ -86,38 +81,47 @@ namespace Project.Pages
         {
             Purchase++;
         }
-        
-        private void WeekCheck()
+
+        public void MonthCheck()
         {
             DateNow = DateTime.Now;
             if (DateTime.Compare(DateNow, Update_Date) > 0)
             {
+                // place db call ();
                 StoreKpi();
                 RetrieveKpi();
-                Update_Date = DateNow.AddSeconds(1);
+                Update_Date = DateNow.AddSeconds(3);
+                if (Months.Count < 4)
+                {
+                    ShowMonths(0);
+                }
+                else
+                {
+                    ShowMonths(Months.Count - 4);
+                }
+                StateHasChanged();
             }
         }
 
         // Timer that run methods every n seconds
-        private async Task DoSomethingEveryTreeSeconds()
+        public async Task DoSomethingEveryTreeSeconds()
         {
             while (true)
             {
-                var delayTask = Task.Delay(1000);
+                var delayTask = Task.Delay(3000);
                 await delayTask; // wait until at least 3s elapsed since delayTask created
-                WeekCheck();
-                StateHasChanged();
+                MonthCheck();
+                Console.WriteLine("Updated: " + DateNow);
             }
         }
 
         protected override Task OnInitializedAsync()
         {
             FirstTime();
-            WeekCheck();
+            MonthCheck();
             DoSomethingEveryTreeSeconds();
             return base.OnInitializedAsync();
         }
-
     }
 }
 

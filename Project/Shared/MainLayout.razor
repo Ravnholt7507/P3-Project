@@ -28,21 +28,21 @@
                     font-family: "Montserrat", sans-serif;
                 }
 
-                .buttright{
-                      font-family: "Open Sans", sans-serif;
-                      font-size: 16px;
-                      letter-spacing: 2px;
-                      text-decoration: none;
-                      text-transform: uppercase;
-                      color: #000;
-                      cursor: pointer;
-                      border: 3px solid;
-                      padding: 0.25em 0.5em;
-                      box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
-                      position: relative;
-                      user-select: none;
-                      -webkit-user-select: none;
-                      touch-action: manipulation;
+                .buttright {
+                    font-family: "Open Sans", sans-serif;
+                    font-size: 16px;
+                    letter-spacing: 2px;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    color: #000;
+                    cursor: pointer;
+                    border: 3px solid;
+                    padding: 0.25em 0.5em;
+                    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+                    position: relative;
+                    user-select: none;
+                    -webkit-user-select: none;
+                    touch-action: manipulation;
                 }
             </style>
 
@@ -70,7 +70,7 @@
                             <SearchBarComponent OnSearch="HandleSearch"> </SearchBarComponent>
                         </div>
 
-                        
+
                         <p class="w3-right_costum">
 
                             @if (isLoaded)
@@ -117,54 +117,6 @@
 </div>
 </div>
 
-<style>
-
-    .w3-right_costum{
-
-    }
-
-    .text_field {
-        position: relative;
-        left: 400px;;
-        bottom: 40px;
-        text-align: center;
-        width: 800px;
-        height: 50px;
-    }
-
-    .w3-col s4 w3-right{
-        position: relative;
-        bottom: 120px;
-    }
-
-    .store_desc{ 
-        position:relative;
-        left:650px;
-        bottom: 100px;
-    }
-
-    .cart_icon{
-        position: relative;
-        left: 1400px;
-        bottom:67px;
-    }
-
-    .search_icon{
-        position: relative;
-        left:0px;
-        top:8px;
-    }
-
-    .admin_kpi_btns {
-        position: relative;
-        margin-top: -50px;
-        left: 720px;
-        bottom: 25px;
-    }
-
-
-</style>
-
 @code
 {
     public void HandleSearch(string filter)
@@ -195,3 +147,51 @@
         StateHasChanged();
     }
 }
+
+
+<style>
+
+    .w3-right_costum {
+    }
+
+    .text_field {
+        position: relative;
+        left: 400px;
+        ;
+        bottom: 40px;
+        text-align: center;
+        width: 800px;
+        height: 50px;
+    }
+
+    .w3-col s4 w3-right {
+        position: relative;
+        bottom: 120px;
+    }
+
+    .store_desc {
+        position: relative;
+        left: 650px;
+        bottom: 100px;
+    }
+
+    .cart_icon {
+        position: relative;
+        left: 1400px;
+        bottom: 67px;
+    }
+
+    .search_icon {
+        position: relative;
+        left: 0px;
+        top: 8px;
+    }
+
+    .admin_kpi_btns {
+        position: relative;
+        margin-top: -50px;
+        left: 720px;
+        bottom: 25px;
+    }
+</style>
+
