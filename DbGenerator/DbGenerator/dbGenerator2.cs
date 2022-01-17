@@ -243,17 +243,25 @@ namespace DbGenerator
             };
 
             string appString = "";
+            DateTime date = DateTime.Now;
+            string year = date.Year.ToString();
+            string months = date.Month.ToString();
+            int month = date.Month;
+            
+            // foreach (var month in monthsArr)
+            // {
+            //     DateTime date = DateTime.Now;
+            //     string year = date.Year.ToString();
+            //     string months = date.Month.ToString();
+            //     appString = appString + month + "_" + year + " " + "TEXT,";
+            // }
+            
+            appString = appString + monthsArr[month-1] + "_" + year + " " + "TEXT";
 
-            foreach (var month in monthsArr)
-            {
-                DateTime date = DateTime.Now;
-                string year = date.Year.ToString();
-                appString = appString + month + "_" + year + " " + "TEXT,";
-            }
             cmd.CommandText = "DROP TABLE IF EXISTS kpi";
             cmd.ExecuteNonQuery();
             
-            cmd.CommandText = string.Format("CREATE TABLE kpi (prod_id INT, {0} FOREIGN KEY (prod_id) REFERENCES products(prod_id))", appString);
+            cmd.CommandText = string.Format("CREATE TABLE kpi (prod_id INT, {0}, FOREIGN KEY (prod_id) REFERENCES products(prod_id))", appString);
             cmd.ExecuteNonQuery();
 
             for (int i = 1; i < itemAmm+1; i++)

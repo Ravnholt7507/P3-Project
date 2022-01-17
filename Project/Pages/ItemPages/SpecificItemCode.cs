@@ -142,9 +142,16 @@ namespace Project.Pages.ItemPages
                     }                 
                 }
             }
+            DbCall dbCall = new DbCall();
+            // dbCall.GetOrderById(2);
+            // dbCall.GetAllOrders();
+            // dbCall.GetOrdersBy("status", "fullfilled");
+            // dbCall.GetOrdersByMultiple("status", "checked", "firstname", "Benjamin");
+            
             if (product.Id == prodid && product.Colour_id == colourid && product.Size == size)
                 return product;
             return null;
+            
         }
     }
 }

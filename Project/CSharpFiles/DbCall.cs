@@ -1782,7 +1782,7 @@ namespace Project.CSharpFiles
             }
         }
 
-        public void SaveToKpi()
+        public void SaveToKpi(DateTime date)
         {
             List<int> prodIds = new List<int>();
 
@@ -1797,6 +1797,15 @@ namespace Project.CSharpFiles
                 prodIds.Add(id);
             }
             rdr3.Close();
+            
+            string[] monthsArr =
+            {
+                "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "Septemper", "Oktober",
+                "November", "December"
+            };
+            
+            int currmonth = date.Month;
+            int year = date.Year;
 
             foreach (var id in prodIds)
             {
@@ -1831,30 +1840,78 @@ namespace Project.CSharpFiles
                 {
                     viewPerSold = 0;
                 }
-            
-                using var cmdCommand = new MySqlCommand();
-                cmd.Connection = con;
-
+                
                 string data = views.ToString() + "," + sales.ToString() + "," + viewPerSold.ToString();
 
-                string[] monthsArr =
-                {
-                    "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "Septemper", "Oktober",
-                    "November", "December"
-                };
-                
-                DateTime date = DateTime.Now;
-                int month = date.Month;
-                int year = date.Year;
-
-                string currMonth = monthsArr[month - 1];
+                string currMonth = monthsArr[currmonth - 1];
                 string variable = currMonth + "_" + year;
                 
-                cmd.CommandText = string.Format("UPDATE kpi SET {0} = '{1}' WHERE prod_id = {2}", variable, data, id);
-                cmd.ExecuteNonQuery();
+                using var cmdCommand = new MySqlCommand();
+                cmdCommand.Connection = con;
+                
+                cmdCommand.CommandText = string.Format("UPDATE kpi SET {0} = '{1}' WHERE prod_id = {2}", variable, data, id);
+                cmdCommand.ExecuteNonQuery();
+
+                Reset(id);
             }
+        }
+
+        public void NewMonthInDb(DateTime date)
+        {
+            Console.WriteLine(date.Date);
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+
+            List<string> months = new List<string>();
+
+            string sql = string.Format(@"SELECT `COLUMN_NAME`
+                                        FROM `INFORMATION_SCHEMA`.`COLUMNS`
+                                        WHERE `TABLE_SCHEMA`='clothingstore'
+                                        AND `TABLE_NAME`='kpi';");
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                string value = rdr.GetString(0);
+                var split = value.Split("_");
+                months.Add(split[0]);
+            }
+            rdr.Close();
+
+            int month = date.Month;
+            int year = date.Year;
             
+            using var cmdCommand = new MySqlCommand();
+            cmdCommand.Connection = con;
+
+            string appString = "";
+            string[] monthsArr =
+            {
+                "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "Septemper", "Oktober",
+                "November", "December"
+            };
+
+            if (!months[0].Contains(monthsArr[month-1]))
+            {
+                appString = appString + monthsArr[month-1] + "_" + year + " " + "TEXT";
+                cmdCommand.CommandText = string.Format("ALTER TABLE kpi ADD {0}", appString);
+                cmdCommand.ExecuteNonQuery();
+            }
+        }
+
+        public void Reset(int id)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
             
+            using var cmdCommand = new MySqlCommand();
+            cmdCommand.Connection = con;
+            
+            cmdCommand.CommandText = string.Format("UPDATE products SET views = 0 WHERE prod_id = {0}", id);
+            cmdCommand.ExecuteNonQuery();
+
+            cmdCommand.CommandText = string.Format("UPDATE colours SET sold = 0 WHERE prod_id = {0}", id);
+            cmdCommand.ExecuteNonQuery();
         }
     }
 }
