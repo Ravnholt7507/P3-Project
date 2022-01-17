@@ -2,6 +2,7 @@
 @inherits ItemList
 @using CSharpFiles
 @inject ProtectedLocalStorage BrowserStorage
+@inject NavigationManager NavManager
 
 <div class="page">
     <div class="cart-overview">
@@ -71,6 +72,7 @@
             call.PurchaseUpdate(item.Id, item.Colour_id, item.OrderAmount);
             Console.WriteLine("Product: " + item.Id + "Color: " + item.Colour_id + "Amount: " + item.OrderAmount);
         }
+        NavManager.NavigateTo("/");
     }
 
     public async Task DeleteCoochie()

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using Project.CSharpFiles;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Project.Pages.AdminPage
 {
@@ -148,6 +150,42 @@ namespace Project.Pages.AdminPage
 
         // ADMIN 2 ----------------------------------- //
 
+        public UserInput userInput = new UserInput();
+        public class UserInput
+        {
+            [Required]
+            [StringLength(20)]
+            public string name { get; set; }
+
+            [Required]
+            [Range(1, 5000)]
+            public int price { get; set; }
+
+            [Required]
+            public int pris1 { get; set; }
+
+            [Required]
+            public int pris2 { get; set; }
+
+            [Required]
+            public int pris3 { get; set; }
+
+            [Required]
+            public int pris4 { get; set; }
+
+            [Required]
+            public int pris5 { get; set; }
+
+            [Required]
+            public string desc { get; set; }
+
+            [Required]
+            public string inputcat { get; set; }
+
+            [Required]
+            public string inputsubcat { get; set; }
+        }
+
         public List<SizeAndStock> SelectedSizes = new List<SizeAndStock>();
 
         public string SelectedValue;
@@ -181,9 +219,42 @@ namespace Project.Pages.AdminPage
 
 
         public bool show_ektraValgMenu = false;
+        public bool ShowColours = false;
+        public bool IsDisabled = false;
+        public bool checkboxDisabled = true;
+
+        public bool ting = false;
+
+        public void StartNewItem()
+        {
+            // Sets the fields which are inputted to the database. They get value from form when submitted.
+            TransportPrice = userInput.pris1.ToString();
+            ResourcePrice = userInput.pris2.ToString();
+            ProductionPrice = userInput.pris3.ToString();
+            MillingPrice = userInput.pris4.ToString();
+            TrimPrice = userInput.pris5.ToString();
+            NewItem = userInput.name;
+            Price = userInput.price.ToString();
+            Description = userInput.desc;
+            SelectedCat = userInput.inputcat;
+            SelectedSubCat = userInput.inputsubcat;
+            
+            ShowColours = true;
+            IsDisabled = true;
+        }
+
         public void Verify()
         {
-            if (!MyColors.Contains(SwitchFuntion(SelectedColour)))
+            //If colour exist and already contains size, do this
+            if (MyColors.Contains(SwitchFuntion(SelectedColour))) // && SwitchFuntion(SelectedColour).SnS.Any(size => SelectedSizes.Contains(size)))
+            {
+                Console.WriteLine("benis");
+                SwitchFuntion(SelectedColour).SnS = SelectedSizes.ToArray();
+                SelectedSizes.Clear();
+                show_ektraValgMenu = true;
+            }
+            // If colour is does not exist yet
+            if (!MyColors.Contains(SwitchFuntion(SelectedColour)) && SwitchFuntion(SelectedColour) == null)
             {
                 NewColor = new color(SelectedColour);
                 NewColor.SnS = SelectedSizes.ToArray();
@@ -206,7 +277,7 @@ namespace Project.Pages.AdminPage
                     Categories.Add(newCategory);
                 }
             }
-            
+
             col_numbers();
             
 
@@ -254,10 +325,27 @@ namespace Project.Pages.AdminPage
             return SelectedSize;
         }
 
+        public SizeAndStock GetSizeAndStock(string size)
+        {
+            SizeAndStock SelectedSize;
+            SelectedSize = SelectedSizes.FirstOrDefault(x => x.Size == size);
+            return SelectedSize;
+        }
+
         public void ConfirmStock()
         {
             imgState = !imgState;
             ChosenColor = MyColors[0].ColorName;
+        }
+
+        public bool IsEmpty<T>(List<T> list)
+        {
+            if (list == null)
+            {
+                return true;
+            }
+
+            return list.Count == 0;
         }
 
         public void CheckboxSizes(string size, object checkvalue)
@@ -265,13 +353,21 @@ namespace Project.Pages.AdminPage
             if ((bool)checkvalue)
                 SelectedSizes.Add(new SizeAndStock(size));
             if (!(bool)checkvalue)
-                SelectedSizes.Remove(new SizeAndStock(size));
+                if (SelectedSizes.Contains(GetSizeAndStock(size)))
+                SelectedSizes.Remove(GetSizeAndStock(size));
         }
 
         public void CheckboxColours(string colour)
         {
-            if (!MyColors.Contains(SwitchFuntion(colour)))
-                SelectedColour = colour;
+   //            if (!MyColors.Contains(SwitchFuntion(colour)))
+            SelectedSizes.Clear();
+            SelectedColour = colour;
+
+            //Disable checkbox if no colours are selected
+            if (IsEmpty(MyColors))
+                checkboxDisabled = false;
+            else if (!IsEmpty(MyColors))
+                checkboxDisabled = true;
         }
 
         public void RemoveItem(int i, color Color)
