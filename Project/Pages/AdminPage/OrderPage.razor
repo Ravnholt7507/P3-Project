@@ -1,0 +1,99 @@
+﻿@using Project.CSharpFiles;
+@using System.Linq;
+@using System.Collections.Generic;
+@page "/SeeOrders"
+@inherits AdminCode
+@inject ProtectedSessionStorage SessionStorage
+@inject NavigationManager NavManager
+@if (isLoaded)
+{
+    <h3>Orders</h3>
+
+    @if (Orders != null && Orders.Count() > 0)
+    {
+        <table class="table">
+            <tr>
+                <th> Email </th>
+                <th> Tlf </th>
+                <th> Country </th>
+                <th> City </th>
+                <th> Zipcode</th>
+                <th> adress </th>
+                <th> Items </th>
+            </tr>
+            <tbody>
+                @foreach (Order order in Orders)
+                {
+                    <tr>
+                        <td> @order.Email </td>
+                        <td> @order.Phonenumber </td>
+                        <td> @order.Country </td>
+                        <td> @order.City </td>
+                        <td> @order.Zipcode </td>
+                        <td> @order.Adress</td>
+                        <td>
+                            @foreach (Product prod in order.OrderedItems)
+                            {
+                                @($" {prod.Name} {prod.Price.ToString()} kr. ")
+                                <br />
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p> No orders Found :(</p>
+    }
+}
+else
+{
+    <p>Sorry, but Rune made spaghtti code.</p>
+}
+
+
+@code
+{
+    public string AccessToken = null;
+
+    bool isLoaded;
+
+    public async Task Read()
+    {
+        var AccessTokenSession = await SessionStorage.GetAsync<string>("UserName");
+        AccessToken = AccessTokenSession.Value;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Read();
+        if (DataBaseVerify(AccessToken))
+        {
+            isLoaded = true;
+        }
+        StateHasChanged();
+    }
+
+    public List<Order> Orders = new List<Order>();
+    public Product Orderedprod;
+    public List<Product> OrderedProducts;
+    public DbCall call = new DbCall();
+    protected override void OnInitialized()
+    {
+        Orders = call.GetAllOrders();
+
+        foreach (Order order in Orders)
+        {
+            OrderedProducts = new List<Product>();
+            foreach (Product prod in order.OrderedItems)
+            {
+                Orderedprod = call.GetProdByID(prod.Id);
+                OrderedProducts.Add(Orderedprod);
+            }
+            order.OrderedItems = OrderedProducts;
+        }
+    }
+}
