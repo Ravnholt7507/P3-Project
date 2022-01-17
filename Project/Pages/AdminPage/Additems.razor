@@ -39,7 +39,6 @@
                     {
                         <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
                     }
-                    
             </select>
         </div>
     </div>
@@ -47,8 +46,6 @@
     <div class=" farvevalgMenu_outer">
         <h2 class=""> Vælg farve, størrelse og antal</h2>
         <div class="farvevalgMenu">
-
-
             <div class="ColorSize">
                 @for (int i = 0; i < num_col; i++)
                 {
@@ -62,13 +59,13 @@
                             }
                             else
                             {
-                                <div class="column">
-                                    <input type="radio" name="ChosenColor" @onclick="() => CheckboxColours(Colours[counter])" />
+                            <div class="column">
+                                <input type="radio" name="ChosenColor" @onclick="() => CheckboxColours(Colours[counter])" />
 
-                                    <label>
-                                        @Colours[counter]
-                                    </label>
-                                </div>
+                                <label>
+                                    @Colours[counter]
+                                </label>
+                            </div>
                             }
                         }
                     </div>
