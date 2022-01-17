@@ -2,182 +2,206 @@
 @using CSharpFiles;
 @using System.IO;
 @using System.Linq;
+@using System.Threading;
+@using System.ComponentModel.DataAnnotations 
 @inherits AdminCode
 @inject ProtectedSessionStorage SessionStorage
 @inject NavigationManager NavManager
 @if (isLoaded)
 {
-<div class="page">
-    <h2>Tilføj items</h2>
-    <div class="namePriceMenu">
-        <form>
-            <input class="tastfelt" @bind="NewItem" placeholder="Indtast artikelnavn" required />
-            <input class="tastfelt" @bind="Price" placeholder="Indtast pris" required />
-            <br />
-            <a>Cost breakdown</a>
-            <br />
-            <input class="tastfelt" @bind="TransportPrice" placeholder="Indtast transportpris" required />
-            <input class="tastfelt" @bind="ResourcePrice" placeholder="Indtast råvarepris" required />
-            <input class="tastfelt" @bind="ProductionPrice" placeholder="Indtast produktionspris" required />
-            <input class="tastfelt" @bind="TrimPrice" placeholder="Indtast trimpris" required />
-            <input class="tastfelt" @bind="MillingPrice" placeholder="Indtast millingpris" required />
-            <br />
-            <textarea class="description" @bind="Description" placeholder="Description" required />
-        </form>
-        <div class="kategori">
-            <label>Kategorier</label>
-            <select @bind="SelectedCat" @onclick="(() => CallSubcats(SelectedCat))" class="form-select">
-                @foreach (Category cat in cats)
-                {
-                    <option value="@cat.CategoryName"> @cat.CategoryName </option>
-                }
-            </select>
-            <select @bind="SelectedSubCat" class="form-select">
-                @foreach (Subcategory subcat in cats[0].Subcategory)
-                    {
-                        <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
-                    }
-                    
-            </select>
+    <div class="page">
+        <h2>Tilføj item</h2>
+        <div class="namePriceMenu">
+            <fieldset disabled="@IsDisabled">
+                <EditForm Model="@userInput" OnValidSubmit="StartNewItem">
+                    <DataAnnotationsValidator></DataAnnotationsValidator>
+                    <ValidationSummary></ValidationSummary>
+                    <label>navn og pris</label>
+                    <div class="col-auto">
+                        <InputText @bind-Value="userInput.name" placeholder="Artikel-navn"> </InputText>
+                    </div>
+                    <div class="col-auto">
+                        <InputNumber @bind-Value="userInput.price" placeholder="Pris">  </InputNumber>
+                    </div>
+                    <div class="col-auto">
+                        <InputTextArea class="description" @bind-Value="userInput.desc" placeholder="Description"></InputTextArea>
+                    </div>
+
+                    <br />
+                    <label>Cost breakdown</label>
+                    <br />
+                    <div class="col-auto">
+                        <label class="labelbox">Transportpris: </label>
+                        <InputNumber class="numbers" @bind-Value="userInput.pris1" placeholder="Indtast transportpris" min="0"> </InputNumber>
+                        <br />
+                        <label class="labelbox">Råvarepris: </label>
+                        <InputNumber class="numbers" @bind-Value="userInput.pris2" placeholder="Indtast råvarepris" min="0"> </InputNumber>
+                        <br />
+                        <label class="labelbox">Produktionspris:</label>
+                        <InputNumber class="numbers" @bind-Value="userInput.pris3" placeholder="Indtast produktionspris" min="0"> </InputNumber>
+                        <br />
+                        <label class="labelbox">Trimpris: </label>
+                        <InputNumber class="numbers" @bind-Value="userInput.pris4" placeholder="Indtast trimpris" min="0"> </InputNumber>
+                        <br />
+                        <label class="labelbox">Millingpris:  </label>
+                        <InputNumber class="numbers" @bind-Value="userInput.pris5" placeholder="Indtast millingpris" min="0"> </InputNumber>
+                    </div>
+                    <br />
+                    <div class="kategori">
+                        <label>Kategorier</label>
+                        <InputSelect @bind-Value="userInput.inputcat" @onclick="(() => CallSubcats(SelectedCat))" class="custom-select mr-sm-2">
+                            @foreach (Category cat in cats)
+                                {
+                                <option value="@cat.CategoryName"> @cat.CategoryName </option>
+                                }
+                        </InputSelect>
+                        <InputSelect @bind-Value="userInput.inputsubcat" class="custom-select mr-sm-2">
+                            @foreach (Subcategory subcat in cats[0].Subcategory)
+                                {
+                                <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
+                                }
+                        </InputSelect>
+                    </div>
+                    <input type="submit" value="submit" />
+                </EditForm>
+            </fieldset>
         </div>
-    </div>
 
-    <div class=" farvevalgMenu_outer">
-        <h2 class=""> Vælg farve, størrelse og antal</h2>
-        <div class="farvevalgMenu">
-
-
-            <div class="ColorSize">
-                @for (int i = 0; i < num_col; i++)
-                {
-                    <div class="Color">
-                        @for (int k = 0; k < 4; k++)
+        @if (ShowColours)
+        {
+            <div class=" farvevalgMenu_outer">
+                <h2 class=""> Vælg farve, størrelse og antal</h2>
+                <div class="farvevalgMenu">
+                    <div class="ColorSize">
+                        @for (int i = 0; i < num_col; i++)
                         {
-                            int counter = (4 * i + k);
-                            if ((counter) > (Colours.Length - 1))
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                <div class="column">
-                                    <input type="radio" name="ChosenColor" @onclick="() => CheckboxColours(Colours[counter])" />
+                            <div class="Color">
+                                @for (int k = 0; k < 4; k++)
+                                {
+                                    int counter = (4 * i + k);
+                                    if ((counter) > (Colours.Length - 1))
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        <div class="column">
+                                            <input type="radio" name="ChosenColor" @onclick="() => CheckboxColours(Colours[counter])" />
 
-                                    <label>
-                                        @Colours[counter]
-                                    </label>
-                                </div>
+                                            <label>
+                                                @Colours[counter]
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    <form>
+                        <fieldset disabled="@checkboxDisabled">
+                            <div class="Size">
+                                @foreach (string size in Sizes)
+                                {
+                                    <div class="form-check column">
+                                        <input type="checkbox" value="@size" @onchange="e => { CheckboxSizes(size, e.Value); }" />
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            @size
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </fieldset>
+                        <input type="reset" @onclick="Verify" class="btn btn-outline-dark btn-light OOS TilfoejKnap" value="Tilføj kombi" />
+                    </form>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (show_ektraValgMenu == true)
+        {
+            <div class="ekstraValgMenu">
+                @if (MyColors.Count != 0)
+                {
+                    <table>
+                        <tr>
+                            <th>Item </th>
+                            <th>Colour</th>
+                            <th>Stock</th>
+                        </tr>
+                        @foreach (color Color in MyColors)
+                        {
+                            @for (int i = 0; i < Color.SnS.Length; i++)
+                            {
+                                int k = i;
+                                <tr>
+                                    <td>@Color.ColorName</td>
+                                    <td>@Color.SnS[k].Size</td>
+                                    <td>
+                                        <input type="text" @bind="Color.SnS[k].stock" placeholder="stock" />
+                                    </td>
+                                    <td>
+                                        <button @onclick="() => RemoveItem(k, Color)" class="btn btn-outline-dark btn-light btn-sm">x</button>
+                                    </td>
+                                </tr>
                             }
                         }
-                    </div>
+                    </table>
+                    <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Confirm</button>
                 }
+            </div>
+        }
 
-                <div class="Size">
-                    @foreach (string Size in Sizes)
-                    {
-                        <div class="form-check column">
-                            <input type="checkbox" @onchange="e => { CheckboxSizes(Size, e.Value); }" />
-                            <label class="form-check-label" for="flexCheckDefault">
-                                @Size
+        @if (MyColors.Count != 0 && imgState == true)
+        {
+            <div class=" pictureMenu_outer">
+                <h2> Indsæt billede</h2>
+                <div class="pictureMenu">
+                    <div class="row">
+                        <div>
+                            <label>
+                                <input class="imageListe" list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
                             </label>
+
+                            <button @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light testt">
+                                Indsæt
+                            </button>
+
+                            <select id="Images">
+                                @foreach (string ChosenImg in filesList)
+                                {
+                                    <option value=@ChosenImg> </option>
+                                }
+                            </select>
                         </div>
-                    }
+
+                        <div class="colourSelect">
+                            <select @bind="ChosenColor">
+                                @foreach (color Color in MyColors)
+                                {
+                                    <option value="@Color.ColorName"> @Color.ColorName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <hr />
+                            <h2>File List</h2>
+                            <hr />
+                            @if (SwitchFuntion(ChosenColor) != null && SwitchFuntion(ChosenColor).ImageLink != null)
+                            {
+                                @foreach (string imageLink in SwitchFuntion(ChosenColor).ImageLink)
+                                {
+                                    <img src="@imageLink" asp-append-version="true" style="width:150px;height:150px;" />
+                                }
+                            }
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-dark btn-light" @onclick="finalize"> <i class="fa fa-fw fa-check"> Finalize </i> </button>
                 </div>
             </div>
-            <button @onclick="Verify" class="btn btn-outline-dark btn-light OOS">
-                <i class="fa fa-fw fa-check"></i>
-                Tilføj kombi
-            </button>
-        </div>
+        }
+
     </div>
-
-
-    @if (show_ektraValgMenu == true)
-    {
-        <div class="ekstraValgMenu">
-            @if (MyColors.Count != 0)
-            {
-                <table>
-                    <tr>
-                        <th>Item </th>
-                        <th>Input stock</th>
-                    </tr>
-                    @foreach (color Color in MyColors)
-                    {
-                        @for (int i = 0; i < Color.SnS.Length; i++)
-                        {
-                            int k = i;
-                            <tr>
-                                <td>@Color.ColorName</td>
-                                <td>@Color.SnS[k].Size</td>
-                                <td>
-                                    <input type="text" @bind="Color.SnS[k].stock" placeholder="stock" />
-                                </td>
-                                <td>
-                                    <button @onclick="() => RemoveItem(k, Color)" class="btn btn-outline-dark btn-light btn-sm">x</button>
-                                </td>
-                            </tr>
-                        }
-                    }
-                </table>
-                <button @onclick="ConfirmStock" class="btn btn-outline-dark btn-light"> <i class="fa fa-fw fa-check"></i> Confirm</button>
-            }
-        </div>
-    }
-
-
-
-    @if (MyColors.Count != 0 && imgState == true)
-    {
-        <div class=" pictureMenu_outer">
-            <h2> Indsæt billede</h2>
-            <div class="pictureMenu">
-                <div class="row">
-                    <div>
-                        <label>
-                            <input class="imageListe" list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
-                        </label>
-
-                        <button @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light testt">
-                            Indsæt
-                        </button>
-
-                        <select id="Images">
-                            @foreach (string ChosenImg in filesList)
-                            {
-                                <option value=@ChosenImg> </option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="colourSelect">
-                        <select @bind="ChosenColor">
-                            @foreach (color Color in MyColors)
-                            {
-                                <option value="@Color.ColorName"> @Color.ColorName</option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="col-md-3">
-                        <hr />
-                        <h2>File List</h2>
-                        <hr />
-                        @if (SwitchFuntion(ChosenColor) != null && SwitchFuntion(ChosenColor).ImageLink != null)
-                        {
-                            @foreach (string imageLink in SwitchFuntion(ChosenColor).ImageLink)
-                            {
-                                <img src="@imageLink" asp-append-version="true" style="width:150px;height:150px;" />
-                            }
-                        }
-                    </div>
-                </div>
-                <button class="btn btn-outline-dark btn-light" @onclick="finalize"> <i class="fa fa-fw fa-check"></i> Finalize </button>
-            </div>
-        </div>
-    }
-
-</div>
 
 }
 
@@ -188,6 +212,7 @@ else
 
 @code
 {
+
     public string AccessToken = null;
 
     bool isLoaded;
@@ -247,6 +272,10 @@ else
         height: fit-content;
     }
 
+    .navninput{
+        float: left;
+    }
+
     .namePriceMenu {
         border: 1px solid black;
         border-radius: 3px;
@@ -256,17 +285,21 @@ else
         width: 582px;
         position: relative;
     }
-        
-        .tastfelt {
-            float: left;
-            margin: 5px;
-        }
 
-        .description {
-        position: relative;
+    .tastfelt {
+        float: left;
         margin: 5px;
-        width: 197px;
-        }
+    }
+
+    .description {
+        left: 200px;
+        position:relative;
+        bottom: 116px;
+        margin: 5px;
+        margin-bottom: -101px;
+        width: 300px;
+        height: 57px;
+    }
 
     .farvevalgMenu {
         border: 1px solid black;
@@ -281,22 +314,24 @@ else
         right: 20px;
     }
 
-        .farvevalgMenu_outer {
-            position: relative;
-        }
+    .farvevalgMenu_outer {
+        position: relative;
+    }
 
 
     .ekstraValgMenu {
         border: 1px solid black;
         border-radius: 3px;
-        height: fit-content;
-        width: fit-content;
+        height: 400px;
+        width: 450px;
         background-color: lightgray;
         padding: 10px;
         margin-left: 1%;
         position: relative;
         left: 600px;
-        bottom: 560px;
+        bottom: 837px;
+        margin-bottom: -200px;
+        overflow: auto;
     }
 
     .pictureMenu {
@@ -311,34 +346,34 @@ else
         right: 13px;
     }
 
-        .pictureMenu_outer {
-            position: relative;
-            left: 610px;
-            bottom: 465px;
-        }
+    .pictureMenu_outer {
+        position: relative;
+        left: 1095px;
+        bottom: 1095px;
+        margin-bottom: -300px;
+    }
 
-        .imageListe{
-            position: relative;
-            left: 20px;
-        }
+    .imageListe {
+        position: relative;
+        left: 20px;
+    }
 
-        .testt {
-            position: relative;
-            left: 50px;
-            
-        }
+    .testt {
+        position: relative;
+        left: 50px;
+    }
 
-        .colourSelect{
-            position: relative;
-            top: 50px;
-            right: 257px;
-        }
+    .colourSelect {
+        position: relative;
+        top: 50px;
+        right: 257px;
+    }
 
-        .col-md-3{
-            position: relative;
-            top: 30px;
-            right: 140px;
-        }
+    .col-md-3 {
+        position: relative;
+        top: 30px;
+        right: 140px;
+    }
 
     .submit-butt {
         margin-left: 50px;
@@ -353,9 +388,9 @@ else
         margin: 10px 10px 10px 10px;
     }
 
-        .namePriceMenu span {
-            display: block;
-        }
+    .namePriceMenu span {
+        display: block;
+    }
 
     .item-list {
         height: fit-content;
@@ -405,4 +440,23 @@ else
     .Size {
         margin-left: 20px;
     }
+
+    .numbers {
+        position: relative;
+        text-align: center;
+        width: 200px;
+        left: 80px;
+    }
+
+    .labelbox{
+        height: 15px;
+        width: 50px;
+    }
+
+    .TilfoejKnap{
+    position: relative;
+    top: 5px;
+    left: 40px; 
+    }
+
 </style>
