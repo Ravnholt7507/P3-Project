@@ -14,6 +14,9 @@ namespace Project.Pages.AdminPage
     {
         DbCall _call = new DbCall();
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         public string newTitle = null;
         public string newCategory = null;
         public string CategoryToRemove = null;
@@ -446,7 +449,9 @@ namespace Project.Pages.AdminPage
                 {
                     _call.AdminPages("New", "Product", prodName, category, type, Price, description, material, produced, transparency, colour, img, sizeArray, stockArray, "same");
                 }
+
             }
+            NavigationManager.NavigateTo("/");
         }
 
         public double num_col;
