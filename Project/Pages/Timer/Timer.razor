@@ -1,11 +1,14 @@
 ﻿@page "/Timer"
 @inherits TimerCode
 
+
 <div class="page">
     <h3>Timer</h3>
     <button @onclick="()=> { ShowMonths(ListSize); }" class="butt">Show KPI</button>
     <button @onclick="APageVisit" class="butt">Visit</button>
     <button @onclick="APurchase" class="butt">Purchase</button>
+    <button @onclick="DoSomethingEveryTreeSeconds" class="butt">rune</button>
+
     <select @bind="ListSize">
         @for (int i = 0; i < Months.Count; i++)
         {
@@ -42,7 +45,7 @@
 
     <a>Last checked: @DateNow</a>
     <br />
-    <a>KPIS update date: @Update_Date</a>
+    <a>KPIS update date: @UpdateDate</a>
 
 </div>
 <style>

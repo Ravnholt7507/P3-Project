@@ -1863,7 +1863,8 @@ namespace Project.CSharpFiles
             con.Open();
 
             List<string> months = new List<string>();
-
+            int index = 0;
+            
             string sql = string.Format(@"SELECT `COLUMN_NAME`
                                         FROM `INFORMATION_SCHEMA`.`COLUMNS`
                                         WHERE `TABLE_SCHEMA`='clothingstore'
@@ -1872,9 +1873,17 @@ namespace Project.CSharpFiles
             using MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
-                string value = rdr.GetString(0);
-                var split = value.Split("_");
-                months.Add(split[0]);
+                if (rdr.GetString(0) != "prod_id")
+                {
+                    string value = rdr.GetString(0);
+                    var split = value.Split("_");
+                    if (int.Parse(split[0]) > index)
+                    {
+                        index = int.Parse(split[0]);
+                    }
+                    months.Add(split[1]);
+                }
+               
             }
             rdr.Close();
 
@@ -1891,12 +1900,22 @@ namespace Project.CSharpFiles
                 "November", "December"
             };
 
-            if (!months[0].Contains(monthsArr[month-1]))
+            index++;
+            
+            
+            if (months.Count == 0)
             {
-                appString = appString + monthsArr[month-1] + "_" + year + " " + "TEXT";
+                appString = index + "_" + monthsArr[month-1] + "_" + year + " " + "TEXT";
                 cmdCommand.CommandText = string.Format("ALTER TABLE kpi ADD {0}", appString);
                 cmdCommand.ExecuteNonQuery();
             }
+            else if (months.Last() == monthsArr[month-1])
+            {
+                appString = index + "_" + monthsArr[month-1] + "_" + year + " " + "TEXT";
+                cmdCommand.CommandText = string.Format("ALTER TABLE kpi ADD {0}", appString);
+                cmdCommand.ExecuteNonQuery();
+            }
+
         }
 
         public void Reset(int id)
@@ -1912,6 +1931,71 @@ namespace Project.CSharpFiles
 
             cmdCommand.CommandText = string.Format("UPDATE colours SET sold = 0 WHERE prod_id = {0}", id);
             cmdCommand.ExecuteNonQuery();
+        }
+
+        public List<ProdId> GetKpiData()
+        {
+            List<ProdId> prodIds = new List<ProdId>();
+            List<string> months = new List<string>();
+
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+
+            string sql = string.Format("SELECT prod_id FROM kpi");
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                ProdId prodId = new ProdId(rdr.GetInt32(0));
+                prodIds.Add(prodId);
+            }
+            rdr.Close();
+            
+            string sql2 = string.Format(@"SELECT `COLUMN_NAME`
+                                        FROM `INFORMATION_SCHEMA`.`COLUMNS`
+                                        WHERE `TABLE_SCHEMA`='clothingstore'
+                                        AND `TABLE_NAME`='kpi';");
+            using var cmd2 = new MySqlCommand(sql2, con);
+            using MySqlDataReader rdr2 = cmd2.ExecuteReader();
+            while (rdr2.Read())
+            {
+                if (rdr2.GetString(0) != "prod_id")
+                {
+                    months.Add(rdr2.GetString(0));
+                }
+            }
+            rdr2.Close();
+            
+            foreach (var prod in prodIds)
+            {
+                List<string> kpiDataStrings = new List<string>();
+                string sales = "";
+                string views = "";
+                string viewsPerSale = "";
+
+                foreach (var month in months)
+                {
+                    string sql3 = string.Format("SELECT {0} FROM kpi WHERE prod_id = {1}", month, prod.Id);
+                    using var cmd3 = new MySqlCommand(sql3, con);
+                    using MySqlDataReader rdr3 = cmd3.ExecuteReader();
+                    while (rdr3.Read())
+                    {
+                        string dataString = rdr3.GetString(0);
+                        kpiDataStrings.Add(dataString);
+                    }
+                    rdr3.Close();
+                }
+
+                for (int i = 0; i < kpiDataStrings.Count; i++)
+                {
+                    var split = kpiDataStrings[i].Split(",");
+                    var monthSplit = months[i].Split("_");
+                    KPIData kpiData = new KPIData(monthSplit[0], monthSplit[1], split[0], split[1], split[2]);
+                    prod.KpiData.Add(kpiData);
+                }
+            }
+
+            return prodIds;
         }
     }
 }

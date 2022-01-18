@@ -256,7 +256,7 @@ namespace DbGenerator
             //     appString = appString + month + "_" + year + " " + "TEXT,";
             // }
             
-            appString = appString + monthsArr[month-1] + "_" + year + " " + "TEXT";
+            appString = appString + "1_" + monthsArr[month-1] + "_" + year + " " + "TEXT";
 
             cmd.CommandText = "DROP TABLE IF EXISTS kpi";
             cmd.ExecuteNonQuery();
@@ -266,7 +266,7 @@ namespace DbGenerator
 
             for (int i = 1; i < itemAmm+1; i++)
             {
-                cmd.CommandText = string.Format("INSERT INTO kpi (prod_id, Januar_2022) VALUES ({0}, '0')", i);
+                cmd.CommandText = string.Format("INSERT INTO kpi (prod_id, 1_Januar_2022) VALUES ({0}, '0')", i);
                 cmd.ExecuteNonQuery();
             }
             

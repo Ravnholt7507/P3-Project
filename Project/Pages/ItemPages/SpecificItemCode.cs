@@ -147,7 +147,7 @@ namespace Project.Pages.ItemPages
             // dbCall.GetAllOrders();
             // dbCall.GetOrdersBy("status", "fullfilled");
             // dbCall.GetOrdersByMultiple("status", "checked", "firstname", "Benjamin");
-            
+            dbCall.GetKpiData();
             if (product.Id == prodid && product.Colour_id == colourid && product.Size == size)
                 return product;
             return null;
