@@ -2,47 +2,7 @@
 @inherits TimerCode
 
 <div class="page">
-    <h3>Timer</h3>
-    <button @onclick="()=> { ShowMonths(ListSize); }" class="butt">Show KPI</button>
-    <button @onclick="APageVisit" class="butt">Visit</button>
-    <button @onclick="APurchase" class="butt">Purchase</button>
-    <select @bind="ListSize">
-        @for (int i = 0; i < Months.Count; i++)
-        {
-            <option value=@i>Month @i</option>
-        }
-    </select>
-    <a>Showing month @ListSize</a>
-    <br />
-    <div class="stats">
-        <table>
-            <tr>
-                <td>Month</td>
-                @foreach (var item in SubMonths)
-                {
-                    <th>@item</th>
-                }
-            </tr>
-            <tr>
-                <td>Visits</td>
-                @foreach (var item in SubVisits)
-                {
-                    <th>@item</th>
-                }
-            </tr>
-            <tr>
-                <td>Purchases</td>
-                @foreach (var item in SubPurchases)
-                {
-                    <th>@item</th>
-                }
-            </tr>
-        </table>
-    </div>
 
-    <a>Last checked: @DateNow</a>
-    <br />
-    <a>KPIS update date: @Update_Date</a>
 
 </div>
 <style>
