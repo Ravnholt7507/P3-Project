@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Project.Pages;
-using Project.Pages.Timer;
+using Project.Pages.KpiPage;
 
 namespace Project
 {
@@ -29,8 +29,8 @@ namespace Project
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            TimerCode timerCode = new TimerCode();
-            timerCode.DoSomethingEveryTreeSeconds();
+            KpiCode Code = new KpiCode();
+            Code.DoSomethingEveryTreeSeconds();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
