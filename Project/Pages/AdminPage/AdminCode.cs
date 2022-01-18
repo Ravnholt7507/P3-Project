@@ -364,10 +364,7 @@ namespace Project.Pages.AdminPage
             SelectedColour = colour;
 
             //Disable checkbox if no colours are selected
-            if (IsEmpty(MyColors))
-                checkboxDisabled = false;
-            else if (!IsEmpty(MyColors))
-                checkboxDisabled = true;
+            checkboxDisabled = false;
         }
 
         public void RemoveItem(int i, color Color)

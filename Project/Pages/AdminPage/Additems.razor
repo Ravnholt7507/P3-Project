@@ -49,13 +49,15 @@
                     <br />
                     <div class="kategori">
                         <label>Kategorier</label>
-                        <InputSelect @bind-Value="userInput.inputcat" @onclick="(() => CallSubcats(SelectedCat))" class="custom-select mr-sm-2">
+                        <InputSelect @bind-Value="userInput.inputcat" class="custom-select mr-sm-2">
+                            <option value="none" selected disabled hidden>Vælg en kategori</option>
                             @foreach (Category cat in cats)
-                                {
+                            {
                                 <option value="@cat.CategoryName"> @cat.CategoryName </option>
-                                }
+                            }
                         </InputSelect>
-                        <InputSelect @bind-Value="userInput.inputsubcat" class="custom-select mr-sm-2">
+                        <InputSelect @bind-Value="userInput.inputsubcat"  @onclick="(() => CallSubcats(userInput.inputcat))" class="custom-select mr-sm-2">
+                            <option value="none" selected disabled hidden>Vælg en under kategori</option>
                             @foreach (Subcategory subcat in cats[0].Subcategory)
                                 {
                                 <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
