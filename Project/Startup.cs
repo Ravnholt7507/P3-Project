@@ -29,8 +29,6 @@ namespace Project
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            KpiCode Code = new KpiCode();
-            Code.DoSomethingEveryTreeSeconds();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
