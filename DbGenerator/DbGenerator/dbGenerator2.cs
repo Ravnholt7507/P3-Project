@@ -88,17 +88,17 @@ namespace DbGenerator
             string[] produced = {"Danmark", "Beirut", "Kina", "Tyrkiet", "Taiwain", "Indien", "Ungarn", "Afrika", "Nordkorea", "kazakhstan", "Honduras" };
 
             List<string> images = new List<string>();
-            images.Add("Images/ClothesPlaceholders/lilla trøje.tiff");
-            images.Add("Images/ClothesPlaceholders/blå bukser.tiff");
-            images.Add("Images/ClothesPlaceholders/grå t-shirt.tiff");
-            images.Add("Images/ClothesPlaceholders/røde strømper.tiff");
-            images.Add("Images/ClothesPlaceholders/grøn jakke.tiff");
-            images.Add("Images/ClothesPlaceholders/pink jeans.tiff");
-            images.Add("Images/ClothesPlaceholders/hvidt sportstøj.tiff");
-            images.Add("Images/ClothesPlaceholders/sorte shorts.tiff");
-            images.Add("Images/ClothesPlaceholders/orange undertøj.tiff");
-            images.Add("Images/ClothesPlaceholders/turkis nattøj.tiff");
-            images.Add("Images/ClothesPlaceholders/gult badetøj.tiff");
+            images.Add("Images/ClothesPlaceholders/lilla trøje.png");
+            images.Add("Images/ClothesPlaceholders/blå bukser.png");
+            images.Add("Images/ClothesPlaceholders/grå t-shirt.png");
+            images.Add("Images/ClothesPlaceholders/røde strømper.png");
+            images.Add("Images/ClothesPlaceholders/grøn jakke.png");
+            images.Add("Images/ClothesPlaceholders/pink jeans.png");
+            images.Add("Images/ClothesPlaceholders/hvidt sportstøj.png");
+            images.Add("Images/ClothesPlaceholders/sorte shorts.png");
+            images.Add("Images/ClothesPlaceholders/orange undertøj.png");
+            images.Add("Images/ClothesPlaceholders/turkis nattøj.png");
+            images.Add("Images/ClothesPlaceholders/gult badetøj.png");
             
             Random rd = new Random();
 

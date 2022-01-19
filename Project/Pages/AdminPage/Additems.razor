@@ -49,13 +49,15 @@
                     <br />
                     <div class="kategori">
                         <label>Kategorier</label>
-                        <InputSelect @bind-Value="userInput.inputcat" @onclick="(() => CallSubcats(SelectedCat))" class="custom-select mr-sm-2">
+                        <InputSelect @bind-Value="userInput.inputcat" class="custom-select mr-sm-2">
+                            <option value="none" selected disabled hidden>Vælg en kategori</option>
                             @foreach (Category cat in cats)
-                                {
+                            {
                                 <option value="@cat.CategoryName"> @cat.CategoryName </option>
-                                }
+                            }
                         </InputSelect>
-                        <InputSelect @bind-Value="userInput.inputsubcat" class="custom-select mr-sm-2">
+                        <InputSelect @bind-Value="userInput.inputsubcat"  @onclick="(() => CallSubcats(userInput.inputcat))" class="custom-select mr-sm-2">
+                            <option value="none" selected disabled hidden>Vælg en under kategori</option>
                             @foreach (Subcategory subcat in cats[0].Subcategory)
                                 {
                                 <option value="@subcat.SubcategoryName"> @subcat.SubcategoryName </option>
@@ -153,52 +155,53 @@
 
         @if (MyColors.Count != 0 && imgState == true)
         {
-            <div class=" pictureMenu_outer">
-                <h2> Indsæt billede</h2>
-                <div class="pictureMenu">
-                    <div class="row">
-                        <div>
-                            <label>
-                                <input class="imageListe" list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
-                            </label>
+    <div class=" pictureMenu_outer">
+        <h2> Indsæt billede</h2>
+        <div class="pictureMenu">
+            <div class="row">
+                <div>
+                    <label>
+                        <input class="imageListe" list="Images" @bind="ChosenImg" placeholder="Vælg et billede til produktet" />
+                    </label>
 
-                            <button @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light testt">
-                                Indsæt
-                            </button>
+                    <button @onclick="() => ReadFile(ChosenImg, SwitchFuntion(ChosenColor))" class="btn btn-outline-dark btn-light testt">
+                        Indsæt
+                    </button>
 
-                            <select id="Images">
-                                @foreach (string ChosenImg in filesList)
-                                {
-                                    <option value=@ChosenImg> </option>
-                                }
-                            </select>
-                        </div>
+                    <select id="Images">
+                        @foreach (string ChosenImg in filesList)
+                        {
+                            <option value=@ChosenImg> </option>
+                        }
+                    </select>
+                </div>
 
-                        <div class="colourSelect">
-                            <select @bind="ChosenColor">
-                                @foreach (color Color in MyColors)
-                                {
-                                    <option value="@Color.ColorName"> @Color.ColorName</option>
-                                }
-                            </select>
-                        </div>
+                <div class="colourSelect">
+                    <select @bind="ChosenColor">
+                        @foreach (color Color in MyColors)
+                        {
+                            <option value="@Color.ColorName"> @Color.ColorName</option>
+                        }
+                    </select>
+                </div>
 
-                        <div class="col-md-3">
-                            <hr />
-                            <h2>File List</h2>
-                            <hr />
-                            @if (SwitchFuntion(ChosenColor) != null && SwitchFuntion(ChosenColor).ImageLink != null)
-                            {
-                                @foreach (string imageLink in SwitchFuntion(ChosenColor).ImageLink)
-                                {
-                                    <img src="@imageLink" asp-append-version="true" style="width:150px;height:150px;" />
-                                }
-                            }
-                        </div>
-                    </div>
-                    <button class="btn btn-outline-dark btn-light" @onclick="finalize"> <i class="fa fa-fw fa-check"> Finalize </i> </button>
+                <div class="col-md-3">
+                    <hr />
+                    <h2>File List</h2>
+                    <hr />
+                    @if (SwitchFuntion(ChosenColor) != null && SwitchFuntion(ChosenColor).ImageLink != null)
+                    {
+                        @foreach (string imageLink in SwitchFuntion(ChosenColor).ImageLink)
+                        {
+                            <img src="@imageLink" asp-append-version="true" style="width:150px;height:150px;" />
+                        }
+                    }
                 </div>
             </div>
+        </div>
+        <br>
+        <button @onclick="finalize" class="btn-outline-dark btn-light btnnn">Finalize</button>
+    </div>
         }
 
     </div>
@@ -457,6 +460,30 @@ else
     position: relative;
     top: 5px;
     left: 40px; 
+    }
+
+    .btnnn {
+        display: inline-block;
+        padding: 0.35em 1.2em;
+        border: 0.1em solid #FFFFFF;
+        margin: 0 0.3em 0.3em 0;
+        border-radius: 0.12em;
+        box-sizing: border-box;
+        text-decoration: none;
+        font-family: 'Roboto',sans-serif;
+        font-weight: 300;
+        color: #FFFFFF;
+        text-align: center;
+        transition: all 0.1s;
+    }
+
+    .btnnn {
+        color: #000000;
+        background-color: orange;
+    }
+
+    .btnnn:focus {
+        background-color: lightgreen;
     }
 
 </style>
