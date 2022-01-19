@@ -133,12 +133,9 @@ namespace Project.Pages.ItemPages
      
             for (int i = 0; i < colourSizeArray.Length; i++)
             {
-                Console.WriteLine("test1");
                 if (colourSizeArray[i] != null)
                 {
-
                     product.MyColours.Add(new Colour(colourSizeArray[i][1], int.Parse(colourSizeArray[i][0])));
-                    Console.WriteLine("test");
                 }
             }
 
