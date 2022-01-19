@@ -29,26 +29,28 @@ namespace Project.Pages.AdminPage
 
         public void Remove()
         {
-            foreach (Category category in Categories)
-            {
-                if ((category.CategoryName == CategoryToRemove))
-                {
-                    _call.AdminPages("Remove", "Category", CategoryToRemove);
-                    Categories.Remove(category);
-                    CategoryToRemove = null;
-                    break;
-                }
-                foreach (var item in category.Subcategory)
-                {
-                    if (item.SubcategoryName == CategoryToRemove)
-                    {
-                        _call.AdminPages("Remove", "Type", CategoryToRemove);
-                        category.Subcategory.Remove(item);
-                        CategoryToRemove = null;
-                        break;
-                    }
-                }
-            }
+            //foreach (Category category in Categories)
+            //{
+            //    if ((category.CategoryName == CategoryToRemove))
+            //    {
+            //        _call.AdminPages("Remove", "Category", CategoryToRemove);
+            //        Categories.Remove(category);
+            //        CategoryToRemove = null;
+            //        break;
+            //    }
+            //    foreach (var item in category.Subcategory)
+            //    {
+            //        if (item.SubcategoryName == CategoryToRemove)
+            //        {
+            //            _call.AdminPages("Remove", "Type", CategoryToRemove);
+            //            category.Subcategory.Remove(item);
+            //            CategoryToRemove = null;
+            //            break;
+            //        }
+            //    }
+            //}
+            _call.RemoveCat(CategoryToRemove);
+            NavigationManager.NavigateTo("/Categories");
         }
 
         public void RemoveTypeFromCategory(string category, string type)

@@ -25,6 +25,7 @@ namespace Project.Pages.ItemPages
         public string SelectedColour;
         public string SelectedSize;
         public int productID;
+        public int colourID;
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
@@ -33,9 +34,10 @@ namespace Project.Pages.ItemPages
             int prodId = int.Parse(specificationArray[0]);
             productID = int.Parse(specificationArray[0]);
             int colourId = int.Parse(specificationArray[1]);
+            colourID = int.Parse(specificationArray[1]);
 
 
-            
+
 
             string size = specificationArray[2];
             
@@ -95,14 +97,13 @@ namespace Project.Pages.ItemPages
 
         public void DeleteItem()
         {
-            dbCall.AdminPages("Remove", "Product", productID);
-
-
+            dbCall.RemoveItem(productID);
+            NavigationManager.NavigateTo("/");
         }
 
-        public bool DataBaseVerify(string AccesToken)
+        public bool DataBaseVerify(string AccessToken)
         {
-            return dbCall.Verify(AccesToken);
+            return dbCall.Verify(AccessToken);
         }
 
         public Product GetProduct(int prodid, int colourid, string size)

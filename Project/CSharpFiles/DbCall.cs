@@ -392,6 +392,11 @@ namespace Project.CSharpFiles
                 else if (callSubType == "Product")
                 {
                     string product = args[0].ToString();
+                    using var con = new MySqlConnection(_cs);
+                    con.Open();
+                    string sql = $"DELETE FROM products WHERE type = '{product}';";
+                    using var cmd = new MySqlCommand(sql, con);
+                    con.Close();
                 }
             }
             
@@ -406,6 +411,92 @@ namespace Project.CSharpFiles
             cmd.Connection = con;
 
             cmd.CommandText = $"UPDATE types SET {category} = 0 WHERE type = '{type}'";
+            cmd.ExecuteNonQuery();
+        }
+
+        public void RemoveCat(string name)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            using var cmd = new MySqlCommand();
+            cmd.Connection = con;
+            List<int> IDs = GetProdIDsByCat(name);
+
+            foreach (var id in IDs)
+            {
+                cmd.CommandText = $"DELETE FROM sizes WHERE prod_id = {id}";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = $"DELETE FROM colours WHERE prod_id = {id}";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = $"DELETE FROM products WHERE prod_id = {id}";
+                cmd.ExecuteNonQuery();
+            }
+
+            cmd.CommandText = $"ALTER TABLE types DROP {name}";
+            cmd.ExecuteNonQuery();
+
+            int CatID = GetIdByCat(name);
+
+            cmd.CommandText = string.Format("DELETE FROM categories WHERE id = {0}", CatID);
+            cmd.ExecuteNonQuery();
+        }
+
+        public int GetIdByCat(string name)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+
+            string sql = $"SELECT id FROM categories WHERE category = '{name}'";
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            int id = 0;
+            while (rdr.Read())
+            {
+                id = rdr.GetInt32(0);
+            }
+            rdr.Close();
+            return id;
+        }
+
+        public List<int> GetProdIDsByCat(string name)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+
+            List<int> IDs = new List<int>();
+
+            string sql = $"SELECT prod_id FROM products WHERE category = '{name}'";
+            using var cmd = new MySqlCommand(sql, con);
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                IDs.Add(rdr.GetInt32(0));
+            }
+            rdr.Close();
+            return IDs;
+        }
+
+        public void RemoveSubCat()
+        {
+
+        }
+
+        public void RemoveItem(int ProdID)
+        {
+            using var con = new MySqlConnection(_cs);
+            con.Open();
+            using var cmd = new MySqlCommand();
+            cmd.Connection = con;
+
+            cmd.CommandText = $"DELETE FROM sizes WHERE prod_id = {ProdID}";
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = $"DELETE FROM colours WHERE prod_id = {ProdID}";
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = $"DELETE FROM products WHERE prod_id = {ProdID}";
             cmd.ExecuteNonQuery();
         }
 

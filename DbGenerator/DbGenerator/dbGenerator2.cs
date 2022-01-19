@@ -261,14 +261,14 @@ namespace DbGenerator
             cmd.CommandText = "DROP TABLE IF EXISTS kpi";
             cmd.ExecuteNonQuery();
             
-            cmd.CommandText = string.Format("CREATE TABLE kpi (prod_id INT, {0}, FOREIGN KEY (prod_id) REFERENCES products(prod_id))", appString);
-            cmd.ExecuteNonQuery();
+            //cmd.CommandText = string.Format("CREATE TABLE kpi (prod_id INT, {0}, FOREIGN KEY (prod_id) REFERENCES products(prod_id))", appString);
+            //cmd.ExecuteNonQuery();
 
-            for (int i = 1; i < itemAmm+1; i++)
-            {
-                cmd.CommandText = string.Format("INSERT INTO kpi (prod_id, Januar_2022) VALUES ({0}, '0')", i);
-                cmd.ExecuteNonQuery();
-            }
+            //for (int i = 1; i < itemAmm+1; i++)
+            //{
+            //    cmd.CommandText = string.Format("INSERT INTO kpi (prod_id, Januar_2022) VALUES ({0}, '0')", i);
+            //    cmd.ExecuteNonQuery();
+            //}
             
             cmd.CommandText = "SET FOREIGN_KEY_CHECKS=1";
             cmd.ExecuteNonQuery();
