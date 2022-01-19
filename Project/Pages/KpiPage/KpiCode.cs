@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Project.CSharpFiles;
 
-namespace Project.Pages.KpiPage 
+namespace Project.Pages.KpiPage
 {
     public class KpiCode : ComponentBase
     {
@@ -19,7 +19,7 @@ namespace Project.Pages.KpiPage
         public int CounterOverride = 0;
         double _SoldPrView = 0;
         public string fillTable;
-        
+
         public void ShowProducts(string type)
         {
             fillTable = type;
@@ -56,15 +56,13 @@ namespace Project.Pages.KpiPage
             }
         }
 
-        public List<string> Kpis = new List<string>() { "Antal produktvisninger", "Totale salg", "Visninger per salg, for produkt", "RoI"};
+        public List<string> Kpis = new List<string>() { "Antal produktvisninger", "Totale salg", "Visninger per salg, for produkt", "Salg af valgte farve", "RoI" };
         public List<string> Percent = new List<string>();
         public string[] typeArray;
         public string[][][] ProductArray;
 
         protected override Task OnInitializedAsync()
         {
-            FirstTime();
-            MonthCheck();
             typeArray = call.KPI("Type call");
             ProductArray = call.KPI2();
             return base.OnInitializedAsync();
@@ -88,9 +86,9 @@ namespace Project.Pages.KpiPage
                 result = views / sold;
             }
 
-            return result;     
+            return result;
         }
-        
+
         public void ShowKPI(string[] productkpi)
         {
             List<string> placeholderdata = new List<string>();
@@ -116,139 +114,6 @@ namespace Project.Pages.KpiPage
         public bool DataBaseVerify(string AccesToken)
         {
             return call.Verify(AccesToken);
-        }
-
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        private int Month = 1;
-        public int ListSize;
-        public DateTime DateNow;
-        public int UpdateDate;
-
-        public List<int> Months = new List<int>();
-        public List<int> PageVisits = new List<int>();
-        public List<int> Purchases = new List<int>();
-        public List<int> PurchVisit = new List<int>();
-
-        public List<int> SubMonths = new List<int>();
-        public List<int> SubVisits = new List<int>();
-        public List<int> SubPurchases = new List<int>();
-        public List<int> SubPurchVisit = new List<int>();
-
-        public void ShowMonths(int k)
-        {
-            SubMonths.Clear();
-            SubVisits.Clear();
-            SubPurchases.Clear();
-            SubPurchVisit.Clear();
-
-            for (int i = k; i < k + 4; i++)
-            {
-                if (i < Months.Count)
-                {
-                    SubMonths.Add(Months.ElementAt(i));
-                    SubVisits.Add(PageVisits.ElementAt(i));
-                    SubPurchases.Add(Purchases.ElementAt(i));
-                    SubPurchVisit.Add(PurchVisit.ElementAt(i));
-                }
-            }
-        }
-
-        // Start timer
-        public void FirstTime()
-        {
-            DateNow = DateTime.Now;
-            UpdateDate = DateTime.DaysInMonth(DateNow.Year, DateNow.Month);
-
-            Months.Add(1);
-            Months.Add(2);
-            Months.Add(3);
-            Months.Add(4);
-            PageVisits.Add(1);
-            PageVisits.Add(2);
-            PageVisits.Add(3);
-            PageVisits.Add(4);
-            Purchases.Add(1);
-            Purchases.Add(2);
-            Purchases.Add(3);
-            Purchases.Add(4);
-            PurchVisit.Add(1);
-            PurchVisit.Add(2);
-            PurchVisit.Add(3);
-            PurchVisit.Add(4);
-
-            if (Months.Count < 4)
-            {
-                ShowMonths(0);
-            }
-            else
-            {
-                ShowMonths(Months.Count - 4);
-            }
-
-        }
-
-        //Store Kpis in database
-        private void StoreKpi()
-        {
-            PageVisits.Add(1);
-            Purchases.Add(1);
-            Months.Add(1);
-            PurchVisit.Add(1);
-        }
-
-        // Retrieve Kpis from database
-        private void RetrieveKpi()
-        {
-            if (Month == 12) { Month = 0; }
-            Month++;
-        }
-
-        private void SaveKpi(DateTime date)
-        {
-            DbCall dbCall = new DbCall();
-            dbCall.NewMonthInDb(date);
-            dbCall.SaveToKpi(date);
-        }
-
-        public void MonthCheck()
-        {
-            //DateNow = DateTime.Now;
-            UpdateDate = DateTime.DaysInMonth(DateNow.Year, DateNow.Month);
-            if (DateNow.Date.Day == UpdateDate)
-            {
-                SaveKpi(DateNow);
-                StoreKpi();
-                RetrieveKpi();
-                if (Months.Count < 4)
-                {
-                    ShowMonths(0);
-                }
-                else
-                {
-                    ShowMonths(Months.Count - 4);
-                }
-                StateHasChanged();
-            }
-        }
-
-        // Timer that run methods every n seconds
-        public async Task DoSomethingEveryTreeSeconds()
-        {
-            DateNow = DateTime.Now;
-            DateTime DateLamo = DateTime.Now;
-            while (true)
-            {
-                var delayTask = Task.Delay(1000);
-                await delayTask; // wait until at least 3s elapsed since delayTask created
-                DateNow = DateNow.AddDays(1);
-
-                MonthCheck();
-                DateLamo = DateTime.Now;
-                Console.WriteLine("Updated: " + DateNow.Day +" "+ DateLamo.Second);
-            }
         }
     }
 }

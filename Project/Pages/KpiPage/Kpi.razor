@@ -63,17 +63,6 @@
                     }
                 </table>
             </div>
-            <h3>Timer</h3>
-            <button @onclick="()=> { ShowMonths(ListSize); }" class="butt">Show KPI</button>
-
-            <select @bind="ListSize">
-                @for (int i = 0; i < Months.Count; i++)
-                {
-                    <option value=@i>Month @i</option>
-                }
-            </select>
-            <a>Showing month @ListSize</a>
-            <br />
             <div class="outer_stats">
                 <h3>Statestik</h3>
                 <div class="stats">
@@ -87,44 +76,8 @@
                         }
                     </table>
                 </div>
-                <div class="stats">
-                    <table>
-                        <tr>
-                            <td>Month</td>
-                            @foreach (var item in SubMonths)
-                            {
-                                <th>@item</th>
-                            }
-                        </tr>
-                        <tr>
-                            <td>Antal produktvisninger</td>
-                            @foreach (var item in SubVisits)
-                            {
-                                <th>@item</th>
-                            }
-                        </tr>
-                        <tr>
-                            <td>Totale salg</td>
-                            @foreach (var item in SubPurchases)
-                            {
-                                <th>@item</th>
-                            }
-                        </tr>
-                        <tr>
-                            <td>Visninger per salg, for produkt</td>
-                            @foreach (var item in SubPurchVisit)
-                            {
-                                <th>@item</th>
-                            }
-                        </tr>
-                    </table>
-                </div>
-
-                <a>Last checked: @DateNow</a>
-                <br />
-                <a>KPIS update date: @UpdateDate</a>
-
             </div>
+
         </div>
     </div>
 }
@@ -194,8 +147,8 @@ else
         position: relative;
         left: 625px;
         bottom: 625px;
-        @*display: none;
-        display: @Visible2;*@
+        display: none;
+        display: @Visible2;
         margin-bottom: -834px;
     }
         .stats {
