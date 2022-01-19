@@ -6,13 +6,16 @@
 @inject ProtectedSessionStorage SessionStorage
 @inherits SpecificItemCode
 
-
+@if (isLoaded)
+{
+    <button class="" @onclick="DeleteItem"> Delete Item </button>
+}
 <div class="page">
     <div class="card-body">
         <div class="img-container">
             <img class="img" src="@Prod.ColourFinder(SelectedColour).GetIMGByNr(ImageCounter)" />
         </div>
-        @for(int i=0; i<Prod.ColourFinder(SelectedColour).Images.Length-1; i++)
+        @for (int i = 0; i < Prod.ColourFinder(SelectedColour).Images.Length - 1; i++)
         {
             int copy = i;
             <button @onclick="() => ImageCounter = copy"> @copy </button>
@@ -27,7 +30,7 @@
                 <select @bind="SelectedColour" @onclick="ResetSize">
                     @foreach (var item in Prod.MyColours)
                     {
-                    <option value="@item.ColourName" @onclick="ResetSize"> @item.ColourName</option>
+                        <option value="@item.ColourName" @onclick="ResetSize"> @item.ColourName</option>
                     }
                 </select>
             </div>
@@ -36,12 +39,12 @@
                 <p class="pick-size">Vælg en størrelse:</p>
                 @if (Prod != null && Prod.ColourFinder(SelectedColour).Sizes.Count > 0)
                 {
-                <select @bind="SelectedSize">
-                    @foreach (var item in Prod.ColourFinder(SelectedColour).Sizes)
+                    <select @bind="SelectedSize">
+                        @foreach (var item in Prod.ColourFinder(SelectedColour).Sizes)
                         {
-                    <option value="@item">@item</option>
+                            <option value="@item">@item</option>
                         }
-                </select>
+                    </select>
                 }
 
                 <br />
@@ -95,6 +98,26 @@
             return Prod.ColourFinder(SelectedColour).stock[0];
         }
         return Prod.ColourFinder(SelectedColour).stock[TempVar];
+    }
+
+    public string AccessToken = null;
+
+    bool isLoaded;
+
+    public async Task Read3()
+    {
+        var AccessTokenSession = await SessionStorage.GetAsync<string>("UserName");
+        AccessToken = AccessTokenSession.Value;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Read3();
+        if (DataBaseVerify(AccessToken))
+        {
+            isLoaded = true;
+        }
+        StateHasChanged();
     }
 
     // Load the cart from local storage
@@ -155,15 +178,15 @@
         outline: 2px solid gray;
         padding: 3px;
     }
-    
+
 
     .card-body {
         height: fit-content;
         margin-bottom: -400px;
     }
 
-    .price_id{
-        margin-top:20px;
+    .price_id {
+        margin-top: 20px;
     }
 
     .card-info {
@@ -210,7 +233,6 @@
     }
 
     .btns {
-        
         position: relative;
         top: 100px;
     }
@@ -235,10 +257,9 @@
         background-color: orange;
     }
 
-    
 
-    .btnnn:focus{
-        background-color: lightgreen;
-    }
 
+        .btnnn:focus {
+            background-color: lightgreen;
+        }
 </style>

@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-75">
             <div class="container">
-                <form @onsubmit="()=> { _newOrder.Dbcall(createOrder); PurchaseCount(); DeleteCoochie();  }">
+                <form @onsubmit="()=> { _newOrder.Dbcall(createOrder); PurchaseCount(); DeleteCookie();  }">
                     <div class="row">
                         <div class="col-50">
                             <label><i class="fa fa-fw fa-user-circle"></i> Fornavn</label>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-50">
                             <label><i class="fa fa-fw fa-star"></i> Efternavn</label>
-                            <input type="text" placeholder="Marghrete .2" @bind="@_newOrder.Lastname" @oninput="@((e) => { _newOrder.Lastname=(string)e.Value;})" required>
+                            <input type="text" placeholder="Marghrete" @bind="@_newOrder.Lastname" @oninput="@((e) => { _newOrder.Lastname=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-phone"></i> Telefonnummer</label>
                             <input type="number" placeholder="12345678" @bind="@_newOrder.Phonenumber" @oninput="@((e) => { _newOrder.Phonenumber=(string)e.Value;})" required>
                             <label><i class="fa fa-fw fa-globe"></i> Postnummer</label>
@@ -75,7 +75,7 @@
         NavManager.NavigateTo("/");
     }
 
-    public async Task DeleteCoochie()
+    public async Task DeleteCookie()
     {
         await BrowserStorage.DeleteAsync("CartItems");
     }
@@ -84,6 +84,7 @@
     public async Task Read()
     {
         var result = await BrowserStorage.GetAsync<string>("CartItems");
+
         ItemsInCart = result.Value;
         if (ItemsInCart != null)
         {
