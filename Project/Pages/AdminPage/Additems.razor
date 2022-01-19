@@ -175,7 +175,6 @@
                         }
                     </select>
                 </div>
-
                 <div class="colourSelect">
                     <select @bind="ChosenColor">
                         @foreach (color Color in MyColors)
@@ -198,9 +197,9 @@
                     }
                 </div>
             </div>
+            <button @onclick="finalize" class="btn-outline-dark btn-light btnnn">Finalize</button>
         </div>
         <br>
-        <button @onclick="finalize" class="btn-outline-dark btn-light btnnn">Finalize</button>
     </div>
         }
 
@@ -475,6 +474,8 @@ else
         color: #FFFFFF;
         text-align: center;
         transition: all 0.1s;
+        position:relative;
+        left: 100px;
     }
 
     .btnnn {
