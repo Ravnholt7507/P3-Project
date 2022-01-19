@@ -162,6 +162,23 @@ namespace Project.Pages.KpiPage
             DateNow = DateTime.Now;
             UpdateDate = DateTime.DaysInMonth(DateNow.Year, DateNow.Month);
 
+            Months.Add(1);
+            Months.Add(2);
+            Months.Add(3);
+            Months.Add(4);
+            PageVisits.Add(1);
+            PageVisits.Add(2);
+            PageVisits.Add(3);
+            PageVisits.Add(4);
+            Purchases.Add(1);
+            Purchases.Add(2);
+            Purchases.Add(3);
+            Purchases.Add(4);
+            PurchVisit.Add(1);
+            PurchVisit.Add(2);
+            PurchVisit.Add(3);
+            PurchVisit.Add(4);
+
             if (Months.Count < 4)
             {
                 ShowMonths(0);
@@ -170,15 +187,16 @@ namespace Project.Pages.KpiPage
             {
                 ShowMonths(Months.Count - 4);
             }
+
         }
 
         //Store Kpis in database
         private void StoreKpi()
         {
-            //PageVisits.Add(int);
-            //Purchases.Add(int);
-            //Months.Add(string);
-            //PurchVisit.Add(double);
+            PageVisits.Add(1);
+            Purchases.Add(1);
+            Months.Add(1);
+            PurchVisit.Add(1);
         }
 
         // Retrieve Kpis from database
@@ -212,7 +230,7 @@ namespace Project.Pages.KpiPage
                 {
                     ShowMonths(Months.Count - 4);
                 }
-                //StateHasChanged();
+                StateHasChanged();
             }
         }
 
@@ -220,13 +238,16 @@ namespace Project.Pages.KpiPage
         public async Task DoSomethingEveryTreeSeconds()
         {
             DateNow = DateTime.Now;
+            DateTime DateLamo = DateTime.Now;
             while (true)
             {
                 var delayTask = Task.Delay(1000);
                 await delayTask; // wait until at least 3s elapsed since delayTask created
                 DateNow = DateNow.AddDays(1);
+
                 MonthCheck();
-                Console.WriteLine("Updated: " + DateNow);
+                DateLamo = DateTime.Now;
+                Console.WriteLine("Updated: " + DateNow.Day +" "+ DateLamo.Second);
             }
         }
     }
