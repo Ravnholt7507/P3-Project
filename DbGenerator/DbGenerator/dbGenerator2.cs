@@ -88,18 +88,33 @@ namespace DbGenerator
             string[] produced = {"Danmark", "Beirut", "Kina", "Tyrkiet", "Taiwain", "Indien", "Ungarn", "Afrika", "Nordkorea", "kazakhstan", "Honduras" };
 
             List<string> images = new List<string>();
-            images.Add("Images/ClothesPlaceholders/lilla trøje.png");
-            images.Add("Images/ClothesPlaceholders/blå bukser.png");
-            images.Add("Images/ClothesPlaceholders/grå t-shirt.png");
-            images.Add("Images/ClothesPlaceholders/røde strømper.png");
-            images.Add("Images/ClothesPlaceholders/grøn jakke.png");
-            images.Add("Images/ClothesPlaceholders/pink jeans.png");
-            images.Add("Images/ClothesPlaceholders/hvidt sportstøj.png");
-            images.Add("Images/ClothesPlaceholders/sorte shorts.png");
-            images.Add("Images/ClothesPlaceholders/orange undertøj.png");
-            images.Add("Images/ClothesPlaceholders/turkis nattøj.png");
-            images.Add("Images/ClothesPlaceholders/gult badetøj.png");
-            
+            images.Add("Images/113115 Elemental  baby proto MB-KM_Colorway 1_Top Front.png");
+            images.Add("Images/113115 Elemental  baby proto MB-KM_Colorway 1.png");
+            images.Add("Images/113303 - 16_FICUS12.png");
+            images.Add("Images/113303 - 31_FICUS12.png");
+            images.Add("Images/113303 - 41_FICUS12.png");
+            images.Add("Images/113303 - 45_FICUS12.png");
+            images.Add("Images/113303 - 54_FICUS12.png");
+            images.Add("Images/113303 - 131_FICUS12.png");
+            images.Add("Images/113303 - 141_FICUS12.png");
+            images.Add("Images/113303_FICUS12_Top Front.png");
+            images.Add("Images/113303_FICUS12.png");
+            images.Add("Images/113303_FICUS26.png");
+            images.Add("Images/113303_FICUS47_Top Front.png");
+            images.Add("Images/113303_K12_Top Front.png");
+            images.Add("Images/113303_K47_Top Front.png");
+            images.Add("Images/113446_K12_Bottom Front stor.png");
+            images.Add("Images/113446_K47_Bottom Front stor.png");
+            images.Add("Images/113579 - K-47_K47_Full Front.png");
+            images.Add("Images/113579 - K-47_K47.png");
+            images.Add("Images/113579_FICUS12_Fullsuit Back.png");
+            images.Add("Images/113579_FICUS26_Full Front.png");
+            images.Add("Images/113579_FICUS26_Fullsuit Back.png");
+
+
+
+
+
             Random rd = new Random();
 
             int itemAmm = 500;
