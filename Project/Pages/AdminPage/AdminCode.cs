@@ -50,25 +50,12 @@ namespace Project.Pages.AdminPage
             //    }
             //}
             _call.RemoveCat(CategoryToRemove);
-            NavigationManager.NavigateTo("/Categories");
+            NavigationManager.NavigateTo("/Categories", true);
         }
 
         public void RemoveTypeFromCategory(string category, string type)
         {
             _call.RemoveTypeFromCategory(category, type);
-        }
-
-        public List<Category> TestRemove(string CategoryToRemove)
-        {
-            foreach (Category category in TestCats1)
-            {
-                if (category.CategoryName == CategoryToRemove)
-                {
-                    TestCats1.Remove(category);
-                    return TestCats1;
-                }
-            }
-            return TestCats1;
         }
 
         List<Category> TestCats1 = new List<Category>()
@@ -88,20 +75,8 @@ namespace Project.Pages.AdminPage
             _call.AdminPages("New", "Category", selectedCategory);
             Categories.Add(new Category(newCategory));
             newCategory = null;
+            NavigationManager.NavigateTo("/Categories", true);
         }
-
-        public List<Category> TestUpdateList(string CategoryName)
-        {
-            TestCats2.Add(new Category(CategoryName));
-            return TestCats2;
-        }
-
-        List<Category> TestCats2 = new List<Category>()
-        {
-            new Category("Drenge"),
-            new Category("TestCategory"),
-        };
-
         public void Insert()
         {
             foreach (Category category in Categories)
@@ -114,26 +89,6 @@ namespace Project.Pages.AdminPage
                 }
             }
         }
-
-        public Subcategory TestInsert(string selectedCategory, string newTitle)
-        {
-            foreach (Category category in TestCats)
-            {
-                if (category.CategoryName == selectedCategory)
-                {
-                    category.Subcategory.Add(new Subcategory(newTitle));
-                    return new Subcategory(newTitle);
-                }
-            }
-            return null;
-        }
-
-        public List<Category> TestCats = new List<Category>()
-        {
-            new Category("Drenge"),
-            new Category("Kvinder"),
-            new Category("TestCategory"),
-        };
 
 
 

@@ -168,12 +168,12 @@
                         Indsæt
                     </button>
 
-                    <select id="Images">
+                    <datalist id="Images">
                         @foreach (string ChosenImg in filesList)
                         {
                             <option value=@ChosenImg> </option>
                         }
-                    </select>
+                    </datalist>
                 </div>
                 <div class="colourSelect">
                     <select @bind="ChosenColor">
