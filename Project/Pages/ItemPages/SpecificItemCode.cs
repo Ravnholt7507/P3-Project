@@ -16,17 +16,22 @@ namespace Project.Pages.ItemPages
         DbCall dbCall = new DbCall();
         public Product Prod;
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         [Parameter]
         public string ItemSpecification { get; set; }
 
         public string SelectedColour;
         public string SelectedSize;
+        public int productID;
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
             string[] specificationArray = new string[4];
             specificationArray = ItemSpecification.Split("&");
             int prodId = int.Parse(specificationArray[0]);
+            productID = int.Parse(specificationArray[0]);
             int colourId = int.Parse(specificationArray[1]);
 
 
@@ -88,6 +93,18 @@ namespace Project.Pages.ItemPages
             _config.Data.Datasets.Add(dataset);
         }
 
+        public void DeleteItem()
+        {
+            dbCall.AdminPages("Remove", "Product", productID);
+
+
+        }
+
+        public bool DataBaseVerify(string AccesToken)
+        {
+            return dbCall.Verify(AccesToken);
+        }
+
         public Product GetProduct(int prodid, int colourid, string size)
         {
             Product product = new Product
@@ -124,7 +141,6 @@ namespace Project.Pages.ItemPages
                     Console.WriteLine("test");
                 }
             }
-
 
             for (int i = 0; i < colourSizeArray.Length; i++) 
             {
