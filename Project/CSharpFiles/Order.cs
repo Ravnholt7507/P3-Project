@@ -21,6 +21,8 @@ namespace Project.CSharpFiles
         {
             Calltype = type;
             DbCall call = new DbCall();
+            Items = Items.Substring(2);
+            Items += ",";
             call.Order(Calltype, Firstname, Lastname, Email, Phonenumber, Adress, City, Zipcode, Country, Items);
         }
     }

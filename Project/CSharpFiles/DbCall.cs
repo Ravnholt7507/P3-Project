@@ -1786,7 +1786,7 @@ namespace Project.CSharpFiles
             }
             rdr.Close();
 
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < amount+1; i++)
             {
                 orders.Add(GetOrderById(i));
             }
