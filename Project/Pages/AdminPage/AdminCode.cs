@@ -237,7 +237,10 @@ namespace Project.Pages.AdminPage
                     Categories.Add(newCategory);
                 }
             }
-            userInput.inputcat = cats[0].CategoryName;
+            if (cats.Count > 0)
+            {
+                userInput.inputcat = cats[0].CategoryName;
+            }
             col_numbers();
             
 

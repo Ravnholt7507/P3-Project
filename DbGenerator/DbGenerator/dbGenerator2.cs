@@ -213,8 +213,8 @@ namespace DbGenerator
                 string randLastName = lastnames[rd.Next(0, 6)];
                 string phonenumber = "+45" + rd.Next(10000000,99999999);
                 string email = randFirstName + randLastName + "@hotmail.com";
-                string city = "random fucking city";
-                string street = "random fucking adress 123";
+                string city = "random city";
+                string street = "random adress 123";
                 int zipcode = rd.Next(1000, 9999);
                 string country = "Danmark";
                 string currentStatus = status[rd.Next(0,3)];
